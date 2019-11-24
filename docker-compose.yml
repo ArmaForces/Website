@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+
+  php:
+    build:
+      context: ./
+      target: armaforces_web_php
+        
+  nginx:
+    build:
+      context: ./
+      target: armaforces_web_nginx
+    environment:
+      PHP_HOST: php
+    depends_on:
+      - php
+    ports:
+      - '8080:80'
