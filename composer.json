@@ -71,6 +71,9 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "cs": [
+            "php bin/vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --allow-risky=yes"
         ]
     },
     "conflict": {
