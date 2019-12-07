@@ -63,16 +63,16 @@ WORKDIR /www/app
 # build for production
 ARG APP_ENV=prod
 
+# prevent the reinstallation of vendors at every changes in the source code
+COPY composer.json composer.lock symfony.lock .env ./
+RUN set -eux; \
+	composer install --prefer-dist --no-dev --no-scripts --no-progress --no-suggest; \
+	composer clear-cache
+
 # do not use .env files in production
 COPY .env ./
 RUN composer dump-env prod; \
 	rm .env
-
-# prevent the reinstallation of vendors at every changes in the source code
-COPY composer.json composer.lock symfony.lock .env ./
-RUN set -eux; \
-	composer install --prefer-dist --no-dev --no-autoloader --no-scripts --no-progress --no-suggest; \
-	composer clear-cache
 
 # copy only specifically what we need
 COPY bin bin/
@@ -110,7 +110,7 @@ ENTRYPOINT ["docker-entrypoint"]
 CMD ["nginx", "-g", "daemon off;"]
 
 
-FROM armaforces_web_php as armaforces_web_php_dev
+FROM armaforces_web_php AS armaforces_web_php_dev
 
 ARG XDEBUG_VERSION=2.8.0
 RUN set -eux; \
