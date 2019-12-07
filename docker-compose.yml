@@ -4,12 +4,12 @@ services:
 
   php:
     build:
-      context: ./
+      context: .docker
       target: armaforces_web_php
         
   nginx:
     build:
-      context: ./
+      context: .docker
       target: armaforces_web_nginx
     environment:
       PHP_HOST: php
