@@ -16,7 +16,6 @@ Encore
      * ENTRY CONFIG
      */
     .addEntry('app', './assets/app.js')
-    .addStyleEntry('appStyle', './assets/app.scss')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
@@ -53,6 +52,19 @@ Encore
     // uncomment to get integrity="..." attributes on your script & link tags
     // requires WebpackEncoreBundle 1.4 or higher
     .enableIntegrityHashes(Encore.isProduction())
+
+    // allow legacy applications to use $/jQuery as a global variable
+    //.autoProvidejQuery() // symfony/encore alternative, not so flexible
+    .addLoader({
+      test: require.resolve('jquery'),
+      use: [{
+          loader: 'expose-loader',
+          options: 'jQuery'
+      }, {
+          loader: 'expose-loader',
+          options: '$'
+      }]
+  })
 
 ;
 
