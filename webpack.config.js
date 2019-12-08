@@ -56,16 +56,15 @@ Encore
     // allow legacy applications to use $/jQuery as a global variable
     //.autoProvidejQuery() // symfony/encore alternative, not so flexible
     .addLoader({
-      test: require.resolve('jquery'),
-      use: [{
-          loader: 'expose-loader',
-          options: 'jQuery'
-      }, {
-          loader: 'expose-loader',
-          options: '$'
-      }]
-  })
-
+        test: require.resolve('jquery'),
+        use: [{
+            loader: 'expose-loader',
+            options: 'jQuery'
+        }, {
+            loader: 'expose-loader',
+            options: '$'
+        }]
+    })
 ;
 
 const webpackConfig = Encore.getWebpackConfig();

@@ -15,72 +15,8 @@ charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 
-[*.feature]
-indent_style = space
-indent_size = 2
-
-[*.js]
-indent_style = space
-indent_size = 2
-
-[*.json]
-indent_style = space
-indent_size = 2
-
 [*.md]
 trim_trailing_whitespace = false
-
-[*.php]
-indent_style = space
-indent_size = 4
-
-[*.sh]
-indent_style = tab
-indent_size = 4
-
-[*.xml]
-indent_style = space
-indent_size = 4
-
-[*.{yaml,yml}]
-indent_style = space
-indent_size = 4
-trim_trailing_whitespace = false
-
-[.github/**/*.{yaml,yml}]
-indent_size = 2
-
-[.gitmodules]
-indent_style = tab
-indent_size = 4
-
-[.php_cs{,.dist}]
-indent_style = space
-indent_size = 4
-
-[.travis.yml]
-indent_style = space
-indent_size = 2
-
-[composer.json]
-indent_style = space
-indent_size = 4
-
-[docker-compose{,.override}.{yaml,yml}]
-indent_style = space
-indent_size = 2
-
-[Dockerfile]
-indent_style = tab
-indent_size = 4
-
-[package.json]
-indent_style = space
-indent_size = 2
-
-[phpunit.xml{,.dist}]
-indent_style = space
-indent_size = 4
 
 [VERSION]
 insert_final_newline = false

@@ -2,20 +2,20 @@ version: '3.4'
 
 services:
 
-  php:
-    build:
-      context: ./
-      dockerfile: ./.docker/Dockerfile
-      target: armaforces_web_php
-        
-  nginx:
-    build:
-      context: ./
-      dockerfile: ./.docker/Dockerfile
-      target: armaforces_web_nginx
-    environment:
-      PHP_HOST: php
-    depends_on:
-      - php
-    ports:
-      - '8080:80'
+    php:
+        build:
+            context: ./
+            dockerfile: ./.docker/Dockerfile
+            target: armaforces_web_php
+
+    nginx:
+        build:
+            context: ./
+            dockerfile: ./.docker/Dockerfile
+            target: armaforces_web_nginx
+        environment:
+            PHP_HOST: php
+        depends_on:
+            - php
+        ports:
+            - '8080:80'
