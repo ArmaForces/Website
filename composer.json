@@ -75,7 +75,7 @@
             "@auto-scripts"
         ],
         "cs": [
-            "php vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --allow-risky=yes"
+            "php vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix"
         ]
     },
     "conflict": {
