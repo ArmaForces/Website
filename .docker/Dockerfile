@@ -5,7 +5,7 @@ ARG PHP_VERSION=7.3
 ARG NGINX_VERSION=1.17
 
 # Build assets in disposable node image
-FROM node:11-alpine as api_platform_assets
+FROM node:11-alpine as armaforces_web_assets
 
 WORKDIR /tmp/app_build
 
