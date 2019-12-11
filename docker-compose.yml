@@ -19,3 +19,11 @@ services:
             - php
         ports:
             - '8080:80'
+
+    mysql:
+        image: mysql:8.0
+        container_name: armaforces_mysql
+        env_file:
+            - .docker/mysql/vars.env
+        ports:
+            - "33060:3306"
