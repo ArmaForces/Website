@@ -16,6 +16,7 @@ Encore
      * ENTRY CONFIG
      */
     .addEntry('app', './assets/app.js')
+    .addEntry('landing', './assets/landing.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
