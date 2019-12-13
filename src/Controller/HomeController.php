@@ -17,11 +17,11 @@ class HomeController extends AbstractController
     public function indexAction(): Response
     {
         $recentMissions = [];
-        for ($i = 1; $i < 7; $i++) {
+        for ($i = 1; $i < 7; ++$i) {
             $recentMissions[] = [
-                'title' => "Mission $i",
+                'title' => "Mission {$i}",
                 'description' => 'Lorem ipsum, ArmaForces karamba.',
-                'date' => new DateTime("-$i day"),
+                'date' => new DateTime("-{$i} day"),
             ];
         }
 
