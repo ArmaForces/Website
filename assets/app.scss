@@ -48,3 +48,11 @@ html, body {
     position: relative;
     top: -66 px;
 }
+
+@font-face {
+    font-family: 'Good Brush';
+    src: url('font/Good Brush.woff');
+}
+.font-good-brush {
+    font-family: 'Good Brush', monospace;
+}
