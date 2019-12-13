@@ -41,3 +41,10 @@ html, body {
 .hr-dark {
     border-top: 1px solid #666
 }
+
+.anchor {
+    display: block;
+    visibility: hidden;
+    position: relative;
+    top: -66 px;
+}
