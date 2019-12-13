@@ -1,4 +1,4 @@
-{% extends '_base.html.twig' %}
+{% extends 'layout/_default.html.twig' %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -13,7 +13,6 @@
 {% block body %}
     <!--Main Navigation-->
     <header>
-
         <!--Navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar">
            {% include '_navbar.html.twig' %}
@@ -22,9 +21,7 @@
 
         <!--Mask-->
         <div id="intro">
-
             <div class="mask">
-
                 <div class="container-fluid d-flex align-items-center justify-content-center h-100">
 
                     <div class="row d-flex justify-content-center text-center">
@@ -32,7 +29,7 @@
                         <div class="col-md-10">
 
                             <!-- Heading -->
-                            <h2 class="display-4 font-weight-bold text-white pt-5 mb-2">
+                            <h2 class="display-3 font-good-brush pt-5 mb-2">
                                 ArmaForces
                             </h2>
 
@@ -40,47 +37,44 @@
                             <hr class="hr-light">
 
                             <!-- Description -->
-                            <h4 class="text-white my-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                            <h4 class="my-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                                 Deleniti
                                 consequuntur.</h4>
 
-                            <button type="button" class="btn btn-outline-white mx-3">
+                            <!-- Button About -->
+                            <a href="{{ path('app_home_index') }}#about" class="btn btn-outline-white mx-3">
                                 O nas
-                            </button>
+                            </a>
+
+                            <!-- Button Join Us -->
                             <a href="{{ path('app_home_joinus') }}" class="btn btn-outline-white mx-3">
                                 Dołącz!
                             </a>
-
                         </div>
 
                     </div>
-
                 </div>
-
             </div>
-
         </div>
         <!--/.Mask-->
 
     </header>
-    <!--Main Navigation-->
+    <!--/Main Navigation-->
 
-    <!--Main layout-->
+    <!--Main Content-->
     <main class="mt-5">
         <div class="container">
 
-            <!--Section: Best Features-->
-            <section id="missions" class="text-center">
-
+            <!--Section About-->
+            <section class="text-center">
+                <a class="anchor" id="about"></a>
                 <!-- Heading -->
-                <h2 class="mb-5 font-weight-bold">That's us:</h2>
+                <h2 class="mb-5 font-weight-bold">O nas</h2>
 
                 <!--Grid row-->
                 <div class="row d-flex justify-content-center mb-4">
-
                     <!--Grid column-->
                     <div class="col-md-8">
-
                         <!-- Description -->
                         <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi voluptate
                             hic
@@ -89,16 +83,10 @@
                             est
                             sit pariatur.
                         </p>
-
                     </div>
-                    <!--Grid column-->
-
                 </div>
                 <!--Grid row-->
-
-                <!--Grid row-->
                 <div class="row">
-
                     <!--Grid column-->
                     <div class="col-md-4 mb-5">
                         <i class="fa fa-fighter-jet fa-4x orange-text"></i>
@@ -110,8 +98,6 @@
                         </p>
                     </div>
                     <!--Grid column-->
-
-                    <!--Grid column-->
                     <div class="col-md-4 mb-1">
                         <i class="fa fa-gamepad fa-4x orange-text"></i>
                         <h4 class="my-4 font-weight-bold">Gaming</h4>
@@ -122,8 +108,6 @@
                         </p>
                     </div>
                     <!--Grid column-->
-
-                    <!--Grid column-->
                     <div class="col-md-4 mb-1">
                         <i class="fa fa-user-friends fa-4x orange-text"></i>
                         <h4 class="my-4 font-weight-bold">Community</h4>
@@ -132,18 +116,13 @@
                             aperiam minima
                             assumenda deleniti hic.</p>
                     </div>
-                    <!--Grid column-->
-
                 </div>
-                <!--Grid row-->
-
             </section>
-            <!--Section: Best Features-->
 
             <hr class="my-5">
 
-            <!--Section: Examples-->
-            <section id="examples" class="text-center">
+            <!--Section Missions-->
+            <section id="missions" class="text-center">
                 <!-- Heading -->
                 <h2 class="mb-5 font-weight-bold">Misje</h2>
 
