@@ -10,6 +10,14 @@ html, body {
 .navbar {
     padding-top: 12px;
     padding-bottom: 12px;
+
+    .navbar-brand  {
+        padding-top: 0;
+        padding-bottom: 0;
+        img {
+            max-height: 40px;
+        }
+    }
 }
 
 .mask {

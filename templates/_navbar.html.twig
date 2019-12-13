@@ -1,7 +1,8 @@
 <div class="container">
-
     <!-- Navbar brand -->
-    <a class="navbar-brand" href="/">LOGO</a>
+    <a class="navbar-brand" href="{{ path('app_home_index') }}">
+        <img src="{{ asset('img/ArmaForces.png') }}" alt="logo" class="img-fluid">
+    </a>
 
     <!-- Collapse button -->
     <button class="navbar-toggler" type="button"
@@ -13,7 +14,6 @@
 
     <!-- Collapsible content -->
     <div class="collapse navbar-collapse" id="mainNav">
-
         <!-- Links -->
         <ul class="navbar-nav mr-auto smooth-scroll">
             <li class="nav-item">
@@ -44,5 +44,4 @@
         </ul>
     </div>
     <!-- Collapsible content -->
-
 </div>
