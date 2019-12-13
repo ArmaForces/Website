@@ -4,6 +4,8 @@ import $ from 'jquery';
 console.log('landing page init', window);
 
 $(window).on("scroll", () => {
-    console.log('scroll', $('.navbar'));
-    $('.scrolling-navbar').toggleClass('top-nav-collapse', $('.navbar').offset().top > 50);
+    const offset = $('.navbar').offset().top;
+
+    $('.scrolling-navbar').toggleClass('top-nav-collapse', offset > (window.innerHeight/18));
+    $('.scrolling-navbar').toggleClass('bg-dark', offset > (window.innerHeight/8));
 });
