@@ -79,6 +79,9 @@
         ],
         "cs": [
             "php vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix"
+        ],
+        "stan": [
+            "php vendor/phpstan/phpstan/phpstan analyse --level=max src"
         ]
     },
     "conflict": {
