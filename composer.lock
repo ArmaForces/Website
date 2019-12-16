@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7e9caa788cd857387a6e3ab04f4d0629",
+    "content-hash": "54eedf7e34a58d59a6c15cc9a7c19eff",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -6500,6 +6500,46 @@
                 "diff"
             ],
             "time": "2018-02-15T16:58:55+00:00"
+        },
+        {
+            "name": "phpstan/phpstan",
+            "version": "0.12.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpstan/phpstan.git",
+                "reference": "c15a6ea55da71d8133399306f560cfe4d30301b7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/c15a6ea55da71d8133399306f560cfe4d30301b7",
+                "reference": "c15a6ea55da71d8133399306f560cfe4d30301b7",
+                "shasum": ""
+            },
+            "require": {
+                "nikic/php-parser": "^4.3.0",
+                "php": "^7.1"
+            },
+            "bin": [
+                "phpstan",
+                "phpstan.phar"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.12-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHPStan - PHP Static Analysis Tool",
+            "time": "2019-12-14T13:41:17+00:00"
         },
         {
             "name": "roave/security-advisories",
