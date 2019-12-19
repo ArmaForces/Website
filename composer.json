@@ -32,6 +32,9 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.16",
+        "phpstan/phpstan": "^0.12.3",
+        "phpstan/phpstan-doctrine": "^0.12.3",
+        "phpstan/phpstan-symfony": "^0.12.1",
         "roave/security-advisories": "dev-master",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
@@ -76,6 +79,9 @@
         ],
         "cs": [
             "php vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix"
+        ],
+        "stan": [
+            "php vendor/phpstan/phpstan/phpstan analyse --level=max src"
         ]
     },
     "conflict": {
