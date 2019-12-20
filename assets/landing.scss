@@ -13,6 +13,10 @@ header, #intro {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+
+    .btn-outline-white {
+        width: 100px;
+    }
 }
 
 @media (max-width: 768px) {
