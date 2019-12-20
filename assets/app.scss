@@ -18,6 +18,15 @@ html, body {
     overflow-x: auto;
 }
 
+#navmenu {
+    margin-left: 85px;
+    margin-right: -85px;
+
+    .dropdown-toggle::before {
+        display: none;
+    }
+}
+
 .navbar {
     padding-top: 12px;
     padding-bottom: 12px;

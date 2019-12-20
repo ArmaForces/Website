@@ -61,6 +61,17 @@
                     </a>
                 {%- endif %}
             </li>
+            <!-- Login -->
+            <li id="navmenu" class="nav-item dropdown dropleft">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-user-circle"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">{{ 'Profile'|trans }}</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">{{ 'Logout'|trans }}</a>
+                </div>
+            </li>
         </ul>
     </div>
     <!-- Collapsible content -->
