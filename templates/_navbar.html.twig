@@ -17,17 +17,17 @@
         <!-- Links -->
         <ul class="navbar-nav mr-auto smooth-scroll">
             <li class="nav-item">
-                <a class="nav-link" href="/">Strona główna</a>
+                <a class="nav-link" href="/">{{ 'Homepage'|trans }}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ path('app_home_index') }}#missions">Misje</a>
+                <a class="nav-link" href="{{ path('app_home_index') }}#missions">{{ 'Missions'|trans }}</a>
             </li>
             <li class="nav-item">
                 {#
                     TODO temporary Vue app link
                     TODO move to app
                 #}
-                <a class="nav-link" href="{{ url.modlist }}">Mody</a>
+                <a class="nav-link" href="{{ url.modlist }}">{{ 'Mods'|trans }}</a>
             </li>
         </ul>
         <!-- Links -->
