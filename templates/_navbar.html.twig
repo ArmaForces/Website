@@ -34,18 +34,32 @@
 
         <!-- Social Icon  -->
         <ul class="navbar-nav nav-flex-icons">
+            <!-- Discord -->
             <li class="nav-item">
                 <a href="{{ url.discord }}" target="_blank" class="nav-link">
                     <i class="fab fa-discord"></i>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link"><i class="fab fa-teamspeak"></i></a>
-            </li>
+            <!-- Steam -->
             <li class="nav-item">
                 <a href="{{ url.steam }}" target="_blank" class="nav-link">
                     <i class="fab fa-steam"></i>
                 </a>
+            </li>
+            <!-- TeamSpeak -->
+            <li class="nav-item"
+                {% if not is_granted('ROLE_USER') -%}
+                title="{{ 'Available after login'|trans }}"
+                data-toggle="tooltip" data-placement="bottom"
+                {% endif %}
+            >
+                {% if not is_granted('ROLE_USER') -%}
+                    <a class="nav-link disabled"><i class="fab fa-teamspeak"></i></a>
+                {%- else -%}
+                    <a href="#todo" class="nav-link">
+                        <i class="fab fa-teamspeak"></i>
+                    </a>
+                {%- endif %}
             </li>
         </ul>
     </div>
