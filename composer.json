@@ -82,6 +82,12 @@
         ],
         "stan": [
             "php vendor/phpstan/phpstan/phpstan analyse --level=max src"
+        ],
+        "lint": [
+            "php bin/console lint:twig templates/",
+            "php bin/console lint:yaml --parse-tags config/",
+            "php bin/console doctrine:schema:validate",
+            "php bin/console doctrine:mapping:info"
         ]
     },
     "conflict": {
