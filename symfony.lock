@@ -189,6 +189,9 @@
     "ralouphie/getallheaders": {
         "version": "3.0.3"
     },
+    "ramsey/uuid": {
+        "version": "3.9.2"
+    },
     "roave/security-advisories": {
         "version": "dev-master"
     },
