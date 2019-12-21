@@ -582,6 +582,9 @@
     "webmozart/assert": {
         "version": "1.6.0"
     },
+    "wohali/oauth2-discord-new": {
+        "version": "v1.0.0"
+    },
     "zendframework/zend-code": {
         "version": "3.4.1"
     },
