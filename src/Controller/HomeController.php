@@ -9,10 +9,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/", name="app_home")
+ */
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/", name="app_home")
+     * @Route("", name="_index")
      */
     public function indexAction(): Response
     {
@@ -31,7 +34,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/join-us")
+     * @Route("/join-us", name="_join_us")
      */
     public function joinUs()
     {
