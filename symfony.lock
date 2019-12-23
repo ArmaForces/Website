@@ -108,8 +108,14 @@
             "./.php_cs.dist"
         ]
     },
+    "guzzlehttp/command": {
+        "version": "1.0.0"
+    },
     "guzzlehttp/guzzle": {
         "version": "6.5.0"
+    },
+    "guzzlehttp/guzzle-services": {
+        "version": "1.1.3"
     },
     "guzzlehttp/promises": {
         "version": "v1.3.1"
@@ -137,6 +143,9 @@
     },
     "monolog/monolog": {
         "version": "1.25.2"
+    },
+    "netresearch/jsonmapper": {
+        "version": "v1.6.0"
     },
     "nikic/php-parser": {
         "version": "v4.3.0"
@@ -191,6 +200,9 @@
     },
     "ramsey/uuid": {
         "version": "3.9.2"
+    },
+    "restcord/restcord": {
+        "version": "0.3.2"
     },
     "roave/security-advisories": {
         "version": "dev-master"
