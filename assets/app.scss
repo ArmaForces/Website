@@ -18,8 +18,10 @@ html, body {
 }
 
 #navmenu {
-    margin-left: 85px;
-    margin-right: -85px;
+    @include media-breakpoint-up(lg) {
+        margin-left: 35px;
+        margin-right: -35px;
+    }
 
     .dropdown-toggle::before {
         display: none;
