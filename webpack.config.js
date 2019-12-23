@@ -16,6 +16,8 @@ Encore
      * ENTRY CONFIG
      */
     .addEntry('app', './assets/app.js')
+    .addEntry('landing', './assets/landing.js')
+    .addEntry('joinUs', './assets/joinUs.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
@@ -35,7 +37,7 @@ Encore
     .enableBuildNotifications()
     .enableSourceMaps(!Encore.isProduction())
     // enables hashed filenames (e.g. app.abc123.css)
-    .enableVersioning(Encore.isProduction())
+    .enableVersioning(true)
 
     // enables @babel/preset-env polyfills
     .configureBabel(() => {}, {

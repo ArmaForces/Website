@@ -1,0 +1,25 @@
+
+$body-bg: #282828;
+$body-color: #fff;
+
+$apex: #1e7531;
+$vanilla: #eaa32d;
+
+$primary: $vanilla;
+
+$nav-tabs-link-active-color: $primary;
+
+$btn-border-radius: 0;
+
+$theme-colors: (
+    white: #fff
+);
+
+$container-max-widths: (
+    sm: 540px,
+    md: 720px,
+    lg: 1060px, // 960px,
+    xl: 1240px  // 1140px
+);
+
+@import "~bootstrap/scss/bootstrap";
