@@ -36,7 +36,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/join-us", name="_join_us")
      */
-    public function joinUs()
+    public function joinUs(): Response
     {
         return $this->render('join_us.html.twig');
     }
