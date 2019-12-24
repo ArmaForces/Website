@@ -32,6 +32,8 @@ class SecurityController extends AbstractController
             ->getClient('discord_main')
             ->redirect([
                 ScopeEnum::IDENTIFY,
+                ScopeEnum::EMAIL,
+                ScopeEnum::GUILDS,
             ], [])
         ;
     }
