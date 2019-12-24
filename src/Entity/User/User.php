@@ -9,9 +9,12 @@ class User extends AbstractUser
     /** @var string */
     protected $email;
 
-    public function __construct()
+    public function __construct(string $username, string $email)
     {
         parent::__construct();
+
+        $this->username = $username;
+        $this->email = $email;
     }
 
     public function getEmail(): string
