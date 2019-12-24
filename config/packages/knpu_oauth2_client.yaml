@@ -6,8 +6,8 @@ knpu_oauth2_client:
         discord_main:
             # this will be one of the supported types
             type: discord
-            client_id: '%env(APP_OAUTH_CLIENT_ID)%'
-            client_secret: '%env(APP_OAUTH_CLIENT_TOKEN)%'
+            client_id: '%app.security.oauth.discord.client_id%'
+            client_secret: '%app.security.oauth.discord.client_secret%'
             # the route that you're redirected to after
             # see the controller example below
             redirect_route: app_security_connect_discord_check
