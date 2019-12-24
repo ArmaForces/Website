@@ -7,6 +7,10 @@
     <entity name="App\Entity\User\User" table="users" repository-class="App\Repository\UserRepository">
         <field name="email" type="string" length="255">
         </field>
+
+        <unique-constraints>
+            <unique-constraint columns="username"/>
+        </unique-constraints>
     </entity>
 
 </doctrine-mapping>
