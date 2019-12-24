@@ -47,4 +47,14 @@ class SecurityController extends AbstractController
     {
         throw new RuntimeException('This should never be executed!');
     }
+
+    /**
+     * @Route("/logout", name="_logout")
+     *
+     * @throws RuntimeException
+     */
+    public function logout(): Response
+    {
+        throw new RuntimeException('This should never be executed!');
+    }
 }
