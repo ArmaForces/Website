@@ -23,6 +23,11 @@ class SecurityController extends AbstractController
      */
     public function connectAction(ClientRegistry $clientRegistry): RedirectResponse
     {
+        // Prevent access for logged-in users
+        if ($this->getUser()) {
+            return $this->redirectToRoute('app_home_index');
+        }
+
         return $clientRegistry
             ->getClient('discord_main')
             ->redirect([
