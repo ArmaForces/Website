@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity\User;
 
 use App\Entity\AbstractEntity;
+use App\Security\Enum\RoleEnum;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class AbstractUser extends AbstractEntity implements UserInterface
@@ -17,6 +18,9 @@ class AbstractUser extends AbstractEntity implements UserInterface
 
     /** @var null|string */
     protected $salt;
+
+    /** @var string */
+    protected $role = RoleEnum::ROLE_USER;
 
     public function getUsername(): string
     {
@@ -48,9 +52,21 @@ class AbstractUser extends AbstractEntity implements UserInterface
         $this->salt = $salt;
     }
 
+    public function getRole(): string
+    {
+        return $this->role;
+    }
+
+    public function setRole(string $role): void
+    {
+        $this->role = $role;
+    }
+
     public function getRoles(): array
     {
-        return [];
+        return [
+            $this->getRole(),
+        ];
     }
 
     public function eraseCredentials(): void
