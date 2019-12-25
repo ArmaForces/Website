@@ -5,8 +5,10 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     app.security.oauth.discord.server_id: '%env(APP_SECURITY_OAUTH_DISCORD_SERVER_ID)%'
+    app.security.oauth.discord.member_role: '%env(APP_SECURITY_OAUTH_DISCORD_MEMBER_ROLE)%'
     app.security.oauth.discord.client_id: '%env(APP_SECURITY_OAUTH_DISCORD_CLIENT_ID)%'
     app.security.oauth.discord.client_secret: '%env(APP_SECURITY_OAUTH_DISCORD_CLIENT_SECRET)%'
+    app.security.oauth.discord.bot_token: '%env(APP_SECURITY_OAUTH_DISCORD_BOT_TOKEN)%'
 
 services:
     # default configuration for services in *this* file
