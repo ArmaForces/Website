@@ -6,6 +6,6 @@ namespace App\Security\Exception;
 
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
-class DiscordIdNotProvidedException extends AuthenticationException
+class RequiredRoleNotAssignedException extends AuthenticationException
 {
 }
