@@ -112,7 +112,7 @@ class DiscordAuthenticator extends SocialAuthenticator
         $botToken = $this->getParameterValue(self::PARAMETER_DISCORD_BOT_TOKEN_KEY);
         $discordClientBot = $this->discordClientFactory->createFromToken($botToken, DiscordClientFactory::TOKEN_TYPE_BOT);
 
-        // Check if user was approved (has needed Discord server role)
+        // Check if user was approved (has needed Discord server role assigned)
         $guildRoles = $discordClientBot->guild->getGuildRoles([
             'guild.id' => $guildId,
         ]);
@@ -139,9 +139,8 @@ class DiscordAuthenticator extends SocialAuthenticator
         } catch (UsernameNotFoundException $ex) {
             $user = new User($email, $email);
             $this->em->persist($user);
+            $this->em->flush();
         }
-
-        $this->em->flush();
 
         return $user;
     }
