@@ -4,6 +4,21 @@
 ARG PHP_VERSION=7.3
 ARG NGINX_VERSION=1.17
 
+# Build assets in disposable node image
+FROM node:11-alpine as armaforces_web_assets
+
+WORKDIR /tmp/app_build
+
+COPY package.json package-lock.json webpack.config.js ./
+RUN npm install
+
+WORKDIR /tmp/app_build/assets/
+
+COPY assets ./
+RUN npm run build:ci
+
+
+# Build PHP application image
 FROM php:${PHP_VERSION}-fpm-alpine AS armaforces_web_php
 
 RUN apk add --no-cache \
@@ -87,6 +102,9 @@ RUN set -eux; \
     composer run-script --no-dev post-install-cmd; \
     chmod +x bin/console; sync
 VOLUME /www/app/var
+
+# copy assets manifests
+COPY --from=armaforces_web_assets /tmp/app_build/public/build/ public/build/
 
 COPY .docker/php/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint
