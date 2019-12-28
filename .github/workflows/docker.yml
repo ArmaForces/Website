@@ -19,25 +19,26 @@ jobs:
                   DOCKER_USERNAME: ${{ github.actor }}
                   DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
                   DOCKER_REGISTRY_URL: docker.pkg.github.com
+                  REPO_LOWERCASE: armaforces/website
 
             - name: Build PHP
               if: success()
-              run: docker build -t docker.pkg.github.com/${{ github.repository }}/app_php:${IMAGE_TAG}
+              run: docker build -t docker.pkg.github.com/${REPO_LOWERCASE}/app_php:${IMAGE_TAG}
                 --target armaforces_web_php -f .docker/Dockerfile .
 
             - name: Build Nginx
               if: success()
-              run: docker build -t docker.pkg.github.com/${{ github.repository }}/app_nginx:${IMAGE_TAG}
+              run: docker build -t docker.pkg.github.com/${REPO_LOWERCASE}/app_nginx:${IMAGE_TAG}
                 --target armaforces_web_nginx -f .docker/Dockerfile .
 
             - name: Push PHP
               if: success()
               uses: actions-hub/docker@master
               with:
-                  args: push docker.pkg.github.com/${{ github.repository }}/app_php:${IMAGE_TAG}
+                  args: push docker.pkg.github.com/${REPO_LOWERCASE}/app_php:${IMAGE_TAG}
 
             - name: Push Nginx
               if: success()
               uses: actions-hub/docker@master
               with:
-                  args: push docker.pkg.github.com/${{ github.repository }}/app_nginx:${IMAGE_TAG}
+                  args: push docker.pkg.github.com/${REPO_LOWERCASE}/app_nginx:${IMAGE_TAG}
