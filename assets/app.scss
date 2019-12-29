@@ -1,4 +1,3 @@
-
 @import "_bootstrap";
 
 $headerHeight: 64px;
@@ -41,9 +40,10 @@ html, body {
     padding-top: 12px;
     padding-bottom: 12px;
 
-    .navbar-brand  {
+    .navbar-brand {
         padding-top: 0;
         padding-bottom: 0;
+
         img {
             max-height: 40px;
         }
@@ -60,7 +60,7 @@ html, body {
     height: 100%;
     overflow: hidden;
 
-    background-color: rgba(0,0,0,0.7);
+    background-color: rgba(0, 0, 0, 0.7);
     background-attachment: fixed;
 }
 
@@ -83,6 +83,7 @@ html, body {
     font-family: 'Good Brush';
     src: url('font/Good Brush.woff');
 }
+
 .font-good-brush {
     font-family: 'Good Brush', monospace;
 }

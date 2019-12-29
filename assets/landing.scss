@@ -8,14 +8,23 @@ header, #intro {
     overflow: hidden;
     cursor: default;
 
-    background: url("img/landing_uns.png") no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-
     .btn-outline-white {
         width: 100px;
+    }
+
+    &.bg-unsung {
+        background: url("img/landing_uns.jpg") no-repeat center center fixed;
+        background-size: cover;
+    }
+
+    &.bg-rhs {
+        background: url("img/landing_rhs.jpg") no-repeat center center fixed;
+        background-size: cover;
+    }
+
+    &.bg-vanilla {
+        background: url("img/landing_vanilla.jpg") no-repeat center center fixed;
+        background-size: cover;
     }
 }
 
