@@ -132,3 +132,7 @@ RUN set -eux; \
     pecl install xdebug-$XDEBUG_VERSION; \
     docker-php-ext-enable xdebug; \
     apk del .build-deps
+
+RUN apk add --no-cache \
+        nodejs \
+        npm
