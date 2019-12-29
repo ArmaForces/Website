@@ -43,3 +43,15 @@ jobs:
               uses: actions-hub/docker@master
               with:
                   args: push docker.pkg.github.com/${REPO_LOWERCASE}/app_nginx:${IMAGE_TAG}
+
+            - name: Update Dev Env PHP
+              if: success() && github.ref == 'refs/heads/dev'
+              uses: wei/curl@v1
+              with:
+                args: -X POST ${{ secrets.WEBHOOK_UPDATE_PHP_DEV }}
+
+            - name: Update Dev Env Nginx
+              if: success() && github.ref == 'refs/heads/dev'
+              uses: wei/curl@v1
+              with:
+                args: -X POST ${{ secrets.WEBHOOK_UPDATE_NGINX_DEV }}
