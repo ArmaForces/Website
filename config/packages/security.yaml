@@ -14,6 +14,10 @@ security:
             security: false
         main:
             anonymous: lazy
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 604800 # 1 week in seconds
+                always_remember_me: true
             guard:
                 authenticators:
                     - App\Security\DiscordAuthenticator
