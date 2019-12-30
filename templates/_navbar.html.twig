@@ -67,9 +67,11 @@
                     <i class="fa fa-user-circle"></i>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">{{ 'Profile'|trans }}</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">{{ 'Logout'|trans }}</a>
+                    {% if is_granted('ROLE_USER') -%}
+                        <a class="dropdown-item" href="{{ path('app_security_logout') }}">{{ 'Logout'|trans }}</a>
+                    {% else %}
+                        <a class="dropdown-item" href="{{ path('app_security_connect_discord') }}">{{ 'Login'|trans }}</a>
+                    {% endif %}
                 </div>
             </li>
         </ul>
