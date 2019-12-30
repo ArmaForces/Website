@@ -15,6 +15,7 @@ use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Client\OAuth2ClientInterface;
 use KnpU\OAuth2ClientBundle\Security\Authenticator\SocialAuthenticator;
 use League\OAuth2\Client\Token\AccessToken;
+use RestCord\DiscordClient;
 use RestCord\Model\Guild\Guild;
 use RestCord\Model\Guild\GuildMember;
 use RestCord\Model\Permissions\Role;
@@ -94,45 +95,19 @@ class DiscordAuthenticator extends SocialAuthenticator
      */
     public function getUser($credentials, UserProviderInterface $userProvider): UserInterface
     {
-        /** @var DiscordResourceOwner $discordUser */
-        $discordUser = $this->getDiscordClient()->fetchUserFromToken($credentials);
-        $userId = (int) $discordUser->getId();
-        $username = $discordUser->getUsername();
-        $guildId = (int) $this->getParameterValue(self::PARAMETER_DISCORD_SERVER_ID_KEY);
+        /** @var DiscordResourceOwner $discordResourceOwner */
+        $discordResourceOwner = $this->getDiscordClient()->fetchUserFromToken($credentials);
 
         $userToken = $credentials->getToken();
-        $discordClientOAuth = $this->discordClientFactory->createFromToken($userToken, DiscordClientFactory::TOKEN_TYPE_OAUTH);
-
-        // Check if user joined Discord server
-        $guilds = $discordClientOAuth->user->getCurrentUserGuilds([]);
-        if (!$this->isMemberOfDiscordServer($guilds, $guildId)) {
-            throw new UserNotADiscordMemberException('User is not a member of ArmaForces Discord server!');
-        }
+        $discordClientAsUser = $this->discordClientFactory->createFromToken($userToken, DiscordClientFactory::TOKEN_TYPE_OAUTH);
+        $this->verifyDiscordMembership($discordClientAsUser, $discordResourceOwner);
 
         $botToken = $this->getParameterValue(self::PARAMETER_DISCORD_BOT_TOKEN_KEY);
-        $discordClientBot = $this->discordClientFactory->createFromToken($botToken, DiscordClientFactory::TOKEN_TYPE_BOT);
-
-        // Check if user was approved (has needed Discord server role assigned)
-        $guildRoles = $discordClientBot->guild->getGuildRoles([
-            'guild.id' => $guildId,
-        ]);
-
-        $requiredRoleName = $this->getParameterValue(self::PARAMETER_DISCORD_SERVER_MEMBER_ROLE);
-        $requiredRoleId = $this->getRoleIdByName($guildRoles, $requiredRoleName);
-
-        $userAsGuildMember = $discordClientBot->guild->getGuildMember([
-            'guild.id' => $guildId,
-            'user.id' => $userId,
-        ]);
-
-        if (!$this->hasServerRole($userAsGuildMember, $requiredRoleId)) {
-            throw new RequiredRoleNotAssignedException(
-                sprintf('User "%s" doesn\'t have required role "%s" assigned!', $username, $requiredRoleName)
-            );
-        }
+        $discordClientAsBot = $this->discordClientFactory->createFromToken($botToken, DiscordClientFactory::TOKEN_TYPE_BOT);
+        $this->verifyDiscordRoleAssigned($discordClientAsBot, $discordResourceOwner);
 
         /** @var string $email */
-        $email = $discordUser->getEmail();
+        $email = $discordResourceOwner->getEmail();
 
         try {
             $user = $userProvider->loadUserByUsername($email);
@@ -175,14 +150,42 @@ class DiscordAuthenticator extends SocialAuthenticator
         return new RedirectResponse($targetUrl);
     }
 
-    public function getParameterValue(string $key): string
+    protected function verifyDiscordMembership(DiscordClient $discordClient, DiscordResourceOwner $discordResourceOwner): void
     {
-        $value = $this->parameterBag->get($key);
-        if (!$key) {
-            throw new MissingConfigParameterValueException($key);
-        }
+        $username = $discordResourceOwner->getUsername();
+        $guildId = (int) $this->getParameterValue(self::PARAMETER_DISCORD_SERVER_ID_KEY);
+        $guilds = $discordClient->user->getCurrentUserGuilds([]);
 
-        return $value;
+        if (!$this->isMemberOfDiscordServer($guilds, $guildId)) {
+            throw new UserNotADiscordMemberException(
+                sprintf('User "%s" is not a member of ArmaForces Discord server!', $username)
+            );
+        }
+    }
+
+    protected function verifyDiscordRoleAssigned(DiscordClient $discordClient, DiscordResourceOwner $discordResourceOwner): void
+    {
+        $username = $discordResourceOwner->getUsername();
+        $userId = (int) $discordResourceOwner->getId();
+        $guildId = (int) $this->getParameterValue(self::PARAMETER_DISCORD_SERVER_ID_KEY);
+
+        $guildRoles = $discordClient->guild->getGuildRoles([
+            'guild.id' => $guildId,
+        ]);
+
+        $requiredRoleName = $this->getParameterValue(self::PARAMETER_DISCORD_SERVER_MEMBER_ROLE);
+        $requiredRoleId = $this->getRoleIdByName($guildRoles, $requiredRoleName);
+
+        $userAsGuildMember = $discordClient->guild->getGuildMember([
+            'guild.id' => $guildId,
+            'user.id' => $userId,
+        ]);
+
+        if (!$this->hasServerRole($userAsGuildMember, $requiredRoleId)) {
+            throw new RequiredRoleNotAssignedException(
+                sprintf('User "%s" doesn\'t have required role "%s" assigned!', $username, $requiredRoleName)
+            );
+        }
     }
 
     protected function getDiscordClient(): OAuth2ClientInterface
@@ -190,18 +193,14 @@ class DiscordAuthenticator extends SocialAuthenticator
         return $this->clientRegistry->getClient(self::DISCORD_CLIENT_NAME);
     }
 
-    /**
-     * @param Guild[] $guilds
-     */
-    protected function isMemberOfDiscordServer(array $guilds, int $guildId): bool
+    protected function getParameterValue(string $key): string
     {
-        foreach ($guilds as $guild) {
-            if ($guild->id === $guildId) {
-                return true;
-            }
+        $value = $this->parameterBag->get($key);
+        if (!$key) {
+            throw new MissingConfigParameterValueException($key);
         }
 
-        return false;
+        return $value;
     }
 
     /**
@@ -218,6 +217,20 @@ class DiscordAuthenticator extends SocialAuthenticator
         throw new RoleNotFoundException(
             sprintf('Role "%s" wasn\'t not found!', $roleName)
         );
+    }
+
+    /**
+     * @param Guild[] $guilds
+     */
+    protected function isMemberOfDiscordServer(array $guilds, int $guildId): bool
+    {
+        foreach ($guilds as $guild) {
+            if ($guild->id === $guildId) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     protected function hasServerRole(GuildMember $guildMember, int $roleId): bool
