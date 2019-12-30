@@ -21,3 +21,10 @@ services:
     nginx:
         volumes:
             - './public:/www/app/public:ro'
+
+    mysql:
+        image: mysql:5.7
+        env_file:
+            - .docker/mysql/vars.env
+        ports:
+            - "33060:3306"

@@ -19,10 +19,3 @@ services:
             - php
         ports:
             - '8080:80'
-
-    mysql:
-        image: mysql:5.7
-        env_file:
-            - .docker/mysql/vars.env
-        ports:
-            - "33060:3306"
