@@ -15,13 +15,13 @@ class User extends AbstractUser
     /** @var null|string */
     protected $avatarHash;
 
-    public function __construct(string $externalId, string $username, string $email)
+    public function __construct(string $username, string $email, string $externalId)
     {
         parent::__construct();
 
-        $this->externalId = $externalId;
         $this->username = $username;
         $this->email = $email;
+        $this->externalId = $externalId;
     }
 
     public function getEmail(): string
