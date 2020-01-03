@@ -6,7 +6,7 @@
 
     <entity name="App\Entity\User\User" table="users" repository-class="App\Repository\UserRepository">
         <field name="email" type="string" length="255"/>
-        <field name="externalId" type="string" length="64"/>
+        <field name="externalId" type="string" length="64" unique="true"/>
         <field name="avatarHash" type="string" length="512" nullable="true"/>
 
         <unique-constraints>
