@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-class AppExtension extends AbstractExtension
+class UserExtension extends AbstractExtension
 {
     public const AVATAR_CDN = 'https://cdn.discordapp.com';
     public const DEFAULT_AVATAR_URL = '/embed/avatars/3.png';
@@ -25,11 +25,12 @@ class AppExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('avatar_url', [$this, 'getAvatarUrl']),
+            new TwigFunction('current_user_avatar_url', [$this, 'getCurrentUserAvatarUrl']),
+            new TwigFunction('user_avatar_url', [$this, 'getUserAvatarUrl']),
         ];
     }
 
-    public function getAvatarUrl(): string
+    public function getCurrentUserAvatarUrl(): string
     {
         $token = $this->tokenStorage->getToken();
         if (null === $token) {
@@ -38,6 +39,12 @@ class AppExtension extends AbstractExtension
 
         /** @var User $user */
         $user = $token->getUser();
+
+        return $this->getUserAvatarUrl($user);
+    }
+
+    public function getUserAvatarUrl(User $user): string
+    {
         $avatarHash = $user->getAvatarHash();
 
         if (null !== $avatarHash) {
