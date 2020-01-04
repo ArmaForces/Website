@@ -23,6 +23,7 @@ final class Version20200103010805 extends AbstractMigration
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE users ADD external_id VARCHAR(64) NOT NULL, ADD avatar_hash VARCHAR(512) DEFAULT NULL');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_1483A5E99F75D7B0 ON users (external_id)');
     }
 
     public function down(Schema $schema): void
@@ -30,6 +31,7 @@ final class Version20200103010805 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
+        $this->addSql('DROP INDEX UNIQ_1483A5E99F75D7B0 ON users');
         $this->addSql('ALTER TABLE users DROP external_id, DROP avatar_hash');
     }
 }
