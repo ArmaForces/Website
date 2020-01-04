@@ -21,8 +21,9 @@ if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 
     if [ "$APP_ENV" != 'prod' ]; then
         composer install --prefer-dist --no-progress --no-suggest --no-interaction
-        php bin/console doctrine:migrations:migrate --allow-no-migration --no-interaction
     fi
+
+    php bin/console doctrine:migrations:migrate --allow-no-migration --no-interaction
 
 fi
 
