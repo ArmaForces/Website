@@ -1,6 +1,7 @@
 
 #main {
     padding: 0;
+    height: calc(100% - #{$headerHeight});
 }
 
 #intro {
@@ -9,7 +10,7 @@
     position: relative;
     overflow: hidden;
 
-    background: url("img/landing_uns.jpg") no-repeat center center fixed;
+    background: url("img/landing_rhs.jpg") no-repeat center center fixed;
     background-size: cover;
 }
 
