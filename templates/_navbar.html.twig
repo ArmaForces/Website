@@ -64,7 +64,7 @@
             <!-- Login -->
             <li id="navmenu" class="nav-item dropdown dropleft">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-user-circle"></i>
+                    <i class="fa fa-user-circle {% if is_granted('ROLE_USER') %}avatar" style="background-image: url({{ current_user_avatar_url() }}){% endif %}"></i>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     {% if is_granted('ROLE_USER') -%}

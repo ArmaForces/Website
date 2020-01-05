@@ -48,6 +48,15 @@ html, body {
             max-height: 40px;
         }
     }
+
+    .avatar {
+        // background-url is set inline
+        background-size: cover;
+        background-position: top center;
+        border-radius: 50%;
+        // Hide font icon
+        color: transparent;
+    }
 }
 
 .mask {
