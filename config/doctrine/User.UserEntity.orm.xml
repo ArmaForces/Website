@@ -4,14 +4,10 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="App\Entity\User\User" table="users" repository-class="App\Repository\UserRepository">
+    <entity name="App\Entity\User\UserEntity" table="users" repository-class="App\Repository\UserEntityRepository">
         <field name="email" type="string" length="255"/>
         <field name="externalId" type="string" length="64" unique="true"/>
         <field name="avatarHash" type="string" length="512" nullable="true"/>
-
-        <unique-constraints>
-            <unique-constraint columns="username"/>
-        </unique-constraints>
     </entity>
 
 </doctrine-mapping>

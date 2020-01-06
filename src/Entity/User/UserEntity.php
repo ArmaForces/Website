@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity\User;
 
-class User extends AbstractUser
+class UserEntity extends AbstractUserEntity
 {
     /** @var string */
     protected $email;
