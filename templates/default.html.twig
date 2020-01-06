@@ -6,8 +6,9 @@
             {% include '_partial/_navbar.html.twig' %}
         </nav>
     </header>
-    <main id="main" class="container-fluid">
-        {% block content %}{% endblock %}
-    </main>
+
+    {% block container %}
+    {% endblock %}
+
     {% include '_partial/_footer.html.twig' %}
 {% endblock %}
