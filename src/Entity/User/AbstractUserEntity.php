@@ -8,7 +8,7 @@ use App\Entity\AbstractEntity;
 use App\Security\Enum\RoleEnum;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class AbstractUser extends AbstractEntity implements UserInterface
+class AbstractUserEntity extends AbstractEntity implements UserInterface
 {
     /** @var string */
     protected $username;

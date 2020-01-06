@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Twig;
 
 use App\Entity\User\User;
+use App\Entity\User\UserEntity;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -37,13 +38,13 @@ class UserExtension extends AbstractExtension
             throw new \LogicException('Can\'t get user avatar url without user token!');
         }
 
-        /** @var User $user */
+        /** @var UserEntity $user */
         $user = $token->getUser();
 
         return $this->getUserAvatarUrl($user);
     }
 
-    public function getUserAvatarUrl(User $user): string
+    public function getUserAvatarUrl(UserEntity $user): string
     {
         $avatarHash = $user->getAvatarHash();
 

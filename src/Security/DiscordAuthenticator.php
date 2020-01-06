@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Security;
 
-use App\Entity\User\User;
+use App\Entity\User\UserEntity;
 use App\Exception\MissingConfigParameterValueException;
 use App\Security\Exception\RequiredRoleNotAssignedException;
 use App\Security\Exception\RoleNotFoundException;
@@ -114,7 +114,7 @@ class DiscordAuthenticator extends SocialAuthenticator
         try {
             $user = $userProvider->loadUserByUsername($externalId);
         } catch (UsernameNotFoundException $ex) {
-            $user = new User($email, $email, $externalId);
+            $user = new UserEntity($email, $email, $externalId);
             $user->setAvatarHash($discordResourceOwner->getAvatarHash());
             $this->em->persist($user);
             $this->em->flush();
