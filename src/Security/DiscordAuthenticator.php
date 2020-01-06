@@ -119,7 +119,7 @@ class DiscordAuthenticator extends SocialAuthenticator
             $user->setAvatarHash($discordResourceOwner->getAvatarHash());
             $this->em->persist($user);
         }
-        
+
         $this->em->flush();
 
         return $user;
