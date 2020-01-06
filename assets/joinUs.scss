@@ -1,4 +1,7 @@
 
+$headerHeight: 64px;
+$listBlockSize: 30;
+
 #main {
     padding: 0;
     height: calc(100% - #{$headerHeight});
@@ -15,5 +18,47 @@
 }
 
 .card {
-    opacity: 0.7;
+    opacity: 0.75;
+}
+
+#join-steps {
+    list-style-type: none;
+    counter-reset: steps;
+
+    li {
+        padding: 0 0 20px 50px;
+        position: relative;
+        margin: 0;
+
+        &::after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            content: counter(steps);
+            counter-increment: steps;
+            border: 2px solid #eaa32d;
+            //border-radius: 50%;
+            display: inline-block;
+            height: #{$listBlockSize}px;
+            width: #{$listBlockSize}px;
+            text-align: center;
+            line-height: 24px;
+            background: #282828;
+            color: #fff;
+        }
+
+        &::before {
+            position: absolute;
+            left: #{$listBlockSize/2}px;
+            top: 0;
+            content: "";
+            height: 100%;
+            width: 0;
+            border-left: 2px solid #eaa32d;
+        }
+
+        &:last-of-type::before {
+            border: none;
+        }
+    }
 }

@@ -17,19 +17,39 @@
 
             <div class="row d-flex justify-content-center text-center">
                 <!-- Card -->
-                <div class="card text-dark my-4 mx-auto col-sm-12 col-md-4">
+                <div class="card bg-dark my-4 mx-auto col-md-12 col-lg-6">
                     <div class="card-body">
                         <h4 class="card-title">{{ 'Join ArmaForces'|trans }}</h4>
                         <section class="text-left">
-                            <ol>
+                            <ul id="join-steps">
                                 <li>
+                                    Zacznij od zapoznania się z <a href="{{ url.statute }}">regulaminem</a>
                                 </li>
-                            </ol>
+                                <li>
+                                    Dołącz do naszego <a href="{{ url.discord }}">Discorda</a> i złóż podanie na kanale #rekrutacja
+                                </li>
+                                <li>
+                                    Gdy już otrzymasz rangę rekruta będziesz mógł się zalogować na stronie i dołączyć do naszego
+                                    {% if is_granted('ROLE_USER') -%}
+                                        <a href="{{ url.teamspeak }}">TeamSpeak</a>
+                                    {% else %}
+                                        <a href="#" title="{{ 'Available after login'|trans }}"
+                                           data-toggle="tooltip" data-placement="bottom">TeamSpeak</a>
+                                    {% endif %}.
+                                </li>
+                                <li>
+                                    Pobierz mody z modlisty "default", są one wymagane na większości misji.
+                                    <br/>
+                                    <br/>
+                                    Standardowo rozgrywki odbywają się w środy oraz soboty o godzinie 20:00, po rozegraniu swojej pierwszej misji
+                                    nie będziesz już rekrutem i zostaniesz przyjęty do grupy.
+                                </li>
+                            </ul>
                         </section>
                         <section class="text-left">
-                            <h5>{{ 'What do we require to play with us'|trans }}</h5>
+                            <h5>{{ 'What do we require to from recruits'|trans }}</h5>
                             <ul>
-                                <li>{{ 'Base Arma 3 game (without DLCs)'|trans }}</li>
+                                <li>{{ 'Base Arma 3 game'|trans }}</li>
                                 <li>{{ 'At least 16 years old'|trans }}</li>
                             </ul>
                         </section>
