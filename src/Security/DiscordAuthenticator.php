@@ -114,13 +114,13 @@ class DiscordAuthenticator extends SocialAuthenticator
         try {
             $user = $userProvider->loadUserByUsername($externalId);
             $user->setAvatarHash($discordResourceOwner->getAvatarHash());
-            $this->em->flush();
         } catch (UsernameNotFoundException $ex) {
             $user = new UserEntity($email, $email, $externalId);
             $user->setAvatarHash($discordResourceOwner->getAvatarHash());
             $this->em->persist($user);
-            $this->em->flush();
         }
+        
+        $this->em->flush();
 
         return $user;
     }
