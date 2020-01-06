@@ -12,8 +12,7 @@ html, body {
 }
 
 #main {
-    height: calc(100% - #{$headerHeight});
-    overflow-x: auto;
+    min-height: calc(100% - #{$headerHeight});
 }
 
 #navmenu {
@@ -71,6 +70,10 @@ html, body {
 
     background-color: rgba(0, 0, 0, 0.7);
     background-attachment: fixed;
+}
+
+.mask-half {
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 .hr-light {
