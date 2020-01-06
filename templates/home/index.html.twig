@@ -1,4 +1,4 @@
-{% extends 'layout/_default.html.twig' %}
+{% extends 'default.html.twig' %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -15,7 +15,7 @@
     <header>
         <!--Navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar">
-            {% include 'partials/_navbar.html.twig' %}
+            {% include '_partial/_navbar.html.twig' %}
         </nav>
         <!--/.Navbar-->
 
@@ -65,17 +65,17 @@
     <main class="mt-5">
         <div class="container">
 
-            {% include 'partials/index/_about.html.twig' %}
+            {% include 'home/_partial/_about.html.twig' %}
 
             {# <hr class="my-5">
-            {% include 'partials/index/_missions.html.twig' %} #}
+            {% include 'home/_partial/_missions.html.twig' %} #}
 
             {#<hr class="my-5">
-            {% include 'partials/index/_media.html.twig' %}#}
+            {% include 'home/_partial/_media.html.twig' %}#}
 
         </div>
     </main>
     <!--Main layout-->
 
-    {% include 'partials/_footer.html.twig' %}
+    {% include '_partial/_footer.html.twig' %}
 {% endblock body %}

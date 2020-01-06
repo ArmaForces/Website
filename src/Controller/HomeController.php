@@ -28,7 +28,7 @@ class HomeController extends AbstractController
             ];
         }
 
-        return $this->render('index.html.twig', [
+        return $this->render('home/index.html.twig', [
             'recentMissions' => $recentMissions,
         ]);
     }
@@ -38,6 +38,6 @@ class HomeController extends AbstractController
      */
     public function joinUs(): Response
     {
-        return $this->render('join_us.html.twig');
+        return $this->render('home/join_us.html.twig');
     }
 }
