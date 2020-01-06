@@ -1,3 +1,6 @@
+parameters:
+    app.url.teamspeak: '%env(APP_URL_TEAMSPEAK)%'
+
 twig:
     default_path: '%kernel.project_dir%/templates'
     debug: '%kernel.debug%'
@@ -10,3 +13,4 @@ twig:
             statute: 'https://drive.google.com/file/d/1a2Ote4EegVOxYUP7Un9gosLzBSmWV8fj'
             modlist: 'https://modlist.armaforces.com'
             wiki:    'https://wiki.armaforces.com'
+            teamspeak: '%app.url.teamspeak%'
