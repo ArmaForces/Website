@@ -31,14 +31,14 @@
                                 <li>
                                     Gdy już otrzymasz rangę rekruta będziesz mógł się zalogować na stronie i dołączyć do naszego
                                     {% if is_granted('ROLE_USER') -%}
-                                        <a href="{{ url.teamspeak }}">TeamSpeak</a>
+                                        <a href="{{ url.teamspeak }}">TeamSpeaka</a>
                                     {% else %}
                                         <a href="#" title="{{ 'Available after login'|trans }}"
-                                           data-toggle="tooltip" data-placement="bottom">TeamSpeak</a>
+                                           data-toggle="tooltip" data-placement="bottom">TeamSpeaka</a>
                                     {% endif %}.
                                 </li>
                                 <li>
-                                    Pobierz mody z modlisty "default", są one wymagane na większości misji.
+                                    Pobierz mody z modlisty "default". Są one wymagane na większości misji.
                                     <br/>
                                     <br/>
                                     Standardowo rozgrywki odbywają się w środy oraz soboty o godzinie 20:00, po rozegraniu swojej pierwszej misji
