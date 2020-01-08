@@ -10,11 +10,7 @@
         <div class="col-md-8">
             <!-- Description -->
             <p class="grey-text">
-                ArmaForces to <!-- Not a typo, internal meme -->społenczość<!--/ meme --> skupiająca zarówno cichych pasjonatów milsimu, śmieszków poza kontrolo,
-                jak i miłośników specyfiki Army 3, których łączy chęć tworzenia zgranej społeczności.
-                <br/>
-                Nasze misje zwykle są nastawione na dużo akcji,
-                bez zbędnego gadania i recytowania regulaminu z pamięci.
+                {% include 'home/index/_partial/' ~ app_lang ~ '/_about_us.html.twig' %}
             </p>
         </div>
     </div>
@@ -25,7 +21,7 @@
             <i class="fa fa-fighter-jet fa-4x orange-text"></i>
             <h4 class="my-4 font-weight-bold">{{ 'Fun'|trans }}</h4>
             <p class="grey-text">
-                W ArmaForces skupiamy się przede wszystkim na dobrej zabawie bez wymuszania przesadnego "realizmu".
+                {% include 'home/index/_partial/' ~ app_lang ~ '/_fun.html.twig' %}
             </p>
         </div>
         <!--Grid column-->
@@ -33,9 +29,7 @@
             <i class="fa fa-gamepad fa-4x orange-text"></i>
             <h4 class="my-4 font-weight-bold">{{ 'Gaming'|trans }}</h4>
             <p class="grey-text">
-                Nasza grupa skupia się nie tylko na Armie 3.
-                Nasi członkowie wspólnie organizują się w najróżniejszych innych grach.
-                <br/>Większą liczbą jesteśmy dostępni w takich tytułach jak Company of Heores 2, DCS czy Wargame Red Dragon.
+                {% include 'home/index/_partial/' ~ app_lang ~ '/_gaming.html.twig' %}
             </p>
         </div>
         <!--Grid column-->
@@ -43,9 +37,7 @@
             <i class="fa fa-user-friends fa-4x orange-text"></i>
             <h4 class="my-4 font-weight-bold">{{ 'Community'|trans }}</h4>
             <p class="grey-text">
-                Zrzeszamy pełen przekrój społeczeństwa, od programistów przez urzędników, lekarzy, pracowników przemysłowych, prawników, studentów, uczniów czy nierobów.
-                <br/>Posiadamy graczy w wielu zakątkach świata.
-                <br/><br/>Dzieli nas wiele, łączy nas Arma.
+                {% include 'home/index/_partial/' ~ app_lang ~ '/_community.html.twig' %}
             </p>
         </div>
     </div>

@@ -28,7 +28,7 @@ class HomeController extends AbstractController
             ];
         }
 
-        return $this->render('home/index.html.twig', [
+        return $this->render('home/index/index.html.twig', [
             'recentMissions' => $recentMissions,
         ]);
     }
