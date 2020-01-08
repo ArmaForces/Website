@@ -1,4 +1,5 @@
 {%- set app_lang = app.request.locale|split('_')[0] -%}
+{%- set app_community_description = include('home/index/_partial/' ~ app_lang ~ '/_about_us.html.twig')|striptags -%}
 
 <!doctype html>
 <html lang="{{ app_lang }}">
@@ -6,13 +7,13 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="description" content="{{ 'ArmaForces is a community'|trans }}">
+        <meta name="description" content="{{ app_community_description }}">
         <meta name="author" content="ArmaForces">
 
         <!-- OpenGraph -->
         <meta property="og:site_name" content="ArmaForces">
         <meta property="og:title" content="ArmaForces - {{ 'Polish Arma 3 community'|trans }}">
-        <meta property="og:description" content="{{ 'ArmaForces is a community'|trans }}">
+        <meta property="og:description" content="{{ app_community_description }}">
         <meta property="og:image" content="{{ asset('img/ArmaForces.png') }}">
         <!--/ OpenGraph -->
 
