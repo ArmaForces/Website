@@ -4,7 +4,7 @@ security:
         users:
             entity:
                 # the class of the entity that represents users
-                class: 'App\Entity\User\User'
+                class: 'App\Entity\User\UserEntity'
                 # the property to query by - e.g. username, email, etc
                 property: 'externalId'
 
