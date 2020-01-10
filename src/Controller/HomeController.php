@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Http\Mission\MissionClient;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,19 +15,20 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class HomeController extends AbstractController
 {
+    /** @var MissionClient */
+    protected $missionClient;
+
+    public function __construct(MissionClient $missionClient)
+    {
+        $this->missionClient = $missionClient;
+    }
+
     /**
      * @Route("", name="_index")
      */
     public function indexAction(): Response
     {
-        $recentMissions = [];
-        for ($i = 1; $i < 7; ++$i) {
-            $recentMissions[] = [
-                'title' => "Mission {$i}",
-                'description' => 'Lorem ipsum, ArmaForces karamba.',
-                'date' => new DateTime("-{$i} day"),
-            ];
-        }
+        $recentMissions = $this->missionClient->getMissions();
 
         return $this->render('home/index/index.html.twig', [
             'recentMissions' => $recentMissions,
