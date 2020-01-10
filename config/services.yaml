@@ -37,3 +37,11 @@ services:
             $botToken: '%app.security.oauth.discord.bot_token%'
             $recruitRoleName: '%app.security.oauth.discord.recruit_role_name%'
             $memberRoleName: '%app.security.oauth.discord.member_role_name%'
+
+    App\Http\Mission\MissionClient:
+        arguments:
+            $missionApiUrl: '%env(APP_URL_API_MISSION)%'
+
+    App\Http\Mission\MissionStore:
+        arguments:
+            $storagePath: '%kernel.project_dir%/var/cache_http/%kernel.environment%'
