@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Mission;
 
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpCache\Store;
@@ -21,7 +20,7 @@ class MissionStore implements StoreInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function lookup(Request $request): ?Response
     {
@@ -29,7 +28,7 @@ class MissionStore implements StoreInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function write(Request $request, Response $response): string
     {
@@ -37,7 +36,7 @@ class MissionStore implements StoreInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function invalidate(Request $request): void
     {
@@ -45,7 +44,7 @@ class MissionStore implements StoreInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function lock(Request $request)
     {
@@ -53,7 +52,7 @@ class MissionStore implements StoreInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function unlock(Request $request): bool
     {
@@ -61,7 +60,7 @@ class MissionStore implements StoreInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function isLocked(Request $request)
     {
@@ -69,7 +68,7 @@ class MissionStore implements StoreInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function purge($url): bool
     {
@@ -77,7 +76,7 @@ class MissionStore implements StoreInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function cleanup(): void
     {

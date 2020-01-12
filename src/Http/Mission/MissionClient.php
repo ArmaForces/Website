@@ -6,7 +6,6 @@ namespace App\Http\Mission;
 
 use Symfony\Component\HttpClient\CachingHttpClient;
 use Symfony\Component\HttpClient\ScopingHttpClient;
-use Symfony\Component\HttpKernel\HttpCache\StoreInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class MissionClient
@@ -21,7 +20,7 @@ class MissionClient
     {
         $cachingClient = new CachingHttpClient($client, $store);
 
-        $this->client = ScopingHttpClient::forBaseUri($cachingClient, $missionApiUrl) ;
+        $this->client = ScopingHttpClient::forBaseUri($cachingClient, $missionApiUrl);
     }
 
     public function getMissions(bool $includeArchive = true, int $ttl = 600): array
