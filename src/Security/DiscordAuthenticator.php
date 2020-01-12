@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Security;
 
 use App\Entity\User\UserEntity;
-use App\Exception\MissingConfigParameterValueException;
-use App\Security\Exception\RequiredRoleNotAssignedException;
+use App\Security\Exception\MultipleRolesFound;
+use App\Security\Exception\RequiredRolesNotAssignedException;
 use App\Security\Exception\RoleNotFoundException;
 use App\Security\Exception\UserNotADiscordMemberException;
 use App\Service\RestCord\DiscordClientFactory;
@@ -37,11 +37,8 @@ class DiscordAuthenticator extends SocialAuthenticator
 {
     protected const DISCORD_CLIENT_NAME = 'discord_main';
 
-    protected const PARAMETER_DISCORD_SERVER_ID_KEY = 'app.security.oauth.discord.server_id';
-    protected const PARAMETER_DISCORD_SERVER_MEMBER_ROLE = 'app.security.oauth.discord.member_role';
-    protected const PARAMETER_DISCORD_BOT_TOKEN_KEY = 'app.security.oauth.discord.bot_token';
-
-    protected const HOME_PAGE_ROUTE_NAME = 'app_home_index';
+    protected const HOME_INDEX_PAGE_ROUTE_NAME = 'app_home_index';
+    protected const HOME_JOIN_US_PAGE_ROUTE_NAME = 'app_home_join_us';
     protected const LOGIN_PAGE_ROUTE_NAME = 'app_security_connect_discord';
     protected const SUPPORTED_ROUTE_NAME = 'app_security_connect_discord_check';
 
@@ -60,18 +57,38 @@ class DiscordAuthenticator extends SocialAuthenticator
     /** @var ParameterBagInterface */
     protected $parameterBag;
 
+    /** @var int */
+    protected $discordServerId;
+
+    /** @var string */
+    protected $botToken;
+
+    /** @var string */
+    protected $recruitRoleName;
+
+    /** @var string */
+    protected $memberRoleName;
+
     public function __construct(
         ClientRegistry $clientRegistry,
         EntityManagerInterface $em,
         RouterInterface $router,
         DiscordClientFactory $discordClientFactory,
-        ParameterBagInterface $parameterBag
+        ParameterBagInterface $parameterBag,
+        int $discordServerId,
+        string $botToken,
+        string $recruitRoleName,
+        string $memberRoleName
     ) {
         $this->clientRegistry = $clientRegistry;
         $this->em = $em;
         $this->router = $router;
         $this->discordClientFactory = $discordClientFactory;
         $this->parameterBag = $parameterBag;
+        $this->discordServerId = $discordServerId;
+        $this->botToken = $botToken;
+        $this->recruitRoleName = $recruitRoleName;
+        $this->memberRoleName = $memberRoleName;
     }
 
     /**
@@ -102,8 +119,7 @@ class DiscordAuthenticator extends SocialAuthenticator
         $discordClientAsUser = $this->discordClientFactory->createFromToken($userToken, DiscordClientFactory::TOKEN_TYPE_OAUTH);
         $this->verifyDiscordMembership($discordClientAsUser, $discordResourceOwner);
 
-        $botToken = $this->getParameterValue(self::PARAMETER_DISCORD_BOT_TOKEN_KEY);
-        $discordClientAsBot = $this->discordClientFactory->createFromToken($botToken, DiscordClientFactory::TOKEN_TYPE_BOT);
+        $discordClientAsBot = $this->discordClientFactory->createFromToken($this->botToken, DiscordClientFactory::TOKEN_TYPE_BOT);
         $this->verifyDiscordRoleAssigned($discordClientAsBot, $discordResourceOwner);
 
         /** @var string $email */
@@ -131,7 +147,7 @@ class DiscordAuthenticator extends SocialAuthenticator
      */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?RedirectResponse
     {
-        $targetUrl = $this->router->generate(self::HOME_PAGE_ROUTE_NAME);
+        $targetUrl = $this->router->generate(self::HOME_JOIN_US_PAGE_ROUTE_NAME);
 
         return new RedirectResponse($targetUrl);
     }
@@ -141,7 +157,7 @@ class DiscordAuthenticator extends SocialAuthenticator
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey): ?RedirectResponse
     {
-        $targetUrl = $this->router->generate(self::HOME_PAGE_ROUTE_NAME);
+        $targetUrl = $this->router->generate(self::HOME_INDEX_PAGE_ROUTE_NAME);
 
         return new RedirectResponse($targetUrl);
     }
@@ -159,10 +175,9 @@ class DiscordAuthenticator extends SocialAuthenticator
     protected function verifyDiscordMembership(DiscordClient $discordClient, DiscordResourceOwner $discordResourceOwner): void
     {
         $username = $discordResourceOwner->getUsername();
-        $guildId = (int) $this->getParameterValue(self::PARAMETER_DISCORD_SERVER_ID_KEY);
         $guilds = $discordClient->user->getCurrentUserGuilds([]);
 
-        if (!$this->isMemberOfDiscordServer($guilds, $guildId)) {
+        if (!$this->isMemberOfDiscordServer($guilds, $this->discordServerId)) {
             throw new UserNotADiscordMemberException(
                 sprintf('User "%s" is not a member of ArmaForces Discord server!', $username)
             );
@@ -173,25 +188,27 @@ class DiscordAuthenticator extends SocialAuthenticator
     {
         $username = $discordResourceOwner->getUsername();
         $userId = (int) $discordResourceOwner->getId();
-        $guildId = (int) $this->getParameterValue(self::PARAMETER_DISCORD_SERVER_ID_KEY);
+        $guildId = $this->discordServerId;
 
         $guildRoles = $discordClient->guild->getGuildRoles([
             'guild.id' => $guildId,
         ]);
-
-        $requiredRoleName = $this->getParameterValue(self::PARAMETER_DISCORD_SERVER_MEMBER_ROLE);
-        $requiredRoleId = $this->getRoleIdByName($guildRoles, $requiredRoleName);
 
         $userAsGuildMember = $discordClient->guild->getGuildMember([
             'guild.id' => $guildId,
             'user.id' => $userId,
         ]);
 
-        if (!$this->hasServerRole($userAsGuildMember, $requiredRoleId)) {
-            throw new RequiredRoleNotAssignedException(
-                sprintf('User "%s" doesn\'t have required role "%s" assigned!', $username, $requiredRoleName)
-            );
+        $recruitRoleId = $this->getRoleIdByName($guildRoles, $this->recruitRoleName);
+        $memberRoleId = $this->getRoleIdByName($guildRoles, $this->memberRoleName);
+
+        if ($this->hasServerRole($userAsGuildMember, $recruitRoleId) || $this->hasServerRole($userAsGuildMember, $memberRoleId)) {
+            return;
         }
+
+        throw new RequiredRolesNotAssignedException(
+            sprintf('User "%s" doesn\'t have required roles assigned!', $username)
+        );
     }
 
     protected function getDiscordClient(): OAuth2ClientInterface
@@ -199,30 +216,27 @@ class DiscordAuthenticator extends SocialAuthenticator
         return $this->clientRegistry->getClient(self::DISCORD_CLIENT_NAME);
     }
 
-    protected function getParameterValue(string $key): string
-    {
-        $value = $this->parameterBag->get($key);
-        if (!$key) {
-            throw new MissingConfigParameterValueException($key);
-        }
-
-        return $value;
-    }
-
     /**
      * @param Role[] $roles
      */
     protected function getRoleIdByName(array $roles, string $roleName): int
     {
+        $rolesIdsFound = [];
+
         foreach ($roles as $role) {
             if ($role->name === $roleName) {
-                return $role->id;
+                $rolesIdsFound[] = $role->id;
             }
         }
 
-        throw new RoleNotFoundException(
-            sprintf('Role "%s" wasn\'t not found!', $roleName)
-        );
+        switch (count($rolesIdsFound)) {
+            case 1:
+                return $rolesIdsFound[0];
+            case 0:
+                throw new RoleNotFoundException(sprintf('Role "%s" wasn\'t not found!', $roleName));
+            default:
+                throw new MultipleRolesFound(sprintf('Multiple roles found by given name "%s"!', $roleName));
+        }
     }
 
     /**
