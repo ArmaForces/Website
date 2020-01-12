@@ -38,6 +38,6 @@ class HomeController extends AbstractController
      */
     public function joinUs(): Response
     {
-        return $this->render('home/join_us.html.twig');
+        return $this->render('home/join_us/join_us.html.twig');
     }
 }
