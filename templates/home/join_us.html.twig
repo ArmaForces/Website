@@ -30,7 +30,7 @@
                                     </li>
                                     <li>
                                         Gdy już otrzymasz rangę rekruta będziesz mógł zalogować się na stronie i dołączyć do naszego
-                                        {%- if is_granted('ROLE_USER') -%}
+                                        {%- if is_granted('ROLE_USER') %}
                                             <a href="{{ url.teamspeak }}">TeamSpeaka</a>
                                         {%- else %}
                                             <a href="#" title="{{ 'Available after login'|trans }}"
