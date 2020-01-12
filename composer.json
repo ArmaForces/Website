@@ -88,7 +88,9 @@
             "php bin/console lint:twig templates/",
             "php bin/console lint:yaml --parse-tags config/",
             "php bin/console doctrine:schema:validate",
-            "php bin/console doctrine:mapping:info"
+            "php bin/console doctrine:mapping:info",
+            "php bin/console debug:translation --domain=messages pl --only-unused",
+            "php bin/console debug:translation --domain=messages pl --only-missing"
         ]
     },
     "conflict": {
