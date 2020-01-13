@@ -55,7 +55,7 @@ class SecurityController extends AbstractController
      *
      * @throws RuntimeException
      */
-    public function logout(): Response
+    public function logoutAction(): Response
     {
         throw new RuntimeException('This should never be executed!');
     }
