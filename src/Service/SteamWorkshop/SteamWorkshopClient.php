@@ -7,7 +7,6 @@ namespace App\Service\SteamWorkshop;
 use App\Service\SteamWorkshop\Dto\SteamWorkshopItemInfoDto;
 use App\Service\SteamWorkshop\Exception\ItemNotFoundException;
 use App\Service\SteamWorkshop\Exception\SteamWorkshopClientException;
-use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class SteamWorkshopClient
