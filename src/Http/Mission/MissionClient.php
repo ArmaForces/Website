@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Mission;
 
+use App\Http\Mission\Dto\MissionDto;
 use Symfony\Component\HttpClient\CachingHttpClient;
 use Symfony\Component\HttpClient\ScopingHttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -36,5 +37,12 @@ class MissionClient
             yield MissionDto::fromArray($mission);
         }
     }
+
+    public function getNearestMission(): MissionDto
+    {
+        $upcomingMissions = iterator_to_array($this->getMissions(false));
+
+        // api sorts missions latest to oldest
+        return $upcomingMissions[count($upcomingMissions)-1];
     }
 }
