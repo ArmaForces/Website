@@ -13,9 +13,6 @@ class MissionClient
     /** @var HttpClientInterface */
     protected $client;
 
-    /** @var string */
-    protected $baseUrl;
-
     public function __construct(HttpClientInterface $client, MissionStore $store, string $missionApiUrl)
     {
         $cachingClient = new CachingHttpClient($client, $store);
