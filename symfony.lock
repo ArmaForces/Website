@@ -414,10 +414,16 @@
             "./tests/.gitignore"
         ]
     },
+    "symfony/polyfill-intl-grapheme": {
+        "version": "v1.13.1"
+    },
     "symfony/polyfill-intl-icu": {
         "version": "v1.13.1"
     },
     "symfony/polyfill-intl-idn": {
+        "version": "v1.13.1"
+    },
+    "symfony/polyfill-intl-normalizer": {
         "version": "v1.13.1"
     },
     "symfony/polyfill-mbstring": {
@@ -490,6 +496,9 @@
     },
     "symfony/stopwatch": {
         "version": "v4.4.1"
+    },
+    "symfony/string": {
+        "version": "v5.0.2"
     },
     "symfony/test-pack": {
         "version": "v1.0.6"
@@ -590,6 +599,9 @@
     },
     "twig/extra-bundle": {
         "version": "v3.0.0"
+    },
+    "twig/string-extra": {
+        "version": "v3.0.1"
     },
     "twig/twig": {
         "version": "v3.0.0"
