@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Http\Mission\Dto\MissionDto;
 use App\Http\Mission\MissionClient;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,7 +28,6 @@ class HomeController extends AbstractController
     public function indexAction(): Response
     {
         $nearestMission = $this->missionClient->getNearestMission();
-
 
         return $this->render('home/index/index.html.twig', [
             'upcomingMission' => $nearestMission,

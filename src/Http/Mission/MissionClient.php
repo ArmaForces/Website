@@ -43,6 +43,6 @@ class MissionClient
         $upcomingMissions = iterator_to_array($this->getMissions(false));
 
         // api sorts missions latest to oldest
-        return $upcomingMissions[count($upcomingMissions)-1];
+        return $upcomingMissions[count($upcomingMissions) - 1];
     }
 }
