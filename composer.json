@@ -30,6 +30,7 @@
         "symfony/web-link": "4.4.*",
         "symfony/webpack-encore-bundle": "^1.7",
         "symfony/yaml": "4.4.*",
+        "twig/extra-bundle": "^3.0",
         "wohali/oauth2-discord-new": "^1.0"
     },
     "require-dev": {
