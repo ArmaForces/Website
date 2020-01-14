@@ -23,7 +23,10 @@ class MissionClient
         $this->client = ScopingHttpClient::forBaseUri($cachingClient, $missionApiUrl);
     }
 
-    public function getMissions(bool $includeArchive = true, int $ttl = 600): array
+    /**
+     * @return \Generator|MissionDto[]
+     */
+    public function getMissions(bool $includeArchive = true, int $ttl = 600): \Generator
     {
         $response = $this->client->request('GET', '/api/missions', [
             'query' => [
@@ -32,6 +35,9 @@ class MissionClient
             ],
         ]);
 
-        return $response->toArray();
+        foreach ($response->toArray() as $mission) {
+            yield MissionDto::fromArray($mission);
+        }
+    }
     }
 }
