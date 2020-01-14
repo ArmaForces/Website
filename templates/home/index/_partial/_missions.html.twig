@@ -1,32 +1,43 @@
 <!--Section Missions-->
 <section id="missions" class="text-center">
     <!-- Heading -->
-    <h2 class="mb-5 font-weight-bold">Misje</h2>
-
-    {% for missionsRow in recentMissions|batch(3) %}
+{#    <h2 class="mb-5 font-weight-bold">Misje</h2>#}
         <!--Grid row-->
         <div class="row">
-            {% for mission in missionsRow %}
-                <!--Grid column-->
-                <div class="col-lg-4 col-md-6 mb-4">
+            {# @var upcomingMission \App\Http\Mission\Dto\MissionDto #}
 
-                    <div class="view overlay z-depth-1-half">
-                        <img src="https://mdbootstrap.com/img/Photos/Others/images/48.jpg" class="img-fluid" alt="">
-                        <div class="mask-rel rgba-white-slight"></div>
-                    </div>
+            <!--Grid column-->
+            <div class="col-lg-7 col-md-6 mb-4">
+                <h4 class="my-4 font-weight-bold">{{ 'When do we play'|trans }}</h4>
+                <p class="grey-text">
+                    {% include 'home/index/_partial/' ~ app_lang ~ '/_games.html.twig' %}
+                </p>
+            </div>
+            <!--/Grid column-->
 
-                    <h4 class="my-4">
-                        <span class="font-weight-bold">{{ mission.title }}</span>
-                        - {{ mission.date|date('Y-M-d h:m') }}
-                    </h4>
-                    <p class="grey-text">
-                        {{ mission.description }}
-                    </p>
+            <!--Grid column-->
+            <div class="col-lg-4 col-md-6">
+                <h4 class="my-4 font-weight-bold">{{ 'Nearest mission'|trans }}</h4>
+
+                <div class="view overlay z-depth-1-half">
+                    <img src="{{ upcomingMission.image }}" class="img-fluid" alt="">
+                    <div class="mask-rel rgba-white-slight"></div>
                 </div>
-                <!--Grid column-->
-            {% endfor %}
+
+                <div class="text-left mt-2 mb-4">
+                    <h4>
+                        <span class="font-weight-bold">{{ upcomingMission.title }}</span>
+                    </h4>
+                    <span>
+                        {{ upcomingMission.date|date('Y-m-d h:m') }}
+                    </span>
+                </div>
+
+                <div class="text-justify">
+                    {{ ((upcomingMission.description|u).truncate(350, '...'))|markdown_to_html }}
+                </div>
+            </div>
+            <!--/Grid column-->
         </div>
         <!--Grid row-->
-    {% endfor %}
-
 </section>
