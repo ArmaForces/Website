@@ -41,4 +41,25 @@ class HomeController extends AbstractController
     {
         return $this->render('home/join_us/join_us.html.twig');
     }
+
+    /**
+     * @Route("/missions", name="_missions")
+     */
+    public function missionsAction(): Response
+    {
+        $missions = iterator_to_array($this->missionClient->getMissions(true));
+
+        $firstArchivedIndex = -1;
+        foreach ($missions as $idx => $mission) {
+            if ($mission->isArchived()) {
+                $firstArchivedIndex = $idx;
+                break;
+            }
+        }
+
+        return $this->render('home/missions/missions.html.twig', [
+            'openMissions' => array_slice($missions, 0, $firstArchivedIndex),
+            'archivedMissions' => array_slice($missions, $firstArchivedIndex)
+        ]);
+    }
 }
