@@ -99,3 +99,28 @@ html, body {
 .font-good-brush {
     font-family: 'Good Brush', monospace;
 }
+
+.text-logo {
+    &.font-good-brush {
+        font-size: 3.5rem;
+        font-weight: 300;
+        line-height: 1.2;
+
+        .letter-capital {
+            font-size: 4rem;
+        }
+    }
+}
+
+@media (min-width: 600px) {
+    .text-logo {
+        &.font-good-brush {
+            font-size: 4.5rem;
+            margin: -3rem;
+
+            .letter-capital {
+                font-size: 6rem;
+            }
+        }
+    }
+}
