@@ -42,6 +42,9 @@ class MissionDto
         $this->allSlots = $allSlots;
     }
 
+    /**
+     * @param array<mixed> $array
+     */
     public static function fromArray(array $array): MissionDto
     {
         return new self(
