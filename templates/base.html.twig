@@ -12,14 +12,20 @@
 
         <!-- OpenGraph -->
         <meta property="og:site_name" content="ArmaForces">
-        <meta property="og:title" content="ArmaForces - {{ 'Polish Arma 3 community'|trans }}">
+        <meta property="og:title" content="{{ title ?? ('ArmaForces - ' ~ 'Polish Arma 3 group'|trans) }}">
         <meta property="og:description" content="{{ app_community_description }}">
-        <meta property="og:image" content="{{ asset('img/ArmaForces.png') }}">
+        <meta property="og:image" content="{{ asset('img/favicon-192x192.png') }}">
         <!--/ OpenGraph -->
 
-        <link rel="icon shortcut" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+        <!-- Icons -->
+        <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+        <link rel="icon" href="{{ asset('img/favicon-192x192.png') }}" sizes="192x192" type="image/png">
+        <link rel="apple-touch-icon" href="{{ asset('img/favicon-192x192.png') }}">
+        <link rel="mask-icon" href="{{ asset('img/logo.svg') }}" color="#343a40">
+        <!-- Theme -->
+        <meta name="theme-color" content="#343a40 ">
 
-        <title>{{ title ?? 'ArmaForces - ' ~ 'Polish Arma 3 community'|trans }}</title>
+        <title>{{ title ?? ('ArmaForces - ' ~ 'Polish Arma 3 group'|trans) }}</title>
 
         <!-- FontAwesome -->
         <link
