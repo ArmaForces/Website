@@ -94,7 +94,7 @@ class MissionDto
 
     public function isArchived(): bool
     {
-        return -1 !== $this->getId();
+        return -1 === (int) $this->getId();
     }
 
     public function getImage(): ?string
