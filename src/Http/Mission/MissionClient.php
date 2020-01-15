@@ -16,7 +16,10 @@ class MissionClient
 
     public function __construct(HttpClientInterface $client, MissionStore $store, string $missionApiUrl)
     {
-        $cachingClient = new CachingHttpClient($client, $store);
+        $cachingClient = new CachingHttpClient($client, $store, [
+            // allow 12h of stale response
+            'stale_if_error' => 43200,
+        ]);
 
         $this->client = ScopingHttpClient::forBaseUri($cachingClient, $missionApiUrl);
     }
