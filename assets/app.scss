@@ -99,3 +99,16 @@ html, body {
 .font-good-brush {
     font-family: 'Good Brush', monospace;
 }
+
+div.img-mission {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 250px;
+
+    > img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+}
