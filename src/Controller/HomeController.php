@@ -28,9 +28,21 @@ class HomeController extends AbstractController
     public function indexAction(): Response
     {
         $nearestMission = $this->missionClient->getNearestMission();
+        $lastMission = null;
+
+        if (null === $nearestMission) {
+            foreach ($this->missionClient->getMissions(true) as $mission) {
+                if ($mission->isArchived()) {
+                    $lastMission = $mission;
+
+                    break;
+                }
+            }
+        }
 
         return $this->render('home/index/index.html.twig', [
             'upcomingMission' => $nearestMission,
+            'lastMission' => $lastMission,
         ]);
     }
 
