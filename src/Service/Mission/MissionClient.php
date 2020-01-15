@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Mission;
+namespace App\Service\Mission;
 
-use App\Http\Mission\Dto\MissionDto;
+use App\Service\Mission\Dto\MissionDto;
 use Symfony\Component\HttpClient\CachingHttpClient;
 use Symfony\Component\HttpClient\ScopingHttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;

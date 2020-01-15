@@ -38,10 +38,10 @@ services:
             $recruitRoleName: '%app.security.oauth.discord.recruit_role_name%'
             $memberRoleName: '%app.security.oauth.discord.member_role_name%'
 
-    App\Http\Mission\MissionClient:
+    App\Service\Mission\MissionClient:
         arguments:
             $missionApiUrl: '%env(APP_URL_API_MISSION)%'
 
-    App\Http\Mission\MissionStore:
+    App\Service\Mission\MissionStore:
         arguments:
             $storagePath: '%kernel.project_dir%/var/cache_http/%kernel.environment%'

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Mission\Dto;
+namespace App\Service\Mission\Dto;
 
 class MissionDto
 {
