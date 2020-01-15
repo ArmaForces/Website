@@ -53,13 +53,14 @@ class HomeController extends AbstractController
         foreach ($missions as $idx => $mission) {
             if ($mission->isArchived()) {
                 $firstArchivedIndex = $idx;
+
                 break;
             }
         }
 
         return $this->render('home/missions/missions.html.twig', [
             'openMissions' => array_slice($missions, 0, $firstArchivedIndex),
-            'archivedMissions' => array_slice($missions, $firstArchivedIndex)
+            'archivedMissions' => array_slice($missions, $firstArchivedIndex),
         ]);
     }
 }
