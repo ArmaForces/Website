@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Service\Mission\MissionClient;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,9 +18,13 @@ class HomeController extends AbstractController
     /** @var MissionClient */
     protected $missionClient;
 
-    public function __construct(MissionClient $missionClient)
+    /** @var LoggerInterface */
+    protected $logger;
+
+    public function __construct(MissionClient $missionClient, LoggerInterface $logger)
     {
         $this->missionClient = $missionClient;
+        $this->logger = $logger;
     }
 
     /**
@@ -27,22 +32,15 @@ class HomeController extends AbstractController
      */
     public function indexAction(): Response
     {
-        $nearestMission = $this->missionClient->getNearestMission();
-        $lastMission = null;
-
-        if (null === $nearestMission) {
-            foreach ($this->missionClient->getMissions(true) as $mission) {
-                if ($mission->isArchived()) {
-                    $lastMission = $mission;
-
-                    break;
-                }
-            }
+        try {
+            $nearestMission = $this->missionClient->getNearestMission();
+        } catch (\Exception $ex) {
+            $this->logger->warning('Could not fetch nearest mission', ['ex' => $ex]);
+            $nearestMission = null;
         }
 
         return $this->render('home/index/index.html.twig', [
-            'upcomingMission' => $nearestMission,
-            'lastMission' => $lastMission,
+            'nearestMission' => $nearestMission,
         ]);
     }
 
@@ -59,20 +57,18 @@ class HomeController extends AbstractController
      */
     public function missionsAction(): Response
     {
-        $missions = iterator_to_array($this->missionClient->getMissions(true));
-
-        $firstArchivedIndex = -1;
-        foreach ($missions as $idx => $mission) {
-            if ($mission->isArchived()) {
-                $firstArchivedIndex = $idx;
-
-                break;
-            }
+        try {
+            $openMissions = $this->missionClient->getMissions(false);
+            $archivedMissions = $this->missionClient->getArchivedMissions();
+        } catch (\Exception $ex) {
+            $this->logger->warning('Could not fetch while of missions', ['ex' => $ex]);
+            $openMissions = null;
+            $archivedMissions = null;
         }
 
         return $this->render('home/missions/missions.html.twig', [
-            'openMissions' => array_slice($missions, 0, $firstArchivedIndex),
-            'archivedMissions' => array_slice($missions, $firstArchivedIndex),
+            'openMissions' => $openMissions,
+            'archivedMissions' => $archivedMissions,
         ]);
     }
 }

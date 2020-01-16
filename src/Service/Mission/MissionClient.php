@@ -41,11 +41,46 @@ class MissionClient
         }
     }
 
+    /**
+     * Get nearest open or archived mission.
+     */
     public function getNearestMission(): ?MissionDto
     {
         $upcomingMissions = iterator_to_array($this->getMissions(false));
 
         // api sorts missions latest to oldest
-        return $upcomingMissions[count($upcomingMissions) - 1] ?? null;
+        $nearestMission = $upcomingMissions[count($upcomingMissions) - 1];
+
+        if (null === $nearestMission) {
+            $allMissions = $this->getMissions(true);
+            foreach ($allMissions as $mission) {
+                if ($mission->isArchived()) {
+                    $nearestMission = $mission;
+
+                    break;
+                }
+            }
+        }
+
+        return $nearestMission;
+    }
+
+    /**
+     * @return MissionDto[]
+     */
+    public function getArchivedMissions(): array
+    {
+        $allMissions = iterator_to_array($this->getMissions(true));
+
+        $firstArchivedIndex = -1;
+        foreach ($allMissions as $idx => $mission) {
+            if ($mission->isArchived()) {
+                $firstArchivedIndex = $idx;
+
+                break;
+            }
+        }
+
+        return -1 === $firstArchivedIndex ? [] : array_slice($allMissions, $firstArchivedIndex);
     }
 }
