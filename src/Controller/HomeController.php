@@ -61,7 +61,7 @@ class HomeController extends AbstractController
             $openMissions = $this->missionClient->getMissions(false);
             $archivedMissions = $this->missionClient->getArchivedMissions();
         } catch (\Exception $ex) {
-            $this->logger->warning('Could not fetch while of missions', ['ex' => $ex]);
+            $this->logger->warning('Could not fetch list of missions', ['ex' => $ex]);
             $openMissions = null;
             $archivedMissions = null;
         }
