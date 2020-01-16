@@ -1,7 +1,7 @@
 <!--Section Missions-->
 <section id="missions" class="text-center">
     <!--Grid row-->
-    <div class="row">
+    <div class="row justify-content-center">
 
         <!--Grid column-->
         <div class="col-lg-7 col-md-6 mb-4">
@@ -12,35 +12,31 @@
         </div>
         <!--/Grid column-->
 
-        <!--Grid column-->
-        <div class="col-lg-4 col-md-6">
-            {# @var mission \App\Http\Mission\Dto\MissionDto #}
-            {% if upcomingMission is not null %}
-                <h4 class="my-4 font-weight-bold">{{ 'Nearest mission'|trans }}</h4>
-                {% set mission = upcomingMission %}
-            {% else %}
-                <h4 class="my-4 font-weight-bold">{{ 'Last mission'|trans }}</h4>
-                {% set mission = lastMission %}
-            {% endif %}
+        {# @var nearestMission \App\Http\Mission\Dto\MissionDto #}
+        {% if nearestMission is not null %}
+            <!--Grid column-->
+            <div class="col-lg-4 col-md-6">
+                    <h4 class="my-4 font-weight-bold">{{ (nearestMission.archived ? 'Last mission' : 'Nearest mission')|trans }}</h4>
 
-            <div class="img-mission">
-                <img src="{{ mission.image }}" alt="">
-            </div>
+                    <div class="img-mission">
+                        <img src="{{ nearestMission.image }}" alt="">
+                    </div>
 
-            <div class="text-left mt-2 mb-4">
-                <h4>
-                    <span class="font-weight-bold">{{ mission.title }}</span>s
-                </h4>
-                <span>
-                    {{ mission.date|date('Y-m-d H:m') }}
-                </span>
-            </div>
+                    <div class="text-left mt-2 mb-4">
+                        <h4>
+                            <span class="font-weight-bold">{{ nearestMission.title }}</span>s
+                        </h4>
+                        <span>
+                            {{ nearestMission.date|date('Y-m-d H:m') }}
+                        </span>
+                    </div>
 
-            <div class="text-justify">
-                {{ ((mission.description|u).truncate(350, '...'))|markdown_to_html }}
+                    <div class="text-justify">
+                        {{ ((nearestMission.description|u).truncate(350, '...'))|markdown_to_html }}
+                    </div>
             </div>
-        </div>
-        <!--/Grid column-->
+            <!--/Grid column-->
+        {% endif %}
     </div>
     <!--Grid row-->
 </section>

@@ -12,74 +12,79 @@
     <div class="mt-3">
         <!--Section Missions-->
         <section id="missions" class="text-center">
-            <!-- Heading -->
-            <h2 class="mb-5 font-weight-bold">{{ 'Open missions'|trans }}</h2>
+            {% if openMissions is null or archivedMissions is null %}
+                <h2>{{ 'Something went wrong while fetching missions list...'|trans }}</h2>
+                <h3>{{ 'Try again later'|trans }}</h3>
+            {% else %}
+                <!-- Heading -->
+                <h2 class="mb-5 font-weight-bold">{{ 'Open missions'|trans }}</h2>
 
-            {% for missionsRow in openMissions|batch(3) %}
-                <!--Grid row-->
-                <div class="row">
-                    {% for mission in missionsRow %}
-                        {# @var mission \App\Http\Mission\Dto\MissionDto #}
-                        <!--Grid column-->
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="img-mission">
-                                <img src="{{ mission.image }}" alt="">
+                {% for missionsRow in openMissions|batch(3) %}
+                    <!--Grid row-->
+                    <div class="row">
+                        {% for mission in missionsRow %}
+                            {# @var mission \App\Http\Mission\Dto\MissionDto #}
+                            <!--Grid column-->
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="img-mission">
+                                    <img src="{{ mission.image }}" alt="">
+                                </div>
+
+                                <div class="text-left mt-2 mb-4">
+                                    <h4>
+                                        <span class="font-weight-bold">{{ mission.title }}</span>
+                                    </h4>
+                                    <span>
+                                        {{ mission.date|date('Y-m-d H:m') }}
+                                    </span>
+                                </div>
+
+                                <div class="text-justify">
+                                    {{ ((mission.description|u).truncate(350, '...'))|markdown_to_html }}
+                                </div>
                             </div>
+                            <!--Grid column-->
+                        {% endfor %}
+                    </div>
+                    <!--Grid row-->
+                {% endfor %}
+            </section>
 
-                            <div class="text-left mt-2 mb-4">
-                                <h4>
-                                    <span class="font-weight-bold">{{ mission.title }}</span>
-                                </h4>
-                                <span>
-                                    {{ mission.date|date('Y-m-d H:m') }}
-                                </span>
+            <!--Section Missions-->
+            <section id="missionsArchive" class="text-center">
+                <!-- Heading -->
+                <h2 class="mb-5 font-weight-bold">{{ 'Completed missions'|trans }}</h2>
+
+                {% for missionsRow in archivedMissions|batch(3) %}
+                    <!--Grid row-->
+                    <div class="row">
+                        {% for mission in missionsRow %}
+                            {# @var mission \App\Http\Mission\Dto\MissionDto #}
+                            <!--Grid column-->
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="img-mission">
+                                    <img src="{{ mission.image }}" alt="">
+                                </div>
+
+                                <div class="text-left mt-2 mb-4">
+                                    <h4>
+                                        <span class="font-weight-bold">{{ mission.title }}</span>
+                                    </h4>
+                                    <span>
+                                        {{ mission.date|date('Y-m-d H:m') }}
+                                    </span>
+                                </div>
+
+                                <div class="text-justify">
+                                    {{ ((mission.description|u).truncate(350, '...'))|markdown_to_html }}
+                                </div>
                             </div>
-
-                            <div class="text-justify">
-                                {{ ((mission.description|u).truncate(350, '...'))|markdown_to_html }}
-                            </div>
-                        </div>
-                        <!--Grid column-->
-                    {% endfor %}
-                </div>
-                <!--Grid row-->
-            {% endfor %}
-        </section>
-
-        <!--Section Missions-->
-        <section id="missionsArchive" class="text-center">
-            <!-- Heading -->
-            <h2 class="mb-5 font-weight-bold">{{ 'Completed missions'|trans }}</h2>
-
-            {% for missionsRow in archivedMissions|batch(3) %}
-                <!--Grid row-->
-                <div class="row">
-                    {% for mission in missionsRow %}
-                        {# @var mission \App\Http\Mission\Dto\MissionDto #}
-                        <!--Grid column-->
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="img-mission">
-                                <img src="{{ mission.image }}" alt="">
-                            </div>
-
-                            <div class="text-left mt-2 mb-4">
-                                <h4>
-                                    <span class="font-weight-bold">{{ mission.title }}</span>
-                                </h4>
-                                <span>
-                                    {{ mission.date|date('Y-m-d H:m') }}
-                                </span>
-                            </div>
-
-                            <div class="text-justify">
-                                {{ ((mission.description|u).truncate(350, '...'))|markdown_to_html }}
-                            </div>
-                        </div>
-                        <!--Grid column-->
-                    {% endfor %}
-                </div>
-                <!--Grid row-->
-            {% endfor %}
+                            <!--Grid column-->
+                        {% endfor %}
+                    </div>
+                    <!--Grid row-->
+                {% endfor %}
+            {% endif %}
         </section>
     </div>
 {% endblock %}
