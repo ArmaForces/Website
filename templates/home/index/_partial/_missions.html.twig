@@ -1,48 +1,46 @@
 <!--Section Missions-->
 <section id="missions" class="text-center">
-    <!-- Heading -->
-{#    <h2 class="mb-5 font-weight-bold">Misje</h2>#}
-        <!--Grid row-->
-        <div class="row">
+    <!--Grid row-->
+    <div class="row">
 
-            <!--Grid column-->
-            <div class="col-lg-7 col-md-6 mb-4">
-                <h4 class="my-4 font-weight-bold">{{ 'When do we play'|trans }}</h4>
-                <p class="grey-text">
-                    {% include 'home/index/_partial/' ~ app_lang ~ '/_games.html.twig' %}
-                </p>
-            </div>
-            <!--/Grid column-->
-
-            <!--Grid column-->
-            <div class="col-lg-4 col-md-6">
-                {# @var mission \App\Http\Mission\Dto\MissionDto #}
-                {% if upcomingMission is not null %}
-                    <h4 class="my-4 font-weight-bold">{{ 'Nearest mission'|trans }}</h4>
-                    {% set mission = upcomingMission %}
-                {% else %}
-                    <h4 class="my-4 font-weight-bold">{{ 'Last mission'|trans }}</h4>
-                    {% set mission = lastMission %}
-                {% endif %}
-
-                <div class="img-mission">
-                    <img src="{{ mission.image }}" alt="">
-                </div>
-
-                <div class="text-left mt-2 mb-4">
-                    <h4>
-                        <span class="font-weight-bold">{{ mission.title }}</span>s
-                    </h4>
-                    <span>
-                        {{ mission.date|date('Y-m-d H:m') }}
-                    </span>
-                </div>
-
-                <div class="text-justify">
-                    {{ ((mission.description|u).truncate(350, '...'))|markdown_to_html }}
-                </div>
-            </div>
-            <!--/Grid column-->
+        <!--Grid column-->
+        <div class="col-lg-7 col-md-6 mb-4">
+            <h4 class="my-4 font-weight-bold">{{ 'When do we play'|trans }}</h4>
+            <p class="grey-text">
+                {% include 'home/index/_partial/' ~ app_lang ~ '/_games.html.twig' %}
+            </p>
         </div>
-        <!--Grid row-->
+        <!--/Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-6">
+            {# @var mission \App\Http\Mission\Dto\MissionDto #}
+            {% if upcomingMission is not null %}
+                <h4 class="my-4 font-weight-bold">{{ 'Nearest mission'|trans }}</h4>
+                {% set mission = upcomingMission %}
+            {% else %}
+                <h4 class="my-4 font-weight-bold">{{ 'Last mission'|trans }}</h4>
+                {% set mission = lastMission %}
+            {% endif %}
+
+            <div class="img-mission">
+                <img src="{{ mission.image }}" alt="">
+            </div>
+
+            <div class="text-left mt-2 mb-4">
+                <h4>
+                    <span class="font-weight-bold">{{ mission.title }}</span>s
+                </h4>
+                <span>
+                    {{ mission.date|date('Y-m-d H:m') }}
+                </span>
+            </div>
+
+            <div class="text-justify">
+                {{ ((mission.description|u).truncate(350, '...'))|markdown_to_html }}
+            </div>
+        </div>
+        <!--/Grid column-->
+    </div>
+    <!--Grid row-->
 </section>
