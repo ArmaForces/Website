@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <header id="header">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            {% include '_partial/_navbar.html.twig' %}
+        </nav>
+    </header>
+
+    {% block container %}
+    {% endblock %}
+
+    {% include '_partial/_footer.html.twig' %}
+{% endblock %}

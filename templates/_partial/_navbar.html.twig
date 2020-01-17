@@ -1,0 +1,80 @@
+<div class="container">
+    <!-- Navbar brand -->
+    <a class="navbar-brand" href="{{ path('app_home_index') }}">
+        <img src="{{ asset('img/favicon-192x192.png') }}" alt="logo" class="img-fluid">
+    </a>
+
+    <!-- Collapse button -->
+    <button class="navbar-toggler" type="button"
+        data-toggle="collapse" data-target="#mainNav"
+        aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation"
+    >
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="mainNav">
+        <!-- Links -->
+        <ul class="navbar-nav mr-auto smooth-scroll">
+            <li class="nav-item">
+                <a class="nav-link" href="/">{{ 'Homepage'|trans }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_home_missions') }}">{{ 'Missions'|trans }}</a>
+            </li>
+            <li class="nav-item">
+                {#
+                    TODO temporary Vue app link
+                    TODO move to app
+                #}
+                <a class="nav-link" href="{{ url.modlist }}">{{ 'Mods'|trans }}</a>
+            </li>
+        </ul>
+        <!-- Links -->
+
+        <!-- Social Icon  -->
+        <ul class="navbar-nav nav-flex-icons">
+            <!-- Discord -->
+            <li class="nav-item">
+                <a href="{{ url.discord }}" target="_blank" class="nav-link">
+                    <i class="fab fa-discord"></i>
+                </a>
+            </li>
+            <!-- Steam -->
+            <li class="nav-item">
+                <a href="{{ url.steam }}" target="_blank" class="nav-link">
+                    <i class="fab fa-steam"></i>
+                </a>
+            </li>
+            <!-- TeamSpeak -->
+            <li class="nav-item"
+                {% if not is_granted('ROLE_USER') -%}
+                title="{{ 'Available after login'|trans }}"
+                data-toggle="tooltip" data-placement="bottom"
+                {% endif %}
+            >
+                {% if not is_granted('ROLE_USER') -%}
+                    <a class="nav-link disabled"><i class="fab fa-teamspeak"></i></a>
+                {%- else -%}
+                    <a href="{{ url.teamspeak }}" class="nav-link">
+                        <i class="fab fa-teamspeak"></i>
+                    </a>
+                {%- endif %}
+            </li>
+            <!-- Login -->
+            <li id="navmenu" class="nav-item dropdown dropleft">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-user-circle {% if is_granted('ROLE_USER') %}avatar" style="background-image: url({{ current_user_avatar_url() }}){% endif %}"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {% if is_granted('ROLE_USER') -%}
+                        <a class="dropdown-item" href="{{ path('app_security_logout') }}">{{ 'Logout'|trans }}</a>
+                    {% else %}
+                        <a class="dropdown-item" href="{{ path('app_security_connect_discord') }}">{{ 'Login'|trans }}</a>
+                    {% endif %}
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!-- Collapsible content -->
+</div>

@@ -2,22 +2,29 @@ version: '3.4'
 
 services:
 
-  php:
-    build:
-      target: armaforces_web_php_dev
-    volumes:
-      - './:/www/app:rw,cached'
-    environment:
-      XDEBUG_CONFIG: >-
-        remote_enable=1
-        remote_autostart=0
-        remote_host=host.docker.internal
-        remote_port=9097
-        idekey=PHPSTORM
-      # This should correspond to the server declared in PHPStorm `Preferences | Languages & Frameworks | PHP | Servers`
-      # Then PHPStorm will use the corresponding path mappings
-      PHP_IDE_CONFIG: serverName=armaforces-web
+    php:
+        build:
+            target: armaforces_web_php_dev
+        volumes:
+            - './:/www/app:rw,cached'
+        environment:
+            XDEBUG_CONFIG: >-
+                remote_enable=1
+                remote_autostart=0
+                remote_host=host.docker.internal
+                remote_port=9097
+                idekey=PHPSTORM
+            # This should correspond to the server declared in PHPStorm `Preferences | Languages & Frameworks | PHP | Servers`
+            # Then PHPStorm will use the corresponding path mappings
+            PHP_IDE_CONFIG: serverName=armaforces-web
 
-  nginx:
-    volumes:
-      - './public:/www/app/public:ro'
+    nginx:
+        volumes:
+            - './public:/www/app/public:ro'
+
+    mysql:
+        image: mysql:5.7
+        env_file:
+            - .docker/mysql/vars.env
+        ports:
+            - "33060:3306"

@@ -1,0 +1,81 @@
+{% extends 'container_fluid.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('landing') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('landing') }}
+{% endblock %}
+
+{% block body %}
+    <!--Main Navigation-->
+    <header>
+        <!--Navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar">
+            {% include '_partial/_navbar.html.twig' %}
+        </nav>
+        <!--/.Navbar-->
+
+        <!--Mask-->
+        <div id="intro" class="{{ random(['bg-unsung', 'bg-rhs', 'bg-vanilla', 'bg-ifa']) }}">
+            <div class="mask">
+                <div class="container-fluid d-flex align-items-center justify-content-center h-100">
+
+                    <div class="row d-flex justify-content-center text-center">
+
+                        <div class="col-md-12">
+
+                            <!-- Heading -->
+                            <h2 class="text-logo font-good-brush pt-5 mb-2">
+                                <span class="letter-capital">A</span>rma<span class="letter-capital">F</span>orces
+                            </h2>
+
+                            <!-- Divider -->
+                            <hr class="hr-dark">
+
+                            <!-- Description -->
+                            <h4 class="mb-4 mt-2">
+                                Semper specialis
+                            </h4>
+
+                            <!-- Button About -->
+                            <a href="{{ path('app_home_index') }}#about" class="btn btn-outline-white mx-3 smooth-scroll">
+                                {{ 'About us'|trans }}
+                            </a>
+
+                            <!-- Button Join Us -->
+                            <a href="{{ path('app_home_join_us') }}" class="btn btn-outline-white mx-3">
+                                {{ 'Join us!'|trans }}
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/.Mask-->
+
+    </header>
+    <!--/Main Navigation-->
+
+    <!--Main Content-->
+    <main class="mt-5">
+        <div class="container">
+            {% include 'home/index/_partial/_about.html.twig' %}
+
+            <hr class="hr-dark my-5">
+
+            {% include 'home/index/_partial/_missions.html.twig' %}
+
+            {#<hr class="my-5">
+            {% include 'home/_partial/_media.html.twig' %}#}
+
+        </div>
+    </main>
+    <!--Main layout-->
+
+    {% include '_partial/_footer.html.twig' %}
+{% endblock body %}

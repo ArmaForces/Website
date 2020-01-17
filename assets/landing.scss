@@ -1,0 +1,64 @@
+
+header, #intro {
+    height: 100%;
+}
+
+#intro {
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+
+    .btn-outline-white {
+        width: 100px;
+    }
+
+    &.bg-unsung {
+        background: url("img/landing_uns.jpg") no-repeat center center fixed;
+        background-size: cover;
+    }
+
+    &.bg-rhs {
+        background: url("img/landing_rhs.jpg") no-repeat center center fixed;
+        background-size: cover;
+    }
+
+    &.bg-vanilla {
+        background: url("img/landing_vanilla.jpg") no-repeat center center fixed;
+        background-size: cover;
+    }
+
+    &.bg-ifa {
+        background: url("img/landing_ifa.jpg") no-repeat center center fixed;
+        background-size: cover;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar:not(.top-nav-collapse) {
+        background-color: #24355C;
+    }
+}
+
+@media (min-width: 800px) and (max-width: 850px) {
+    .navbar:not(.top-nav-collapse) {
+        background-color: #24355C;
+    }
+}
+
+@media (min-width: 600px) {
+    .navbar.scrolling-navbar {
+        padding-top: 16px;
+        padding-bottom: 16px;
+        transition: background 0.5s ease-in-out, padding 0.5s ease-in-out;
+    }
+
+    .navbar.scrolling-navbar .navbar-nav > li {
+        -webkit-transition-duration: 1s;
+        transition-duration: 1s;
+    }
+
+    .navbar.scrolling-navbar.top-nav-collapse {
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
+}

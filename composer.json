@@ -2,34 +2,45 @@
     "type": "project",
     "license": "proprietary",
     "require": {
-        "php": "^7.2.5",
+        "php": "^7.1.3",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "erusev/parsedown": "^1.7",
+        "knpuniversity/oauth2-client-bundle": "^1.31",
+        "ramsey/uuid": "^3.9",
+        "restcord/restcord": "^0.3.2",
         "sensio/framework-extra-bundle": "^5.1",
-        "symfony/asset": "5.0.*",
-        "symfony/console": "5.0.*",
-        "symfony/dotenv": "5.0.*",
-        "symfony/expression-language": "5.0.*",
+        "symfony/asset": "4.4.*",
+        "symfony/console": "4.4.*",
+        "symfony/dotenv": "4.4.*",
+        "symfony/expression-language": "4.4.*",
         "symfony/flex": "^1.3.1",
-        "symfony/form": "5.0.*",
-        "symfony/framework-bundle": "5.0.*",
-        "symfony/http-client": "5.0.*",
-        "symfony/intl": "5.0.*",
-        "symfony/mailer": "5.0.*",
+        "symfony/form": "4.4.*",
+        "symfony/framework-bundle": "4.4.*",
+        "symfony/http-client": "4.4.*",
+        "symfony/intl": "4.4.*",
+        "symfony/mailer": "4.4.*",
         "symfony/monolog-bundle": "^3.1",
-        "symfony/notifier": "5.0.*",
         "symfony/orm-pack": "*",
-        "symfony/process": "5.0.*",
-        "symfony/security-bundle": "5.0.*",
+        "symfony/process": "4.4.*",
+        "symfony/security-bundle": "4.4.*",
         "symfony/serializer-pack": "*",
-        "symfony/string": "5.0.*",
-        "symfony/translation": "5.0.*",
+        "symfony/translation": "4.4.*",
         "symfony/twig-pack": "*",
-        "symfony/validator": "5.0.*",
-        "symfony/web-link": "5.0.*",
-        "symfony/yaml": "5.0.*"
+        "symfony/validator": "4.4.*",
+        "symfony/web-link": "4.4.*",
+        "symfony/webpack-encore-bundle": "^1.7",
+        "symfony/yaml": "4.4.*",
+        "twig/extra-bundle": "^3.0",
+        "twig/markdown-extra": "^3.0",
+        "twig/string-extra": "^3.0",
+        "wohali/oauth2-discord-new": "^1.0"
     },
     "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "phpstan/phpstan": "^0.12.3",
+        "phpstan/phpstan-doctrine": "^0.12.3",
+        "phpstan/phpstan-symfony": "^0.12.1",
         "roave/security-advisories": "dev-master",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
@@ -56,7 +67,6 @@
         "paragonie/random_compat": "2.*",
         "symfony/polyfill-ctype": "*",
         "symfony/polyfill-iconv": "*",
-        "symfony/polyfill-php72": "*",
         "symfony/polyfill-php71": "*",
         "symfony/polyfill-php70": "*",
         "symfony/polyfill-php56": "*"
@@ -73,7 +83,18 @@
             "@auto-scripts"
         ],
         "cs": [
-            "php bin/vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --allow-risky=yes"
+            "php vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix"
+        ],
+        "stan": [
+            "php vendor/phpstan/phpstan/phpstan analyse --level=6 src"
+        ],
+        "lint": [
+            "php bin/console lint:twig templates/",
+            "php bin/console lint:yaml --parse-tags config/",
+            "php bin/console doctrine:schema:validate",
+            "php bin/console doctrine:mapping:info",
+            "php bin/console debug:translation --domain=messages pl --only-unused",
+            "php bin/console debug:translation --domain=messages pl --only-missing"
         ]
     },
     "conflict": {
@@ -82,7 +103,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "5.0.*"
+            "require": "4.4.*"
         }
     }
 }
