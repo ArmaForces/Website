@@ -33,23 +33,14 @@ header, #intro {
     }
 }
 
-@media (max-width: 768px) {
-    .navbar:not(.top-nav-collapse) {
-        background-color: #24355C;
-    }
-}
-
-@media (min-width: 800px) and (max-width: 850px) {
-    .navbar:not(.top-nav-collapse) {
-        background-color: #24355C;
-    }
+.navbar.scrolling-navbar {
+    transition: background 0.5s ease-in-out, padding 0.5s ease-in-out;
 }
 
 @media (min-width: 600px) {
     .navbar.scrolling-navbar {
         padding-top: 16px;
         padding-bottom: 16px;
-        transition: background 0.5s ease-in-out, padding 0.5s ease-in-out;
     }
 
     .navbar.scrolling-navbar .navbar-nav > li {
