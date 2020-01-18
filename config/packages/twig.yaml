@@ -1,5 +1,6 @@
 parameters:
     app.url.teamspeak: '%env(APP_URL_TEAMSPEAK)%'
+    app.google_analytics_token: '%env(APP_GOOGLE_ANALYTICS_TOKEN)%'
 
 twig:
     default_path: '%kernel.project_dir%/templates'
@@ -7,6 +8,7 @@ twig:
     strict_variables: '%kernel.debug%'
     exception_controller: null
     globals:
+        google_analytics_token: '%app.google_analytics_token%'
         url:
             discord: 'https://discord.gg/wcuVSrU'
             steam:   'https://steamcommunity.com/id/armaforces/myworkshopfiles?appid=107410'
