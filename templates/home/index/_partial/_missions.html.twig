@@ -15,7 +15,7 @@
         {# @var nearestMission \App\Http\Mission\Dto\MissionDto #}
         {% if nearestMission is not null %}
             <!--Grid column-->
-            <div class="col-lg-4 col-md-6">
+            <div class="col-lg-4 col-md-6 mission">
                     <h4 class="my-4 font-weight-bold">{{ nearestMission.archived ? 'Last mission'|trans : 'Nearest mission'|trans }}</h4>
 
                     <div class="img-mission">
