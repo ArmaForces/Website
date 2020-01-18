@@ -25,7 +25,7 @@
                         {% for mission in missionsRow %}
                             {# @var mission \App\Http\Mission\Dto\MissionDto #}
                             <!--Grid column-->
-                            <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="col-lg-4 col-md-6 mb-4 mission">
                                 <div class="img-mission">
                                     <img src="{{ mission.image }}" alt="">
                                 </div>
@@ -43,10 +43,10 @@
                                     {{ ((mission.description|u).truncate(350, '...'))|markdown_to_html }}
                                 </div>
                             </div>
-                            <!--Grid column-->
+                            <!--/Grid column-->
                         {% endfor %}
                     </div>
-                    <!--Grid row-->
+                    <!--/Grid row-->
                 {% endfor %}
             </section>
 
@@ -61,9 +61,9 @@
                         {% for mission in missionsRow %}
                             {# @var mission \App\Http\Mission\Dto\MissionDto #}
                             <!--Grid column-->
-                            <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="col-lg-4 col-md-6 mb-4 mission">
                                 <div class="img-mission">
-                                    <img src="{{ mission.image }}" alt="">
+                                    <img class="lazy" src="{{ asset('img/placeholder_320x250.png') }}" data-src="{{ mission.image }}" alt="">
                                 </div>
 
                                 <div class="text-left mt-2 mb-4">
@@ -79,10 +79,10 @@
                                     {{ ((mission.description|u).truncate(350, '...'))|markdown_to_html }}
                                 </div>
                             </div>
-                            <!--Grid column-->
+                            <!--/Grid column-->
                         {% endfor %}
                     </div>
-                    <!--Grid row-->
+                    <!--/Grid row-->
                 {% endfor %}
             {% endif %}
         </section>
