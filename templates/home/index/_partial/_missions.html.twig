@@ -16,7 +16,7 @@
         {% if nearestMission is not null %}
             <!--Grid column-->
             <div class="col-lg-4 col-md-6">
-                    <h4 class="my-4 font-weight-bold">{{ (nearestMission.archived ? 'Last mission' : 'Nearest mission')|trans }}</h4>
+                    <h4 class="my-4 font-weight-bold">{{ nearestMission.archived ? 'Last mission'|trans : 'Nearest mission'|trans }}</h4>
 
                     <div class="img-mission">
                         <img src="{{ nearestMission.image }}" alt="">
