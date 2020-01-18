@@ -7,6 +7,8 @@ twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     exception_controller: null
+    form_themes:
+        - 'bootstrap_4_layout.html.twig'
     globals:
         google_analytics_token: '%app.google_analytics_token%'
         url:
