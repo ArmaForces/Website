@@ -41,7 +41,7 @@ class PermissionsMakeAdminCommand extends Command
     {
         $this
             ->setDescription('Grants permissions to manage permissions to given user identified by Discord user id.')
-            ->addArgument('discord_user_id', InputArgument::REQUIRED, 'Discord user id')
+            ->addArgument('discord_user_id', InputArgument::REQUIRED, 'Discord user id (18-digits integer)')
         ;
     }
 
@@ -53,7 +53,7 @@ class PermissionsMakeAdminCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $discordUserId = $input->getArgument('discord_user_id');
         if (!preg_match('/[\d]{18}/', $discordUserId)) {
-            $io->error(sprintf('Incorrect format of user id. Must be 18-digits integer, "%s" given!', $discordUserId));
+            $io->error(sprintf('Incorrect format of user id. Must be a 18-digits integer, "%s" given!', $discordUserId));
 
             return 1;
         }
