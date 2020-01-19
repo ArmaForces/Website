@@ -45,10 +45,9 @@ class ImgproxyExtension extends AbstractExtension
         $encodedUrl = rtrim(strtr(base64_encode($url), '+/', '-_'), '=');
 
         $resizingType = 'fit';
-        $extension = 'png';
         $enlargeInt = (int) $enlarge;
 
-        $path = "/resize:{$resizingType}:{$width}:{$height}:{$enlargeInt}/{$encodedUrl}.{$extension}";
+        $path = "/resize:{$resizingType}:{$width}:{$height}:{$enlargeInt}/{$encodedUrl}";
         $signature = $this->getSignature($path);
 
         return sprintf('%s/%s%s', $this->baseProxyUrl, $signature, $path);
