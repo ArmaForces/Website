@@ -19,7 +19,7 @@
                     <h4 class="my-4 font-weight-bold">{{ nearestMission.archived ? 'Last mission'|trans : 'Nearest mission'|trans }}</h4>
 
                     <div class="img-mission">
-                        <img src="{{ nearestMission.image }}" alt="">
+                        <img src="{{ proxy_image(nearestMission.image) }}" alt="">
                     </div>
 
                     <div class="text-left mt-2 mb-4">
