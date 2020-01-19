@@ -8,6 +8,13 @@
         <field name="email" type="string" length="255"/>
         <field name="externalId" type="string" length="64" unique="true"/>
         <field name="avatarHash" type="string" length="512" nullable="true"/>
+
+        <one-to-one field="permissions" target-entity="App\Entity\Permissions\Permissions">
+            <join-column name="permissions_id" referenced-column-name="id" nullable="false"/>
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-one>
     </entity>
 
 </doctrine-mapping>
