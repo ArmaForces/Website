@@ -52,18 +52,33 @@ class PermissionsMakeAdminCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
         $discordUserId = $input->getArgument('discord_user_id');
-
-        $userEntity = $this->userEntityRepository->findByExternalId($discordUserId);
-        if (!$userEntity) {
-            $io->error(sprintf('User not found by given id: "%s"', $discordUserId));
+        if (!preg_match('/[\d]{18}/', $discordUserId)) {
+            $io->error(sprintf('Incorrect format of user id. Must be 18-digits integer, "%s" given!', $discordUserId));
 
             return 1;
         }
 
-        $userEntity->getPermissions()->setManagePermissions(true);
+        $discordUserId = (int) $discordUserId;
+
+        $userEntity = $this->userEntityRepository->findByExternalId($discordUserId);
+        if (!$userEntity) {
+            $io->error(sprintf('User not found by given id: "%s"!', $discordUserId));
+
+            return 1;
+        }
+
+        $permissionsEntity = $userEntity->getPermissions();
+
+        if ($permissionsEntity->canManagePermissions()) {
+            $io->text(sprintf('User with id: "%s" already have admin permissions assigned!', $discordUserId));
+
+            return 0;
+        }
+
+        $permissionsEntity->setManagePermissions(true);
         $this->entityManager->flush();
 
-        $io->success(sprintf('Successfully granted admin permissions for user with id: "%s"', $discordUserId));
+        $io->success(sprintf('Successfully granted admin permissions for user with id: "%s"!', $discordUserId));
 
         return 0;
     }
