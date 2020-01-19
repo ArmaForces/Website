@@ -17,9 +17,8 @@ class UserEntity extends AbstractUserEntity
 
     public function __construct(string $username, string $email, string $externalId)
     {
-        parent::__construct();
+        parent::__construct($username);
 
-        $this->username = $username;
         $this->email = $email;
         $this->externalId = $externalId;
     }

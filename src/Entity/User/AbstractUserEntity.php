@@ -22,6 +22,13 @@ class AbstractUserEntity extends AbstractEntity implements UserInterface
     /** @var string */
     protected $role = RoleEnum::ROLE_USER;
 
+    public function __construct(string $username)
+    {
+        parent::__construct();
+
+        $this->username = $username;
+    }
+
     public function getUsername(): string
     {
         return $this->username;
