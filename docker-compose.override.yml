@@ -28,3 +28,13 @@ services:
             - .docker/mysql/vars.env
         ports:
             - "33060:3306"
+
+    imgproxy:
+        image: darthsim/imgproxy:v2
+        environment:
+            IMGPROXY_KEY: '61726d61'
+            IMGPROXY_SALT: '666f72636573'
+            IMGPROXY_ENABLE_WEBP_DETECTION: 'true'
+            IMGPROXY_MAX_ANIMATION_FRAMES: 600
+        ports:
+            - '8888:8080'
