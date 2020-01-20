@@ -32,8 +32,8 @@ services:
     imgproxy:
         image: darthsim/imgproxy:v2
         environment:
-            IMGPROXY_KEY: '656330653435323164373764623936363831323035636534383037'
-            IMGPROXY_SALT: '6163326538386237663736633666653333363037623536613330'
+            IMGPROXY_KEY: '61726d61'
+            IMGPROXY_SALT: '666f72636573'
             IMGPROXY_ENABLE_WEBP_DETECTION: 'true'
             IMGPROXY_MAX_ANIMATION_FRAMES: 600
         ports:
