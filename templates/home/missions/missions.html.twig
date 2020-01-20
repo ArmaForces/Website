@@ -27,7 +27,9 @@
                             <!--Grid column-->
                             <div class="col-lg-4 col-md-6 mb-4 mission">
                                 <div class="img-mission">
-                                    <img src="{{ mission.image }}" alt="">
+                                    {% if mission.image %}
+                                        <img src="{{ proxy_image(mission.image) }}" alt="">
+                                    {% endif %}
                                 </div>
 
                                 <div class="text-left mt-2 mb-4">
@@ -63,7 +65,9 @@
                             <!--Grid column-->
                             <div class="col-lg-4 col-md-6 mb-4 mission">
                                 <div class="img-mission">
-                                    <img class="lazy" src="{{ asset('img/placeholder_320x250.png') }}" data-src="{{ mission.image }}" alt="">
+                                    {% if mission.image %}
+                                        <img class="lazy" src="{{ asset('img/placeholder_320x250.png') }}" data-src="{{ proxy_image(mission.image) }}" alt="">
+                                    {% endif %}
                                 </div>
 
                                 <div class="text-left mt-2 mb-4">

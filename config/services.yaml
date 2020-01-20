@@ -45,3 +45,9 @@ services:
     App\Service\Mission\MissionStore:
         arguments:
             $storagePath: '%kernel.project_dir%/var/cache_http/%kernel.environment%'
+
+    App\Twig\ImgproxyExtension:
+        arguments:
+            $baseProxyUrl: '%env(APP_IMGPROXY_URL)%'
+            $proxyKey: '%env(APP_IMGPROXY_KEY)%'
+            $proxySalt: '%env(APP_IMGPROXY_SALT)%'
