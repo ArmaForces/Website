@@ -1,0 +1,27 @@
+{% extends 'container.html.twig' %}
+
+{% block content %}
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">{{ 'Username'|trans }}</th>
+                <th scope="col">{{ 'Discord ID'|trans }}</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+                {# @var user \App\Entity\User\UserEntity #}
+                {% for user in users %}
+                    <tr>
+                        <th scope="row">{{ user.username }}</th>
+                        <td>{{ user.externalId }}</td>
+                        <td class="table-actions">
+                            <a href="{{ path('app_user_delete', { id: user.id }) }}">{{ 'Delete'|trans }}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
