@@ -1,5 +1,8 @@
 {% extends 'container.html.twig' %}
 
+{# @var currentUser \App\Entity\User\UserEntity #}
+{% set currentUser = app.token.user %}
+
 {% block content %}
     <div class="table-responsive">
         <table class="table">
@@ -18,7 +21,10 @@
                         <td>{{ user.externalId }}</td>
                         <td class="table-actions">
                             <a href="{{ path('app_user_permissions', { id: user.id }) }}">{{ 'Permissions'|trans }}</a>
-                            <a href="{{ path('app_user_delete', { id: user.id }) }}">{{ 'Delete'|trans }}</a>
+
+                            {% if currentUser.id != user.id %}
+                                <a href="{{ path('app_user_delete', { id: user.id }) }}">{{ 'Delete'|trans }}</a>
+                            {% endif %}
                         </td>
                     </tr>
                 {% endfor %}

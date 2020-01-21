@@ -47,6 +47,14 @@ class UserController extends AbstractController
      */
     public function deleteAction(UserEntity $userEntity): Response
     {
+        /** @var UserEntity $currentUser */
+        $currentUser = $this->getUser();
+
+        // Prevent user from deleting his own account
+        if ($currentUser->getId() === $userEntity->getId()) {
+            throw $this->createAccessDeniedException('You cannot remove your own account!');
+        }
+
         $this->entityManager->remove($userEntity);
         $this->entityManager->flush();
 
