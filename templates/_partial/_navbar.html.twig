@@ -52,8 +52,8 @@
             <!-- TeamSpeak -->
             <li class="nav-item"
                 {% if not is_granted('ROLE_USER') -%}
-                title="{{ 'Available after login'|trans }}"
-                data-toggle="tooltip" data-placement="bottom"
+                    title="{{ 'Available after login'|trans }}"
+                    data-toggle="tooltip" data-placement="bottom"
                 {% endif %}
             >
                 {% if not is_granted('ROLE_USER') -%}
