@@ -122,6 +122,8 @@ class DiscordAuthenticator extends SocialAuthenticator
         $discordClientAsBot = $this->discordClientFactory->createFromToken($this->botToken, DiscordClientFactory::TOKEN_TYPE_BOT);
         $this->verifyDiscordRoleAssigned($discordClientAsBot, $discordResourceOwner);
 
+        /** @var string $fullUsername */
+        $fullUsername = $discordResourceOwner->getUsername().'#'.$discordResourceOwner->getDiscriminator();
         /** @var string $email */
         $email = $discordResourceOwner->getEmail();
         /** @var string $externalId */
@@ -130,9 +132,10 @@ class DiscordAuthenticator extends SocialAuthenticator
         try {
             /** @var UserEntity $user */
             $user = $userProvider->loadUserByUsername($externalId);
+            $user->setUsername($fullUsername);
             $user->setAvatarHash($discordResourceOwner->getAvatarHash());
         } catch (UsernameNotFoundException $ex) {
-            $user = new UserEntity($email, $email, $externalId);
+            $user = new UserEntity($fullUsername, $email, $externalId);
             $user->setAvatarHash($discordResourceOwner->getAvatarHash());
             $this->em->persist($user);
         }
