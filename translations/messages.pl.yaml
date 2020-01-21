@@ -38,6 +38,12 @@ Something went wrong while fetching missions list...: Coś poszło nie tak podcz
 Username: Nazwa użytkownika
 Discord ID: ID Discorda
 
+# Permissions
+Permissions: Uprawnienia
+Permissions management: Zarządzanie uprawnieniami
+Can manage permissions: Może zarządzać uprawnieniami
+Can delete users: Może usuwać użytkowników
+
 # Footer
 Useful links: Przydatne linki
 Statute: Regulamin
@@ -48,4 +54,5 @@ Calendar: Kalendarz
 Try again later: Spróbuj ponownie później
 
 # Common
+Apply: Zastosuj
 Delete: Usuń
