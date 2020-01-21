@@ -6,6 +6,7 @@ Join polish Arma 3 clan: Dołącz do polskiego klanu Arma 3
 Homepage: Strona główna
 Missions: Misje
 Mods: Mody
+Users: Użytkownicy
 
 Available after login: Dostępne po zalogowaniu
 Login: Zaloguj
@@ -33,6 +34,10 @@ Open missions: Otwarte misje
 Completed missions: Zakończone misje
 Something went wrong while fetching missions list...: Coś poszło nie tak podczas pobierania listy misji...
 
+# Users
+Username: Nazwa użytkownika
+Discord ID: ID Discorda
+
 # Footer
 Useful links: Przydatne linki
 Statute: Regulamin
@@ -41,3 +46,6 @@ Calendar: Kalendarz
 
 # Other
 Try again later: Spróbuj ponownie później
+
+# Common
+Delete: Usuń
