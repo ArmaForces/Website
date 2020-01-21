@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\User\UserEntity;
+use App\Form\User\UserPermissionsType;
 use App\Repository\UserEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -49,5 +51,26 @@ class UserController extends AbstractController
         $this->entityManager->flush();
 
         return $this->redirectToRoute('app_user_list');
+    }
+
+    /**
+     * @Route("/{id}/permissions", name="_permissions")
+     */
+    public function permissionsAction(Request $request, UserEntity $userEntity): Response
+    {
+        $permissionsEntity = $userEntity->getPermissions();
+        $form = $this->createForm(UserPermissionsType::class, $permissionsEntity);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('app_user_list');
+        }
+
+        return $this->render('user/permissions.html.twig', [
+            'user' => $userEntity,
+            'form' => $form->createView(),
+        ]);
     }
 }
