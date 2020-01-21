@@ -67,9 +67,11 @@ class UserController extends AbstractController
     public function permissionsAction(Request $request, UserEntity $userEntity): Response
     {
         $permissionsEntity = $userEntity->getPermissions();
-        $form = $this->createForm(UserPermissionsType::class, $permissionsEntity);
-        $form->handleRequest($request);
+        $form = $this->createForm(UserPermissionsType::class, $permissionsEntity, [
+            'relatedUser' => $userEntity,
+        ]);
 
+        $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->flush();
 
