@@ -17,6 +17,7 @@
                         <th scope="row">{{ user.username }}</th>
                         <td>{{ user.externalId }}</td>
                         <td class="table-actions">
+                            <a href="{{ path('app_user_permissions', { id: user.id }) }}">{{ 'Permissions'|trans }}</a>
                             <a href="{{ path('app_user_delete', { id: user.id }) }}">{{ 'Delete'|trans }}</a>
                         </td>
                     </tr>
