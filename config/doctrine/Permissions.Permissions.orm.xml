@@ -6,6 +6,7 @@
 
     <entity name="App\Entity\Permissions\Permissions" table="permissions" repository-class="App\Repository\PermissionsRepository">
         <field name="managePermissions" type="boolean" />
+        <field name="deleteUsers" type="boolean" />
     </entity>
 
 </doctrine-mapping>
