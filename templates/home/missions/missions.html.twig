@@ -32,13 +32,18 @@
                                     {% endif %}
                                 </div>
 
-                                <div class="text-left mt-2 mb-4">
+                                <div class="text-center mt-2 mb-4">
                                     <h4>
                                         <span class="font-weight-bold">{{ mission.title }}</span>
                                     </h4>
-                                    <span>
-                                        {{ mission.date|date('Y-m-d H:m') }}
-                                    </span>
+                                    <div class="d-flex justify-content-between">
+                                        <span>
+                                            {{ mission.date|date('Y-m-d H:m') }}
+                                        </span>
+                                        <span>
+                                            {{ 'Enlisted'|trans }} {{ mission.freeSlots }}/{{ mission.allSlots }}
+                                        </span>
+                                    </div>
                                 </div>
 
                                 <div class="text-justify">
@@ -70,13 +75,18 @@
                                     {% endif %}
                                 </div>
 
-                                <div class="text-left mt-2 mb-4">
+                                <div class="text-center mt-2 mb-4">
                                     <h4>
                                         <span class="font-weight-bold">{{ mission.title }}</span>
                                     </h4>
-                                    <span>
-                                        {{ mission.date|date('Y-m-d H:m') }}
-                                    </span>
+                                    <div class="d-flex justify-content-between">
+                                        <span>
+                                            {{ mission.date|date('Y-m-d H:m') }}
+                                        </span>
+                                        <span>
+                                            {{ 'Enlisted'|trans }} {{ mission.freeSlots }}/{{ mission.allSlots }}
+                                        </span>
+                                    </div>
                                 </div>
 
                                 <div class="text-justify">
