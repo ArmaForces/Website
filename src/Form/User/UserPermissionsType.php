@@ -39,6 +39,12 @@ class UserPermissionsType extends AbstractType
                 // User cannot change his own base permissions
                 'disabled' => $currentUser->getId() === $relatedUser->getId(),
             ])
+            ->add('listUsers', CheckboxType::class, [
+                'label' => 'Can list users',
+                'label_attr' => ['class' => 'switch-custom'],
+                // User cannot change his own base permissions
+                'disabled' => $currentUser->getId() === $relatedUser->getId(),
+            ])
             ->add('deleteUsers', CheckboxType::class, [
                 'label' => 'Can delete users',
                 'label_attr' => ['class' => 'switch-custom'],
