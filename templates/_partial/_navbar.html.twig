@@ -29,9 +29,11 @@
                 #}
                 <a class="nav-link" href="{{ url.modlist }}">{{ 'Mods'|trans }}</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('app_user_list') }}">{{ 'Users'|trans }}</a>
-            </li>
+            {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::LIST_USERS')) %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_user_list') }}">{{ 'Users'|trans }}</a>
+                </li>
+            {% endif %}
         </ul>
         <!-- Links -->
 
