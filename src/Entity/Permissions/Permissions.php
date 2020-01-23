@@ -12,6 +12,9 @@ class Permissions extends AbstractEntity
     protected $manageUsersPermissions = false;
 
     /** @var bool */
+    protected $listUsers = false;
+
+    /** @var bool */
     protected $deleteUsers = false;
 
     public function canManageUsersPermissions(): bool
@@ -22,6 +25,16 @@ class Permissions extends AbstractEntity
     public function setManageUsersPermissions(bool $manageUsersPermissions): void
     {
         $this->manageUsersPermissions = $manageUsersPermissions;
+    }
+
+    public function canListUsers(): bool
+    {
+        return $this->listUsers;
+    }
+
+    public function setListUsers(bool $listUsers): void
+    {
+        $this->listUsers = $listUsers;
     }
 
     public function canDeleteUsers(): bool
