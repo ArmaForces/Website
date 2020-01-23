@@ -33,8 +33,8 @@ class UserPermissionsType extends AbstractType
         $relatedUser = $options['relatedUser'];
 
         $builder
-            ->add('managePermissions', CheckboxType::class, [
-                'label' => 'Can manage permissions',
+            ->add('manageUsersPermissions', CheckboxType::class, [
+                'label' => 'Can manage users permissions',
                 'label_attr' => ['class' => 'switch-custom'],
                 // User cannot change his own base permissions
                 'disabled' => $currentUser->getId() === $relatedUser->getId(),
