@@ -95,6 +95,11 @@ class MissionDto
         return $this->allSlots;
     }
 
+    public function getOccupiedSlots(): int
+    {
+        return $this->getAllSlots() - $this->getFreeSlots();
+    }
+
     public function isArchived(): bool
     {
         return -1 === (int) $this->getId();
