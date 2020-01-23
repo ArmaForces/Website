@@ -5,7 +5,7 @@
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
     <entity name="App\Entity\Permissions\Permissions" table="permissions" repository-class="App\Repository\PermissionsRepository">
-        <field name="managePermissions" type="boolean"/>
+        <field name="manageUsersPermissions" type="boolean"/>
         <field name="deleteUsers" type="boolean"/>
     </entity>
 

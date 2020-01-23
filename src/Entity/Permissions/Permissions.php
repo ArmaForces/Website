@@ -9,19 +9,19 @@ use App\Entity\AbstractEntity;
 class Permissions extends AbstractEntity
 {
     /** @var bool */
-    protected $managePermissions = false;
+    protected $manageUsersPermissions = false;
 
     /** @var bool */
     protected $deleteUsers = false;
 
-    public function canManagePermissions(): bool
+    public function canManageUsersPermissions(): bool
     {
-        return $this->managePermissions;
+        return $this->manageUsersPermissions;
     }
 
-    public function setManagePermissions(bool $managePermissions): void
+    public function setManageUsersPermissions(bool $manageUsersPermissions): void
     {
-        $this->managePermissions = $managePermissions;
+        $this->manageUsersPermissions = $manageUsersPermissions;
     }
 
     public function canDeleteUsers(): bool
