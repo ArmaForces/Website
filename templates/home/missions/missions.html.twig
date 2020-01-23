@@ -41,7 +41,7 @@
                                             {{ mission.date|date('Y-m-d H:m') }}
                                         </span>
                                         <span>
-                                            {{ 'Enlisted'|trans }} {{ mission.freeSlots }}/{{ mission.allSlots }}
+                                            {{ 'Enlisted'|trans }} {{ mission.occupiedSlots }}/{{ mission.allSlots }}
                                         </span>
                                     </div>
                                 </div>
@@ -84,7 +84,7 @@
                                             {{ mission.date|date('Y-m-d H:m') }}
                                         </span>
                                         <span>
-                                            {{ 'Enlisted'|trans }} {{ mission.freeSlots }}/{{ mission.allSlots }}
+                                            {{ 'Enlisted'|trans }} {{ mission.occupiedSlots }}/{{ mission.allSlots }}
                                         </span>
                                     </div>
                                 </div>
