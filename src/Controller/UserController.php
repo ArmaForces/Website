@@ -7,7 +7,9 @@ namespace App\Controller;
 use App\Entity\User\UserEntity;
 use App\Form\User\UserPermissionsType;
 use App\Repository\UserEntityRepository;
+use App\Security\Enum\PermissionsEnum;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +17,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/user", name="app_user")
+ *
+ * @IsGranted("IS_AUTHENTICATED_REMEMBERED")
  */
 class UserController extends AbstractController
 {
@@ -32,6 +36,8 @@ class UserController extends AbstractController
 
     /**
      * @Route("/list", name="_list")
+     *
+     * @IsGranted(PermissionsEnum::LIST_USERS)
      */
     public function listAction(): Response
     {
@@ -44,16 +50,13 @@ class UserController extends AbstractController
 
     /**
      * @Route("/{id}/delete", name="_delete")
+     *
+     * @IsGranted(PermissionsEnum::DELETE_USERS, subject="userEntity")
      */
     public function deleteAction(UserEntity $userEntity): Response
     {
         /** @var UserEntity $currentUser */
         $currentUser = $this->getUser();
-
-        // Prevent user from deleting his own account
-        if ($currentUser->getId() === $userEntity->getId()) {
-            throw $this->createAccessDeniedException('You cannot remove your own account!');
-        }
 
         $this->entityManager->remove($userEntity);
         $this->entityManager->flush();
@@ -63,6 +66,8 @@ class UserController extends AbstractController
 
     /**
      * @Route("/{id}/permissions", name="_permissions")
+     *
+     * @IsGranted(PermissionsEnum::MANAGE_USERS_PERMISSIONS, subject="userEntity")
      */
     public function permissionsAction(Request $request, UserEntity $userEntity): Response
     {
