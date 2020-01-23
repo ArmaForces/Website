@@ -68,13 +68,7 @@ class PermissionsMakeAdminCommand extends Command
         }
 
         $permissionsEntity = $userEntity->getPermissions();
-
-        if ($permissionsEntity->canManageUsersPermissions()) {
-            $io->text(sprintf('User with id: "%s" already have admin permissions assigned!', $discordUserId));
-
-            return 0;
-        }
-
+        $permissionsEntity->setListUsers(true);
         $permissionsEntity->setManageUsersPermissions(true);
         $this->entityManager->flush();
 
