@@ -232,7 +232,7 @@ class DiscordAuthenticator extends SocialAuthenticator
             }
         }
 
-        switch (count($rolesIdsFound)) {
+        switch (\count($rolesIdsFound)) {
             case 1:
                 return $rolesIdsFound[0];
             case 0:
