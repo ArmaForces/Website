@@ -29,6 +29,11 @@
                 #}
                 <a class="nav-link" href="{{ url.modlist }}">{{ 'Mods'|trans }}</a>
             </li>
+            {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::LIST_USERS')) %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_user_list') }}">{{ 'Users'|trans }}</a>
+                </li>
+            {% endif %}
         </ul>
         <!-- Links -->
 
@@ -49,8 +54,8 @@
             <!-- TeamSpeak -->
             <li class="nav-item"
                 {% if not is_granted('ROLE_USER') -%}
-                title="{{ 'Available after login'|trans }}"
-                data-toggle="tooltip" data-placement="bottom"
+                    title="{{ 'Available after login'|trans }}"
+                    data-toggle="tooltip" data-placement="bottom"
                 {% endif %}
             >
                 {% if not is_granted('ROLE_USER') -%}

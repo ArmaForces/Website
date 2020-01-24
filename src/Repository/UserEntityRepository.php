@@ -20,4 +20,11 @@ class UserEntityRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, UserEntity::class);
     }
+
+    public function findByExternalId(int $externalId): ?UserEntity
+    {
+        return $this->findOneBy([
+            'externalId' => $externalId,
+        ]);
+    }
 }
