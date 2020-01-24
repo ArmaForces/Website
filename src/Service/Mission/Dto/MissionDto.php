@@ -45,7 +45,7 @@ class MissionDto
     /**
      * @param array<mixed> $array
      */
-    public static function fromArray(array $array): MissionDto
+    public static function fromArray(array $array): self
     {
         return new self(
             ($array['archive'] ?? false) ? -1 : $array['id'],
