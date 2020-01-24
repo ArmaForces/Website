@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use App\Repository\UserRepository;
+use App\Entity\User\UserEntity;
+use App\Repository\UserEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 class PermissionsMakeAdminCommand extends Command
@@ -41,7 +43,7 @@ class PermissionsMakeAdminCommand extends Command
     {
         $this
             ->setDescription('Grants permissions to manage permissions to given user identified by Discord user id.')
-            ->addArgument('discord_user_id', InputArgument::REQUIRED, 'Discord user id (18-digits integer)')
+            ->addArgument('discord_user_id', InputArgument::OPTIONAL, 'Discord user id (18-digits integer)')
         ;
     }
 
@@ -51,7 +53,26 @@ class PermissionsMakeAdminCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
+
         $discordUserId = $input->getArgument('discord_user_id');
+        if (null === $discordUserId) {
+            /** @var UserEntity[] $allUsers */
+            $allUsers = $this->userEntityRepository->findAll();
+            $allUsersNames = array_map(function (UserEntity $x) {
+                return sprintf('%d (%s)', $x->getExternalId(), $x->getUsername());
+            }, $allUsers);
+
+            $helper = $this->getHelper('question');
+            $question = new ChoiceQuestion('Please select user from the list', $allUsersNames);
+
+            $response = $helper->ask($input, $output, $question);
+            if (!$response) {
+                return 1;
+            }
+
+            $discordUserId = substr($response, 0, 18);
+        }
+
         if (!preg_match('/[\d]{18}/', $discordUserId)) {
             $io->error(sprintf('Incorrect format of user id. Must be a 18-digits integer, "%s" given!', $discordUserId));
 
