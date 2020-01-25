@@ -18,7 +18,7 @@ class DeleteUsersVoter extends Voter
      */
     protected function supports($attribute, $subject): bool
     {
-        return PermissionsEnum::DELETE_USERS === $attribute && $subject instanceof UserInterface;
+        return PermissionsEnum::USERS_DELETE === $attribute && $subject instanceof UserInterface;
     }
 
     /**
@@ -33,7 +33,7 @@ class DeleteUsersVoter extends Voter
             return false;
         }
 
-        if ($user->getPermissions()->canDeleteUsers() && $user->getId() !== $subject->getId()) {
+        if ($user->getId() !== $subject->getId() && $user->getPermissions()->getUsersPermissions()->canDelete()) {
             return true;
         }
 

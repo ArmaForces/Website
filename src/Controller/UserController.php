@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\User\UserEntity;
-use App\Form\User\UserPermissionsType;
+use App\Form\Permissions\PermissionsType;
 use App\Repository\UserEntityRepository;
 use App\Security\Enum\PermissionsEnum;
 use Doctrine\ORM\EntityManagerInterface;
@@ -37,7 +37,7 @@ class UserController extends AbstractController
     /**
      * @Route("/list", name="_list")
      *
-     * @IsGranted(PermissionsEnum::LIST_USERS)
+     * @IsGranted(PermissionsEnum::USERS_LIST)
      */
     public function listAction(): Response
     {
@@ -51,7 +51,7 @@ class UserController extends AbstractController
     /**
      * @Route("/{id}/delete", name="_delete")
      *
-     * @IsGranted(PermissionsEnum::DELETE_USERS, subject="userEntity")
+     * @IsGranted(PermissionsEnum::USERS_DELETE, subject="userEntity")
      */
     public function deleteAction(UserEntity $userEntity): Response
     {
@@ -67,12 +67,12 @@ class UserController extends AbstractController
     /**
      * @Route("/{id}/permissions", name="_permissions")
      *
-     * @IsGranted(PermissionsEnum::MANAGE_USERS_PERMISSIONS, subject="userEntity")
+     * @IsGranted(PermissionsEnum::USERS_MANAGE_PERMISSIONS, subject="userEntity")
      */
     public function permissionsAction(Request $request, UserEntity $userEntity): Response
     {
         $permissionsEntity = $userEntity->getPermissions();
-        $form = $this->createForm(UserPermissionsType::class, $permissionsEntity, [
+        $form = $this->createForm(PermissionsType::class, $permissionsEntity, [
             'relatedUser' => $userEntity,
         ]);
 

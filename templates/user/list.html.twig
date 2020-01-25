@@ -20,11 +20,11 @@
                         <th scope="row">{{ user.username }}</th>
                         <td>{{ user.externalId }}</td>
                         <td class="table-actions">
-                            {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MANAGE_USERS_PERMISSIONS'), user) %}
+                            {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USERS_MANAGE_PERMISSIONS'), user) %}
                                 <a href="{{ path('app_user_permissions', { id: user.id }) }}">{{ 'Permissions'|trans }}</a>
                             {% endif %}
 
-                            {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::DELETE_USERS'), user) %}
+                            {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USERS_DELETE'), user) %}
                                 <a href="{{ path('app_user_delete', { id: user.id }) }}">{{ 'Delete'|trans }}</a>
                             {% endif %}
                         </td>
