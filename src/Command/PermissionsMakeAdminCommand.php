@@ -58,6 +58,12 @@ class PermissionsMakeAdminCommand extends Command
         if (null === $discordUserId) {
             /** @var UserEntity[] $allUsers */
             $allUsers = $this->userEntityRepository->findAll();
+            if (empty($allUsers)) {
+                $io->error('No users in database');
+
+                return 1;
+            }
+
             $allUsersNames = array_map(function (UserEntity $x) {
                 return sprintf('%d (%s)', $x->getExternalId(), $x->getUsername());
             }, $allUsers);
