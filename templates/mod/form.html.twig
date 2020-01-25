@@ -1,0 +1,28 @@
+{% extends 'container.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('modForm') }}
+{% endblock %}
+
+{% block content %}
+    {# @var modFormDto \App\Form\Mod\Dto\ModFormDto #}
+    {% set modFormDto = form.vars.data %}
+
+    <div class="mt-3">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>{{ modFormDto.id ? 'Edit mod'|trans : 'Create mod'|trans }}</h2>
+            </div>
+        </div>
+
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+
+        <div class="form-group">
+            <button type="submit" class="btn-primary btn">{{ modFormDto.id ? 'Apply'|trans : 'Create'|trans }}</button>
+            <a href="{{ path('app_mod_list') }}" class="btn-secondary btn">{{ 'Cancel'|trans }}</a>
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
