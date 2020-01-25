@@ -7,7 +7,6 @@ namespace App\Form\Permissions;
 use App\Entity\Permissions\Permissions;
 use App\Form\Permissions\Users\UsersPermissionsType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -24,9 +23,6 @@ class PermissionsType extends AbstractType
             ->add('usersPermissions', UsersPermissionsType::class, [
                 'label' => false,
                 'relatedUser' => $relatedUser,
-            ])
-            ->add('submit', SubmitType::class, [
-                'label' => 'Apply',
             ])
         ;
     }
