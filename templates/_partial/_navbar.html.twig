@@ -22,13 +22,22 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('app_home_missions') }}">{{ 'Missions'|trans }}</a>
             </li>
-            <li class="nav-item">
-                {#
-                    TODO temporary Vue app link
-                    TODO move to app
-                #}
-                <a class="nav-link" href="{{ url.modlist }}">{{ 'Mods'|trans }}</a>
-            </li>
+            {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MODS_LIST')) -%}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="modlist-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ 'Mods'|trans }}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="modlist-dropdown">
+                        <a class="dropdown-item" href="{{ url.modlist }}">{{ 'Get mods'|trans }}</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ path('app_mod_list') }}">{{ 'Manage mods'|trans }}</a>
+                    </div>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url.modlist }}">{{ 'Get mods'|trans }}</a>
+                </li>
+            {% endif %}
             {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USERS_LIST')) %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_user_list') }}">{{ 'Users'|trans }}</a>
