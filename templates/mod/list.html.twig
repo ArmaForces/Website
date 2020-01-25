@@ -1,0 +1,62 @@
+{% extends 'container.html.twig' %}
+
+{% block content %}
+    <div class="mt-3">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>{{ 'Mods list'|trans }}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 py-2">
+                <a href="{{ path('app_mod_create') }}" class="btn btn-primary">{{ 'Create'|trans }}</a>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">{{ 'Name'|trans }}</th>
+                    <th scope="col">{{ 'Used by'|trans }}</th>
+                    <th scope="col">{{ 'Type'|trans }}</th>
+                    <th scope="col">{{ 'Source'|trans }}</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                    {# @var mod \App\Entity\Mod\Mod #}
+                    {% for mod in mods %}
+                        <tr>
+                            <th scope="row">{{ mod.name }}</th>
+                            <td>
+                                {% if mod.usedBy == constant('App\\Enum\\Mod\\ModUsedByEnum::CLIENT') %}
+                                    {{ 'Client'|trans }}
+                                {% elseif mod.usedBy == constant('App\\Enum\\Mod\\ModUsedByEnum::SERVER') %}
+                                    {{ 'Server'|trans }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if mod.type == constant('App\\Enum\\Mod\\ModTypeEnum::REQUIRED') %}
+                                    {{ 'Required'|trans }}
+                                {% elseif mod.type == constant('App\\Enum\\Mod\\ModTypeEnum::OPTIONAL') %}
+                                    {{ 'Optional'|trans }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if mod.source == constant('App\\Enum\\Mod\\ModSourceEnum::STEAM_WORKSHOP') %}
+                                    {{ 'Steam Workshop'|trans }}
+                                {% elseif mod.source == constant('App\\Enum\\Mod\\ModSourceEnum::DIRECTORY') %}
+                                    {{ 'Directory'|trans }}
+                                {% endif %}
+                            </td>
+                            <td class="table-actions">
+                                <a href="{{ path('app_mod_update', { id: mod.id }) }}">{{ 'Edit'|trans }}</a>
+                                <a href="{{ path('app_mod_delete', { id: mod.id }) }}">{{ 'Delete'|trans }}</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
