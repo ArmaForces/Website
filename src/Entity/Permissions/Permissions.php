@@ -5,45 +5,22 @@ declare(strict_types=1);
 namespace App\Entity\Permissions;
 
 use App\Entity\AbstractEntity;
+use App\Entity\Permissions\Users\UsersPermissions;
 
 class Permissions extends AbstractEntity
 {
-    /** @var bool */
-    protected $manageUsersPermissions = false;
+    /** @var UsersPermissions */
+    protected $usersPermissions;
 
-    /** @var bool */
-    protected $listUsers = false;
-
-    /** @var bool */
-    protected $deleteUsers = false;
-
-    public function canManageUsersPermissions(): bool
+    public function __construct()
     {
-        return $this->manageUsersPermissions;
+        parent::__construct();
+
+        $this->usersPermissions = new UsersPermissions();
     }
 
-    public function setManageUsersPermissions(bool $manageUsersPermissions): void
+    public function getUsersPermissions(): UsersPermissions
     {
-        $this->manageUsersPermissions = $manageUsersPermissions;
-    }
-
-    public function canListUsers(): bool
-    {
-        return $this->listUsers;
-    }
-
-    public function setListUsers(bool $listUsers): void
-    {
-        $this->listUsers = $listUsers;
-    }
-
-    public function canDeleteUsers(): bool
-    {
-        return $this->deleteUsers;
-    }
-
-    public function setDeleteUsers(bool $deleteUsers): void
-    {
-        $this->deleteUsers = $deleteUsers;
+        return $this->usersPermissions;
     }
 }
