@@ -2,18 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Form\User;
+namespace App\Form\Permissions\Users;
 
-use App\Entity\Permissions\Permissions;
+use App\Entity\Permissions\Users\UsersPermissions;
 use App\Entity\User\UserEntity;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class UserPermissionsType extends AbstractType
+class UsersPermissionsType extends AbstractType
 {
     /** @var TokenStorageInterface */
     protected $tokenStorage;
@@ -33,24 +32,21 @@ class UserPermissionsType extends AbstractType
         $relatedUser = $options['relatedUser'];
 
         $builder
-            ->add('manageUsersPermissions', CheckboxType::class, [
+            ->add('managePermissions', CheckboxType::class, [
                 'label' => 'Can manage users permissions',
                 'label_attr' => ['class' => 'switch-custom'],
                 // User cannot change his own base permissions
                 'disabled' => $currentUser->getId() === $relatedUser->getId(),
             ])
-            ->add('listUsers', CheckboxType::class, [
+            ->add('list', CheckboxType::class, [
                 'label' => 'Can list users',
                 'label_attr' => ['class' => 'switch-custom'],
                 // User cannot change his own base permissions
                 'disabled' => $currentUser->getId() === $relatedUser->getId(),
             ])
-            ->add('deleteUsers', CheckboxType::class, [
+            ->add('delete', CheckboxType::class, [
                 'label' => 'Can delete users',
                 'label_attr' => ['class' => 'switch-custom'],
-            ])
-            ->add('submit', SubmitType::class, [
-                'label' => 'Apply',
             ])
         ;
     }
@@ -62,7 +58,7 @@ class UserPermissionsType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'data_class' => Permissions::class,
+                'data_class' => UsersPermissions::class,
                 'required' => false,
             ])
             ->setRequired([
