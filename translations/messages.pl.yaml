@@ -6,6 +6,8 @@ Join polish Arma 3 clan: Dołącz do polskiego klanu Arma 3
 Homepage: Strona główna
 Missions: Misje
 Mods: Mody
+Get mods: Pobierz mody
+Manage mods: Zarządzaj modami
 Users: Użytkownicy
 
 Available after login: Dostępne po zalogowaniu
@@ -35,6 +37,12 @@ Completed missions: Zakończone misje
 Something went wrong while fetching missions list...: Coś poszło nie tak podczas pobierania listy misji...
 Enlisted: Zapisani
 
+# Footer
+Useful links: Przydatne linki
+Statute: Regulamin
+Wiki: Wiki
+Calendar: Kalendarz
+
 # Users
 Username: Nazwa użytkownika
 Discord ID: ID Discorda
@@ -42,20 +50,28 @@ Discord ID: ID Discorda
 # Permissions
 Permissions: Uprawnienia
 Permissions management: Zarządzanie uprawnieniami
+
 Can manage users permissions: Może zarządzać uprawnieniami użytkowników
 Can list users: Może przeglądać listę użytkowników
 Can delete users: Może usuwać użytkowników
 
-# Footer
-Useful links: Przydatne linki
-Statute: Regulamin
-Wiki: Wiki
-Calendar: Kalendarz
+Can list mods: Może przeglądać listę modów
+Can create mods: Może tworzyć mody
+Can edit mods: Może edytować mody
+Can delete mods: Może usuwać mody
+
+# Mods
+Mods list: Lista modów
+Create mod: Utwórz mod
+Edit mod: Edytuj mod
 
 # Other
 Try again later: Spróbuj ponownie później
 
 # Common
+Name: Nazwa
+
+Create: Utwórz
 Apply: Zastosuj
 Cancel: Anuluj
 Delete: Usuń
