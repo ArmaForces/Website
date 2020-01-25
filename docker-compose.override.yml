@@ -6,7 +6,7 @@ services:
         build:
             target: armaforces_web_php_dev
         volumes:
-            - './:/www/app:rw,cached'
+            - './:/www/app:rw'
         environment:
             XDEBUG_CONFIG: >-
                 remote_enable=1
