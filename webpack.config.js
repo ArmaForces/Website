@@ -18,6 +18,7 @@ Encore
     .addEntry('app', './assets/app.js')
     .addEntry('landing', './assets/landing.js')
     .addEntry('joinUs', './assets/joinUs.js')
+    .addEntry('modForm', './assets/mod/modForm.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
