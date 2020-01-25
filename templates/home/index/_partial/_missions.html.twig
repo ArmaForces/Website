@@ -33,6 +33,19 @@
                         <span>
                             {{ 'Enlisted'|trans }} {{ nearestMission.occupiedSlots }}/{{ nearestMission.allSlots }}
                         </span>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-calendar-alt"></i>
+                            </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="{{ mission_event_google(nearestMission) }}">
+                                        Google
+                                    </a>
+                                    <a class="dropdown-item" href="{{ mission_event_ical(nearestMission) }}">
+                                        Ical
+                                    </a>
+                              </div>
+                        </div>
                     </div>
                 </div>
 
