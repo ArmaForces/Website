@@ -18,7 +18,7 @@ class ManageUsersPermissionsVoter extends Voter
      */
     protected function supports($attribute, $subject): bool
     {
-        return PermissionsEnum::MANAGE_USERS_PERMISSIONS === $attribute && $subject instanceof UserInterface;
+        return PermissionsEnum::USERS_MANAGE_PERMISSIONS === $attribute && $subject instanceof UserInterface;
     }
 
     /**
@@ -33,7 +33,7 @@ class ManageUsersPermissionsVoter extends Voter
             return false;
         }
 
-        if ($user->getPermissions()->canManageUsersPermissions()) {
+        if ($user->getPermissions()->getUsersPermissions()->canManagePermissions()) {
             return true;
         }
 
