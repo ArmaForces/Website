@@ -8,7 +8,9 @@ use App\Entity\Mod\Mod;
 use App\Form\Mod\Dto\ModFormDto;
 use App\Form\Mod\ModFormType;
 use App\Repository\ModRepository;
+use App\Security\Enum\PermissionsEnum;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,6 +18,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/mod", name="app_mod")
+ *
+ * @IsGranted("IS_AUTHENTICATED_REMEMBERED")
  */
 class ModController extends AbstractController
 {
@@ -33,6 +37,8 @@ class ModController extends AbstractController
 
     /**
      * @Route("/list", name="_list")
+     *
+     * @IsGranted(PermissionsEnum::MODS_LIST)
      */
     public function listAction(): Response
     {
@@ -45,6 +51,8 @@ class ModController extends AbstractController
 
     /**
      * @Route("/create", name="_create")
+     *
+     * @IsGranted(PermissionsEnum::MODS_CREATE)
      */
     public function createAction(Request $request): Response
     {
@@ -67,6 +75,8 @@ class ModController extends AbstractController
 
     /**
      * @Route("/{id}/update", name="_update")
+     *
+     * @IsGranted(PermissionsEnum::MODS_UPDATE)
      */
     public function updateAction(Request $request, Mod $mod): Response
     {
@@ -88,6 +98,8 @@ class ModController extends AbstractController
 
     /**
      * @Route("/{id}/delete", name="_delete")
+     *
+     * @IsGranted(PermissionsEnum::MODS_DELETE)
      */
     public function deleteAction(Mod $mod): Response
     {
