@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use App\Entity\User\UserEntity;
-use App\Repository\UserEntityRepository;
+use App\Entity\User\User;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -56,16 +56,16 @@ class PermissionsMakeAdminCommand extends Command
 
         $discordUserId = $input->getArgument('discord_user_id');
         if (!$discordUserId) {
-            /** @var UserEntity[] $allUsers */
-            $allUsers = $this->userEntityRepository->findAll();
+            /** @var User[] $allUsers */
+            $allUsers = $this->userRepository->findAll();
             if (!$allUsers) {
                 $io->error('No users found!');
 
                 return 1;
             }
 
-            $allUsersNames = array_map(static function (UserEntity $x) {
-                return sprintf('%d (%s)', $x->getExternalId(), $x->getUsername());
+            $allUsersNames = array_map(static function (User $user) {
+                return sprintf('%d (%s)', $user->getExternalId(), $user->getUsername());
             }, $allUsers);
 
             $helper = $this->getHelper('question');
