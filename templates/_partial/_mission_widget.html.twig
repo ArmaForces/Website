@@ -21,11 +21,10 @@
                     <a class="dropdown-item" href="{{ mission_event_google(mission) }}">
                         <i class="fab fa-google"></i>oogle
                     </a>
-                    <a class="dropdown-item" href="{{ mission_event_ical(mission) }}">
+                    <a class="dropdown-item" href="{{ mission_event_ical(mission) }}" type="text/calendar" download="{{ mission.title }}.ics">
                         <i class="fa fa-calendar-alt"></i> Ical
                     </a>
                 </div>
-
             </div>
         {% endif %}
         <span>
