@@ -55,10 +55,10 @@ class PermissionsMakeAdminCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         $discordUserId = $input->getArgument('discord_user_id');
-        if (null === $discordUserId) {
+        if (!$discordUserId) {
             /** @var UserEntity[] $allUsers */
             $allUsers = $this->userEntityRepository->findAll();
-            if (empty($allUsers)) {
+            if (!$allUsers) {
                 $io->error('No users found!');
 
                 return 1;
