@@ -18,38 +18,7 @@
             <div class="col-lg-4 col-md-6 mission">
                 <h4 class="my-4 font-weight-bold">{{ nearestMission.archived ? 'Last mission'|trans : 'Nearest mission'|trans }}</h4>
 
-                <div class="img-mission">
-                    <img src="{{ proxy_image(nearestMission.image) }}" alt="">
-                </div>
-
-                <div class="text-center mt-2 mb-4">
-                    <h4>
-                        <span class="font-weight-bold">{{ nearestMission.title }}</span>
-                    </h4>
-                    <div class="d-flex justify-content-between">
-                        <div class="dropdown dropdown-no-arrow">
-                            <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {{ nearestMission.date|date('Y-m-d H:m') }}
-                                <i class="fa fa-calendar-day"></i>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="{{ mission_event_google(nearestMission) }}">
-                                    <i class="fab fa-google"></i>oogle
-                                </a>
-                                <a class="dropdown-item" href="{{ mission_event_ical(nearestMission) }}">
-                                    <i class="fa fa-calendar-alt"></i> Ical
-                                </a>
-                            </div>
-                        </div>
-                        <span>
-                            {{ 'Enlisted'|trans }} {{ nearestMission.occupiedSlots }}/{{ nearestMission.allSlots }}
-                        </span>
-                    </div>
-                </div>
-
-                <div class="text-justify">
-                    {{ ((nearestMission.description|u).truncate(350, '...'))|markdown_to_html }}
-                </div>
+                {% include '_partial/_mission_widget.html.twig' with {'mission': nearestMission} %}
             </div>
             <!--/Grid column-->
         {% endif %}

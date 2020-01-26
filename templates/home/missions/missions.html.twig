@@ -26,29 +26,7 @@
                             {# @var mission \App\Service\Mission\Dto\MissionDto #}
                             <!--Grid column-->
                             <div class="col-lg-4 col-md-6 mb-4 mission">
-                                <div class="img-mission">
-                                    {% if mission.image %}
-                                        <img src="{{ proxy_image(mission.image) }}" alt="">
-                                    {% endif %}
-                                </div>
-
-                                <div class="text-center mt-2 mb-4">
-                                    <h4>
-                                        <span class="font-weight-bold">{{ mission.title }}</span>
-                                    </h4>
-                                    <div class="d-flex justify-content-between">
-                                        <span>
-                                            {{ mission.date|date('Y-m-d H:m') }}
-                                        </span>
-                                        <span>
-                                            {{ 'Enlisted'|trans }} {{ mission.occupiedSlots }}/{{ mission.allSlots }}
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="text-justify">
-                                    {{ ((mission.description|u).truncate(350, '...'))|markdown_to_html }}
-                                </div>
+                                {% include '_partial/_mission_widget.html.twig' with {'mission': mission} %}
                             </div>
                             <!--/Grid column-->
                         {% endfor %}
@@ -69,29 +47,7 @@
                             {# @var mission \App\Service\Mission\Dto\MissionDto #}
                             <!--Grid column-->
                             <div class="col-lg-4 col-md-6 mb-4 mission">
-                                <div class="img-mission">
-                                    {% if mission.image %}
-                                        <img class="lazy" src="{{ asset('img/placeholder_320x250.png') }}" data-src="{{ proxy_image(mission.image) }}" alt="">
-                                    {% endif %}
-                                </div>
-
-                                <div class="text-center mt-2 mb-4">
-                                    <h4>
-                                        <span class="font-weight-bold">{{ mission.title }}</span>
-                                    </h4>
-                                    <div class="d-flex justify-content-between">
-                                        <span>
-                                            {{ mission.date|date('Y-m-d H:m') }}
-                                        </span>
-                                        <span>
-                                            {{ 'Enlisted'|trans }} {{ mission.occupiedSlots }}/{{ mission.allSlots }}
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="text-justify">
-                                    {{ ((mission.description|u).truncate(350, '...'))|markdown_to_html }}
-                                </div>
+                                {% include '_partial/_mission_widget.html.twig' with {'mission': mission} %}
                             </div>
                             <!--/Grid column-->
                         {% endfor %}
