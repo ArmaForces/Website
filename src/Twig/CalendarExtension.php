@@ -31,7 +31,7 @@ class CalendarExtension extends AbstractExtension
 
     protected function createMissionEventLink(MissionDto $mission): Link
     {
-        $eventDate = \DateTime::createFromImmutable($mission->getCloseDate());
+        $eventDate = \DateTime::createFromImmutable($mission->getDate());
 
         return Link::create($mission->getTitle(), $eventDate, $eventDate);
     }
