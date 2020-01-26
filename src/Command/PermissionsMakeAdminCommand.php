@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use App\Repository\UserEntityRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -20,18 +20,18 @@ class PermissionsMakeAdminCommand extends Command
     /** @var EntityManagerInterface */
     protected $entityManager;
 
-    /** @var UserEntityRepository */
-    protected $userEntityRepository;
+    /** @var UserRepository */
+    protected $userRepository;
 
     /**
      * @{@inheritdoc}
      */
-    public function __construct(EntityManagerInterface $entityManager, UserEntityRepository $userEntityRepository)
+    public function __construct(EntityManagerInterface $entityManager, UserRepository $userRepository)
     {
         parent::__construct();
 
         $this->entityManager = $entityManager;
-        $this->userEntityRepository = $userEntityRepository;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -60,19 +60,20 @@ class PermissionsMakeAdminCommand extends Command
 
         $discordUserId = (int) $discordUserId;
 
-        $userEntity = $this->userEntityRepository->findByExternalId($discordUserId);
-        if (!$userEntity) {
+        $user = $this->userRepository->findByExternalId($discordUserId);
+        if (!$user) {
             $io->error(sprintf('User not found by given id: "%s"!', $discordUserId));
 
             return 1;
         }
 
-        $permissionsEntity = $userEntity->getPermissions();
-        $permissionsEntity->getUsersPermissions()->setList(true);
-        $permissionsEntity->getUsersPermissions()->setManagePermissions(true);
+        $permissions = $user->getPermissions();
+        $usersPermissions = $permissions->getUsersPermissions();
+        $usersPermissions->setList(true);
+        $usersPermissions->setManagePermissions(true);
         $this->entityManager->flush();
 
-        $io->success(sprintf('Successfully granted admin permissions for user with id: "%s" (%s)!', $discordUserId, $userEntity->getUsername()));
+        $io->success(sprintf('Successfully granted admin permissions for user with id: "%s" (%s)!', $discordUserId, $user->getUsername()));
 
         return 0;
     }
