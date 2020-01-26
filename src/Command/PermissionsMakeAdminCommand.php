@@ -64,7 +64,7 @@ class PermissionsMakeAdminCommand extends Command
                 return 1;
             }
 
-            $allUsersNames = array_map(function (UserEntity $x) {
+            $allUsersNames = array_map(static function (UserEntity $x) {
                 return sprintf('%d (%s)', $x->getExternalId(), $x->getUsername());
             }, $allUsers);
 
