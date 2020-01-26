@@ -59,7 +59,7 @@ class PermissionsMakeAdminCommand extends Command
             /** @var UserEntity[] $allUsers */
             $allUsers = $this->userEntityRepository->findAll();
             if (empty($allUsers)) {
-                $io->error('No users in database');
+                $io->error('No users found!');
 
                 return 1;
             }
