@@ -150,3 +150,9 @@ html, body {
 .table-actions {
     text-align: right;
 }
+
+.dropdown-no-arrow {
+    .dropdown-toggle::after {
+        display: none;
+    }
+}
