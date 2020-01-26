@@ -4,7 +4,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <mapped-superclass name="App\Entity\User\AbstractUserEntity">
+    <mapped-superclass name="App\Entity\User\AbstractUser">
         <field name="username" type="string" length="255" unique="true"/>
         <field name="password" type="string" length="255" nullable="true"/>
     </mapped-superclass>

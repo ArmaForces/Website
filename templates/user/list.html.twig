@@ -1,6 +1,6 @@
 {% extends 'container.html.twig' %}
 
-{# @var currentUser \App\Entity\User\UserEntity #}
+{# @var currentUser \App\Entity\User\User #}
 {% set currentUser = app.token.user %}
 
 {% block content %}
@@ -14,7 +14,7 @@
             </tr>
             </thead>
             <tbody>
-                {# @var user \App\Entity\User\UserEntity #}
+                {# @var user \App\Entity\User\User #}
                 {% for user in users %}
                     <tr>
                         <th scope="row">{{ user.username }}</th>

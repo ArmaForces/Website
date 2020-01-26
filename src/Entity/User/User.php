@@ -6,7 +6,7 @@ namespace App\Entity\User;
 
 use App\Entity\Permissions\Permissions;
 
-class UserEntity extends AbstractUserEntity
+class User extends AbstractUser
 {
     /** @var string */
     protected $email;

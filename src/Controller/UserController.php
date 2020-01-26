@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Entity\User\UserEntity;
+use App\Entity\User\User;
 use App\Form\Permissions\PermissionsType;
-use App\Repository\UserEntityRepository;
+use App\Repository\UserRepository;
 use App\Security\Enum\PermissionsEnum;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -25,13 +25,13 @@ class UserController extends AbstractController
     /** @var EntityManagerInterface */
     protected $entityManager;
 
-    /** @var UserEntityRepository */
-    protected $userEntityRepository;
+    /** @var UserRepository */
+    protected $userRepository;
 
-    public function __construct(EntityManagerInterface $entityManager, UserEntityRepository $userEntityRepository)
+    public function __construct(EntityManagerInterface $entityManager, UserRepository $userRepository)
     {
         $this->entityManager = $entityManager;
-        $this->userEntityRepository = $userEntityRepository;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -41,7 +41,7 @@ class UserController extends AbstractController
      */
     public function listAction(): Response
     {
-        $users = $this->userEntityRepository->findAll();
+        $users = $this->userRepository->findAll();
 
         return $this->render('user/list.html.twig', [
             'users' => $users,
@@ -51,14 +51,14 @@ class UserController extends AbstractController
     /**
      * @Route("/{id}/delete", name="_delete")
      *
-     * @IsGranted(PermissionsEnum::USERS_DELETE, subject="userEntity")
+     * @IsGranted(PermissionsEnum::USERS_DELETE, subject="user")
      */
-    public function deleteAction(UserEntity $userEntity): Response
+    public function deleteAction(User $user): Response
     {
-        /** @var UserEntity $currentUser */
+        /** @var User $currentUser */
         $currentUser = $this->getUser();
 
-        $this->entityManager->remove($userEntity);
+        $this->entityManager->remove($user);
         $this->entityManager->flush();
 
         return $this->redirectToRoute('app_user_list');
@@ -67,13 +67,13 @@ class UserController extends AbstractController
     /**
      * @Route("/{id}/permissions", name="_permissions")
      *
-     * @IsGranted(PermissionsEnum::USERS_MANAGE_PERMISSIONS, subject="userEntity")
+     * @IsGranted(PermissionsEnum::USERS_MANAGE_PERMISSIONS, subject="user")
      */
-    public function permissionsAction(Request $request, UserEntity $userEntity): Response
+    public function permissionsAction(Request $request, User $user): Response
     {
-        $permissionsEntity = $userEntity->getPermissions();
-        $form = $this->createForm(PermissionsType::class, $permissionsEntity, [
-            'relatedUser' => $userEntity,
+        $permissions = $user->getPermissions();
+        $form = $this->createForm(PermissionsType::class, $permissions, [
+            'relatedUser' => $user,
         ]);
 
         $form->handleRequest($request);
@@ -84,7 +84,7 @@ class UserController extends AbstractController
         }
 
         return $this->render('user/permissions.html.twig', [
-            'user' => $userEntity,
+            'user' => $user,
             'form' => $form->createView(),
         ]);
     }

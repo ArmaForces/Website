@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Form\Permissions\Users;
 
 use App\Entity\Permissions\Users\UsersPermissions;
-use App\Entity\User\UserEntity;
+use App\Entity\User\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -27,8 +27,9 @@ class UsersPermissionsType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        /** @var UserEntity $currentUser */
+        /** @var User $currentUser */
         $currentUser = $this->tokenStorage->getToken()->getUser();
+        /** @var User $relatedUser */
         $relatedUser = $options['relatedUser'];
 
         $builder
