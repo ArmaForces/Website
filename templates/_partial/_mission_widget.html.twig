@@ -10,11 +10,11 @@
     </h4>
     <div class="d-flex justify-content-between">
         {% if mission.archived %}
-            <div>{{ mission.date|date('Y-m-d H:m') }}</div>
+            <div>{{ mission.date|date('Y-m-d H:i') }}</div>
         {% else %}
             <div class="dropdown dropdown-no-arrow">
                 <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {{ mission.date|date('Y-m-d H:m') }}
+                    {{ mission.date|date('Y-m-d H:i') }}
                     <i class="fa fa-calendar-day"></i>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
