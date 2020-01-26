@@ -12,28 +12,13 @@
         </div>
         <!--/Grid column-->
 
-        {# @var nearestMission \App\Http\Mission\Dto\MissionDto #}
+        {# @var nearestMission \App\Service\Mission\Dto\MissionDto #}
         {% if nearestMission is not null %}
             <!--Grid column-->
             <div class="col-lg-4 col-md-6 mission">
                 <h4 class="my-4 font-weight-bold">{{ nearestMission.archived ? 'Last mission'|trans : 'Nearest mission'|trans }}</h4>
 
-                <div class="img-mission">
-                    <img src="{{ proxy_image(nearestMission.image) }}" alt="">
-                </div>
-
-                <div class="text-left mt-2 mb-4">
-                    <h4>
-                        <span class="font-weight-bold">{{ nearestMission.title }}</span>
-                    </h4>
-                    <span>
-                        {{ nearestMission.date|date('Y-m-d H:m') }}
-                    </span>
-                </div>
-
-                <div class="text-justify">
-                    {{ ((nearestMission.description|u).truncate(350, '...'))|markdown_to_html }}
-                </div>
+                {% include '_partial/_mission_widget.html.twig' with {'mission': nearestMission} %}
             </div>
             <!--/Grid column-->
         {% endif %}

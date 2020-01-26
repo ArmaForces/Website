@@ -45,14 +45,16 @@ class MissionDto
     /**
      * @param array<mixed> $array
      */
-    public static function fromArray(array $array): MissionDto
+    public static function fromArray(array $array): self
     {
+        $timezone = new \DateTimeZone('Europe/Warsaw');
+
         return new self(
             ($array['archive'] ?? false) ? -1 : $array['id'],
             $array['title'],
             // TODO pr for remote Bot api with dates as Epoch
-            \DateTimeImmutable::createFromFormat('Y-m-d\TH:i:s', substr($array['date'], 0, 19)),
-            \DateTimeImmutable::createFromFormat('Y-m-d\TH:i:s', substr($array['closeDate'], 0, 19)),
+            \DateTimeImmutable::createFromFormat('Y-m-d\TH:i:s', substr($array['date'], 0, 19), $timezone),
+            \DateTimeImmutable::createFromFormat('Y-m-d\TH:i:s', substr($array['closeDate'], 0, 19), $timezone),
             $array['description'],
             $array['freeSlots'],
             $array['allSlots'],
@@ -93,6 +95,11 @@ class MissionDto
     public function getAllSlots(): int
     {
         return $this->allSlots;
+    }
+
+    public function getOccupiedSlots(): int
+    {
+        return $this->getAllSlots() - $this->getFreeSlots();
     }
 
     public function isArchived(): bool

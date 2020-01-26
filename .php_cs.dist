@@ -13,9 +13,13 @@ return PhpCsFixer\Config::create()
     ->setLineEnding("\n") // Linux LF line ending
     ->setRiskyAllowed(true)
     ->setRules([
+        // Use risky rules for new projects only
+        // Uncomment @PHPx rules up to target PHP version
+        '@DoctrineAnnotation' => true,
         '@PhpCsFixer' => true,
+        '@PhpCsFixer:risky' => true,
         '@PHP70Migration' => true,
-        '@PHP71Migration:risky' => true,
+        '@PHP70Migration:risky' => true,
         '@PHP71Migration' => true,
         '@PHP71Migration:risky' => true,
         '@PHP73Migration' => true,

@@ -49,7 +49,7 @@ class MissionClient
         $upcomingMissions = iterator_to_array($this->getMissions(false));
 
         // api sorts missions latest to oldest
-        $nearestMission = $upcomingMissions[count($upcomingMissions) - 1];
+        $nearestMission = $upcomingMissions[\count($upcomingMissions) - 1];
 
         if (null === $nearestMission) {
             $allMissions = $this->getMissions(true);
@@ -81,6 +81,6 @@ class MissionClient
             }
         }
 
-        return -1 === $firstArchivedIndex ? [] : array_slice($allMissions, $firstArchivedIndex);
+        return -1 === $firstArchivedIndex ? [] : \array_slice($allMissions, $firstArchivedIndex);
     }
 }

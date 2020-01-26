@@ -8,7 +8,7 @@ use App\Entity\AbstractEntity;
 use App\Security\Enum\RoleEnum;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class AbstractUserEntity extends AbstractEntity implements UserInterface
+class AbstractUser extends AbstractEntity implements UserInterface
 {
     /** @var string */
     protected $username;
@@ -21,6 +21,13 @@ class AbstractUserEntity extends AbstractEntity implements UserInterface
 
     /** @var string */
     protected $role = RoleEnum::ROLE_USER;
+
+    public function __construct(string $username)
+    {
+        parent::__construct();
+
+        $this->username = $username;
+    }
 
     public function getUsername(): string
     {
