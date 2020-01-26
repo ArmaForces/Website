@@ -66,7 +66,7 @@ RUN set -eux; \
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN ln -s $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
-COPY .docker $PHP_INI_DIR/conf.d/armaforces-web.ini
+COPY .docker/php/conf.d/armaforces-web.ini $PHP_INI_DIR/conf.d/armaforces-web.ini
 
 # https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
 ENV COMPOSER_ALLOW_SUPERUSER=1
