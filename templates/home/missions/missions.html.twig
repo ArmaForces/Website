@@ -47,7 +47,7 @@
                             {# @var mission \App\Service\Mission\Dto\MissionDto #}
                             <!--Grid column-->
                             <div class="col-lg-4 col-md-6 mb-4 mission">
-                                {% include '_partial/_mission_widget.html.twig' with {'mission': mission} %}
+                                {% include '_partial/_mission_widget.html.twig' with {'mission': mission, 'lazy': true} %}
                             </div>
                             <!--/Grid column-->
                         {% endfor %}
