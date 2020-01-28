@@ -1,6 +1,11 @@
 <!-- Mission image -->
 <div class="img-mission">
-    <img src="{{ proxy_image(mission.image ?? 'https://via.placeholder.com/300x200.png?text=No%20mission%20image') }}" alt="">
+    {% set mission_image = mission.image ?? 'https://via.placeholder.com/300x200.png?text=No%20mission%20image' %}
+    {% if lazy is defined and lazy %}
+        <img class="lazy" src="{{ asset('img/placeholder_320x250.png') }}" data-src="{{ proxy_image(mission_image) }}" alt="">
+    {% else %}
+        <img src="{{ proxy_image(mission_image) }}" alt="">
+    {%- endif %}
 </div>
 
 <!-- Mission header -->
