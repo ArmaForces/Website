@@ -53,8 +53,10 @@ class MissionClient
         foreach ($allMissions as $mission) {
             if ($nearestMission && MissionStateEnum::ARCHIVED === $mission->getState()) {
                 break;
-            } elseif (MissionStateEnum::ARCHIVED === $mission->getState()) {
+            }
+            if (MissionStateEnum::ARCHIVED === $mission->getState()) {
                 $nearestMission = $mission;
+
                 break;
             }
 
