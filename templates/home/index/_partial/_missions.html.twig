@@ -16,7 +16,9 @@
         {% if nearestMission is not null %}
             <!--Grid column-->
             <div class="col-lg-4 col-md-6 mission">
-                <h4 class="my-4 font-weight-bold">{{ nearestMission.archived ? 'Last mission'|trans : 'Nearest mission'|trans }}</h4>
+                <h4 class="my-4 font-weight-bold">
+                    {{ nearestMission.state == constant('App\\Enum\\Mission\\MissionStateEnum::ARCHIVED') ? 'Last mission'|trans : 'Nearest mission'|trans }}
+                </h4>
 
                 {% include '_partial/_mission_widget.html.twig' with {'mission': nearestMission} %}
             </div>
