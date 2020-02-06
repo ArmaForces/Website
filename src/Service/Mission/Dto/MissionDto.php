@@ -30,16 +30,20 @@ class MissionDto
     /** @var null|string */
     protected $image;
 
-    public function __construct(float $id, string $title, \DateTimeImmutable $date, \DateTimeImmutable $closeDate, string $description, int $freeSlots, int $allSlots, ?string $image = null)
+    /** @var string */
+    protected $state;
+
+    public function __construct(float $id, string $title, \DateTimeImmutable $date, \DateTimeImmutable $closeDate, string $description, int $freeSlots, int $allSlots, string $state, ?string $image = null)
     {
         $this->id = $id;
         $this->title = $title;
         $this->date = $date;
         $this->closeDate = $closeDate;
-        $this->image = $image;
         $this->description = $description;
         $this->freeSlots = $freeSlots;
         $this->allSlots = $allSlots;
+        $this->state = $state;
+        $this->image = $image;
     }
 
     /**
@@ -58,6 +62,7 @@ class MissionDto
             $array['description'],
             $array['freeSlots'],
             $array['allSlots'],
+            $array['state'],
             $array['image']
         );
     }
@@ -110,5 +115,10 @@ class MissionDto
     public function getImage(): ?string
     {
         return $this->image;
+    }
+
+    public function getState(): string
+    {
+        return $this->state;
     }
 }
