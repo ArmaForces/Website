@@ -1,5 +1,6 @@
 
 import './app.scss';
+import discordWidget from './discord-widget';
 
 import jQuery from 'jquery';
 import yall from 'yall-js';
@@ -24,4 +25,6 @@ $(() => {
     // Image lazy loading
     yall();
 
+    // discord widget
+    discordWidget(document.getElementById('discord-widget-footer'));
 });

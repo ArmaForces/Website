@@ -13,7 +13,7 @@ twig:
         google_analytics_token: '%app.google_analytics_token%'
         url:
             discord: 'https://discord.gg/wcuVSrU'
-            discord_frame: 'https://discordapp.com/widget?id=386882491484602368&theme=dark'
+            discord_widget: 'https://discordapp.com/api/guilds/386882491484602368/widget.json'
             steam:   'https://steamcommunity.com/id/armaforces/myworkshopfiles?appid=107410'
             statute: 'https://drive.google.com/file/d/1a2Ote4EegVOxYUP7Un9gosLzBSmWV8fj'
             modlist: 'https://modlist.armaforces.com'
