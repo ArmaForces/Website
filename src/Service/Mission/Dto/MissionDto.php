@@ -56,7 +56,7 @@ class MissionDto
             \DateTimeImmutable::createFromFormat('Y-m-d\TH:i:s', substr($array['date'], 0, 19), $timezone),
             \DateTimeImmutable::createFromFormat('Y-m-d\TH:i:s', substr($array['closeDate'], 0, 19), $timezone),
             $array['description'],
-            $array['freeSlots'],
+            abs($array['freeSlots']),
             $array['allSlots'],
             $array['image']
         );
