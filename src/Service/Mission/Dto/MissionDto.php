@@ -112,13 +112,13 @@ class MissionDto
         return -1 === (int) $this->getId();
     }
 
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
     public function getState(): string
     {
         return $this->state;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
     }
 }
