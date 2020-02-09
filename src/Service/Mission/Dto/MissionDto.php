@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace App\Service\Mission\Dto;
 
-use App\Enum\Mission\MissionStateEnum;
-
 class MissionDto
 {
-    /** @var int */
+    /** @var null|int */
     protected $id;
 
     /** @var string */
@@ -35,7 +33,7 @@ class MissionDto
     /** @var string */
     protected $state;
 
-    public function __construct(int $id, string $title, \DateTimeImmutable $date, \DateTimeImmutable $closeDate, string $description, int $freeSlots, int $allSlots, string $state, ?string $image = null)
+    public function __construct(?int $id, string $title, \DateTimeImmutable $date, \DateTimeImmutable $closeDate, string $description, int $freeSlots, int $allSlots, string $state, ?string $image = null)
     {
         $this->id = $id;
         $this->title = $title;
@@ -56,7 +54,7 @@ class MissionDto
         $timezone = new \DateTimeZone('Europe/Warsaw');
 
         return new self(
-            ($array['archive'] ?? false) ? -1 : $array['id'],
+            $array['id'] ?? null,
             $array['title'],
             // TODO pr for remote Bot api with dates as Epoch
             \DateTimeImmutable::createFromFormat('Y-m-d\TH:i:s', substr($array['date'], 0, 19), $timezone),
@@ -69,7 +67,7 @@ class MissionDto
         );
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
