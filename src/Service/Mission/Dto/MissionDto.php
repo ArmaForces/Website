@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Service\Mission\Dto;
 
+use App\Enum\Mission\MissionStateEnum;
+
 class MissionDto
 {
     /** @var float */
@@ -105,11 +107,6 @@ class MissionDto
     public function getOccupiedSlots(): int
     {
         return $this->getAllSlots() - $this->getFreeSlots();
-    }
-
-    public function isArchived(): bool
-    {
-        return -1 === (int) $this->getId();
     }
 
     public function getState(): string

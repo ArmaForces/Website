@@ -71,11 +71,12 @@ class MissionClient
      */
     public function getArchivedMissions(): array
     {
+        /** @var MissionDto[] $allMissions */
         $allMissions = iterator_to_array($this->getMissions(true));
 
         $firstArchivedIndex = -1;
         foreach ($allMissions as $idx => $mission) {
-            if ($mission->isArchived()) {
+            if (MissionStateEnum::ARCHIVED === $mission->getState()) {
                 $firstArchivedIndex = $idx;
 
                 break;
