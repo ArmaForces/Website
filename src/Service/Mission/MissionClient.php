@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\Mission;
 
+use App\Enum\Mission\MissionStateEnum;
 use App\Service\Mission\Dto\MissionDto;
 use Symfony\Component\HttpClient\CachingHttpClient;
 use Symfony\Component\HttpClient\ScopingHttpClient;
@@ -46,20 +47,20 @@ class MissionClient
      */
     public function getNearestMission(): ?MissionDto
     {
-        $upcomingMissions = iterator_to_array($this->getMissions(false));
+        $allMissions = $this->getMissions(true);
+        $nearestMission = null;
 
-        // api sorts missions latest to oldest
-        $nearestMission = $upcomingMissions[\count($upcomingMissions) - 1];
-
-        if (null === $nearestMission) {
-            $allMissions = $this->getMissions(true);
-            foreach ($allMissions as $mission) {
-                if ($mission->isArchived()) {
-                    $nearestMission = $mission;
-
-                    break;
-                }
+        foreach ($allMissions as $mission) {
+            if ($nearestMission && MissionStateEnum::ARCHIVED === $mission->getState()) {
+                break;
             }
+            if (MissionStateEnum::ARCHIVED === $mission->getState()) {
+                $nearestMission = $mission;
+
+                break;
+            }
+
+            $nearestMission = $mission;
         }
 
         return $nearestMission;
@@ -70,11 +71,12 @@ class MissionClient
      */
     public function getArchivedMissions(): array
     {
+        /** @var MissionDto[] $allMissions */
         $allMissions = iterator_to_array($this->getMissions(true));
 
         $firstArchivedIndex = -1;
         foreach ($allMissions as $idx => $mission) {
-            if ($mission->isArchived()) {
+            if (MissionStateEnum::ARCHIVED === $mission->getState()) {
                 $firstArchivedIndex = $idx;
 
                 break;

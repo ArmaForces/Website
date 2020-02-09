@@ -17,7 +17,7 @@
                 <h3>{{ 'Try again later'|trans }}</h3>
             {% else %}
                 <!-- Heading -->
-                <h2 class="mb-5 font-weight-bold">{{ 'Open missions'|trans }}</h2>
+                <h2 class="mb-5 font-weight-bold">{{ 'Upcoming missions'|trans }}</h2>
 
                 {% for missionsRow in openMissions|reverse|batch(3) %}
                     <!--Grid row-->
