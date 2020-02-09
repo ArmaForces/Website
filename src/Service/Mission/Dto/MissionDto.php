@@ -8,7 +8,7 @@ use App\Enum\Mission\MissionStateEnum;
 
 class MissionDto
 {
-    /** @var float */
+    /** @var int */
     protected $id;
 
     /** @var string */
@@ -35,7 +35,7 @@ class MissionDto
     /** @var string */
     protected $state;
 
-    public function __construct(float $id, string $title, \DateTimeImmutable $date, \DateTimeImmutable $closeDate, string $description, int $freeSlots, int $allSlots, string $state, ?string $image = null)
+    public function __construct(int $id, string $title, \DateTimeImmutable $date, \DateTimeImmutable $closeDate, string $description, int $freeSlots, int $allSlots, string $state, ?string $image = null)
     {
         $this->id = $id;
         $this->title = $title;
@@ -69,7 +69,7 @@ class MissionDto
         );
     }
 
-    public function getId(): float
+    public function getId(): int
     {
         return $this->id;
     }
