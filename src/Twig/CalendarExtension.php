@@ -34,6 +34,6 @@ class CalendarExtension extends AbstractExtension
         $fromDate = \DateTime::createFromImmutable($mission->getDate())->sub(new \DateInterval('PT30M'));
         $toDate = \DateTime::createFromImmutable($mission->getDate())->add(new \DateInterval('PT2H'));
 
-        return Link::create($mission->getTitle(), $fromDate, $toDate);
+        return Link::create(sprintf('[AF] %s', $mission->getTitle()), $fromDate, $toDate);
     }
 }
