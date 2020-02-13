@@ -26,8 +26,11 @@
     <!--/.Footer Links-->
 
     <!-- Copyright -->
-    <div class="footer-copyright text-center py-3">© {{ 'now'|date('Y') }} Copyright:
+    <div class="footer-copyright text-center py-3">
+        © {{ 'now'|date('Y') }} Copyright:
         <a href="https://github.com/ArmaForces/Website/contributors"> ArmaForces</a>
+        <br/>
+        <span class="small">Version: {{ app_version() }}</span>
     </div>
     <!-- Copyright -->
 
