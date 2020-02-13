@@ -1,5 +1,5 @@
 /\.idea/
-VERSION
+/VERSION
 
 ###> symfony/framework-bundle ###
 /.env.local
