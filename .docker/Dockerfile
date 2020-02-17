@@ -80,7 +80,7 @@ WORKDIR /www/app
 ARG APP_ENV=prod
 
 # prevent the reinstallation of vendors at every changes in the source code
-COPY composer.json composer.lock symfony.lock .env ./
+COPY composer.json composer.lock symfony.lock .env VERSIO[N] ./
 RUN set -eux; \
     composer install --prefer-dist --no-dev --no-scripts --no-progress --no-suggest; \
     composer clear-cache

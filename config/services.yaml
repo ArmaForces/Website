@@ -46,6 +46,10 @@ services:
         arguments:
             $storagePath: '%kernel.project_dir%/var/cache_http/%kernel.environment%'
 
+    App\Service\Version\VersionProvider:
+        arguments:
+            $projectDir: '%kernel.project_dir%'
+
     App\Twig\ImgproxyExtension:
         arguments:
             $baseProxyUrl: '%env(APP_IMGPROXY_URL)%'
