@@ -6,7 +6,7 @@ namespace App\Service\Mission\Dto;
 
 class MissionDto
 {
-    /** @var float */
+    /** @var null|int */
     protected $id;
 
     /** @var string */
@@ -30,16 +30,20 @@ class MissionDto
     /** @var null|string */
     protected $image;
 
-    public function __construct(float $id, string $title, \DateTimeImmutable $date, \DateTimeImmutable $closeDate, string $description, int $freeSlots, int $allSlots, ?string $image = null)
+    /** @var string */
+    protected $state;
+
+    public function __construct(?int $id, string $title, \DateTimeImmutable $date, \DateTimeImmutable $closeDate, string $description, int $freeSlots, int $allSlots, string $state, ?string $image = null)
     {
         $this->id = $id;
         $this->title = $title;
         $this->date = $date;
         $this->closeDate = $closeDate;
-        $this->image = $image;
         $this->description = $description;
         $this->freeSlots = $freeSlots;
         $this->allSlots = $allSlots;
+        $this->state = $state;
+        $this->image = $image;
     }
 
     /**
@@ -50,7 +54,7 @@ class MissionDto
         $timezone = new \DateTimeZone('Europe/Warsaw');
 
         return new self(
-            ($array['archive'] ?? false) ? -1 : $array['id'],
+            $array['id'] ?? null,
             $array['title'],
             // TODO pr for remote Bot api with dates as Epoch
             \DateTimeImmutable::createFromFormat('Y-m-d\TH:i:s', substr($array['date'], 0, 19), $timezone),
@@ -58,11 +62,12 @@ class MissionDto
             $array['description'],
             $array['freeSlots'],
             $array['allSlots'],
+            $array['state'],
             $array['image']
         );
     }
 
-    public function getId(): float
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -102,9 +107,9 @@ class MissionDto
         return $this->getAllSlots() - $this->getFreeSlots();
     }
 
-    public function isArchived(): bool
+    public function getState(): string
     {
-        return -1 === (int) $this->getId();
+        return $this->state;
     }
 
     public function getImage(): ?string

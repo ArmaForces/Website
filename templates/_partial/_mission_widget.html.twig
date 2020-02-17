@@ -1,6 +1,11 @@
 <!-- Mission image -->
 <div class="img-mission">
-    <img src="{{ proxy_image(mission.image ?? 'https://via.placeholder.com/300x200.png?text=No%20mission%20image') }}" alt="">
+    {% set mission_image = mission.image ?? 'https://via.placeholder.com/300x200.png?text=No%20mission%20image' %}
+    {% if lazy is defined and lazy %}
+        <img class="lazy" src="{{ asset('img/placeholder_320x250.png') }}" data-src="{{ proxy_image(mission_image) }}" alt="">
+    {% else %}
+        <img src="{{ proxy_image(mission_image) }}" alt="">
+    {%- endif %}
 </div>
 
 <!-- Mission header -->
@@ -9,7 +14,7 @@
         <span class="font-weight-bold">{{ mission.title }}</span>
     </h4>
     <div class="d-flex justify-content-between">
-        {% if mission.archived %}
+        {% if mission.state == constant('App\\Enum\\Mission\\MissionStateEnum::ARCHIVED') %}
             <div>{{ mission.date|date('Y-m-d H:i') }}</div>
         {% else %}
             <div class="dropdown dropdown-no-arrow">
@@ -22,7 +27,7 @@
                         <i class="fab fa-google"></i>oogle
                     </a>
                     <a class="dropdown-item" href="{{ mission_event_ical(mission) }}" type="text/calendar" download="{{ mission.title }}.ics">
-                        <i class="fa fa-calendar-alt"></i> Ical
+                        <i class="fa fa-calendar-alt"></i> iCal
                     </a>
                 </div>
             </div>

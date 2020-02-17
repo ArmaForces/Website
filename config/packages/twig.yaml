@@ -19,3 +19,4 @@ twig:
             wiki:    'https://wiki.armaforces.com'
             teamspeak: '%app.url.teamspeak%'
             calendar: 'https://docs.google.com/spreadsheets/d/1t1158AsoxIwXI5FlPNjqbaXk6Cx7oq7Ocgchnsk2_TE'
+            github: 'https://github.com/ArmaForces/Website'
