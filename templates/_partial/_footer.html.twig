@@ -30,7 +30,10 @@
         © {{ 'now'|date('Y') }} Copyright:
         <a href="https://github.com/ArmaForces/Website/contributors"> ArmaForces</a>
         <br/>
-        <span class="small">Version: {{ app_version() }}</span>
+        <span class="small">
+            Version:
+            <a href="https://github.com/ArmaForces/Website/commit/{{ app_version() }}">{{ app_version_short() }}</a>
+        </span>
     </div>
     <!-- Copyright -->
 

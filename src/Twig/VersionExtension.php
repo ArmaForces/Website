@@ -21,20 +21,18 @@ class VersionExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('app_version', [$this, 'getVersion'], [
-                'is_safe' => ['html'],
-            ]),
+            new TwigFunction('app_version', [$this, 'getVersion']),
+            new TwigFunction('app_version_short', [$this, 'getVersionShort']),
         ];
     }
 
     public function getVersion(): string
     {
-        $version = $this->version->getVersion();
+        return $this->version->getVersion();
+    }
 
-        if ('dev' !== $version) {
-            return "<a href='https://github.com/ArmaForces/Website/commit/{$version}'>".substr($version, 0, 8).'</a>';
-        }
-
-        return $version;
+    public function getVersionShort(): string
+    {
+        return substr($this->getVersion(), 0, 8);
     }
 }
