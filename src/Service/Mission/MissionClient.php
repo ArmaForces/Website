@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Service\Mission;
 
-use App\Enum\Mission\MissionStateEnum;
 use App\Service\Mission\Dto\MissionDto;
+use App\Service\Mission\Enum\MissionStateEnum;
 use Symfony\Component\HttpClient\CachingHttpClient;
 use Symfony\Component\HttpClient\ScopingHttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;

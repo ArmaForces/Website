@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Enum\Mission;
+namespace App\Service\Mission\Enum;
 
 class MissionStateEnum
 {
