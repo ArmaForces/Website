@@ -47,23 +47,9 @@ class MissionClient
      */
     public function getNearestMission(): ?MissionDto
     {
-        $allMissions = $this->getMissions(true);
-        $nearestMission = null;
+        $upcomingMissions = $this->getUpcomingMissions();
 
-        foreach ($allMissions as $mission) {
-            if ($nearestMission && MissionStateEnum::ARCHIVED === $mission->getState()) {
-                break;
-            }
-            if (MissionStateEnum::ARCHIVED === $mission->getState()) {
-                $nearestMission = $mission;
-
-                break;
-            }
-
-            $nearestMission = $mission;
-        }
-
-        return $nearestMission;
+        return $upcomingMissions ? array_pop($upcomingMissions) : null;
     }
 
     /**
@@ -74,15 +60,25 @@ class MissionClient
         /** @var MissionDto[] $allMissions */
         $allMissions = iterator_to_array($this->getMissions(true));
 
-        $firstArchivedIndex = -1;
-        foreach ($allMissions as $idx => $mission) {
+        return array_filter($allMissions, static function (MissionDto $mission) {
             if (MissionStateEnum::ARCHIVED === $mission->getState()) {
-                $firstArchivedIndex = $idx;
-
-                break;
+                return $mission;
             }
-        }
+        });
+    }
 
-        return -1 === $firstArchivedIndex ? [] : \array_slice($allMissions, $firstArchivedIndex);
+    /**
+     * @return MissionDto[]
+     */
+    public function getUpcomingMissions(): array
+    {
+        /** @var MissionDto[] $allMissions */
+        $allMissions = iterator_to_array($this->getMissions(true));
+
+        return array_filter($allMissions, static function (MissionDto $mission) {
+            if (MissionStateEnum::ARCHIVED !== $mission->getState()) {
+                return $mission;
+            }
+        });
     }
 }
