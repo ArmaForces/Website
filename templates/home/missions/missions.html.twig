@@ -12,14 +12,14 @@
     <div class="mt-3">
         <!--Section Missions-->
         <section id="missions" class="text-center">
-            {% if openMissions is null or archivedMissions is null %}
+            {% if upcomingMissions is null or archivedMissions is null %}
                 <h2>{{ 'Something went wrong while fetching missions list...'|trans }}</h2>
                 <h3>{{ 'Try again later'|trans }}</h3>
             {% else %}
                 <!-- Heading -->
                 <h2 class="mb-5 font-weight-bold">{{ 'Upcoming missions'|trans }}</h2>
 
-                {% for missionsRow in openMissions|reverse|batch(3) %}
+                {% for missionsRow in upcomingMissions|reverse|batch(3) %}
                     <!--Grid row-->
                     <div class="row">
                         {% for mission in missionsRow %}
