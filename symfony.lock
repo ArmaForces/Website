@@ -96,6 +96,9 @@
     "egulias/email-validator": {
         "version": "2.1.11"
     },
+    "elao/enum": {
+        "version": "v1.7.0"
+    },
     "erusev/parsedown": {
         "version": "1.7.4"
     },
