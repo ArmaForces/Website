@@ -5,112 +5,95 @@ declare(strict_types=1);
 namespace App\Form\Mod\Dto;
 
 use App\Entity\EntityInterface;
-use App\Entity\Mod\Mod;
-use App\Enum\Mod\ModSourceEnum;
+use App\Entity\Mod\DirectoryMod;
+use App\Entity\Mod\Enum\ModSourceEnum;
+use App\Entity\Mod\Enum\ModTypeEnum;
+use App\Entity\Mod\ModInterface;
+use App\Entity\Mod\SteamWorkshopMod;
 use App\Form\AbstractFormDto;
 use App\Form\FormDtoInterface;
-use App\Validator\SteamWorkshopModUrl;
-use App\Validator\WindowsDirectoryPath;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class ModFormDto extends AbstractFormDto
 {
-    /**
-     * @var null|string
-     */
+    /** @var null|string */
     protected $id;
 
-    /**
-     * @var null|string
-     *
-     * @Assert\Length(min=1, max=255)
-     * @Assert\NotBlank
-     */
+    /** @var null|string */
     protected $name;
 
-    /**
-     * @var null|string
-     *
-     * @SteamWorkshopModUrl(groups={ModSourceEnum::STEAM_WORKSHOP})
-     * @WindowsDirectoryPath(groups={ModSourceEnum::DIRECTORY})
-     * @Assert\Length(min=1, max=255, groups={ModSourceEnum::DIRECTORY})
-     * @Assert\NotBlank
-     */
+    /** @var null|string */
+    protected $description;
+
+    /** @var null|string */
+    protected $type;
+
+    /** @var null|string */
+    protected $source;
+
+    /** @var null|string */
+    protected $url;
+
+    /** @var null|string */
     protected $path;
 
     /**
-     * @var null|string
+     * @param null|ModInterface $entity
      *
-     * @Assert\Expression(
-     *     "!(this.getUsedBy() == constant('App\\Enum\\Mod\\ModUsedByEnum::CLIENT') && this.getSource() != constant('App\\Enum\\Mod\\ModSourceEnum::STEAM_WORKSHOP'))",
-     *     message="Incorrect values combination"
-     * )
-     *
-     * @Assert\Expression(
-     *     "!(this.getUsedBy() == constant('App\\Enum\\Mod\\ModUsedByEnum::SERVER') && this.getType() != constant('App\\Enum\\Mod\\ModTypeEnum::REQUIRED'))",
-     *     message="Incorrect values combination"
-     * )
-     */
-    protected $usedBy;
-
-    /**
-     * @var null|string
-     *
-     * @Assert\Expression(
-     *     "!(this.getUsedBy() == constant('App\\Enum\\Mod\\ModUsedByEnum::SERVER') && this.getType() != constant('App\\Enum\\Mod\\ModTypeEnum::REQUIRED'))",
-     *     message="Incorrect values combination"
-     * )
-     */
-    protected $type;
-
-    /**
-     * @var null|string
-     *
-     * @Assert\Expression(
-     *     "!(this.getUsedBy() == constant('App\\Enum\\Mod\\ModUsedByEnum::CLIENT') && this.getSource() != constant('App\\Enum\\Mod\\ModSourceEnum::STEAM_WORKSHOP'))",
-     *     message="Incorrect values combination"
-     * )
-     */
-    protected $source;
-
-    /**
-     * @param null|Mod $entity
+     * @return ModFormDto
      */
     public static function fromEntity(EntityInterface $entity = null): FormDtoInterface
     {
         $self = new self();
 
-        if (!$entity) {
+        /** @var ModInterface $entity */
+        if (!$entity instanceof ModInterface) {
             return $self;
         }
 
         $self->setId($entity->getId());
         $self->setName($entity->getName());
-        $self->setUsedBy($entity->getUsedBy());
-        $self->setType($entity->getType());
-        $self->setSource($entity->getSource());
-        $self->setPath($entity->getPath());
+        $self->setDescription($entity->getDescription());
+        $self->setType($entity->getType()->getValue());
+
+        if ($entity instanceof SteamWorkshopMod) {
+            $self->setSource(ModSourceEnum::STEAM_WORKSHOP);
+            $self->setUrl($entity->getUrl());
+        } elseif ($entity instanceof DirectoryMod) {
+            $self->setSource(ModSourceEnum::DIRECTORY);
+            $self->setPath($entity->getPath());
+        }
 
         return $self;
     }
 
     /**
-     * @param null|Mod $entity
+     * @param null|ModInterface $entity
+     *
+     * @return ModInterface
      */
     public function toEntity(EntityInterface $entity = null): EntityInterface
     {
-        if (!$entity) {
-            $entity = new Mod(
-                $this->getName(),
-                $this->getPath()
-            );
+        /** @var ModSourceEnum $source */
+        $source = ModSourceEnum::get($this->getSource());
+
+        /** @var ModTypeEnum $type */
+        $type = ModTypeEnum::get($this->getType());
+
+        if (!$entity instanceof SteamWorkshopMod && $source->is(ModSourceEnum::STEAM_WORKSHOP)) {
+            $entity = new SteamWorkshopMod($this->getName(), $type, $this->getUrl());
+        } elseif (!$entity instanceof DirectoryMod && $source->is(ModSourceEnum::DIRECTORY)) {
+            $entity = new DirectoryMod($this->getName(), $type, $this->getPath());
         }
 
         $entity->setName($this->getName());
-        $entity->setPath($this->getPath());
-        $entity->setUsedBy($this->getUsedBy());
-        $entity->setType($this->getType());
-        $entity->setSource($this->getSource());
+        $entity->setDescription($this->getDescription());
+        $entity->setType($type);
+
+        if ($entity instanceof SteamWorkshopMod) {
+            $entity->setUrl($this->getUrl());
+        } elseif ($entity instanceof DirectoryMod) {
+            $entity->setPath($this->getPath());
+        }
 
         return $entity;
     }
@@ -121,12 +104,7 @@ class ModFormDto extends AbstractFormDto
     public function resolveValidationGroups(): array
     {
         $validationGroups = parent::resolveValidationGroups();
-
-        if (ModSourceEnum::STEAM_WORKSHOP === $this->getSource()) {
-            $validationGroups[] = ModSourceEnum::STEAM_WORKSHOP;
-        } elseif (ModSourceEnum::DIRECTORY === $this->getSource()) {
-            $validationGroups[] = ModSourceEnum::DIRECTORY;
-        }
+        $validationGroups[] = $this->getSource();
 
         return $validationGroups;
     }
@@ -151,24 +129,14 @@ class ModFormDto extends AbstractFormDto
         $this->name = $name;
     }
 
-    public function getPath(): ?string
+    public function getDescription(): ?string
     {
-        return $this->path;
+        return $this->description;
     }
 
-    public function setPath(?string $path): void
+    public function setDescription(?string $description): void
     {
-        $this->path = $path;
-    }
-
-    public function getUsedBy(): ?string
-    {
-        return $this->usedBy;
-    }
-
-    public function setUsedBy(?string $usedBy): void
-    {
-        $this->usedBy = $usedBy;
+        $this->description = $description;
     }
 
     public function getType(): ?string
@@ -189,5 +157,25 @@ class ModFormDto extends AbstractFormDto
     public function setSource(?string $source): void
     {
         $this->source = $source;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    public function setUrl(?string $url): void
+    {
+        $this->url = $url;
+    }
+
+    public function getPath(): ?string
+    {
+        return $this->path;
+    }
+
+    public function setPath(?string $path): void
+    {
+        $this->path = $path;
     }
 }
