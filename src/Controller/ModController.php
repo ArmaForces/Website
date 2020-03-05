@@ -85,7 +85,13 @@ class ModController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $modFormDto->toEntity($mod);
+            $updatedMod = $modFormDto->toEntity($mod);
+
+            if (!$this->entityManager->contains($updatedMod)) {
+                $this->entityManager->remove($mod);
+                $this->entityManager->persist($updatedMod);
+            }
+
             $this->entityManager->flush();
 
             return $this->redirectToRoute('app_mod_list');
