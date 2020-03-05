@@ -40,7 +40,7 @@
                             </td>
                             <td>
                                 {% if mod is instance_of('\\App\\Entity\\Mod\\SteamWorkshopMod') %}
-                                    {{ 'Steam Workshop'|trans }}
+                                    <a href="{{ mod.url }}">{{ 'Steam Workshop'|trans }}</a>
                                 {% elseif mod is instance_of('\\App\\Entity\\Mod\\DirectoryMod') %}
                                     {{ 'Directory'|trans }}
                                 {% endif %}
