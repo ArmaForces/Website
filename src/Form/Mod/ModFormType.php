@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\Form\Mod;
 
-use App\Enum\Mod\ModSourceEnum;
-use App\Enum\Mod\ModTypeEnum;
-use App\Enum\Mod\ModUsedByEnum;
+use App\Entity\Mod\Enum\ModSourceEnum;
+use App\Entity\Mod\Enum\ModTypeEnum;
 use App\Form\Mod\Dto\ModFormDto;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -27,33 +26,34 @@ class ModFormType extends AbstractType
 
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Name',
+                'label' => 'Mod name',
             ])
-            ->add('usedBy', ChoiceType::class, [
-                'label' => 'Used by',
-                'choices' => [
-                    'Client' => ModUsedByEnum::CLIENT,
-                    'Server' => ModUsedByEnum::SERVER,
-                ],
+            ->add('description', TextType::class, [
+                'label' => 'Mod description',
             ])
             ->add('type', ChoiceType::class, [
-                'label' => 'Type',
+                'label' => 'Mod type',
                 'choices' => [
-                    'Required' => ModTypeEnum::REQUIRED,
-                    'Optional' => ModTypeEnum::OPTIONAL,
+                    'Server side mod' => ModTypeEnum::SERVER_SIDE,
+                    'Required mod' => ModTypeEnum::REQUIRED,
+                    'Optional mod' => ModTypeEnum::OPTIONAL,
+                    'Client side mod' => ModTypeEnum::CLIENT_SIDE,
                 ],
                 'empty_data' => ModTypeEnum::REQUIRED,
             ])
             ->add('source', ChoiceType::class, [
-                'label' => 'Source',
+                'label' => 'Mod source',
                 'choices' => [
                     'Steam Workshop' => ModSourceEnum::STEAM_WORKSHOP,
                     'Directory' => ModSourceEnum::DIRECTORY,
                 ],
                 'empty_data' => ModSourceEnum::STEAM_WORKSHOP,
             ])
+            ->add('url', TextType::class, [
+                'label' => 'Steam Workshop URL',
+            ])
             ->add('path', TextType::class, [
-                'label' => 'URL or mod directory path',
+                'label' => 'Directory path',
             ])
         ;
     }
