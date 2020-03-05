@@ -12,28 +12,64 @@ use App\Entity\Mod\ModInterface;
 use App\Entity\Mod\SteamWorkshopMod;
 use App\Form\AbstractFormDto;
 use App\Form\FormDtoInterface;
+use App\Validator\SteamWorkshopModUrl;
+use App\Validator\WindowsDirectoryPath;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class ModFormDto extends AbstractFormDto
 {
     /** @var null|string */
     protected $id;
 
-    /** @var null|string */
+    /**
+     * @var null|string
+     *
+     * @Assert\NotBlank
+     * @Assert\Length(min=1, max=255)
+     */
     protected $name;
 
-    /** @var null|string */
+    /**
+     * @var null|string
+     *
+     * @Assert\Length(min=1, max=255)
+     */
     protected $description;
 
-    /** @var null|string */
+    /**
+     * @var null|string
+     *
+     * @Assert\Expression(
+     *     "!(this.getType() != constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::SERVER_SIDE') && this.getSource() == constant('App\\Entity\\Mod\\Enum\\ModSourceEnum::DIRECTORY'))",
+     * )
+     */
     protected $type;
 
-    /** @var null|string */
+    /**
+     * @var null|string
+     *
+     * @Assert\Expression(
+     *     "!(this.getSource() == constant('App\\Entity\\Mod\\Enum\\ModSourceEnum::DIRECTORY') && this.getType() != constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::SERVER_SIDE'))",
+     * )
+     */
     protected $source;
 
-    /** @var null|string */
+    /**
+     * @var null|string
+     *
+     * @Assert\NotBlank(groups={ModSourceEnum::STEAM_WORKSHOP})
+     * @Assert\Length(min=1, max=255, groups={ModSourceEnum::STEAM_WORKSHOP})
+     * @SteamWorkshopModUrl(groups={ModSourceEnum::STEAM_WORKSHOP})
+     */
     protected $url;
 
-    /** @var null|string */
+    /**
+     * @var null|string
+     *
+     * @Assert\NotBlank(groups={ModSourceEnum::DIRECTORY})
+     * @Assert\Length(min=1, max=4000, groups={ModSourceEnum::DIRECTORY})
+     * @WindowsDirectoryPath(groups={ModSourceEnum::DIRECTORY})
+     */
     protected $path;
 
     /**
