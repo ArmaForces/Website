@@ -4,23 +4,12 @@ declare(strict_types=1);
 
 namespace App\Entity\Mod;
 
-use App\Entity\EntityInterface;
+use App\Entity\DescribedEntityInterface;
+use App\Entity\Mod\Enum\ModTypeEnum;
 
-interface ModInterface extends EntityInterface
+interface ModInterface extends DescribedEntityInterface
 {
-    public function getName(): string;
+    public function getType(): ModTypeEnum;
 
-    public function setName(string $name): void;
-
-    public function getType(): string;
-
-    public function setType(string $type): void;
-
-    public function getSource(): string;
-
-    public function setSource(string $source): void;
-
-    public function getPath(): string;
-
-    public function setPath(string $path): void;
+    public function setType(ModTypeEnum $type): void;
 }

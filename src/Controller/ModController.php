@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Entity\Mod\Mod;
+use App\Entity\Mod\AbstractMod;
 use App\Form\Mod\Dto\ModFormDto;
 use App\Form\Mod\ModFormType;
 use App\Repository\ModRepository;
@@ -78,7 +78,7 @@ class ModController extends AbstractController
      *
      * @IsGranted(PermissionsEnum::MODS_UPDATE)
      */
-    public function updateAction(Request $request, Mod $mod): Response
+    public function updateAction(Request $request, AbstractMod $mod): Response
     {
         $modFormDto = ModFormDto::fromEntity($mod);
         $form = $this->createForm(ModFormType::class, $modFormDto);
@@ -101,7 +101,7 @@ class ModController extends AbstractController
      *
      * @IsGranted(PermissionsEnum::MODS_DELETE)
      */
-    public function deleteAction(Mod $mod): Response
+    public function deleteAction(AbstractMod $mod): Response
     {
         $this->entityManager->remove($mod);
         $this->entityManager->flush();
