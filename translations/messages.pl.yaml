@@ -64,14 +64,25 @@ Can delete mods: Może usuwać mody
 Mods list: Lista modów
 Create mod: Utwórz mod
 Edit mod: Edytuj mod
+Delete mod: Usuń mod
+
+Server side mod: Serwerowy
+Required mod: Wymagany
+Optional mod: Opcjonalny
+Client side mod: Kliencki
+
+Mod name: Nazwa moda
+Mod description: Opis moda
+Mod type: Typ moda
+Mod source: Źródło moda
+Steam Workshop: Steam Workshop
+Directory: Katalog
+Steam Workshop URL: Link do moda
+Directory path: Ścieżka do katalogu
 
 # Other
 Try again later: Spróbuj ponownie później
 
 # Common
-Name: Nazwa
-
-Create: Utwórz
 Apply: Zastosuj
 Cancel: Anuluj
-Delete: Usuń
