@@ -6,7 +6,7 @@ namespace App\Entity\Mod;
 
 use App\Entity\Mod\Enum\ModTypeEnum;
 
-class DirectoryMod extends AbstractMod
+class DirectoryMod extends AbstractMod implements DirectoryModInterface
 {
     /** @var string */
     protected $path;

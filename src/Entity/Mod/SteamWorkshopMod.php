@@ -6,7 +6,7 @@ namespace App\Entity\Mod;
 
 use App\Entity\Mod\Enum\ModTypeEnum;
 
-class SteamWorkshopMod extends AbstractMod
+class SteamWorkshopMod extends AbstractMod implements SteamWorkshopModInterface
 {
     /** @var string */
     protected $url;
