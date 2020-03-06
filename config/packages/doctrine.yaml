@@ -16,3 +16,27 @@ doctrine:
                 dir: '%kernel.project_dir%/config/doctrine'
                 prefix: 'App\Entity'
                 alias: App
+            User:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/config/doctrine/User'
+                prefix: 'App\Entity\User'
+                alias: User
+            Mod:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/config/doctrine/Mod'
+                prefix: 'App\Entity\Mod'
+                alias: Mod
+            ModList:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/config/doctrine/ModList'
+                prefix: 'App\Entity\ModList'
+                alias: Mod
+            Permissions:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/config/doctrine/Permissions'
+                prefix: 'App\Entity\Permissions'
+                alias: Permissions
