@@ -7,6 +7,7 @@
     <entity name="App\Entity\Permissions\Permissions" table="permissions" repository-class="App\Repository\PermissionsRepository">
         <embedded name="usersPermissions" class="App\Entity\Permissions\Users\UsersPermissions" column-prefix="users_"/>
         <embedded name="modsPermissions" class="App\Entity\Permissions\Mods\ModsPermissions" column-prefix="mods_"/>
+        <embedded name="modListsPermissions" class="App\Entity\Permissions\ModLists\ModListsPermissions" column-prefix="mod_lists_"/>
     </entity>
 
 </doctrine-mapping>
