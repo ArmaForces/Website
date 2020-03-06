@@ -15,7 +15,7 @@ abstract class AbstractMod extends AbstractDescribedEntity implements ModInterfa
     protected $type;
 
     /** @var Collection|ModListInterface[] */
-    protected $modsLists;
+    protected $modLists;
 
     public function __construct(string $name, ModTypeEnum $type)
     {
@@ -34,28 +34,28 @@ abstract class AbstractMod extends AbstractDescribedEntity implements ModInterfa
         $this->type = $type;
     }
 
-    public function addModList(ModListInterface $modsList): void
+    public function addModList(ModListInterface $modList): void
     {
-        if ($this->modsLists->contains($modsList)) {
+        if ($this->modLists->contains($modList)) {
             return;
         }
 
-        $this->modsLists->add($modsList);
-        $modsList->addMod($this);
+        $this->modLists->add($modList);
+        $modList->addMod($this);
     }
 
-    public function removeModList(ModListInterface $modsList): void
+    public function removeModList(ModListInterface $modList): void
     {
-        if (!$this->modsLists->contains($modsList)) {
+        if (!$this->modLists->contains($modList)) {
             return;
         }
 
-        $this->modsLists->removeElement($modsList);
-        $modsList->removeMod($this);
+        $this->modLists->removeElement($modList);
+        $modList->removeMod($this);
     }
 
     public function getModLists(): array
     {
-        return $this->modsLists->toArray();
+        return $this->modLists->toArray();
     }
 }

@@ -6,7 +6,7 @@
 
     <entity name="App\Entity\Mod\AbstractMod" table="mods" repository-class="App\Repository\ModRepository" inheritance-type="SINGLE_TABLE">
         <field name="type" type="mod_type_enum" length="255"/>
-        <many-to-many field="modsLists" target-entity="App\Entity\ModList\ModList" mapped-by="modsLists"/>
+        <many-to-many field="modLists" target-entity="App\Entity\ModList\ModList" mapped-by="mods"/>
 
         <discriminator-column name="source" type="string" length="255"/>
         <discriminator-map>

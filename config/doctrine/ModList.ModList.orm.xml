@@ -5,7 +5,7 @@
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
     <entity name="App\Entity\ModList\ModList" repository-class="App\Repository\ModListRepository" table="mod_lists">
-        <many-to-many field="mods" target-entity="App\Entity\Mod\AbstractMod" inversed-by="modsLists">
+        <many-to-many field="mods" target-entity="App\Entity\Mod\AbstractMod" inversed-by="modLists">
             <join-table name="mod_lists_mods">
                 <join-columns>
                     <join-column name="mod_list_id" referenced-column-name="id"/>
