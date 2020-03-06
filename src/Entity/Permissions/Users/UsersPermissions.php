@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Entity\Permissions\Users;
 
+use App\Entity\Permissions\Traits\DeletePermissionTrait;
+use App\Entity\Permissions\Traits\ListPermissionTrait;
+
 class UsersPermissions
 {
+    use ListPermissionTrait;
+    use DeletePermissionTrait;
+
     /** @var bool */
     protected $managePermissions = false;
-
-    /** @var bool */
-    protected $list = false;
-
-    /** @var bool */
-    protected $delete = false;
 
     public function canManagePermissions(): bool
     {
@@ -23,25 +23,5 @@ class UsersPermissions
     public function setManagePermissions(bool $managePermissions): void
     {
         $this->managePermissions = $managePermissions;
-    }
-
-    public function canList(): bool
-    {
-        return $this->list;
-    }
-
-    public function setList(bool $list): void
-    {
-        $this->list = $list;
-    }
-
-    public function canDelete(): bool
-    {
-        return $this->delete;
-    }
-
-    public function setDelete(bool $delete): void
-    {
-        $this->delete = $delete;
     }
 }
