@@ -4,7 +4,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="App\Entity\ModList\ModList" repository-class="App\Repository\ModRepository" table="mod_lists">
+    <entity name="App\Entity\ModList\ModList" repository-class="App\Repository\ModListRepository" table="mod_lists">
         <many-to-many field="mods" target-entity="App\Entity\Mod\AbstractMod" inversed-by="modsLists">
             <join-table name="mod_lists_mods">
                 <join-columns>
