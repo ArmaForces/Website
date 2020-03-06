@@ -54,10 +54,15 @@ Can manage users permissions: Może zarządzać uprawnieniami użytkowników
 Can list users: Może przeglądać listę użytkowników
 Can delete users: Może usuwać użytkowników
 
-Can list mods: Może przeglądać listę modów
+Can list mods: Może przeglądać mody
 Can create mods: Może tworzyć mody
 Can edit mods: Może edytować mody
 Can delete mods: Może usuwać mody
+
+Can list mod lists: Może przeglądać listy modów
+Can create mod lists: Może tworzyć listy modów
+Can edit mod lists: Może edytować listy modów
+Can delete mod lists: Może usuwać listy modów
 
 # Mods
 Mods: Mody
@@ -78,6 +83,15 @@ Steam Workshop: Steam Workshop
 Directory: Katalog
 Steam Workshop URL: Link do moda
 Directory path: Ścieżka do katalogu
+
+# Mod Lists
+Mod lists: Listy modów
+Create mod list: Utwórz listę modów
+Edit mod list: Edytuj listę modów
+Delete mod list: Usuń listę modów
+
+Mod list name: Nazwa listy modów
+Mod list description: Opis listy modów
 
 # Other
 Try again later: Spróbuj ponownie później
