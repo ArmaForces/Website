@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Form\Permissions;
 
 use App\Entity\Permissions\Permissions;
+use App\Form\Permissions\ModLists\ModListsPermissionsType;
 use App\Form\Permissions\Mods\ModsPermissionsType;
 use App\Form\Permissions\Users\UsersPermissionsType;
 use Symfony\Component\Form\AbstractType;
@@ -27,6 +28,9 @@ class PermissionsType extends AbstractType
             ])
             ->add('modsPermissions', ModsPermissionsType::class, [
                 'label' => 'Mods',
+            ])
+            ->add('modListsPermissions', ModListsPermissionsType::class, [
+                'label' => 'Mod lists',
             ])
         ;
     }
