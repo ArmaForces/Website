@@ -1,0 +1,23 @@
+{% extends 'container.html.twig' %}
+
+{% block content %}
+    {# @var modListFormDto \App\Form\Mod\Dto\ModListFormDto #}
+    {% set modListFormDto = form.vars.data %}
+
+    <div class="mt-3">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>{{ modListFormDto.id ? 'Edit mod list'|trans : 'Create mod list'|trans }}</h2>
+            </div>
+        </div>
+
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+
+        <div class="form-group">
+            <button type="submit" class="btn-primary btn">{{ modListFormDto.id ? 'Apply'|trans : 'Create mod list'|trans }}</button>
+            <a href="{{ path('app_mod_list_list') }}" class="btn-secondary btn">{{ 'Cancel'|trans }}</a>
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
