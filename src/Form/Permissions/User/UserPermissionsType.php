@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Form\Permissions\Users;
+namespace App\Form\Permissions\User;
 
-use App\Entity\Permissions\Users\UsersPermissions;
+use App\Entity\Permissions\User\UserPermissions;
 use App\Entity\User\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class UsersPermissionsType extends AbstractType
+class UserPermissionsType extends AbstractType
 {
     /** @var TokenStorageInterface */
     protected $tokenStorage;
@@ -59,7 +59,7 @@ class UsersPermissionsType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'data_class' => UsersPermissions::class,
+                'data_class' => UserPermissions::class,
                 'required' => false,
             ])
             ->setRequired([

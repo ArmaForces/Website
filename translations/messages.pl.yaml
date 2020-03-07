@@ -5,8 +5,12 @@ Join polish Arma 3 clan: Dołącz do polskiego klanu Arma 3
 # Navbar
 Homepage: Strona główna
 Missions: Misje
-Manage mods: Zarządzaj modami
+
 Get mods: Pobierz mody
+Manage mods: Zarządzaj modami
+Mods: Mody
+Mod lists: Listy modów
+
 Users: Użytkownicy
 
 Available after login: Dostępne po zalogowaniu
@@ -46,9 +50,11 @@ Calendar: Kalendarz
 Username: Nazwa użytkownika
 Discord ID: ID Discorda
 
+Manage user permissions: Uprawnienia
+Delete user: Usuń użytkownika
+
 # Permissions
-Permissions: Uprawnienia
-Permissions management: Zarządzanie uprawnieniami
+User permissions management: Zarządzanie uprawnieniami użytkownika
 
 Can manage users permissions: Może zarządzać uprawnieniami użytkowników
 Can list users: Może przeglądać listę użytkowników
@@ -65,7 +71,6 @@ Can edit mod lists: Może edytować listy modów
 Can delete mod lists: Może usuwać listy modów
 
 # Mods
-Mods: Mody
 Create mod: Utwórz mod
 Edit mod: Edytuj mod
 Delete mod: Usuń mod
@@ -85,7 +90,6 @@ Steam Workshop URL: Link do moda
 Directory path: Ścieżka do katalogu
 
 # Mod Lists
-Mod lists: Listy modów
 Create mod list: Utwórz listę modów
 Edit mod list: Edytuj listę modów
 Delete mod list: Usuń listę modów

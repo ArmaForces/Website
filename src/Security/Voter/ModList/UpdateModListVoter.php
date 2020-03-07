@@ -10,14 +10,14 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class CreateModListsVoter extends Voter
+class UpdateModListVoter extends Voter
 {
     /**
      * {@inheritdoc}
      */
     protected function supports($attribute, $subject): bool
     {
-        return PermissionsEnum::MOD_LISTS_CREATE === $attribute;
+        return PermissionsEnum::MOD_LIST_UPDATE === $attribute;
     }
 
     /**
@@ -31,7 +31,7 @@ class CreateModListsVoter extends Voter
             return false;
         }
 
-        if ($user->getPermissions()->getModListsPermissions()->canCreate()) {
+        if ($user->getPermissions()->getModListPermissions()->canUpdate()) {
             return true;
         }
 

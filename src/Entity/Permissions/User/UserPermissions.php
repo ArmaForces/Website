@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Entity\Permissions\Users;
+namespace App\Entity\Permissions\User;
 
 use App\Entity\Permissions\Traits\DeletePermissionTrait;
 use App\Entity\Permissions\Traits\ListPermissionTrait;
 
-class UsersPermissions
+class UserPermissions
 {
     use ListPermissionTrait;
     use DeletePermissionTrait;

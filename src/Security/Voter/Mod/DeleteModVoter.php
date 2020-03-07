@@ -10,14 +10,14 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class CreateModsVoter extends Voter
+class DeleteModVoter extends Voter
 {
     /**
      * {@inheritdoc}
      */
     protected function supports($attribute, $subject): bool
     {
-        return PermissionsEnum::MODS_CREATE === $attribute;
+        return PermissionsEnum::MOD_DELETE === $attribute;
     }
 
     /**
@@ -31,7 +31,7 @@ class CreateModsVoter extends Voter
             return false;
         }
 
-        if ($user->getPermissions()->getModsPermissions()->canCreate()) {
+        if ($user->getPermissions()->getModPermissions()->canDelete()) {
             return true;
         }
 

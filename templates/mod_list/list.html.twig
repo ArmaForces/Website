@@ -9,7 +9,7 @@
         </div>
         <div class="row">
             <div class="col-md-12 py-2">
-                {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LISTS_CREATE')) %}
+                {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_CREATE')) %}
                     <a href="{{ path('app_mod_list_create') }}" class="btn btn-primary">{{ 'Create mod list'|trans }}</a>
                 {% endif %}
             </div>
@@ -28,11 +28,11 @@
                         <tr>
                             <th scope="row">{{ modList.name }}</th>
                             <td class="table-actions">
-                                {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LISTS_UPDATE'), modList) %}
+                                {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_UPDATE'), modList) %}
                                     <a href="{{ path('app_mod_list_update', { id: modList.id }) }}">{{ 'Edit mod list'|trans }}</a>
                                 {% endif %}
 
-                                {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LISTS_DELETE'), modList) %}
+                                {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_DELETE'), modList) %}
                                     <a href="{{ path('app_mod_list_delete', { id: modList.id }) }}">{{ 'Delete mod list'|trans }}</a>
                                 {% endif %}
                             </td>

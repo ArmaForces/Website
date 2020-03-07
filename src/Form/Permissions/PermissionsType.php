@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Form\Permissions;
 
 use App\Entity\Permissions\Permissions;
-use App\Form\Permissions\ModLists\ModListsPermissionsType;
-use App\Form\Permissions\Mods\ModsPermissionsType;
-use App\Form\Permissions\Users\UsersPermissionsType;
+use App\Form\Permissions\Mod\ModPermissionsType;
+use App\Form\Permissions\ModList\ModListPermissionsType;
+use App\Form\Permissions\User\UserPermissionsType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,14 +22,14 @@ class PermissionsType extends AbstractType
         $relatedUser = $options['relatedUser'];
 
         $builder
-            ->add('usersPermissions', UsersPermissionsType::class, [
+            ->add('userPermissions', UserPermissionsType::class, [
                 'label' => 'Users',
                 'relatedUser' => $relatedUser,
             ])
-            ->add('modsPermissions', ModsPermissionsType::class, [
+            ->add('modPermissions', ModPermissionsType::class, [
                 'label' => 'Mods',
             ])
-            ->add('modListsPermissions', ModListsPermissionsType::class, [
+            ->add('modListPermissions', ModListPermissionsType::class, [
                 'label' => 'Mod lists',
             ])
         ;

@@ -38,7 +38,7 @@ class ModListController extends AbstractController
     /**
      * @Route("/list", name="_list")
      *
-     * @IsGranted(PermissionsEnum::MOD_LISTS_LIST)
+     * @IsGranted(PermissionsEnum::MOD_LIST_LIST)
      */
     public function listAction(): Response
     {
@@ -52,7 +52,7 @@ class ModListController extends AbstractController
     /**
      * @Route("/create", name="_create")
      *
-     * @IsGranted(PermissionsEnum::MOD_LISTS_CREATE)
+     * @IsGranted(PermissionsEnum::MOD_LIST_CREATE)
      */
     public function createAction(Request $request): Response
     {
@@ -76,7 +76,7 @@ class ModListController extends AbstractController
     /**
      * @Route("/{id}/update", name="_update")
      *
-     * @IsGranted(PermissionsEnum::MOD_LISTS_UPDATE)
+     * @IsGranted(PermissionsEnum::MOD_LIST_UPDATE)
      */
     public function updateAction(Request $request, ModList $modList): Response
     {
@@ -100,7 +100,7 @@ class ModListController extends AbstractController
     /**
      * @Route("/{id}/delete", name="_delete")
      *
-     * @IsGranted(PermissionsEnum::MOD_LISTS_DELETE)
+     * @IsGranted(PermissionsEnum::MOD_LIST_DELETE)
      */
     public function deleteAction(ModList $modList): Response
     {

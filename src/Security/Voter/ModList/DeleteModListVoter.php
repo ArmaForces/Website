@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Security\Voter\Mod;
+namespace App\Security\Voter\ModList;
 
 use App\Entity\User\User;
 use App\Security\Enum\PermissionsEnum;
@@ -10,14 +10,14 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class UpdateModsVoter extends Voter
+class DeleteModListVoter extends Voter
 {
     /**
      * {@inheritdoc}
      */
     protected function supports($attribute, $subject): bool
     {
-        return PermissionsEnum::MODS_UPDATE === $attribute;
+        return PermissionsEnum::MOD_LIST_DELETE === $attribute;
     }
 
     /**
@@ -31,7 +31,7 @@ class UpdateModsVoter extends Voter
             return false;
         }
 
-        if ($user->getPermissions()->getModsPermissions()->canUpdate()) {
+        if ($user->getPermissions()->getModListPermissions()->canDelete()) {
             return true;
         }
 

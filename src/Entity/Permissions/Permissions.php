@@ -5,42 +5,42 @@ declare(strict_types=1);
 namespace App\Entity\Permissions;
 
 use App\Entity\AbstractEntity;
-use App\Entity\Permissions\ModLists\ModListsPermissions;
-use App\Entity\Permissions\Mods\ModsPermissions;
-use App\Entity\Permissions\Users\UsersPermissions;
+use App\Entity\Permissions\Mod\ModPermissions;
+use App\Entity\Permissions\ModList\ModListPermissions;
+use App\Entity\Permissions\User\UserPermissions;
 
 class Permissions extends AbstractEntity
 {
-    /** @var UsersPermissions */
-    protected $usersPermissions;
+    /** @var UserPermissions */
+    protected $userPermissions;
 
-    /** @var ModsPermissions */
-    protected $modsPermissions;
+    /** @var ModPermissions */
+    protected $modPermissions;
 
-    /** @var ModListsPermissions */
-    protected $modListsPermissions;
+    /** @var ModListPermissions */
+    protected $modListPermissions;
 
     public function __construct()
     {
         parent::__construct();
 
-        $this->usersPermissions = new UsersPermissions();
-        $this->modsPermissions = new ModsPermissions();
-        $this->modListsPermissions = new ModListsPermissions();
+        $this->userPermissions = new UserPermissions();
+        $this->modPermissions = new ModPermissions();
+        $this->modListPermissions = new ModListPermissions();
     }
 
-    public function getUsersPermissions(): UsersPermissions
+    public function getUserPermissions(): UserPermissions
     {
-        return $this->usersPermissions;
+        return $this->userPermissions;
     }
 
-    public function getModsPermissions(): ModsPermissions
+    public function getModPermissions(): ModPermissions
     {
-        return $this->modsPermissions;
+        return $this->modPermissions;
     }
 
-    public function getModListsPermissions(): ModListsPermissions
+    public function getModListPermissions(): ModListPermissions
     {
-        return $this->modListsPermissions;
+        return $this->modListPermissions;
     }
 }

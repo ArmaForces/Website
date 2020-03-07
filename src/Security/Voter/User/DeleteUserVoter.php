@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Security\Voter\Mod;
+namespace App\Security\Voter\User;
 
 use App\Entity\User\User;
 use App\Security\Enum\PermissionsEnum;
@@ -10,18 +10,20 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class DeleteModsVoter extends Voter
+class DeleteUserVoter extends Voter
 {
     /**
-     * {@inheritdoc}
+     * @param string $attribute
+     * @param User   $subject
      */
     protected function supports($attribute, $subject): bool
     {
-        return PermissionsEnum::MODS_DELETE === $attribute;
+        return PermissionsEnum::USER_DELETE === $attribute && $subject instanceof UserInterface;
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $attribute
+     * @param User   $subject
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
@@ -31,7 +33,7 @@ class DeleteModsVoter extends Voter
             return false;
         }
 
-        if ($user->getPermissions()->getModsPermissions()->canDelete()) {
+        if ($user->getId() !== $subject->getId() && $user->getPermissions()->getUserPermissions()->canDelete()) {
             return true;
         }
 

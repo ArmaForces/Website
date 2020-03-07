@@ -17,7 +17,7 @@ class ListModListsVoter extends Voter
      */
     protected function supports($attribute, $subject): bool
     {
-        return PermissionsEnum::MOD_LISTS_LIST === $attribute;
+        return PermissionsEnum::MOD_LIST_LIST === $attribute;
     }
 
     /**
@@ -31,7 +31,7 @@ class ListModListsVoter extends Voter
             return false;
         }
 
-        if ($user->getPermissions()->getModListsPermissions()->canList()) {
+        if ($user->getPermissions()->getModListPermissions()->canList()) {
             return true;
         }
 

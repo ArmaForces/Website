@@ -23,7 +23,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('app_home_missions') }}">{{ 'Missions'|trans }}</a>
             </li>
-            {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MODS_LIST')) or is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LISTS_LIST')) -%}
+            {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST')) or is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_LIST')) -%}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="modlist-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{ 'Manage mods'|trans }}
@@ -31,12 +31,12 @@
                     <div class="dropdown-menu" aria-labelledby="modlist-dropdown">
                         <a class="dropdown-item" href="{{ url.modlist }}">{{ 'Get mods'|trans }}</a>
 
-                        {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MODS_LIST')) %}
+                        {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST')) %}
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ path('app_mod_list') }}">{{ 'Mods'|trans }}</a>
                         {% endif %}
 
-                        {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LISTS_LIST')) %}
+                        {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_LIST')) %}
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ path('app_mod_list_list') }}">{{ 'Mod lists'|trans }}</a>
                         {% endif %}
@@ -47,7 +47,7 @@
                     <a class="nav-link" href="{{ url.modlist }}">{{ 'Get mods'|trans }}</a>
                 </li>
             {% endif %}
-            {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USERS_LIST')) %}
+            {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USER_LIST')) %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_user_list') }}">{{ 'Users'|trans }}</a>
                 </li>

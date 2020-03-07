@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Form\Permissions\ModLists;
+namespace App\Form\Permissions\Mod;
 
-use App\Entity\Permissions\ModLists\ModListsPermissions;
+use App\Entity\Permissions\Mod\ModPermissions;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ModListsPermissionsType extends AbstractType
+class ModPermissionsType extends AbstractType
 {
     /**
      * @param mixed[] $options
@@ -19,19 +19,19 @@ class ModListsPermissionsType extends AbstractType
     {
         $builder
             ->add('list', CheckboxType::class, [
-                'label' => 'Can list mod lists',
+                'label' => 'Can list mods',
                 'label_attr' => ['class' => 'switch-custom'],
             ])
             ->add('create', CheckboxType::class, [
-                'label' => 'Can create mod lists',
+                'label' => 'Can create mods',
                 'label_attr' => ['class' => 'switch-custom'],
             ])
             ->add('update', CheckboxType::class, [
-                'label' => 'Can edit mod lists',
+                'label' => 'Can edit mods',
                 'label_attr' => ['class' => 'switch-custom'],
             ])
             ->add('delete', CheckboxType::class, [
-                'label' => 'Can delete mod lists',
+                'label' => 'Can delete mods',
                 'label_attr' => ['class' => 'switch-custom'],
             ])
         ;
@@ -43,7 +43,7 @@ class ModListsPermissionsType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => ModListsPermissions::class,
+            'data_class' => ModPermissions::class,
             'required' => false,
         ]);
     }
