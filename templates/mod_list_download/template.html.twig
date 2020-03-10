@@ -17,7 +17,7 @@
     <table>
         {# @var mod \App\Entity\Mod\SteamWorkshopMod #}
         {% for mod in modList.mods %}
-            {% if mod is instance_of('\\App\\Entity\\Mod\\SteamWorkshopMod') %}
+            {% if mod is instance_of('\\App\\Entity\\Mod\\SteamWorkshopMod') and mod.type != constant('\\App\\Entity\\Mod\\Enum\\ModTypeEnum::SERVER_SIDE') %}
                 <tr data-type="ModContainer">
                     <td data-type="DisplayName">{{ mod.name }}</td>
                     <td>
