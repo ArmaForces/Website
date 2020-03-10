@@ -6,6 +6,8 @@
 
     <mapped-superclass name="App\Entity\AbstractEntity">
         <id name="id" type="string" length="36"/>
+        <field name="createdAt" type="datetime_immutable" nullable="true"/>
+        <field name="lastUpdatedAt" type="datetime_immutable" nullable="true"/>
     </mapped-superclass>
 
 </doctrine-mapping>
