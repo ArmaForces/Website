@@ -28,6 +28,8 @@
                         <tr>
                             <th scope="row">{{ modList.name }}</th>
                             <td class="table-actions">
+                                <a href="{{ path('app_mod_list_download', { id: modList.id }) }}">{{ 'Download mod list'|trans }}</a>
+
                                 {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_UPDATE'), modList) %}
                                     <a href="{{ path('app_mod_list_update', { id: modList.id }) }}">{{ 'Edit mod list'|trans }}</a>
                                 {% endif %}
