@@ -6,12 +6,20 @@ namespace App\Entity\ModList;
 
 use App\Entity\AbstractDescribedEntity;
 use App\Entity\Mod\ModInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 class ModList extends AbstractDescribedEntity implements ModListInterface
 {
     /** @var Collection|ModInterface[] */
     protected $mods;
+
+    public function __construct(string $name)
+    {
+        parent::__construct($name);
+
+        $this->mods = new ArrayCollection();
+    }
 
     public function addMod(ModInterface $mod): void
     {
