@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<html>
+<head>
+    <meta name="arma:Type" content="preset"/>
+    <meta name="arma:PresetName" content="{{ modList.name }}"/>
+    <meta name="generator" content="ArmaForces - https://armaforces.com/"/>
+    <title>{{ modList.name }}</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" media="all" href="http://modlist.armaforces.com/static/launcher.css"/>
+</head>
+<body>
+<h1>Arma 3 Mods - Preset <strong>{{ modList.name }}</strong></h1>
+<p class="before-list">
+    <em>Drag this file or link to it into Arma 3 Launcher, or open it - Mods / Preset / Import.</em>
+</p>
+<div class="mod-list">
+    <table>
+        {# @var mod \App\Entity\Mod\SteamWorkshopMod #}
+        {% for mod in modList.mods %}
+            {% if mod is instance_of('\\App\\Entity\\Mod\\SteamWorkshopMod') %}
+                <tr data-type="ModContainer">
+                    <td data-type="DisplayName">{{ mod.name }}</td>
+                    <td>
+                        <span class="from-steam">Steam</span>
+                    </td>
+                    <td>
+                        <a href="{{ mod.url }}" data-type="Link">
+                            {{ mod.url }}
+                        </a>
+                    </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+</div>
+<div class="footer">
+    <span>Created by ArmaForces Modlist</span>
+</div>
+</body>
+</html>
