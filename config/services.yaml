@@ -38,6 +38,7 @@ services:
             $recruitRoleName: '%app.security.oauth.discord.recruit_role_name%'
             $memberRoleName: '%app.security.oauth.discord.member_role_name%'
 
+    # Register Doctrine subscribers
     App\EventSubscriber\Doctrine\:
         resource: '../src/EventSubscriber/Doctrine'
         tags:
