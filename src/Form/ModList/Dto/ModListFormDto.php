@@ -6,10 +6,13 @@ namespace App\Form\ModList\Dto;
 
 use App\Entity\EntityInterface;
 use App\Entity\Mod\ModInterface;
+use App\Entity\Mod\SteamWorkshopModInterface;
 use App\Entity\ModList\ModList;
 use App\Entity\ModList\ModListInterface;
 use App\Form\AbstractFormDto;
 use App\Form\FormDtoInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class ModListFormDto extends AbstractFormDto
@@ -33,6 +36,16 @@ class ModListFormDto extends AbstractFormDto
     protected $description;
 
     /**
+     * @var Collection|SteamWorkshopModInterface[]
+     */
+    protected $steamWorkshopMods;
+
+    public function __construct()
+    {
+        $this->steamWorkshopMods = new ArrayCollection();
+    }
+
+    /**
      * @param null|ModListInterface $entity
      *
      * @return ModListFormDto
@@ -50,6 +63,13 @@ class ModListFormDto extends AbstractFormDto
         $self->setName($entity->getName());
         $self->setDescription($entity->getDescription());
 
+        $self->clearSteamWorkshopMods();
+        foreach ($entity->getMods() as $mod) {
+            if ($mod instanceof SteamWorkshopModInterface) {
+                $self->addSteamWorkshopMod($mod);
+            }
+        }
+
         return $self;
     }
 
@@ -66,6 +86,11 @@ class ModListFormDto extends AbstractFormDto
 
         $entity->setName($this->getName());
         $entity->setDescription($this->getDescription());
+
+        $entity->clearMods();
+        foreach ($this->getSteamWorkshopMods() as $steamWorkshopMod) {
+            $entity->addMod($steamWorkshopMod);
+        }
 
         return $entity;
     }
@@ -98,5 +123,36 @@ class ModListFormDto extends AbstractFormDto
     public function setDescription(?string $description): void
     {
         $this->description = $description;
+    }
+
+    public function addSteamWorkshopMod(SteamWorkshopModInterface $steamWorkshopMod): void
+    {
+        if ($this->steamWorkshopMods->contains($steamWorkshopMod)) {
+            return;
+        }
+
+        $this->steamWorkshopMods->add($steamWorkshopMod);
+    }
+
+    public function removeSteamWorkshopMod(SteamWorkshopModInterface $steamWorkshopMod): void
+    {
+        if (!$this->steamWorkshopMods->contains($steamWorkshopMod)) {
+            return;
+        }
+
+        $this->steamWorkshopMods->removeElement($steamWorkshopMod);
+    }
+
+    /**
+     * @return SteamWorkshopModInterface[]
+     */
+    public function getSteamWorkshopMods(): array
+    {
+        return $this->steamWorkshopMods->toArray();
+    }
+
+    public function clearSteamWorkshopMods(): void
+    {
+        $this->steamWorkshopMods->clear();
     }
 }

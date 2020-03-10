@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Form\ModList;
 
+use App\Entity\Mod\SteamWorkshopMod;
 use App\Form\ModList\Dto\ModListFormDto;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,6 +25,15 @@ class ModListFormType extends AbstractType
             ])
             ->add('description', TextType::class, [
                 'label' => 'Mod list description',
+            ])
+            ->add('steamWorkshopMods', EntityType::class, [
+                'label' => 'Mods',
+                'multiple' => true,
+                'expanded' => true,
+                'class' => SteamWorkshopMod::class,
+                'choice_label' => static function (SteamWorkshopMod $steamWorkshopMod) {
+                    return $steamWorkshopMod->getName();
+                },
             ])
         ;
     }
