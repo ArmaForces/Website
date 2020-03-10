@@ -21,9 +21,6 @@ class ModFormType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        /** @var ModFormDto $modFormDto */
-        $modFormDto = $builder->getData();
-
         $builder
             ->add('name', TextType::class, [
                 'label' => 'Mod name',
