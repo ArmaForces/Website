@@ -1,0 +1,39 @@
+{% extends 'container.html.twig' %}
+
+{% block content %}
+    <div class="mt-3">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>{{ 'Mod lists'|trans }}</h2>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">{{ 'Mod list name'|trans }}</th>
+                    <th scope="col">{{ 'Mod list description'|trans }}</th>
+                    <th scope="col">{{ 'Last updated at'|trans }}</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                    {# @var modList \App\Entity\ModList\ModList #}
+                    {% for modList in modLists %}
+                        <tr>
+                            <th scope="row">{{ modList.name }}</th>
+                            <th scope="row">{{ modList.description }}</th>
+                            <th scope="row">{{ modList.lastUpdatedAt|format_datetime('short', 'short', locale=app_lang) }}</th>
+                            <td class="table-actions">
+                                <a href="{{ path('app_mod_list_public_download', { id: modList.id }) }}" title="{{ 'Download mod list'|trans }}">
+                                    <i class="fas fa-download"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

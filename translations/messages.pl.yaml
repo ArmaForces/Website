@@ -87,6 +87,7 @@ Mod source: Źródło moda
 Steam Workshop: Steam Workshop
 Directory: Katalog
 Steam Workshop URL: Link do moda
+Steam Workshop ID: ID moda
 Directory path: Ścieżka do katalogu
 
 # Mod Lists
@@ -98,9 +99,14 @@ Delete mod list: Usuń listę modów
 Mod list name: Nazwa listy modów
 Mod list description: Opis listy modów
 
+Mod list customization: Konfiguracja listy modów
+Required mods: Wymagane
+Optional mods: Opcjonalne
+
 # Other
 Try again later: Spróbuj ponownie później
 
 # Common
 Apply: Zastosuj
 Cancel: Anuluj
+Last updated at: Ostatnia aktualizacja
