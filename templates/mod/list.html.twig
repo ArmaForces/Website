@@ -47,7 +47,7 @@
                                     {{ 'Directory'|trans }}
                                 {% endif %}
                             </td>
-                            <td class="table-actions d-flex justify-content-around">
+                            <td class="table-actions">
                                 {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_UPDATE'), mod) %}
                                     <a href="{{ path('app_mod_update', { id: mod.id }) }}" title="{{ 'Edit mod'|trans }}">
                                         <i class="fas fa-edit"></i>

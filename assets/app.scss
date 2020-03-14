@@ -149,6 +149,11 @@ html, body {
 
 .table-actions {
     text-align: right;
+
+    a {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
 }
 
 .dropdown-no-arrow {
