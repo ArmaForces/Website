@@ -21,6 +21,7 @@
                 <thead>
                 <tr>
                     <th scope="col">{{ 'Mod list name'|trans }}</th>
+                    <th scope="col">{{ 'Mod list description'|trans }}</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -29,7 +30,8 @@
                     {% for modList in modLists %}
                         <tr>
                             <th scope="row">{{ modList.name }}</th>
-                            <td class="table-actions">
+                            <th scope="row">{{ modList.description }}</th>
+                            <td class="table-actions d-flex justify-content-around">
                                 <a href="{{ path('app_mod_list_download', { id: modList.id }) }}" title="{{ 'Download mod list'|trans }}">
                                     <i class="fas fa-download"></i>
                                 </a>
