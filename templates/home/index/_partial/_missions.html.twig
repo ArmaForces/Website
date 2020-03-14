@@ -20,7 +20,7 @@
                     {{ nearestMission.state == constant('App\\Service\\Mission\\Enum\\MissionStateEnum::ARCHIVED') ? 'Last mission'|trans : 'Nearest mission'|trans }}
                 </h4>
 
-                {% include '_partial/_mission_widget.html.twig' with {'mission': nearestMission} %}
+                {% include '_partial/_mission_widget.html.twig' with { 'mission': nearestMission } %}
             </div>
             <!--/Grid column-->
         {% endif %}

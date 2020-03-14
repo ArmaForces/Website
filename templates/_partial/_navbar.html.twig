@@ -7,14 +7,14 @@
     <!-- Collapse button -->
     <button
         class="navbar-toggler" type="button"
-        data-toggle="collapse" data-target="#mainNav"
-        aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation"
+        data-toggle="collapse" data-target="#main-nav"
+        aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation"
     >
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="mainNav">
+    <div class="collapse navbar-collapse" id="main-nav">
         <!-- Links -->
         <ul class="navbar-nav mr-auto smooth-scroll">
             <li class="nav-item">
@@ -86,10 +86,10 @@
             </li>
             <!-- Login -->
             <li id="navmenu" class="nav-item dropdown dropleft">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="navbar-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-user-circle {% if is_granted('ROLE_USER') %}avatar" style="background-image: url({{ current_user_avatar_url() }}){% endif %}"></i>
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <div class="dropdown-menu" aria-labelledby="navbar-dropdown">
                     {% if is_granted('ROLE_USER') -%}
                         <a class="dropdown-item" href="{{ path('app_security_logout') }}">{{ 'Logout'|trans }}</a>
                     {% else %}

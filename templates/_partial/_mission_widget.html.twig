@@ -18,11 +18,11 @@
             <div>{{ mission.date|date('Y-m-d H:i') }}</div>
         {% else %}
             <div class="dropdown dropdown-no-arrow">
-                <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="dropdown-toggle" type="button" id="dropdown-menu-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{ mission.date|date('Y-m-d H:i') }}
                     <i class="fa fa-calendar-day"></i>
                 </a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div class="dropdown-menu" aria-labelledby="dropdown-menu-button">
                     <a class="dropdown-item" href="{{ mission_event_google(mission) }}">
                         <i class="fab fa-google"></i>oogle
                     </a>
