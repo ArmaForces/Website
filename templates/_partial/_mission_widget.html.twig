@@ -1,3 +1,5 @@
+<!-- Mission widget -->
+
 <!-- Mission image -->
 <div class="img-mission">
     {% set mission_image = mission.image ?? 'https://via.placeholder.com/300x200.png?text=No%20mission%20image' %}
@@ -7,6 +9,7 @@
         <img src="{{ proxy_image(mission_image) }}" alt="">
     {%- endif %}
 </div>
+<!--/ Mission image -->
 
 <!-- Mission header -->
 <div class="text-center mt-2 mb-4">
@@ -37,8 +40,12 @@
         </span>
     </div>
 </div>
+<!--/ Mission header -->
 
 <!-- Mission description -->
 <div class="text-justify">
     {{ ((mission.description|u).truncate(350, '...'))|markdown_to_html }}
 </div>
+<!--/ Mission description -->
+
+<!--/ Mission widget -->

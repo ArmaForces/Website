@@ -1,8 +1,10 @@
+<!-- Navbar -->
 <div class="container">
     <!-- Navbar brand -->
     <a class="navbar-brand" href="{{ path('app_home_index') }}">
         <img src="{{ asset('img/favicon-192x192.png') }}" alt="logo" class="img-fluid">
     </a>
+    <!--/ Navbar brand -->
 
     <!-- Collapse button -->
     <button
@@ -12,6 +14,7 @@
     >
         <span class="navbar-toggler-icon"></span>
     </button>
+    <!--/ Collapse button -->
 
     <!-- Collapsible content -->
     <div class="collapse navbar-collapse" id="main-nav">
@@ -55,7 +58,7 @@
         </ul>
         <!-- Links -->
 
-        <!-- Social Icon  -->
+        <!-- Icons -->
         <ul class="navbar-nav nav-flex-icons">
             <!-- Discord -->
             <li class="nav-item">
@@ -63,12 +66,16 @@
                     <i class="fab fa-discord"></i>
                 </a>
             </li>
+            <!--/ Discord -->
+
             <!-- Steam -->
             <li class="nav-item">
                 <a href="{{ url.steam }}" target="_blank" class="nav-link">
                     <i class="fab fa-steam"></i>
                 </a>
             </li>
+            <!--/ Steam -->
+
             <!-- TeamSpeak -->
             <li class="nav-item"
                 {% if not is_granted('ROLE_USER') -%}
@@ -84,6 +91,8 @@
                     </a>
                 {%- endif %}
             </li>
+            <!--/ TeamSpeak -->
+
             <!-- Login -->
             <li id="navmenu" class="nav-item dropdown dropleft">
                 <a class="nav-link dropdown-toggle" href="#" id="navbar-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -97,7 +106,10 @@
                     {% endif %}
                 </div>
             </li>
+            <!--/ Login -->
         </ul>
+        <!--/ Icons -->
     </div>
-    <!-- Collapsible content -->
+    <!--/ Collapsible content -->
 </div>
+<!--/ Navbar -->
