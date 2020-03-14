@@ -21,4 +21,17 @@ class ModListRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, ModList::class);
     }
+
+    /**
+     * @return ModListInterface[]
+     */
+    public function findAllOrderedByName(string $order = 'ASC'): array
+    {
+        return $this
+            ->createQueryBuilder('ml')
+            ->addOrderBy('ml.name', $order)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }
