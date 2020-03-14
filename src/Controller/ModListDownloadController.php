@@ -20,7 +20,7 @@ class ModListDownloadController extends AbstractController
      */
     public function downloadAction(ModList $modList): Response
     {
-        $template = $this->renderView('mod_list_download/template.html.twig', [
+        $template = $this->renderView('mod_list_download/launcher_preset_template.html.twig', [
             'modList' => $modList,
         ]);
 
