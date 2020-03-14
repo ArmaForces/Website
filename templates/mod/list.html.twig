@@ -18,6 +18,7 @@
             <table class="table">
                 <thead>
                 <tr>
+                    <th scope="col">#</th>
                     <th scope="col">{{ 'Mod name'|trans }}</th>
                     <th scope="col">{{ 'Mod type'|trans }}</th>
                     <th scope="col">{{ 'Mod source'|trans }}</th>
@@ -28,7 +29,8 @@
                     {# @var mod \App\Entity\Mod\Mod #}
                     {% for mod in mods %}
                         <tr>
-                            <th scope="row">{{ mod.name }}</th>
+                            <th scope="row">{{ loop.index }}</th>
+                            <th>{{ mod.name }}</th>
                             <td>
                                 {% if mod.type.is(constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::SERVER_SIDE')) %}
                                     {{ 'Server side mod'|trans }}
