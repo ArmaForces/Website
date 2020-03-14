@@ -14,7 +14,7 @@
         {{ form_start(form) }}
         {{ form_widget(form) }}
 
-        <div class="form-group">
+        <div class="form-group text-right">
             <button type="submit" class="btn-primary btn">{{ modListFormDto.id ? 'Apply'|trans : 'Create mod list'|trans }}</button>
             <a href="{{ path('app_mod_list_list') }}" class="btn-secondary btn">{{ 'Cancel'|trans }}</a>
         </div>

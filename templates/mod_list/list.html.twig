@@ -7,13 +7,15 @@
                 <h2>{{ 'Mod lists'|trans }}</h2>
             </div>
         </div>
+
         <div class="row">
-            <div class="col-md-12 py-2">
+            <div class="col-md-12 py-2 text-right">
                 {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_CREATE')) %}
                     <a href="{{ path('app_mod_list_create') }}" class="btn btn-primary">{{ 'Create mod list'|trans }}</a>
                 {% endif %}
             </div>
         </div>
+
         <div class="table-responsive">
             <table class="table">
                 <thead>
