@@ -27,11 +27,15 @@
                             <td>{{ user.externalId }}</td>
                             <td class="table-actions">
                                 {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USER_PERMISSIONS_MANAGE'), user) %}
-                                    <a href="{{ path('app_user_permissions', { id: user.id }) }}">{{ 'Manage user permissions'|trans }}</a>
+                                    <a href="{{ path('app_user_permissions', { id: user.id }) }}" title="{{ 'Manage user permissions'|trans }}">
+                                        <i class="fas fa-user-shield"></i>
+                                    </a>
                                 {% endif %}
 
                                 {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USER_DELETE'), user) %}
-                                    <a href="{{ path('app_user_delete', { id: user.id }) }}">{{ 'Delete user'|trans }}</a>
+                                    <a href="{{ path('app_user_delete', { id: user.id }) }}" title="{{ 'Delete user'|trans }}">
+                                        <i class="fas fa-trash-alt text-danger"></i>
+                                    </a>
                                 {% endif %}
                             </td>
                         </tr>

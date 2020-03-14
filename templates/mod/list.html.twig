@@ -47,13 +47,18 @@
                                     {{ 'Directory'|trans }}
                                 {% endif %}
                             </td>
-                            <td class="table-actions">
+                            <td class="table-actions d-flex justify-content-around">
                                 {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_UPDATE'), mod) %}
-                                    <a href="{{ path('app_mod_update', { id: mod.id }) }}">{{ 'Edit mod'|trans }}</a>
+                                    <a href="{{ path('app_mod_update', { id: mod.id }) }}" title="{{ 'Edit mod'|trans }}">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+
                                 {% endif %}
 
                                 {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_DELETE'), mod) %}
-                                    <a href="{{ path('app_mod_delete', { id: mod.id }) }}">{{ 'Delete mod'|trans }}</a>
+                                    <a href="{{ path('app_mod_delete', { id: mod.id }) }}" title="{{ 'Delete mod'|trans }}">
+                                        <i class="fas fa-trash-alt text-danger"></i>
+                                    </a>
                                 {% endif %}
                             </td>
                         </tr>
