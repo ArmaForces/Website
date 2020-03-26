@@ -19,12 +19,9 @@ if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
     setfacl -R -m u:www-data:rwX -m u:"$(whoami)":rwX var || true
     setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX var || true
 
-    if [ "$APP_ENV" != 'prod' ]; then
-        composer install --prefer-dist --no-progress --no-suggest --no-interaction
+    if [ "$APP_ENV" = 'prod' ]; then
+        php bin/console doctrine:migrations:migrate --allow-no-migration --no-interaction
     fi
-
-    php bin/console doctrine:migrations:migrate --allow-no-migration --no-interaction
-
 fi
 
 exec docker-php-entrypoint "$@"
