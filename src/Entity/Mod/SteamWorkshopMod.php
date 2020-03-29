@@ -8,23 +8,23 @@ use App\Entity\Mod\Enum\ModTypeEnum;
 
 class SteamWorkshopMod extends AbstractMod implements SteamWorkshopModInterface
 {
-    /** @var string */
-    protected $url;
+    /** @var int */
+    protected $itemId;
 
-    public function __construct(string $name, ModTypeEnum $type, string $url)
+    public function __construct(string $name, ModTypeEnum $type, int $itemId)
     {
         parent::__construct($name, $type);
 
-        $this->url = $url;
+        $this->itemId = $itemId;
     }
 
-    public function getUrl(): string
+    public function getItemId(): int
     {
-        return $this->url;
+        return $this->itemId;
     }
 
-    public function setUrl(string $url): void
+    public function setItemId(int $itemId): void
     {
-        $this->url = $url;
+        $this->itemId = $itemId;
     }
 }

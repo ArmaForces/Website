@@ -1,2 +1,7 @@
-Incorrect format of Steam Workshop mod URL: Błędny format adresu URL moda Steam Workshop
+# Steam Workshop Arma 3 Mod Url Validator
+Invalid Steam Workshop mod URL: Błędny link do moda
+Mod not found: Nie znaleziono moda
+Mod is not an Arma 3 mod: Mod nie jest modem do Arma 3
+
+# Windows Directory Name Validator
 Invalid directory name: Błędny format nazwy katalogu

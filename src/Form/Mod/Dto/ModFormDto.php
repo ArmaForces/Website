@@ -12,7 +12,8 @@ use App\Entity\Mod\ModInterface;
 use App\Entity\Mod\SteamWorkshopMod;
 use App\Form\AbstractFormDto;
 use App\Form\FormDtoInterface;
-use App\Validator\SteamWorkshopModUrl;
+use App\Service\SteamWorkshop\Helper\SteamWorkshopHelper;
+use App\Validator\SteamWorkshopArma3ModUrl;
 use App\Validator\WindowsDirectoryName;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -59,7 +60,7 @@ class ModFormDto extends AbstractFormDto
      *
      * @Assert\NotBlank(groups={ModSourceEnum::STEAM_WORKSHOP})
      * @Assert\Length(min=1, max=255, groups={ModSourceEnum::STEAM_WORKSHOP})
-     * @SteamWorkshopModUrl(groups={ModSourceEnum::STEAM_WORKSHOP})
+     * @SteamWorkshopArma3ModUrl(groups={ModSourceEnum::STEAM_WORKSHOP}))
      */
     protected $url;
 
@@ -92,7 +93,9 @@ class ModFormDto extends AbstractFormDto
 
         if ($entity instanceof SteamWorkshopMod) {
             $self->setSource(ModSourceEnum::STEAM_WORKSHOP);
-            $self->setUrl($entity->getUrl());
+            $itemId = $entity->getItemId();
+            $url = SteamWorkshopHelper::itemIdToItemUrl($itemId);
+            $self->setUrl($url);
         } elseif ($entity instanceof DirectoryMod) {
             $self->setSource(ModSourceEnum::DIRECTORY);
             $self->setDirectory($entity->getDirectory());
@@ -115,7 +118,9 @@ class ModFormDto extends AbstractFormDto
         $type = ModTypeEnum::get($this->getType());
 
         if (!$entity instanceof SteamWorkshopMod && $source->is(ModSourceEnum::STEAM_WORKSHOP)) {
-            $entity = new SteamWorkshopMod($this->getName(), $type, $this->getUrl());
+            $url = $this->getUrl();
+            $itemId = SteamWorkshopHelper::itemUrlToItemId($url);
+            $entity = new SteamWorkshopMod($this->getName(), $type, $itemId);
         } elseif (!$entity instanceof DirectoryMod && $source->is(ModSourceEnum::DIRECTORY)) {
             $entity = new DirectoryMod($this->getName(), $type, $this->getDirectory());
         }
@@ -125,7 +130,9 @@ class ModFormDto extends AbstractFormDto
         $entity->setType($type);
 
         if ($entity instanceof SteamWorkshopMod) {
-            $entity->setUrl($this->getUrl());
+            $url = $this->getUrl();
+            $itemId = SteamWorkshopHelper::itemUrlToItemId($url);
+            $entity->setItemId($itemId);
         } elseif ($entity instanceof DirectoryMod) {
             $entity->setDirectory($this->getDirectory());
         }

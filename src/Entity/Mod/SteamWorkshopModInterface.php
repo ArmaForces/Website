@@ -6,7 +6,7 @@ namespace App\Entity\Mod;
 
 interface SteamWorkshopModInterface extends ModInterface
 {
-    public function getUrl(): string;
+    public function getItemId(): int;
 
-    public function setUrl(string $url): void;
+    public function setItemId(int $url): void;
 }
