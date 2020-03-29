@@ -20,7 +20,7 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th scope="col">#</th>
+                    <th>#</th>
                     <th scope="col">{{ 'Mod list name'|trans }}</th>
                     <th scope="col">{{ 'Mod list description'|trans }}</th>
                     <th></th>
@@ -32,7 +32,7 @@
                         <tr>
                             <th scope="row">{{ loop.index }}</th>
                             <th>{{ modList.name }}</th>
-                            <th scope="row">{{ modList.description }}</th>
+                            <th>{{ modList.description }}</th>
                             <td class="table-actions">
                                 <a href="{{ path('app_mod_list_public_customize', { id: modList.id }) }}" title="{{ 'Download mod list'|trans }}">
                                     <i class="fas fa-download"></i>

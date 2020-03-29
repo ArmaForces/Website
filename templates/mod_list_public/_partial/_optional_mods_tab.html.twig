@@ -1,0 +1,36 @@
+<div class="tab-pane fade show active" id="optional-mods" role="tabpanel" aria-labelledby="optional-mods-tab">
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th scope="col">{{ 'Mod name'|trans }}</th>
+                    <th scope="col">{{ 'Steam Workshop ID'|trans }}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set rowNo = 1 %}
+
+                {# @var mod \App\Entity\Mod\Mod #}
+                {% for mod in modList.mods %}
+                    {% if mod is instance_of('\\App\\Entity\\Mod\\SteamWorkshopMod') and mod.type.value in [
+                        constant('\\App\\Entity\\Mod\\Enum\\ModTypeEnum::OPTIONAL'),
+                        constant('\\App\\Entity\\Mod\\Enum\\ModTypeEnum::CLIENT_SIDE')
+                    ] %}
+                        <tr>
+                            <th scope="row">{{ rowNo }}</th>
+                            <th>{{ mod.name }}</th>
+                            <th>
+                                <a href="{{ steam_workshop_item_url(mod.itemId) }}">{{ mod.itemId }}</a>
+                            </th>
+                            <th></th>
+                        </tr>
+
+                        {% set rowNo = rowNo + 1 %}
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

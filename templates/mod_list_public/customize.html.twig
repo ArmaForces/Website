@@ -23,58 +23,8 @@
                     </li>
                 </ul>
                 <div class="tab-content">
-                    <div class="tab-pane fade show active" id="optional-mods" role="tabpanel" aria-labelledby="optional-mods-tab">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th scope="col">{{ 'Mod name'|trans }}</th>
-                                    <th scope="col">{{ 'Steam Workshop ID'|trans }}</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    {# @var mod \App\Entity\Mod\Mod #}
-                                    {% for mod in modList.mods %}
-                                        {% if mod is instance_of('\\App\\Entity\\Mod\\SteamWorkshopMod') and mod.type != constant('\\App\\Entity\\Mod\\Enum\\ModTypeEnum::SERVER_SIDE') %}
-                                            <tr>
-                                                <th scope="row">{{ mod.name }}</th>
-                                                <th scope="row">
-                                                    <a href="{{ mod.url }}">{{ 'Steam Workshop'|trans }}</a>
-                                                </th>
-                                            </tr>
-                                        {% endif %}
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="required-mods" role="tabpanel" aria-labelledby="required-mods-tab">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th scope="col">{{ 'Mod name'|trans }}</th>
-                                    <th scope="col">{{ 'Steam Workshop ID'|trans }}</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    {# @var mod \App\Entity\Mod\Mod #}
-                                    {% for mod in modList.mods %}
-                                        {% if mod is instance_of('\\App\\Entity\\Mod\\SteamWorkshopMod') %}
-                                            <tr>
-                                                <th scope="row">{{ mod.name }}</th>
-                                                <th scope="row">
-                                                    <a href="{{ mod.url }}">{{ 'Steam Workshop'|trans }}</a>
-                                                </th>
-                                            </tr>
-                                        {% endif %}
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    {% include 'mod_list_public/_partial/_optional_mods_tab.html.twig' %}
+                    {% include 'mod_list_public/_partial/_required_mods_tab.html.twig' %}
                 </div>
             </div>
         </div>
