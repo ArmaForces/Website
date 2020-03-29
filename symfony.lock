@@ -144,6 +144,9 @@
             "config/packages/knpu_oauth2_client.yaml"
         ]
     },
+    "league/csv": {
+        "version": "9.6.0"
+    },
     "league/oauth2-client": {
         "version": "2.4.1"
     },
