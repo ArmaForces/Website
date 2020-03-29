@@ -12,21 +12,20 @@ use Symfony\Component\HttpClient\HttpClient;
  * @internal
  * @coversNothing
  */
-class SteamWorkshopClientTest extends TestCase
+final class SteamWorkshopClientTest extends TestCase
 {
-    protected const ITEM_URL = 'https://steamcommunity.com/sharedfiles/filedetails/?id=1934142795';
     protected const ITEM_ID = 1934142795;
     protected const ITEM_NAME = 'ArmaForces - Mods';
     protected const ITEM_GAME_ID = 107410;
 
-    public function testGetWorkshopItemInfo(): void
+    public function testGetExistingWorkshopItemInfo(): void
     {
         $httpClient = HttpClient::create();
         $steamWorkshopClient = new SteamWorkshopClient($httpClient);
-        $workshopItemInfoDto = $steamWorkshopClient->getWorkshopItemInfo(self::ITEM_URL);
+        $workshopItemInfoDto = $steamWorkshopClient->getWorkshopItemInfo(self::ITEM_ID);
 
-        $this->assertEquals(self::ITEM_ID, $workshopItemInfoDto->getId());
-        $this->assertEquals(self::ITEM_NAME, $workshopItemInfoDto->getName());
-        $this->assertEquals(self::ITEM_GAME_ID, $workshopItemInfoDto->getGameId());
+        static::assertSame(self::ITEM_ID, $workshopItemInfoDto->getId());
+        static::assertSame(self::ITEM_NAME, $workshopItemInfoDto->getName());
+        static::assertSame(self::ITEM_GAME_ID, $workshopItemInfoDto->getGameId());
     }
 }

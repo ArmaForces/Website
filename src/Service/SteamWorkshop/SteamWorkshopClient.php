@@ -6,7 +6,6 @@ namespace App\Service\SteamWorkshop;
 
 use App\Service\SteamWorkshop\Dto\SteamWorkshopItemInfoDto;
 use App\Service\SteamWorkshop\Exception\ItemNotFoundException;
-use App\Service\SteamWorkshop\Exception\SteamWorkshopClientException;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class SteamWorkshopClient
@@ -19,10 +18,8 @@ class SteamWorkshopClient
         $this->httpClient = $httpClient;
     }
 
-    public function getWorkshopItemInfo(string $itemUrl): SteamWorkshopItemInfoDto
+    public function getWorkshopItemInfo(int $itemId): SteamWorkshopItemInfoDto
     {
-        $itemId = $this->getItemIdFromUrl($itemUrl);
-
         $url = 'https://api.steampowered.com/ISteamRemoteStorage/GetPublishedFileDetails/v1/';
         $response = $this->httpClient->request('POST', $url, [
             'body' => [
@@ -45,16 +42,5 @@ class SteamWorkshopClient
         $gameId = $publishedFileDetails['creator_app_id'];
 
         return new SteamWorkshopItemInfoDto($itemId, $itemName, $gameId);
-    }
-
-    protected function getItemIdFromUrl(string $url): int
-    {
-        $matches = [];
-        $result = preg_match('/(?<=\?id=)\d{10}/', $url, $matches);
-        if (1 === $result) {
-            return (int) $matches[0];
-        }
-
-        throw new SteamWorkshopClientException(sprintf('Unable to retrieve item id for item url "%s"!', $url));
     }
 }
