@@ -7,6 +7,7 @@ namespace App\Entity\Mod;
 use App\Entity\AbstractDescribedEntity;
 use App\Entity\Mod\Enum\ModTypeEnum;
 use App\Entity\ModList\ModListInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 abstract class AbstractMod extends AbstractDescribedEntity implements ModInterface
@@ -22,6 +23,7 @@ abstract class AbstractMod extends AbstractDescribedEntity implements ModInterfa
         parent::__construct($name);
 
         $this->type = $type;
+        $this->modLists = new ArrayCollection();
     }
 
     public function getType(): ModTypeEnum
