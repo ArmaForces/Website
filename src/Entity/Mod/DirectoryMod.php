@@ -9,22 +9,22 @@ use App\Entity\Mod\Enum\ModTypeEnum;
 class DirectoryMod extends AbstractMod implements DirectoryModInterface
 {
     /** @var string */
-    protected $path;
+    protected $directory;
 
-    public function __construct(string $name, ModTypeEnum $type, string $path)
+    public function __construct(string $name, ModTypeEnum $type, string $directory)
     {
         parent::__construct($name, $type);
 
-        $this->path = $path;
+        $this->directory = $directory;
     }
 
-    public function getPath(): string
+    public function getDirectory(): string
     {
-        return $this->path;
+        return $this->directory;
     }
 
-    public function setPath(string $path): void
+    public function setDirectory(string $directory): void
     {
-        $this->path = $path;
+        $this->directory = $directory;
     }
 }

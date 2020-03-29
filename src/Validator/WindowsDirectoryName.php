@@ -9,13 +9,13 @@ use Symfony\Component\Validator\Constraints\Regex;
 /**
  * @Annotation
  */
-class WindowsDirectoryPath extends Regex
+class WindowsDirectoryName extends Regex
 {
     /** @var string */
-    public $message = 'Invalid directory path';
+    public $message = 'Invalid directory name';
 
     /** @var string */
-    public $pattern = '/^[a-zA-Z]:\\\\(((?![<>:"\/\\\\|?*]).)+((?<![ .])\\\\)?)*$/';
+    public $pattern = '/^\w{1,248}[^<>:"\/\|?*]$/ui';
 
     /**
      * @return string[]

@@ -49,8 +49,8 @@ class ModFormType extends AbstractType
             ->add('url', TextType::class, [
                 'label' => 'Steam Workshop URL',
             ])
-            ->add('path', TextType::class, [
-                'label' => 'Directory path',
+            ->add('directory', TextType::class, [
+                'label' => 'Mod directory',
             ])
         ;
     }

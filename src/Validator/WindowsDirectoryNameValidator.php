@@ -6,6 +6,6 @@ namespace App\Validator;
 
 use Symfony\Component\Validator\Constraints\RegexValidator;
 
-class WindowsDirectoryPathValidator extends RegexValidator
+class WindowsDirectoryNameValidator extends RegexValidator
 {
 }

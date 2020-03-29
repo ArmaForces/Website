@@ -13,7 +13,7 @@ use App\Entity\Mod\SteamWorkshopMod;
 use App\Form\AbstractFormDto;
 use App\Form\FormDtoInterface;
 use App\Validator\SteamWorkshopModUrl;
-use App\Validator\WindowsDirectoryPath;
+use App\Validator\WindowsDirectoryName;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class ModFormDto extends AbstractFormDto
@@ -67,10 +67,9 @@ class ModFormDto extends AbstractFormDto
      * @var null|string
      *
      * @Assert\NotBlank(groups={ModSourceEnum::DIRECTORY})
-     * @Assert\Length(min=1, max=4000, groups={ModSourceEnum::DIRECTORY})
-     * @WindowsDirectoryPath(groups={ModSourceEnum::DIRECTORY})
+     * @WindowsDirectoryName(groups={ModSourceEnum::DIRECTORY})
      */
-    protected $path;
+    protected $directory;
 
     /**
      * @param null|ModInterface $entity
@@ -96,7 +95,7 @@ class ModFormDto extends AbstractFormDto
             $self->setUrl($entity->getUrl());
         } elseif ($entity instanceof DirectoryMod) {
             $self->setSource(ModSourceEnum::DIRECTORY);
-            $self->setPath($entity->getPath());
+            $self->setDirectory($entity->getDirectory());
         }
 
         return $self;
@@ -118,7 +117,7 @@ class ModFormDto extends AbstractFormDto
         if (!$entity instanceof SteamWorkshopMod && $source->is(ModSourceEnum::STEAM_WORKSHOP)) {
             $entity = new SteamWorkshopMod($this->getName(), $type, $this->getUrl());
         } elseif (!$entity instanceof DirectoryMod && $source->is(ModSourceEnum::DIRECTORY)) {
-            $entity = new DirectoryMod($this->getName(), $type, $this->getPath());
+            $entity = new DirectoryMod($this->getName(), $type, $this->getDirectory());
         }
 
         $entity->setName($this->getName());
@@ -128,7 +127,7 @@ class ModFormDto extends AbstractFormDto
         if ($entity instanceof SteamWorkshopMod) {
             $entity->setUrl($this->getUrl());
         } elseif ($entity instanceof DirectoryMod) {
-            $entity->setPath($this->getPath());
+            $entity->setDirectory($this->getDirectory());
         }
 
         return $entity;
@@ -205,13 +204,13 @@ class ModFormDto extends AbstractFormDto
         $this->url = $url;
     }
 
-    public function getPath(): ?string
+    public function getDirectory(): ?string
     {
-        return $this->path;
+        return $this->directory;
     }
 
-    public function setPath(?string $path): void
+    public function setDirectory(?string $directory): void
     {
-        $this->path = $path;
+        $this->directory = $directory;
     }
 }

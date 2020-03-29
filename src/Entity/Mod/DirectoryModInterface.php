@@ -6,7 +6,7 @@ namespace App\Entity\Mod;
 
 interface DirectoryModInterface extends ModInterface
 {
-    public function getPath(): string;
+    public function getDirectory(): string;
 
-    public function setPath(string $path): void;
+    public function setDirectory(string $path): void;
 }
