@@ -42,7 +42,7 @@ class ModListController extends AbstractController
      */
     public function listAction(): Response
     {
-        $modLists = $this->modListRepository->findAllOrderedByName();
+        $modLists = $this->modListRepository->findBy([], ['name' => 'ASC']);
 
         return $this->render('mod_list/list.html.twig', [
             'modLists' => $modLists,
