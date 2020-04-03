@@ -1,22 +1,20 @@
 {% extends 'container.html.twig' %}
 
 {% block content %}
-    <div class="mt-3">
-        <div class="row">
-            <div class="col-md-12">
-                <h2>{{ 'Mods'|trans }}</h2>
-            </div>
+    <div class="row my-3 align-items-center">
+        <div class="col-md-6">
+            <h2>{{ 'Mods'|trans }}</h2>
         </div>
-        <div class="row">
-            <div class="col-md-12 py-2 text-right">
-                {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_CREATE')) %}
-                    <a href="{{ path('app_mod_create') }}" class="btn btn-primary">{{ 'Create mod'|trans }}</a>
-                {% endif %}
-            </div>
+        <div class="col-md-6 py-2 text-right">
+            {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_CREATE')) %}
+                <a href="{{ path('app_mod_create') }}" class="btn btn-primary">{{ 'Create mod'|trans }}</a>
+            {% endif %}
         </div>
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
                 <tr>
                     <th>#</th>
                     <th scope="col">{{ 'Mod name'|trans }}</th>
@@ -24,49 +22,48 @@
                     <th scope="col">{{ 'Mod source'|trans }}</th>
                     <th></th>
                 </tr>
-                </thead>
-                <tbody>
-                    {# @var mod \App\Entity\Mod\Mod #}
-                    {% for mod in mods %}
-                        <tr>
-                            <th scope="row">{{ loop.index }}</th>
-                            <th>{{ mod.name }}</th>
-                            <td>
-                                {% if mod.type.is(constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::SERVER_SIDE')) %}
-                                    {{ 'Server side mod'|trans }}
-                                {% elseif mod.type.is(constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::REQUIRED')) %}
-                                    {{ 'Required mod'|trans }}
-                                {% elseif mod.type.is(constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::OPTIONAL')) %}
-                                    {{ 'Optional mod'|trans }}
-                                {% elseif mod.type.is(constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::CLIENT_SIDE')) %}
-                                    {{ 'Client side mod'|trans }}
-                                {% endif %}
-                            </td>
-                            <td>
-                                {% if mod is instance_of('\\App\\Entity\\Mod\\SteamWorkshopMod') %}
-                                    <a href="{{ steam_workshop_item_url(mod.itemId) }}">{{ 'Steam Workshop'|trans }}</a>
-                                {% elseif mod is instance_of('\\App\\Entity\\Mod\\DirectoryMod') %}
-                                    {{ 'Directory'|trans }}
-                                {% endif %}
-                            </td>
-                            <td class="table-actions">
-                                {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_UPDATE'), mod) %}
-                                    <a href="{{ path('app_mod_update', { id: mod.id }) }}" title="{{ 'Edit mod'|trans }}">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
+            </thead>
+            <tbody>
+                {# @var mod \App\Entity\Mod\Mod #}
+                {% for mod in mods %}
+                    <tr>
+                        <th scope="row">{{ loop.index }}</th>
+                        <th>{{ mod.name }}</th>
+                        <td>
+                            {% if mod.type.is(constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::SERVER_SIDE')) %}
+                                {{ 'Server side mod'|trans }}
+                            {% elseif mod.type.is(constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::REQUIRED')) %}
+                                {{ 'Required mod'|trans }}
+                            {% elseif mod.type.is(constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::OPTIONAL')) %}
+                                {{ 'Optional mod'|trans }}
+                            {% elseif mod.type.is(constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::CLIENT_SIDE')) %}
+                                {{ 'Client side mod'|trans }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if mod is instance_of('\\App\\Entity\\Mod\\SteamWorkshopMod') %}
+                                <a href="{{ steam_workshop_item_url(mod.itemId) }}">{{ 'Steam Workshop'|trans }}</a>
+                            {% elseif mod is instance_of('\\App\\Entity\\Mod\\DirectoryMod') %}
+                                {{ 'Directory'|trans }}
+                            {% endif %}
+                        </td>
+                        <td class="table-actions">
+                            {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_UPDATE'), mod) %}
+                                <a href="{{ path('app_mod_update', { id: mod.id }) }}" title="{{ 'Edit mod'|trans }}">
+                                    <i class="fas fa-edit"></i>
+                                </a>
 
-                                {% endif %}
+                            {% endif %}
 
-                                {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_DELETE'), mod) %}
-                                    <a href="{{ path('app_mod_delete', { id: mod.id }) }}" title="{{ 'Delete mod'|trans }}">
-                                        <i class="fas fa-trash-alt text-danger"></i>
-                                    </a>
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+                            {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_DELETE'), mod) %}
+                                <a href="{{ path('app_mod_delete', { id: mod.id }) }}" title="{{ 'Delete mod'|trans }}">
+                                    <i class="fas fa-trash-alt text-danger"></i>
+                                </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 {% endblock %}
