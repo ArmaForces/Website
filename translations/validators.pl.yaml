@@ -1,3 +1,6 @@
+# Unique Steam Workshop Mod Validator
+Mod associated with url "{{ modUrl }}" already exist: Mod znajdujący się pod adresem "{{ modUrl }}" już istnieje
+
 # Unique Directory Mod Validator
 Mod associated with directory "{{ directoryName }}" already exist: Mod znajdujący się w katalogu "{{ directoryName }}" już istnieje
 
