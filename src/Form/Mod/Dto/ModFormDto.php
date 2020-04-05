@@ -14,9 +14,15 @@ use App\Form\AbstractFormDto;
 use App\Form\FormDtoInterface;
 use App\Service\SteamWorkshop\Helper\SteamWorkshopHelper;
 use App\Validator\SteamWorkshopArma3ModUrl;
+use App\Validator\UniqueDirectoryMod;
+use App\Validator\UniqueSteamWorkshopMod;
 use App\Validator\WindowsDirectoryName;
 use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ * @UniqueSteamWorkshopMod(groups={ModSourceEnum::STEAM_WORKSHOP}))
+ * @UniqueDirectoryMod(groups={ModSourceEnum::DIRECTORY}))
+ */
 class ModFormDto extends AbstractFormDto
 {
     /** @var null|string */
