@@ -6,6 +6,7 @@ namespace App\Validator;
 
 use App\Entity\Mod\SteamWorkshopMod;
 use App\Form\Mod\Dto\ModFormDto;
+use App\Service\SteamWorkshop\Helper\Exception\InvalidItemUrlFormatException;
 use App\Service\SteamWorkshop\Helper\SteamWorkshopHelper;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManagerInterface;
@@ -37,7 +38,12 @@ class UniqueSteamWorkshopModValidator extends ConstraintValidator
         if (!$url) {
             return;
         }
-        $itemId = SteamWorkshopHelper::itemUrlToItemId($url);
+
+        try {
+            $itemId = SteamWorkshopHelper::itemUrlToItemId($url);
+        } catch (InvalidItemUrlFormatException $ex) {
+            return;
+        }
 
         $qb = $this->entityManager->createQueryBuilder();
         $expr = $qb->expr();
