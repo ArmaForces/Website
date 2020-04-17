@@ -58,16 +58,16 @@ class HomeController extends AbstractController
     public function missionsAction(): Response
     {
         try {
-            $openMissions = $this->missionClient->getMissions(false);
+            $upcomingMissions = $this->missionClient->getUpcomingMissions();
             $archivedMissions = $this->missionClient->getArchivedMissions();
         } catch (\Exception $ex) {
             $this->logger->warning('Could not fetch list of missions', ['ex' => $ex]);
-            $openMissions = null;
+            $upcomingMissions = null;
             $archivedMissions = null;
         }
 
         return $this->render('home/missions/missions.html.twig', [
-            'openMissions' => $openMissions,
+            'upcomingMissions' => $upcomingMissions,
             'archivedMissions' => $archivedMissions,
         ]);
     }
