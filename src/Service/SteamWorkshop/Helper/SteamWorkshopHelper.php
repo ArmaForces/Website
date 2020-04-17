@@ -8,7 +8,7 @@ use App\Service\SteamWorkshop\Helper\Exception\InvalidItemUrlFormatException;
 
 class SteamWorkshopHelper
 {
-    public const ITEM_URL_REGEX = '~(?<=https:\/\/steamcommunity\.com\/sharedfiles\/filedetails\/\?id=)\d+~';
+    public const ITEM_URL_REGEX = '~https:\/\/steamcommunity\.com\/(?:sharedfiles|workshop)\/filedetails\/\?id=(\d+)~';
 
     public static function validateItemUrlFormat(string $itemUrl): bool
     {
@@ -22,8 +22,8 @@ class SteamWorkshopHelper
 
     public static function itemUrlToItemId(string $itemUrl): int
     {
-        if (1 === preg_match(self::ITEM_URL_REGEX, $itemUrl, $matches) && 1 === \count($matches)) {
-            return (int) $matches[0];
+        if (1 === preg_match(self::ITEM_URL_REGEX, $itemUrl, $matches) && 2 === \count($matches)) {
+            return (int) $matches[1];
         }
 
         throw new InvalidItemUrlFormatException(sprintf('Invalid item URL format for: "%s"', $itemUrl));
