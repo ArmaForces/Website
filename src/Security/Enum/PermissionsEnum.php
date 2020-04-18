@@ -18,5 +18,6 @@ class PermissionsEnum
     public const MOD_LIST_LIST = 'mod_list_list';
     public const MOD_LIST_CREATE = 'mod_list_create';
     public const MOD_LIST_UPDATE = 'mod_list_update';
+    public const MOD_LIST_COPY = 'mod_list_copy';
     public const MOD_LIST_DELETE = 'mod_list_delete';
 }

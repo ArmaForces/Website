@@ -98,6 +98,23 @@ class ModListController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/copy", name="_copy")
+     *
+     * @IsGranted(PermissionsEnum::MOD_LIST_COPY)
+     */
+    public function copyAction(ModList $modList): Response
+    {
+        $modListCopy = clone $modList;
+
+        $this->entityManager->persist($modListCopy);
+        $this->entityManager->flush();
+
+        return $this->redirectToRoute('app_mod_list_update', [
+            'id' => $modListCopy->getId(),
+        ]);
+    }
+
+    /**
      * @Route("/{id}/delete", name="_delete")
      *
      * @IsGranted(PermissionsEnum::MOD_LIST_DELETE)

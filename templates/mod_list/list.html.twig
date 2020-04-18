@@ -42,6 +42,12 @@
                                 </a>
                             {% endif %}
 
+                            {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_COPY'), modList) %}
+                                <a href="{{ path('app_mod_list_copy', { id: modList.id }) }}" title="{{ 'Copy and edit mod list'|trans }}">
+                                    <i class="fas fa-copy"></i>
+                                </a>
+                            {% endif %}
+
                             {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_DELETE'), modList) %}
                                 <a href="{{ path('app_mod_list_delete', { id: modList.id }) }}" title="{{ 'Delete mod list'|trans }}">
                                     <i class="fas fa-trash-alt text-danger"></i>

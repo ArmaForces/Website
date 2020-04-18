@@ -8,6 +8,7 @@ use App\Entity\AbstractDescribedEntity;
 use App\Entity\Mod\ModInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Ramsey\Uuid\Uuid;
 
 class ModList extends AbstractDescribedEntity implements ModListInterface
 {
@@ -19,6 +20,16 @@ class ModList extends AbstractDescribedEntity implements ModListInterface
         parent::__construct($name);
 
         $this->mods = new ArrayCollection();
+    }
+
+    /**
+     * TODO: Replace with Cloneable interface to avoid overriding magic method behavior.
+     */
+    public function __clone()
+    {
+        $this->id = Uuid::uuid4()->toString();
+        $this->setCreatedAt(null);
+        $this->setLastUpdatedAt(null);
     }
 
     public function addMod(ModInterface $mod): void
