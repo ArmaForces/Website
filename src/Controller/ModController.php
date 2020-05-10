@@ -9,6 +9,7 @@ use App\Form\Mod\Dto\ModFormDto;
 use App\Form\Mod\ModFormType;
 use App\Repository\ModRepository;
 use App\Security\Enum\PermissionsEnum;
+use App\Service\DataTransformer\ModFormDtoTransformer;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,10 +30,14 @@ class ModController extends AbstractController
     /** @var ModRepository */
     protected $modRepository;
 
-    public function __construct(EntityManagerInterface $entityManager, ModRepository $modRepository)
+    /** @var ModFormDtoTransformer */
+    protected $modFormDtoTransformer;
+
+    public function __construct(EntityManagerInterface $entityManager, ModRepository $modRepository, ModFormDtoTransformer $modFormDtoTransformer)
     {
         $this->entityManager = $entityManager;
         $this->modRepository = $modRepository;
+        $this->modFormDtoTransformer = $modFormDtoTransformer;
     }
 
     /**
@@ -61,7 +66,7 @@ class ModController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $mod = $modFormDto->toEntity();
+            $mod = $this->modFormDtoTransformer->toEntity($modFormDto);
             $this->entityManager->persist($mod);
             $this->entityManager->flush();
 
@@ -80,12 +85,12 @@ class ModController extends AbstractController
      */
     public function updateAction(Request $request, AbstractMod $mod): Response
     {
-        $modFormDto = ModFormDto::fromEntity($mod);
+        $modFormDto = $this->modFormDtoTransformer->fromEntity($mod);
         $form = $this->createForm(ModFormType::class, $modFormDto);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $updatedMod = $modFormDto->toEntity($mod);
+            $updatedMod = $this->modFormDtoTransformer->toEntity($modFormDto, $mod);
 
             if (!$this->entityManager->contains($updatedMod)) {
                 $this->entityManager->remove($mod);
