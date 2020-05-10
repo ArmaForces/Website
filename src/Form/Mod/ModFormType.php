@@ -57,7 +57,7 @@ class ModFormType extends AbstractType
             ])
             ->add('name', TextType::class, [
                 'label' => 'Mod name',
-                'help' => 'Optional if mod from Steam Workshop'
+                'help' => 'Optional for mods from Steam Workshop',
             ])
             ->add('description', TextType::class, [
                 'label' => 'Mod description',
