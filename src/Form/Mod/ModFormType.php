@@ -41,6 +41,9 @@ class ModFormType extends AbstractType
                 'attr' => [
                     'placeholder' => '@R3',
                 ],
+                'row_attr' => [
+                    'class' => 'd-none',
+                ],
             ])
             ->add('type', ChoiceType::class, [
                 'label' => 'Mod type',
