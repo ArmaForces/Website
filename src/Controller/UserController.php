@@ -55,9 +55,6 @@ class UserController extends AbstractController
      */
     public function deleteAction(User $user): Response
     {
-        /** @var User $currentUser */
-        $currentUser = $this->getUser();
-
         $this->entityManager->remove($user);
         $this->entityManager->flush();
 
