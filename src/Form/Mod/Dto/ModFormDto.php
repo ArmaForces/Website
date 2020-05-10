@@ -4,15 +4,8 @@ declare(strict_types=1);
 
 namespace App\Form\Mod\Dto;
 
-use App\Entity\EntityInterface;
-use App\Entity\Mod\DirectoryMod;
 use App\Entity\Mod\Enum\ModSourceEnum;
-use App\Entity\Mod\Enum\ModTypeEnum;
-use App\Entity\Mod\ModInterface;
-use App\Entity\Mod\SteamWorkshopMod;
 use App\Form\AbstractFormDto;
-use App\Form\FormDtoInterface;
-use App\Service\SteamWorkshop\Helper\SteamWorkshopHelper;
 use App\Validator\SteamWorkshopArma3ModUrl;
 use App\Validator\UniqueDirectoryMod;
 use App\Validator\UniqueSteamWorkshopMod;
@@ -77,74 +70,6 @@ class ModFormDto extends AbstractFormDto
      * @WindowsDirectoryName(groups={ModSourceEnum::DIRECTORY})
      */
     protected $directory;
-
-    /**
-     * @param null|ModInterface $entity
-     *
-     * @return ModFormDto
-     */
-    public static function fromEntity(EntityInterface $entity = null): FormDtoInterface
-    {
-        $self = new self();
-
-        /** @var ModInterface $entity */
-        if (!$entity instanceof ModInterface) {
-            return $self;
-        }
-
-        $self->setId($entity->getId());
-        $self->setName($entity->getName());
-        $self->setDescription($entity->getDescription());
-        $self->setType($entity->getType()->getValue());
-
-        if ($entity instanceof SteamWorkshopMod) {
-            $self->setSource(ModSourceEnum::STEAM_WORKSHOP);
-            $itemId = $entity->getItemId();
-            $url = SteamWorkshopHelper::itemIdToItemUrl($itemId);
-            $self->setUrl($url);
-        } elseif ($entity instanceof DirectoryMod) {
-            $self->setSource(ModSourceEnum::DIRECTORY);
-            $self->setDirectory($entity->getDirectory());
-        }
-
-        return $self;
-    }
-
-    /**
-     * @param null|ModInterface $entity
-     *
-     * @return ModInterface
-     */
-    public function toEntity(EntityInterface $entity = null): EntityInterface
-    {
-        /** @var ModSourceEnum $source */
-        $source = ModSourceEnum::get($this->getSource());
-
-        /** @var ModTypeEnum $type */
-        $type = ModTypeEnum::get($this->getType());
-
-        if (!$entity instanceof SteamWorkshopMod && $source->is(ModSourceEnum::STEAM_WORKSHOP)) {
-            $url = $this->getUrl();
-            $itemId = SteamWorkshopHelper::itemUrlToItemId($url);
-            $entity = new SteamWorkshopMod($this->getName(), $type, $itemId);
-        } elseif (!$entity instanceof DirectoryMod && $source->is(ModSourceEnum::DIRECTORY)) {
-            $entity = new DirectoryMod($this->getName(), $type, $this->getDirectory());
-        }
-
-        $entity->setName($this->getName());
-        $entity->setDescription($this->getDescription());
-        $entity->setType($type);
-
-        if ($entity instanceof SteamWorkshopMod) {
-            $url = $this->getUrl();
-            $itemId = SteamWorkshopHelper::itemUrlToItemId($url);
-            $entity->setItemId($itemId);
-        } elseif ($entity instanceof DirectoryMod) {
-            $entity->setDirectory($this->getDirectory());
-        }
-
-        return $entity;
-    }
 
     /**
      * {@inheritdoc}

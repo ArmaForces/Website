@@ -4,12 +4,8 @@ declare(strict_types=1);
 
 namespace App\Form\ModList\Dto;
 
-use App\Entity\EntityInterface;
-use App\Entity\Mod\ModInterface;
-use App\Entity\ModList\ModList;
-use App\Entity\ModList\ModListInterface;
+use App\Entity\Mod\SteamWorkshopModInterface;
 use App\Form\AbstractFormDto;
-use App\Form\FormDtoInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -42,56 +38,6 @@ class ModListFormDto extends AbstractFormDto
     public function __construct()
     {
         $this->mods = new ArrayCollection();
-    }
-
-    /**
-     * @param null|ModListInterface $entity
-     *
-     * @return ModListFormDto
-     */
-    public static function fromEntity(EntityInterface $entity = null): FormDtoInterface
-    {
-        $self = new self();
-
-        /** @var ModListInterface $entity */
-        if (!$entity instanceof ModListInterface) {
-            return $self;
-        }
-
-        $self->setId($entity->getId());
-        $self->setName($entity->getName());
-        $self->setDescription($entity->getDescription());
-
-        $self->clearSteamWorkshopMods();
-        foreach ($entity->getMods() as $mod) {
-            if ($mod instanceof ModListInterface) {
-                $self->addMod($mod);
-            }
-        }
-
-        return $self;
-    }
-
-    /**
-     * @param null|ModListInterface $entity
-     *
-     * @return ModListInterface
-     */
-    public function toEntity(EntityInterface $entity = null): EntityInterface
-    {
-        if (!$entity instanceof ModListInterface) {
-            $entity = new ModList($this->getName());
-        }
-
-        $entity->setName($this->getName());
-        $entity->setDescription($this->getDescription());
-
-        $entity->clearMods();
-        foreach ($this->getMods() as $mod) {
-            $entity->addMod($mod);
-        }
-
-        return $entity;
     }
 
     public function getId(): ?string
