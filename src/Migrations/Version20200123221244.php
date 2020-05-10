@@ -22,6 +22,7 @@ final class Version20200123221244 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
+        $this->addSql('DELETE FROM users');
         $this->addSql('CREATE TABLE permissions (id VARCHAR(36) NOT NULL, manage_users_permissions TINYINT(1) NOT NULL, list_users TINYINT(1) NOT NULL, delete_users TINYINT(1) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE users ADD permissions_id VARCHAR(36) NOT NULL');
         $this->addSql('ALTER TABLE users ADD CONSTRAINT FK_1483A5E99C3E4F87 FOREIGN KEY (permissions_id) REFERENCES permissions (id)');
