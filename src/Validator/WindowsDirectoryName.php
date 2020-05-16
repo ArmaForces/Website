@@ -15,7 +15,7 @@ class WindowsDirectoryName extends Regex
     public $message = 'Invalid directory name';
 
     /** @var string */
-    public $pattern = '/^\w{1,248}[^<>:"\/\|?*]$/ui';
+    public $pattern = '/^.{1,248}[^<>:"\/\|?*]$/ui';
 
     /**
      * @return string[]
