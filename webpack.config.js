@@ -16,6 +16,7 @@ Encore
      * ENTRY CONFIG
      */
     .addEntry('app', './assets/app.js')
+    .addEntry('multiRowSelect', './assets/multiRowSelect.js')
     .addEntry('landing', './assets/landing.js')
     .addEntry('joinUs', './assets/joinUs.js')
     .addEntry('modForm', './assets/mod/modForm.js')
