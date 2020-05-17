@@ -5,6 +5,7 @@
                 <tr>
                     <th>#</th>
                     <th scope="col">{{ 'Mod name'|trans }}</th>
+                    <th scope="col">{{ 'Include mod?'|trans }}</th>
                     <th scope="col">{{ 'Steam Workshop ID'|trans }}</th>
                     <th></th>
                 </tr>
@@ -21,6 +22,14 @@
                         <tr>
                             <th scope="row">{{ rowNo }}</th>
                             <td>{{ mod.name }}</td>
+                            <td>
+                                {% set modEntryId = 'mod-' ~ mod.id %}
+
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" id="{{ modEntryId }}" class="custom-control-input">
+                                    <label class="switch-custom custom-control-label" for="{{ modEntryId }}"></label>
+                                </div>
+                            </td>
                             <td>
                                 <a href="{{ steam_workshop_item_url(mod.itemId) }}">{{ mod.itemId }}</a>
                             </td>
