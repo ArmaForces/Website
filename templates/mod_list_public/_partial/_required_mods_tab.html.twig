@@ -16,10 +16,10 @@
                     {% if mod is instance_of('\\App\\Entity\\Mod\\SteamWorkshopMod') and mod.type.value == constant('\\App\\Entity\\Mod\\Enum\\ModTypeEnum::REQUIRED') %}
                         <tr>
                             <th scope="row">{{ rowNo }}</th>
-                            <th>{{ mod.name }}</th>
-                            <th>
+                            <td>{{ mod.name }}</td>
+                            <td>
                                 <a href="{{ steam_workshop_item_url(mod.itemId) }}">{{ mod.itemId }}</a>
-                            </th>
+                            </td>
                         </tr>
 
                         {% set rowNo = rowNo + 1 %}

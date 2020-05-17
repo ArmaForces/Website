@@ -24,7 +24,7 @@
                 {% for user in users %}
                     <tr>
                         <th scope="row">{{ loop.index }}</th>
-                        <th>{{ user.username }}</th>
+                        <td>{{ user.username }}</td>
                         <td>{{ user.externalId }}</td>
                         <td class="table-actions">
                             {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USER_PERMISSIONS_MANAGE'), user) %}

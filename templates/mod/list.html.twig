@@ -29,7 +29,7 @@
                 {% for mod in mods %}
                     <tr>
                         <th scope="row">{{ loop.index }}</th>
-                        <th>{{ mod.name }}</th>
+                        <td>{{ mod.name }}</td>
                         <td>
                             {% if mod.type.is(constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::SERVER_SIDE')) %}
                                 {{ 'Server side mod'|trans }}
@@ -48,13 +48,12 @@
                                 {{ 'Directory'|trans }}
                             {% endif %}
                         </td>
-                        <th>{{ mod.lastUpdatedAt|format_datetime('short', 'short', locale=app_lang) }}</th>
+                        <td>{{ mod.lastUpdatedAt|format_datetime('short', 'short', locale=app_lang) }}</td>
                         <td class="table-actions">
                             {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_UPDATE'), mod) %}
                                 <a href="{{ path('app_mod_update', { id: mod.id }) }}" title="{{ 'Edit mod'|trans }}">
                                     <i class="fas fa-edit"></i>
                                 </a>
-
                             {% endif %}
 
                             {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_DELETE'), mod) %}

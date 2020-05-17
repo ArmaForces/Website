@@ -28,9 +28,9 @@
                 {% for modList in modLists %}
                     <tr>
                         <th scope="row">{{ loop.index }}</th>
-                        <th>{{ modList.name }}</th>
-                        <th>{{ modList.description }}</th>
-                        <th>{{ modList.lastUpdatedAt|format_datetime('short', 'short', locale=app_lang) }}</th>
+                        <td>{{ modList.name }}</td>
+                        <td>{{ modList.description }}</td>
+                        <td>{{ modList.lastUpdatedAt|format_datetime('short', 'short', locale=app_lang) }}</td>
                         <td class="table-actions">
                             <a href="{{ path('app_mod_list_public_customize', { id: modList.id }) }}" title="{{ 'Download mod list'|trans }}">
                                 <i class="fas fa-download"></i>

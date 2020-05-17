@@ -20,11 +20,11 @@
                     ] %}
                         <tr>
                             <th scope="row">{{ rowNo }}</th>
-                            <th>{{ mod.name }}</th>
-                            <th>
+                            <td>{{ mod.name }}</td>
+                            <td>
                                 <a href="{{ steam_workshop_item_url(mod.itemId) }}">{{ mod.itemId }}</a>
-                            </th>
-                            <th></th>
+                            </td>
+                            <td></td>
                         </tr>
 
                         {% set rowNo = rowNo + 1 %}
