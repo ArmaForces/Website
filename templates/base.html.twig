@@ -75,7 +75,11 @@
 
         <!-- Javascripts -->
         {% block javascripts %}
+            <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+            <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
             {{ encore_entry_script_tags('app') }}
+            {{ encore_entry_script_tags('multiRowSelect') }}
         {% endblock %}
         <!--/ Javascripts -->
     </body>
