@@ -42,25 +42,27 @@ class ModFormDtoTransformer implements FormDtoTransformerInterface
         /** @var ModTypeEnum $type */
         $type = ModTypeEnum::get($dto->getType());
 
-        if (!$entity instanceof SteamWorkshopMod && $source->is(ModSourceEnum::STEAM_WORKSHOP)) {
-            $url = $dto->getUrl();
-            $itemId = SteamWorkshopHelper::itemUrlToItemId($url);
-            $entity = new SteamWorkshopMod($dto->getName(), $type, $itemId);
-        } elseif (!$entity instanceof DirectoryMod && $source->is(ModSourceEnum::DIRECTORY)) {
-            $entity = new DirectoryMod($dto->getName(), $type, $dto->getDirectory());
+        if ($source->is(ModSourceEnum::STEAM_WORKSHOP)) {
+            $name = $dto->getName();
+            $itemId = SteamWorkshopHelper::itemUrlToItemId($dto->getUrl());
+
+            if (!$entity instanceof SteamWorkshopMod) {
+                $entity = new SteamWorkshopMod($name, $type, $itemId);
+            } else {
+                $entity->setName($name);
+                $entity->setItemId($itemId);
+            }
+        } elseif ($source->is(ModSourceEnum::DIRECTORY)) {
+            if (!$entity instanceof DirectoryMod) {
+                $entity = new DirectoryMod($dto->getName(), $type, $dto->getDirectory());
+            } else {
+                $entity->setName($dto->getName());
+                $entity->setDirectory($dto->getDirectory());
+            }
         }
 
-        $entity->setName($dto->getName());
         $entity->setDescription($dto->getDescription());
         $entity->setType($type);
-
-        if ($entity instanceof SteamWorkshopMod) {
-            $url = $dto->getUrl();
-            $itemId = SteamWorkshopHelper::itemUrlToItemId($url);
-            $entity->setItemId($itemId);
-        } elseif ($entity instanceof DirectoryMod) {
-            $entity->setDirectory($dto->getDirectory());
-        }
 
         return $entity;
     }
