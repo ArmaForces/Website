@@ -17,18 +17,25 @@
     <table>
         {# @var mod \App\Entity\Mod\SteamWorkshopMod #}
         {% for mod in modList.mods %}
-            {% if mod is instance_of('\\App\\Entity\\Mod\\SteamWorkshopMod') and mod.type != constant('\\App\\Entity\\Mod\\Enum\\ModTypeEnum::SERVER_SIDE') %}
-                <tr data-type="ModContainer">
-                    <td data-type="DisplayName">{{ mod.name }}</td>
-                    <td>
-                        <span class="from-steam">Steam</span>
-                    </td>
-                    <td>
-                        <a href="{{ mod.url }}" data-type="Link">
-                            {{ mod.url }}
-                        </a>
-                    </td>
-                </tr>
+            {% if mod is instance_of('\\App\\Entity\\Mod\\SteamWorkshopMod') %}
+                {% if mod.type.value == constant('\\App\\Entity\\Mod\\Enum\\ModTypeEnum::REQUIRED')
+                    or (mod.type.value in [
+                        constant('\\App\\Entity\\Mod\\Enum\\ModTypeEnum::OPTIONAL'),
+                        constant('\\App\\Entity\\Mod\\Enum\\ModTypeEnum::CLIENT_SIDE')
+                    ] and mod.id in optionalMods|keys and optionalMods[mod.id] == true)
+                %}
+                    <tr data-type="ModContainer">
+                        <td data-type="DisplayName">{{ mod.name }}</td>
+                        <td>
+                            <span class="from-steam">Steam</span>
+                        </td>
+                        <td>
+                            <a href="{{ steam_workshop_item_url(mod.itemId) }}" data-type="Link">
+                                {{ steam_workshop_item_url(mod.itemId) }}
+                            </a>
+                        </td>
+                    </tr>
+                {% endif %}
             {% endif %}
         {% endfor %}
     </table>

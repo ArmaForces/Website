@@ -47,12 +47,13 @@ class ModListPublicController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/download", name="_download")
+     * @Route("/{id}/download/{optionalModsJson}", name="_download", options={"expose": true})
      */
-    public function downloadAction(ModList $modList): Response
+    public function downloadAction(ModList $modList, string $optionalModsJson = null): Response
     {
         $template = $this->renderView('mod_list_public/launcher_preset_template.html.twig', [
             'modList' => $modList,
+            'optionalMods' => $optionalModsJson ? json_decode($optionalModsJson, true) : [],
         ]);
 
         $response = new Response($template);

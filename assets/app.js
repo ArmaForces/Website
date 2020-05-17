@@ -1,8 +1,8 @@
-
 import './app.scss';
 
 import jQuery from 'jquery';
 import yall from 'yall-js';
+
 // Init Bootstrap jQuery plugins
 import 'bootstrap';
 
@@ -23,5 +23,4 @@ $(() => {
 
     // Image lazy loading
     yall();
-
 });

@@ -26,7 +26,7 @@
                                 {% set modEntryId = 'mod-' ~ mod.id %}
 
                                 <div class="custom-control custom-switch">
-                                    <input type="checkbox" id="{{ modEntryId }}" class="custom-control-input">
+                                    <input type="checkbox" id="{{ modEntryId }}" class="custom-control-input" data-multi-row-select="optionalMods" data-multi-row-select-element-id="{{ mod.id }}">
                                     <label class="switch-custom custom-control-label" for="{{ modEntryId }}"></label>
                                 </div>
                             </td>
