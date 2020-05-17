@@ -79,7 +79,8 @@
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+            "assets:install %PUBLIC_DIR%": "symfony-cmd",
+            "fos:js-routing:dump --target public/bundles/fosjsrouting/js/fos_js_routes.js": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"
