@@ -90,7 +90,7 @@ class ModListController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->modListFormDtoTransformer->toEntity($modListFormDto);
+            $this->modListFormDtoTransformer->toEntity($modListFormDto, $modList);
 
             $this->entityManager->flush();
 
