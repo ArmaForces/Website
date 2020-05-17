@@ -5,6 +5,7 @@ import yall from 'yall-js';
 
 // Init Bootstrap jQuery plugins
 import 'bootstrap';
+import * as form from './form';
 
 $(() => {
     $('[data-toggle="tooltip"]').tooltip();
@@ -20,6 +21,8 @@ $(() => {
             behavior: 'smooth'
         });
     });
+
+    form.initConfirmModals();
 
     // Image lazy loading
     yall();
