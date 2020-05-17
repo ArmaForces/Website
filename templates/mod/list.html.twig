@@ -48,7 +48,7 @@
                                 {{ 'Directory'|trans }}
                             {% endif %}
                         </td>
-                        <td>{{ mod.lastUpdatedAt|format_datetime('short', 'short', locale=app_lang) }}</td>
+                        <td>{{ mod.lastUpdatedAt ? mod.lastUpdatedAt|format_datetime('short', 'short', locale=app_lang) : '-' }}</td>
                         <td class="table-actions">
                             {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_UPDATE'), mod) %}
                                 <a href="{{ path('app_mod_update', { id: mod.id }) }}" title="{{ 'Edit mod'|trans }}">

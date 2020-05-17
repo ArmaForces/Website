@@ -32,7 +32,7 @@
                         <td>{{ modList.name }}</td>
                         <td>{{ modList.description }}</td>
                         <td>{{ modList.createdAt|format_datetime('short', 'short', locale=app_lang) }}</td>
-                        <td>{{ modList.lastUpdatedAt|format_datetime('short', 'short', locale=app_lang) }}</td>
+                        <td>{{ modList.lastUpdatedAt ? modList.lastUpdatedAt|format_datetime('short', 'short', locale=app_lang) : '-' }}</td>
                         <td class="table-actions">
                             <a href="{{ path('app_mod_list_public_customize', { id: modList.id }) }}" title="{{ 'Download mod list'|trans }}">
                                 <i class="fas fa-download"></i>

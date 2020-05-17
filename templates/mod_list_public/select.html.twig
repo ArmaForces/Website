@@ -25,7 +25,7 @@
                         <th scope="row">{{ loop.index }}</th>
                         <th>{{ modList.name }}</th>
                         <th>{{ modList.description }}</th>
-                        <th>{{ modList.lastUpdatedAt|format_datetime('short', 'short', locale=app_lang) }}</th>
+                        <th>{{ modList.lastUpdatedAt ? modList.lastUpdatedAt|format_datetime('short', 'short', locale=app_lang) : '-' }}</th>
                         <td class="table-actions">
                             <a href="{{ path('app_mod_list_public_customize', { id: modList.id }) }}" title="{{ 'Download mod list'|trans }}">
                                 <i class="fas fa-download"></i>
