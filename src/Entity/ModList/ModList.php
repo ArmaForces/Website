@@ -28,7 +28,7 @@ class ModList extends AbstractDescribedEntity implements ModListInterface
     public function __clone()
     {
         $this->id = Uuid::uuid4()->toString();
-        $this->setCreatedAt(null);
+        $this->setCreatedAt(new \DateTimeImmutable());
         $this->setLastUpdatedAt(null);
     }
 

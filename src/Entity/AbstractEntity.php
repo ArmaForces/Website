@@ -11,7 +11,7 @@ class AbstractEntity implements EntityInterface
     /** @var string */
     protected $id;
 
-    /** @var null|\DateTimeInterface */
+    /** @var \DateTimeInterface */
     protected $createdAt;
 
     /** @var null|\DateTimeInterface */
@@ -20,6 +20,8 @@ class AbstractEntity implements EntityInterface
     public function __construct()
     {
         $this->id = Uuid::uuid4()->toString();
+
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): string
@@ -27,12 +29,12 @@ class AbstractEntity implements EntityInterface
         return $this->id;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(?\DateTimeInterface $createdAt): void
+    public function setCreatedAt(\DateTimeInterface $createdAt): void
     {
         $this->createdAt = $createdAt;
     }

@@ -14,18 +14,8 @@ class EntityTimestampSubscriber implements EventSubscriber
     public function getSubscribedEvents(): array
     {
         return [
-            Events::prePersist,
             Events::preUpdate,
         ];
-    }
-
-    public function prePersist(LifecycleEventArgs $args): void
-    {
-        $entity = $args->getEntity();
-
-        if ($entity instanceof EntityInterface) {
-            $this->updateTimestamps($entity);
-        }
     }
 
     public function preUpdate(LifecycleEventArgs $args): void
@@ -33,18 +23,7 @@ class EntityTimestampSubscriber implements EventSubscriber
         $entity = $args->getEntity();
 
         if ($entity instanceof EntityInterface) {
-            $this->updateTimestamps($entity);
+            $entity->setLastUpdatedAt(new \DateTimeImmutable());
         }
-    }
-
-    public function updateTimestamps(EntityInterface $entity): EntityInterface
-    {
-        if (!$entity->getCreatedAt()) {
-            $entity->setCreatedAt(new \DateTimeImmutable());
-        }
-
-        $entity->setLastUpdatedAt(new \DateTimeImmutable());
-
-        return $entity;
     }
 }
