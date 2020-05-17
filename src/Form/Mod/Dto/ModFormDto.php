@@ -24,7 +24,7 @@ class ModFormDto extends AbstractFormDto
     /**
      * @var null|string
      *
-     * @Assert\NotBlank
+     * @Assert\NotBlank(groups={ModSourceEnum::DIRECTORY})
      * @Assert\Length(min=1, max=255)
      */
     protected $name;

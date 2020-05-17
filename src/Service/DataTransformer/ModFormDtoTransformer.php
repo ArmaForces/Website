@@ -43,8 +43,8 @@ class ModFormDtoTransformer implements FormDtoTransformerInterface
         $type = ModTypeEnum::get($dto->getType());
 
         if ($source->is(ModSourceEnum::STEAM_WORKSHOP)) {
-            $name = $dto->getName();
             $itemId = SteamWorkshopHelper::itemUrlToItemId($dto->getUrl());
+            $name = $dto->getName() ?: substr($this->steamWorkshopClient->getWorkshopItemInfo($itemId)->getName(), 0, 255);
 
             if (!$entity instanceof SteamWorkshopMod) {
                 $entity = new SteamWorkshopMod($name, $type, $itemId);
