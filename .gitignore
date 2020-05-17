@@ -1,6 +1,8 @@
 /\.idea/
 /VERSION
 
+fos_js_routes.js
+
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
