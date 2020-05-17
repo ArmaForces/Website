@@ -51,7 +51,11 @@
                             {% endif %}
 
                             {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_DELETE'), modList) %}
-                                <a href="{{ path('app_mod_list_delete', { id: modList.id }) }}" title="{{ 'Delete mod list'|trans }}">
+                                <a
+                                    href="{{ path('app_mod_list_delete', { id: modList.id }) }}"
+                                    title="{{ 'Delete mod list'|trans }}"
+                                    data-modal-confirm="{{ 'Are you sure you want to delete %name%?'|trans({'%name%': modList.name}) }}"
+                                >
                                     <i class="fas fa-trash-alt text-danger"></i>
                                 </a>
                             {% endif %}
