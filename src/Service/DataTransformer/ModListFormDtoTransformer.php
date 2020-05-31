@@ -33,8 +33,8 @@ class ModListFormDtoTransformer implements FormDtoTransformerInterface
         $entity->setDescription($dto->getDescription());
 
         $entity->clearMods();
-        foreach ($dto->getSteamWorkshopMods() as $steamWorkshopMod) {
-            $entity->addMod($steamWorkshopMod);
+        foreach ($dto->getMods() as $mod) {
+            $entity->addMod($mod);
         }
 
         return $entity;
@@ -60,8 +60,8 @@ class ModListFormDtoTransformer implements FormDtoTransformerInterface
 
         $dto->clearSteamWorkshopMods();
         foreach ($entity->getMods() as $mod) {
-            if ($mod instanceof SteamWorkshopModInterface) {
-                $dto->addSteamWorkshopMod($mod);
+            if ($mod instanceof ModInterface) {
+                $dto->addMod($mod);
             }
         }
 

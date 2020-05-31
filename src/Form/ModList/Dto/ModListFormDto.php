@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form\ModList\Dto;
 
+use App\Entity\Mod\ModInterface;
 use App\Entity\Mod\SteamWorkshopModInterface;
 use App\Form\AbstractFormDto;
 use Doctrine\Common\Collections\ArrayCollection;
