@@ -4,11 +4,21 @@ declare(strict_types=1);
 
 namespace App\Entity\ModList;
 
+use ApiPlatform\Core\Annotation as Api;
+use App\Api\Dto\ModListOutput;
 use App\Entity\AbstractDescribedEntity;
 use App\Entity\Mod\ModInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
+/**
+ * @Api\ApiResource(
+ *     normalizationContext={"groups": {"read"}},
+ *     output=ModListOutput::class,
+ *     itemOperations={"get"},
+ *     collectionOperations={"get"},
+ * )
+ */
 class ModList extends AbstractDescribedEntity implements ModListInterface
 {
     /** @var Collection|ModInterface[] */
