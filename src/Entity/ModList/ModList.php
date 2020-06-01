@@ -13,6 +13,7 @@ use Doctrine\Common\Collections\Collection;
 
 /**
  * @Api\ApiResource(
+ *     attributes={"pagination_enabled": false},
  *     normalizationContext={"groups": {"read"}},
  *     output=ModListOutput::class,
  *     itemOperations={"get"},
