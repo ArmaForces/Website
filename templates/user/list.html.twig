@@ -1,5 +1,7 @@
 {% extends 'container.html.twig' %}
 
+{% import '_macro/table_macro.html.twig' as tableMacro %}
+
 {# @var currentUser \App\Entity\User\User #}
 {% set currentUser = app.token.user %}
 
@@ -26,17 +28,13 @@
                         <th scope="row">{{ loop.index }}</th>
                         <td>{{ user.username }}</td>
                         <td>{{ user.externalId }}</td>
-                        <td class="table-actions">
+                        <td class="text-right">
                             {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USER_PERMISSIONS_MANAGE'), user) %}
-                                <a href="{{ path('app_user_permissions', { id: user.id }) }}" title="{{ 'Manage user permissions'|trans }}">
-                                    <i class="fas fa-user-shield"></i>
-                                </a>
+                                {{ tableMacro.row_action(path('app_user_permissions', { id: user.id }), 'fas fa-user-shield', 'Manage user permissions'|trans) }}
                             {% endif %}
 
                             {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USER_DELETE'), user) %}
-                                <a href="{{ path('app_user_delete', { id: user.id }) }}" title="{{ 'Delete user'|trans }}">
-                                    <i class="fas fa-trash-alt text-danger"></i>
-                                </a>
+                                {{ tableMacro.row_action_delete(path('app_user_delete', { id: user.id }), 'Are you sure you want to delete %name%?'|trans({ name: user.username }), 'Delete user'|trans) }}
                             {% endif %}
                         </td>
                     </tr>
