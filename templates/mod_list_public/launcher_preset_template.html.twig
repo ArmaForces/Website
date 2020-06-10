@@ -1,47 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <html>
-<head>
-    <meta name="arma:Type" content="preset"/>
-    <meta name="arma:PresetName" content="{{ modList.name }}"/>
-    <meta name="generator" content="ArmaForces - https://armaforces.com/"/>
-    <title>{{ modList.name }}</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" media="all" href="http://modlist.armaforces.com/static/launcher.css"/>
-</head>
-<body>
-<h1>Arma 3 Mods - Preset <strong>{{ modList.name }}</strong></h1>
-<p class="before-list">
-    <em>Drag this file or link to it into Arma 3 Launcher, or open it - Mods / Preset / Import.</em>
-</p>
-<div class="mod-list">
-    <table>
-        {# @var mod \App\Entity\Mod\SteamWorkshopMod #}
-        {% for mod in modList.mods %}
-            {% if mod is instance_of('\\App\\Entity\\Mod\\SteamWorkshopMod') %}
-                {% if mod.type.value == constant('\\App\\Entity\\Mod\\Enum\\ModTypeEnum::REQUIRED')
-                    or (mod.type.value in [
-                        constant('\\App\\Entity\\Mod\\Enum\\ModTypeEnum::OPTIONAL'),
-                        constant('\\App\\Entity\\Mod\\Enum\\ModTypeEnum::CLIENT_SIDE')
-                    ] and mod.id in optionalMods|keys and optionalMods[mod.id] == true)
-                %}
-                    <tr data-type="ModContainer">
-                        <td data-type="DisplayName">{{ mod.name }}</td>
-                        <td>
-                            <span class="from-steam">Steam</span>
-                        </td>
-                        <td>
-                            <a href="{{ steam_workshop_item_url(mod.itemId) }}" data-type="Link">
-                                {{ steam_workshop_item_url(mod.itemId) }}
-                            </a>
-                        </td>
-                    </tr>
-                {% endif %}
-            {% endif %}
-        {% endfor %}
-    </table>
-</div>
-<div class="footer">
-    <span>Created by ArmaForces Modlist</span>
-</div>
-</body>
+    <head>
+        <meta name="arma:Type" content="preset"/>
+        <meta name="arma:PresetName" content="{{ modList.name }}"/>
+        <meta name="generator" content="ArmaForces - https://armaforces.com/"/>
+        <title>{{ modList.name }}</title>
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" media="all" href="http://modlist.armaforces.com/static/launcher.css"/>
+    </head>
+    <body>
+        <h1>Arma 3 Mods - Preset <strong>{{ modList.name }}</strong></h1>
+        <p class="before-list">
+            <em>Drag this file or link to it into Arma 3 Launcher, or open it - Mods / Preset / Import.</em>
+        </p>
+        <div class="mod-list">
+            <table>
+                {# @var mod \App\Entity\Mod\SteamWorkshopMod #}
+                {% for mod in modList.mods %}
+                    {% if mod is instance_of('\\App\\Entity\\Mod\\SteamWorkshopMod') %}
+                        {% if mod.type.value == constant('\\App\\Entity\\Mod\\Enum\\ModTypeEnum::REQUIRED')
+                            or (mod.type.value in [
+                            constant('\\App\\Entity\\Mod\\Enum\\ModTypeEnum::OPTIONAL'),
+                            constant('\\App\\Entity\\Mod\\Enum\\ModTypeEnum::CLIENT_SIDE')
+                        ] and mod.id in optionalMods|keys and optionalMods[mod.id] == true) %}
+                            <tr data-type="ModContainer">
+                                <td data-type="DisplayName">{{ mod.name }}</td>
+                                <td>
+                                    <span class="from-steam">Steam</span>
+                                </td>
+                                <td>
+                                    <a href="{{ steam_workshop_item_url(mod.itemId) }}" data-type="Link">
+                                        {{ steam_workshop_item_url(mod.itemId) }}
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+        <div class="footer">
+            <span>Created by ArmaForces Modlist</span>
+        </div>
+    </body>
 </html>
