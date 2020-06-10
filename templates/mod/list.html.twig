@@ -1,5 +1,7 @@
 {% extends 'container.html.twig' %}
 
+{% import '_macro/table_macro.html.twig' as tableMacro %}
+
 {% block content %}
     <div class="row my-3 align-items-center">
         <div class="col-md-6">
@@ -49,21 +51,13 @@
                             {% endif %}
                         </td>
                         <td>{{ mod.lastUpdatedAt ? mod.lastUpdatedAt|format_datetime('short', 'short', locale=app_lang) : '-' }}</td>
-                        <td class="table-actions">
+                        <td class="text-right">
                             {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_UPDATE'), mod) %}
-                                <a href="{{ path('app_mod_update', { id: mod.id }) }}" title="{{ 'Edit mod'|trans }}">
-                                    <i class="fas fa-edit"></i>
-                                </a>
+                                {{ tableMacro.row_action_edit(path('app_mod_update', { id: mod.id }), 'Edit mod'|trans) }}
                             {% endif %}
 
                             {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_DELETE'), mod) %}
-                                <a
-                                    href="{{ path('app_mod_delete', { id: mod.id }) }}"
-                                    title="{{ 'Delete mod'|trans }}"
-                                    data-modal-confirm="{{ 'Are you sure you want to delete %name%?'|trans({'%name%': mod.name}) }}"
-                                >
-                                    <i class="fas fa-trash-alt text-danger"></i>
-                                </a>
+                                {{ tableMacro.row_action_delete(path('app_mod_delete', { id: mod.id }), 'Are you sure you want to delete %name%?'|trans({'%name%': mod.name}), 'Delete mod'|trans) }}
                             {% endif %}
                         </td>
                     </tr>
