@@ -9,6 +9,7 @@ use App\Form\ModList\Dto\ModListFormDto;
 use App\Form\ModList\ModListFormType;
 use App\Repository\ModListRepository;
 use App\Security\Enum\PermissionsEnum;
+use App\Service\DataTransformer\ModListFormDtoTransformer;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,10 +30,14 @@ class ModListController extends AbstractController
     /** @var ModListRepository */
     protected $modListRepository;
 
-    public function __construct(EntityManagerInterface $entityManager, ModListRepository $modListRepository)
+    /** @var ModListFormDtoTransformer */
+    protected $modListFormDtoTransformer;
+
+    public function __construct(EntityManagerInterface $entityManager, ModListRepository $modListRepository, ModListFormDtoTransformer $modListFormDtoTransformer)
     {
         $this->entityManager = $entityManager;
         $this->modListRepository = $modListRepository;
+        $this->modListFormDtoTransformer = $modListFormDtoTransformer;
     }
 
     /**
@@ -61,7 +66,7 @@ class ModListController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $modList = $modListFormDto->toEntity();
+            $modList = $this->modListFormDtoTransformer->toEntity($modListFormDto);
             $this->entityManager->persist($modList);
             $this->entityManager->flush();
 
@@ -80,12 +85,12 @@ class ModListController extends AbstractController
      */
     public function updateAction(Request $request, ModList $modList): Response
     {
-        $modListFormDto = ModListFormDto::fromEntity($modList);
+        $modListFormDto = $this->modListFormDtoTransformer->fromEntity($modList);
         $form = $this->createForm(ModListFormType::class, $modListFormDto);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $modListFormDto->toEntity($modList);
+            $this->modListFormDtoTransformer->toEntity($modListFormDto, $modList);
 
             $this->entityManager->flush();
 

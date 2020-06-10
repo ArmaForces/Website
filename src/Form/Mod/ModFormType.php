@@ -22,11 +22,28 @@ class ModFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class, [
-                'label' => 'Mod name',
+            ->add('source', ChoiceType::class, [
+                'label' => 'Mod source',
+                'choices' => [
+                    'Steam Workshop' => ModSourceEnum::STEAM_WORKSHOP,
+                    'Directory' => ModSourceEnum::DIRECTORY,
+                ],
+                'empty_data' => ModSourceEnum::STEAM_WORKSHOP,
             ])
-            ->add('description', TextType::class, [
-                'label' => 'Mod description',
+            ->add('url', TextType::class, [
+                'label' => 'Steam Workshop URL',
+                'attr' => [
+                    'placeholder' => 'https://steamcommunity.com/workshop/filedetails/?id=',
+                ],
+            ])
+            ->add('directory', TextType::class, [
+                'label' => 'Mod directory',
+                'attr' => [
+                    'placeholder' => '@R3',
+                ],
+                'row_attr' => [
+                    'class' => 'd-none',
+                ],
             ])
             ->add('type', ChoiceType::class, [
                 'label' => 'Mod type',
@@ -38,19 +55,12 @@ class ModFormType extends AbstractType
                 ],
                 'empty_data' => ModTypeEnum::REQUIRED,
             ])
-            ->add('source', ChoiceType::class, [
-                'label' => 'Mod source',
-                'choices' => [
-                    'Steam Workshop' => ModSourceEnum::STEAM_WORKSHOP,
-                    'Directory' => ModSourceEnum::DIRECTORY,
-                ],
-                'empty_data' => ModSourceEnum::STEAM_WORKSHOP,
+            ->add('name', TextType::class, [
+                'label' => 'Mod name',
+                'help' => 'Optional for mods from Steam Workshop',
             ])
-            ->add('url', TextType::class, [
-                'label' => 'Steam Workshop URL',
-            ])
-            ->add('directory', TextType::class, [
-                'label' => 'Mod directory',
+            ->add('description', TextType::class, [
+                'label' => 'Mod description',
             ])
         ;
     }

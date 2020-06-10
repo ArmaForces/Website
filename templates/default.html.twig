@@ -14,3 +14,8 @@
 
     {% include '_partial/_footer.html.twig' %}
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ include('_partial/_modal.html.twig') }}
+{% endblock %}

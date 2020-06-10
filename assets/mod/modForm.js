@@ -26,14 +26,13 @@ modForm.onModSourceChange = () => {
     const $url = $('#mod_form_url');
     const $directory = $('#mod_form_directory');
 
+    $url.closest('.form-group').toggleClass('d-none', $source.val() !== modForm.SOURCE_STEAM_WORKSHOP);
+    $directory.closest('.form-group').toggleClass('d-none', $source.val() !== modForm.SOURCE_DIRECTORY);
+
     if ($source.val() === modForm.SOURCE_STEAM_WORKSHOP) {
         $directory.val('');
-        $directory.closest('.form-group').hide();
-        $url.closest('.form-group').show();
     } else if ($source.val() === modForm.SOURCE_DIRECTORY) {
         $url.val('');
-        $url.closest('.form-group').hide();
-        $directory.closest('.form-group').show();
     }
 };
 

@@ -91,6 +91,8 @@ Steam Workshop URL: Link do moda
 Steam Workshop ID: ID moda
 Mod directory: Katalog moda
 
+Optional for mods from Steam Workshop: Opcjonalne dla modów z Steam Workshop
+
 # Mod Lists
 Download mod list: Pobierz listę modów
 Create mod list: Utwórz listę modów
@@ -117,3 +119,6 @@ Cancel: Anuluj
 Download: Pobierz
 Created at: Utworzono
 Last updated at: Ostatnia modyfikacja
+Confirm: Potwierdź
+Confirmation: Potwierdzenie
+Are you sure you want to delete %name%?: Czy na pewno chcesz usunąć %name%?
