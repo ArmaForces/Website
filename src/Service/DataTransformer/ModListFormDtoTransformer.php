@@ -6,7 +6,6 @@ namespace App\Service\DataTransformer;
 
 use App\Entity\EntityInterface;
 use App\Entity\Mod\ModInterface;
-use App\Entity\Mod\SteamWorkshopModInterface;
 use App\Entity\ModList\ModList;
 use App\Entity\ModList\ModListInterface;
 use App\Form\FormDtoInterface;
