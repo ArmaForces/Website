@@ -107,15 +107,25 @@ class ModListController extends AbstractController
      *
      * @IsGranted(PermissionsEnum::MOD_LIST_COPY)
      */
-    public function copyAction(ModList $modList): Response
+    public function copyAction(Request $request, ModList $modList): Response
     {
-        $modListCopy = clone $modList;
+        $modListFormDto = $this->modListFormDtoDataTransformer->fromEntity($modList);
+        $form = $this->createForm(ModListFormType::class, $modListFormDto);
+        $modListFormDto->setId(null); // Entity will be treated as new by the unique name validator
 
-        $this->entityManager->persist($modListCopy);
-        $this->entityManager->flush();
+        $form->handleRequest($request);
 
-        return $this->redirectToRoute('app_mod_list_update', [
-            'id' => $modListCopy->getId(),
+        if ($form->isSubmitted() && $form->isValid()) {
+            $modListCopy = $this->modListFormDtoDataTransformer->toEntity($modListFormDto);
+
+            $this->entityManager->persist($modListCopy);
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('app_mod_list_list');
+        }
+
+        return $this->render('mod_list/form.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 
