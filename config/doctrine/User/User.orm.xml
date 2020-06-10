@@ -15,6 +15,10 @@
                 <cascade-persist/>
             </cascade>
         </one-to-one>
+
+        <indexes>
+            <index columns="external_id"></index>
+        </indexes>
     </entity>
 
 </doctrine-mapping>

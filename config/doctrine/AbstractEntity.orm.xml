@@ -8,6 +8,11 @@
         <id name="id" type="string" length="36"/>
         <field name="createdAt" type="datetime_immutable"/>
         <field name="lastUpdatedAt" type="datetime_immutable" nullable="true"/>
+
+        <indexes>
+            <index columns="created_at"></index>
+            <index columns="last_updated_at"></index>
+        </indexes>
     </mapped-superclass>
 
 </doctrine-mapping>

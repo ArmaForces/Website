@@ -7,6 +7,10 @@
     <mapped-superclass name="App\Entity\User\AbstractUser">
         <field name="username" type="string" length="255" unique="true"/>
         <field name="password" type="string" length="255" nullable="true"/>
+
+        <indexes>
+            <index columns="username"></index>
+        </indexes>
     </mapped-superclass>
 
 </doctrine-mapping>

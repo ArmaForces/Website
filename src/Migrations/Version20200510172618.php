@@ -32,6 +32,14 @@ final class Version20200510172618 extends AbstractMigration
         $this->addSql('ALTER TABLE permissions CHANGE users_delete user_delete TINYINT(1) NOT NULL');
         $this->addSql('ALTER TABLE permissions ADD created_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', ADD last_updated_at DATETIME DEFAULT NULL COMMENT \'(DC2Type:datetime_immutable)\', ADD mod_list TINYINT(1) NOT NULL, ADD mod_create TINYINT(1) NOT NULL, ADD mod_update TINYINT(1) NOT NULL, ADD mod_delete TINYINT(1) NOT NULL, ADD mod_list_list TINYINT(1) NOT NULL, ADD mod_list_create TINYINT(1) NOT NULL, ADD mod_list_update TINYINT(1) NOT NULL, ADD mod_list_delete TINYINT(1) NOT NULL, ADD mod_list_copy TINYINT(1) NOT NULL');
         $this->addSql('ALTER TABLE users ADD created_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', ADD last_updated_at DATETIME DEFAULT NULL COMMENT \'(DC2Type:datetime_immutable)\'');
+        $this->addSql('CREATE INDEX IDX_ECB7A268B8E8428 ON mod_lists (created_at)');
+        $this->addSql('CREATE INDEX IDX_ECB7A26AA163775 ON mod_lists (last_updated_at)');
+        $this->addSql('CREATE INDEX IDX_631EF2FA8B8E8428 ON mods (created_at)');
+        $this->addSql('CREATE INDEX IDX_631EF2FAAA163775 ON mods (last_updated_at)');
+        $this->addSql('CREATE INDEX IDX_2DEDCC6F8B8E8428 ON permissions (created_at)');
+        $this->addSql('CREATE INDEX IDX_2DEDCC6FAA163775 ON permissions (last_updated_at)');
+        $this->addSql('CREATE INDEX IDX_1483A5E99F75D7B0 ON users (external_id)');
+        $this->addSql('CREATE INDEX IDX_1483A5E9AA163775 ON users (last_updated_at)');
     }
 
     public function down(Schema $schema): void
@@ -39,6 +47,14 @@ final class Version20200510172618 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
+        $this->addSql('DROP INDEX IDX_ECB7A268B8E8428 ON mod_lists');
+        $this->addSql('DROP INDEX IDX_ECB7A26AA163775 ON mod_lists');
+        $this->addSql('DROP INDEX IDX_631EF2FA8B8E8428 ON mods');
+        $this->addSql('DROP INDEX IDX_631EF2FAAA163775 ON mods');
+        $this->addSql('DROP INDEX IDX_2DEDCC6F8B8E8428 ON permissions');
+        $this->addSql('DROP INDEX IDX_2DEDCC6FAA163775 ON permissions');
+        $this->addSql('DROP INDEX IDX_1483A5E99F75D7B0 ON users');
+        $this->addSql('DROP INDEX IDX_1483A5E9AA163775 ON users');
         $this->addSql('ALTER TABLE mod_lists_mods DROP FOREIGN KEY FK_77414C92FD60CD19');
         $this->addSql('ALTER TABLE mod_lists_mods DROP FOREIGN KEY FK_77414C92338E21CD');
         $this->addSql('DROP TABLE mod_lists');
