@@ -1,5 +1,7 @@
 {% extends 'container.html.twig' %}
 
+{% import '_macro/table_macro.html.twig' as tableMacro %}
+
 {% block content %}
     <div class="row my-3 align-items-center">
         <div class="col-md-6">
@@ -33,31 +35,19 @@
                         <td>{{ modList.description }}</td>
                         <td>{{ modList.createdAt|format_datetime('short', 'short', locale=app_lang) }}</td>
                         <td>{{ modList.lastUpdatedAt ? modList.lastUpdatedAt|format_datetime('short', 'short', locale=app_lang) : '-' }}</td>
-                        <td class="table-actions">
-                            <a href="{{ path('app_mod_list_public_customize', { id: modList.id }) }}" title="{{ 'Download mod list'|trans }}">
-                                <i class="fas fa-download"></i>
-                            </a>
+                        <td class="text-right">
+                            {{ tableMacro.row_action(path('app_mod_list_public_customize', { id: modList.id }), 'fas fa-download', 'Download mod list'|trans) }}
 
                             {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_UPDATE'), modList) %}
-                                <a href="{{ path('app_mod_list_update', { id: modList.id }) }}" title="{{ 'Edit mod list'|trans }}">
-                                    <i class="fas fa-edit"></i>
-                                </a>
+                                {{ tableMacro.row_action_edit(path('app_mod_list_update', { id: modList.id }), 'Edit mod list'|trans) }}
                             {% endif %}
 
                             {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_COPY'), modList) %}
-                                <a href="{{ path('app_mod_list_copy', { id: modList.id }) }}" title="{{ 'Copy and edit mod list'|trans }}">
-                                    <i class="fas fa-copy"></i>
-                                </a>
+                                {{ tableMacro.row_action(path('app_mod_list_copy', { id: modList.id }), 'fas fa-copy', 'Copy and edit mod list'|trans) }}
                             {% endif %}
 
                             {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_DELETE'), modList) %}
-                                <a
-                                    href="{{ path('app_mod_list_delete', { id: modList.id }) }}"
-                                    title="{{ 'Delete mod list'|trans }}"
-                                    data-modal-confirm="{{ 'Are you sure you want to delete %name%?'|trans({'%name%': modList.name}) }}"
-                                >
-                                    <i class="fas fa-trash-alt text-danger"></i>
-                                </a>
+                                {{ tableMacro.row_action_delete(path('app_mod_list_delete', { id: modList.id }), 'Are you sure you want to delete %name%?'|trans({ name: modList.name }), 'Delete mod list'|trans) }}
                             {% endif %}
                         </td>
                     </tr>
