@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Mod\AbstractMod;
+use App\Form\Mod\DataTransformer\ModFormDtoDataTransformer;
 use App\Form\Mod\Dto\ModFormDto;
 use App\Form\Mod\ModFormType;
 use App\Repository\ModRepository;
 use App\Security\Enum\PermissionsEnum;
-use App\Service\DataTransformer\ModFormDtoTransformer;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,14 +30,14 @@ class ModController extends AbstractController
     /** @var ModRepository */
     protected $modRepository;
 
-    /** @var ModFormDtoTransformer */
-    protected $modFormDtoTransformer;
+    /** @var ModFormDtoDataTransformer */
+    protected $modFormDtoDataTransformer;
 
-    public function __construct(EntityManagerInterface $entityManager, ModRepository $modRepository, ModFormDtoTransformer $modFormDtoTransformer)
+    public function __construct(EntityManagerInterface $entityManager, ModRepository $modRepository, ModFormDtoDataTransformer $modFormDtoDataTransformer)
     {
         $this->entityManager = $entityManager;
         $this->modRepository = $modRepository;
-        $this->modFormDtoTransformer = $modFormDtoTransformer;
+        $this->modFormDtoDataTransformer = $modFormDtoDataTransformer;
     }
 
     /**
@@ -66,7 +66,7 @@ class ModController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $mod = $this->modFormDtoTransformer->toEntity($modFormDto);
+            $mod = $this->modFormDtoDataTransformer->toEntity($modFormDto);
             $this->entityManager->persist($mod);
             $this->entityManager->flush();
 
@@ -85,12 +85,12 @@ class ModController extends AbstractController
      */
     public function updateAction(Request $request, AbstractMod $mod): Response
     {
-        $modFormDto = $this->modFormDtoTransformer->fromEntity($mod);
+        $modFormDto = $this->modFormDtoDataTransformer->fromEntity($mod);
         $form = $this->createForm(ModFormType::class, $modFormDto);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $updatedMod = $this->modFormDtoTransformer->toEntity($modFormDto, $mod);
+            $updatedMod = $this->modFormDtoDataTransformer->toEntity($modFormDto, $mod);
 
             if (!$this->entityManager->contains($updatedMod)) {
                 $this->entityManager->remove($mod);

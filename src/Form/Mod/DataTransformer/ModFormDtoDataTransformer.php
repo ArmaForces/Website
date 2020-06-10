@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Service\DataTransformer;
+namespace App\Form\Mod\DataTransformer;
 
 use App\Entity\EntityInterface;
 use App\Entity\Mod\DirectoryMod;
@@ -10,12 +10,13 @@ use App\Entity\Mod\Enum\ModSourceEnum;
 use App\Entity\Mod\Enum\ModTypeEnum;
 use App\Entity\Mod\ModInterface;
 use App\Entity\Mod\SteamWorkshopMod;
+use App\Form\FormDtoDataTransformerInterface;
 use App\Form\FormDtoInterface;
 use App\Form\Mod\Dto\ModFormDto;
 use App\Service\SteamWorkshop\Helper\SteamWorkshopHelper;
 use App\Service\SteamWorkshop\SteamWorkshopClient;
 
-class ModFormDtoTransformer implements FormDtoTransformerInterface
+class ModFormDtoDataTransformer implements FormDtoDataTransformerInterface
 {
     /** @var SteamWorkshopClient */
     protected $steamWorkshopClient;

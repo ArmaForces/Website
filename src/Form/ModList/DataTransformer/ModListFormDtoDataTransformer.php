@@ -2,16 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Service\DataTransformer;
+namespace App\Form\ModList\DataTransformer;
 
 use App\Entity\EntityInterface;
 use App\Entity\Mod\ModInterface;
 use App\Entity\ModList\ModList;
 use App\Entity\ModList\ModListInterface;
+use App\Form\FormDtoDataTransformerInterface;
 use App\Form\FormDtoInterface;
 use App\Form\ModList\Dto\ModListFormDto;
 
-class ModListFormDtoTransformer implements FormDtoTransformerInterface
+class ModListFormDtoDataTransformer implements FormDtoDataTransformerInterface
 {
     /**
      * @param null|ModListInterface $entity
