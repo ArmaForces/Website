@@ -29,6 +29,8 @@ class ModListFormType extends AbstractType
             ])
             ->add('mods', EntityType::class, [
                 'label' => 'Mods',
+                'label_attr' => ['class' => 'switch-custom'],
+                'choice_label' => false,
                 'multiple' => true,
                 'expanded' => true,
                 'class' => AbstractMod::class,
@@ -36,9 +38,6 @@ class ModListFormType extends AbstractType
                     return $er->createQueryBuilder('m')
                         ->orderBy('m.name', 'ASC')
                     ;
-                },
-                'choice_label' => static function (AbstractMod $mod) {
-                    return $mod->getName();
                 },
             ])
         ;

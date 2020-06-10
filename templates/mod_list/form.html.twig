@@ -1,5 +1,7 @@
 {% extends 'container.html.twig' %}
 
+{% form_theme form _self %}
+
 {% block content %}
     {# @var modListFormDto \App\Form\Mod\Dto\ModListFormDto #}
     {% set modListFormDto = form.vars.data %}
@@ -18,4 +20,8 @@
         <a href="{{ path('app_mod_list_list') }}" class="btn-secondary btn">{{ 'Cancel'|trans }}</a>
     </div>
     {{ form_end(form) }}
+{% endblock %}
+
+{% block _mod_list_form_mods_row %}
+    {% include 'mod_list/_partial/_mod_list_form_mods_row.html.twig' %}
 {% endblock %}

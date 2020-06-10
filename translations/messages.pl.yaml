@@ -77,9 +77,13 @@ Edit mod: Edytuj mod
 Delete mod: Usuń mod
 
 Server side mod: Serwerowy
+Server side mods: Serwerowe
 Required mod: Wymagany
+Required mods: Wymagane
 Optional mod: Opcjonalny
+Optional mods: Opcjonalne
 Client side mod: Kliencki
+Client side mods: Klienckie
 
 Mod name: Nazwa moda
 Mod description: Opis moda
@@ -105,8 +109,6 @@ Mod list description: Opis listy modów
 
 # Mod Lists Customization
 Mod list customization: Konfiguracja listy modów
-Required mods: Wymagane
-Optional mods: Opcjonalne
 Download required: Pobierz wymagane
 Include mod?: Dołączyć?
 
