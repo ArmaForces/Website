@@ -20,4 +20,11 @@ class DirectoryModRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, DirectoryMod::class);
     }
+
+    public function findOneByDirectory(string $directory): ?DirectoryMod
+    {
+        return $this->findOneBy([
+            'directory' => $directory,
+        ]);
+    }
 }

@@ -20,4 +20,11 @@ class SteamWorkshopModRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, SteamWorkshopMod::class);
     }
+
+    public function findOneByItemId(int $itemId): ?SteamWorkshopMod
+    {
+        return $this->findOneBy([
+            'itemId' => $itemId,
+        ]);
+    }
 }
