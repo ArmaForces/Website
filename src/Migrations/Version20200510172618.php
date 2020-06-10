@@ -40,6 +40,7 @@ final class Version20200510172618 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_2DEDCC6FAA163775 ON permissions (last_updated_at)');
         $this->addSql('CREATE INDEX IDX_1483A5E99F75D7B0 ON users (external_id)');
         $this->addSql('CREATE INDEX IDX_1483A5E9AA163775 ON users (last_updated_at)');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_ECB7A265E237E06 ON mod_lists (name)');
     }
 
     public function down(Schema $schema): void

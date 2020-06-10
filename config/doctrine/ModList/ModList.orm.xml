@@ -21,6 +21,10 @@
                 <cascade-persist/>
             </cascade>
         </many-to-many>
+
+        <unique-constraints>
+            <unique-constraint columns="name"/>
+        </unique-constraints>
     </entity>
 
 </doctrine-mapping>

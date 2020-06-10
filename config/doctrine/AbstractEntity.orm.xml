@@ -10,8 +10,8 @@
         <field name="lastUpdatedAt" type="datetime_immutable" nullable="true"/>
 
         <indexes>
-            <index columns="created_at"></index>
-            <index columns="last_updated_at"></index>
+            <index columns="created_at"/>
+            <index columns="last_updated_at"/>
         </indexes>
     </mapped-superclass>
 

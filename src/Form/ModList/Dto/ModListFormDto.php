@@ -6,10 +6,14 @@ namespace App\Form\ModList\Dto;
 
 use App\Entity\Mod\ModInterface;
 use App\Form\AbstractFormDto;
+use App\Validator\ModList\UniqueModListName;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ * @UniqueModListName(errorPath="name")
+ */
 class ModListFormDto extends AbstractFormDto
 {
     /** @var null|string */

@@ -9,7 +9,7 @@
         <field name="password" type="string" length="255" nullable="true"/>
 
         <indexes>
-            <index columns="username"></index>
+            <index columns="username"/>
         </indexes>
     </mapped-superclass>
 

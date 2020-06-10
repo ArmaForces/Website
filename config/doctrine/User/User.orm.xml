@@ -17,7 +17,7 @@
         </one-to-one>
 
         <indexes>
-            <index columns="external_id"></index>
+            <index columns="external_id"/>
         </indexes>
     </entity>
 

@@ -11,3 +11,6 @@ Mod is not an Arma 3 mod: Mod nie jest modem do Arma 3
 
 # Windows Directory Name Validator
 Invalid directory name: Błędny format nazwy katalogu
+
+# Unique Mod List Name Validator
+Mod list with the same name "{{ modListName }}" already exist: Lista modów o nazwie "{{ modListName }}" już istnieje
