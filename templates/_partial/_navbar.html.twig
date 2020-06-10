@@ -7,11 +7,7 @@
     <!--/ Navbar brand -->
 
     <!-- Collapse button -->
-    <button
-        class="navbar-toggler" type="button"
-        data-toggle="collapse" data-target="#main-nav"
-        aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation"
-    >
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-nav">
         <span class="navbar-toggler-icon"></span>
     </button>
     <!--/ Collapse button -->
@@ -28,10 +24,10 @@
             </li>
             {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST')) or is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_LIST')) -%}
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="modlist-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="modlist-dropdown" role="button" data-toggle="dropdown">
                         {{ 'Manage mods'|trans }}
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="modlist-dropdown">
+                    <div class="dropdown-menu">
                         <a class="dropdown-item" href="{{ path('app_mod_list_public_select') }}">{{ 'Get mods'|trans }}</a>
 
                         {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST')) %}
@@ -95,10 +91,10 @@
 
             <!-- Login -->
             <li id="navmenu" class="nav-item dropdown dropleft">
-                <a class="nav-link dropdown-toggle" href="#" id="navbar-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="navbar-dropdown" role="button" data-toggle="dropdown">
                     <i class="fa fa-user-circle {% if is_granted('ROLE_USER') %}avatar" style="background-image: url({{ current_user_avatar_url() }}){% endif %}"></i>
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbar-dropdown">
+                <div class="dropdown-menu">
                     {% if is_granted('ROLE_USER') -%}
                         <a class="dropdown-item" href="{{ path('app_security_logout') }}">{{ 'Logout'|trans }}</a>
                     {% else %}
