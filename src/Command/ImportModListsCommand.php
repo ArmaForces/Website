@@ -10,7 +10,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class ImportModlistsCommand extends Command
+class ImportModListsCommand extends Command
 {
     public const DEFAULT_IMPORT_DIRECTORY = __DIR__.'/../../var/import';
 
