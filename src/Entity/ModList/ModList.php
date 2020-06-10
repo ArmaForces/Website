@@ -44,8 +44,11 @@ class ModList extends AbstractDescribedEntity implements ModListInterface
         return $this->mods->toArray();
     }
 
-    public function clearMods(): void
+    public function setMods(array $mods): void
     {
         $this->mods->clear();
+        foreach ($mods as $mod) {
+            $this->addMod($mod);
+        }
     }
 }

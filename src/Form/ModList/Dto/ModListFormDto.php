@@ -100,8 +100,14 @@ class ModListFormDto extends AbstractFormDto
         return $this->mods->toArray();
     }
 
-    public function clearSteamWorkshopMods(): void
+    /**
+     * @param ModInterface[] $mods
+     */
+    public function setMods(array $mods): void
     {
         $this->mods->clear();
+        foreach ($mods as $mod) {
+            $this->addMod($mod);
+        }
     }
 }

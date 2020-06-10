@@ -18,5 +18,8 @@ interface ModListInterface extends DescribedEntityInterface
      */
     public function getMods(): array;
 
-    public function clearMods(): void;
+    /**
+     * @param ModInterface[] $mods
+     */
+    public function setMods(array $mods): void;
 }

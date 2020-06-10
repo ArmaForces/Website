@@ -31,11 +31,7 @@ class ModListFormDtoDataTransformer implements FormDtoDataTransformerInterface
 
         $entity->setName($dto->getName());
         $entity->setDescription($dto->getDescription());
-
-        $entity->clearMods();
-        foreach ($dto->getMods() as $mod) {
-            $entity->addMod($mod);
-        }
+        $entity->setMods($dto->getMods());
 
         return $entity;
     }
@@ -57,13 +53,7 @@ class ModListFormDtoDataTransformer implements FormDtoDataTransformerInterface
         $dto->setId($entity->getId());
         $dto->setName($entity->getName());
         $dto->setDescription($entity->getDescription());
-
-        $dto->clearSteamWorkshopMods();
-        foreach ($entity->getMods() as $mod) {
-            if ($mod instanceof ModInterface) {
-                $dto->addMod($mod);
-            }
-        }
+        $dto->setMods($entity->getMods());
 
         return $dto;
     }
