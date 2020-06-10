@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Validator;
+namespace App\Validator\Mod;
 
 use App\Entity\Mod\SteamWorkshopMod;
 use App\Form\Mod\Dto\ModFormDto;

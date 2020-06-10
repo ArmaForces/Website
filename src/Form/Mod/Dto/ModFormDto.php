@@ -6,10 +6,10 @@ namespace App\Form\Mod\Dto;
 
 use App\Entity\Mod\Enum\ModSourceEnum;
 use App\Form\AbstractFormDto;
-use App\Validator\SteamWorkshopArma3ModUrl;
-use App\Validator\UniqueDirectoryMod;
-use App\Validator\UniqueSteamWorkshopMod;
-use App\Validator\WindowsDirectoryName;
+use App\Validator\Mod\SteamWorkshopArma3ModUrl;
+use App\Validator\Mod\UniqueDirectoryMod;
+use App\Validator\Mod\UniqueSteamWorkshopMod;
+use App\Validator\Mod\WindowsDirectoryName;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
