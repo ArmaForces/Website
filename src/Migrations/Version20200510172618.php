@@ -14,7 +14,7 @@ final class Version20200510172618 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Add mod lists support';
     }
 
     public function up(Schema $schema): void
