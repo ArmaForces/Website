@@ -1,5 +1,7 @@
 {% extends 'container.html.twig' %}
 
+{% import '_macro/table_macro.html.twig' as tableMacro %}
+
 {% block content %}
     <div class="row my-3 align-items-center">
         <div class="col-md-6">
@@ -26,10 +28,8 @@
                         <th>{{ modList.name }}</th>
                         <th>{{ modList.description }}</th>
                         <th>{{ modList.lastUpdatedAt ? modList.lastUpdatedAt|format_datetime('short', 'short', locale=app_lang) : '-' }}</th>
-                        <td class="table-actions">
-                            <a href="{{ path('app_mod_list_public_customize', { id: modList.id }) }}" title="{{ 'Download mod list'|trans }}">
-                                <i class="fas fa-download"></i>
-                            </a>
+                        <td class="text-right">
+                            {{ tableMacro.row_action(path('app_mod_list_public_customize', { id: modList.id }), 'fas fa-download', 'Download mod list'|trans) }}
                         </td>
                     </tr>
                 {% endfor %}
