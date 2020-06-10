@@ -14,10 +14,6 @@ interface ModInterface extends DescribedEntityInterface
 
     public function setType(ModTypeEnum $type): void;
 
-    public function addModList(ModListInterface $modsList): void;
-
-    public function removeModList(ModListInterface $modsList): void;
-
     /**
      * @return ModListInterface[]
      */

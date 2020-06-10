@@ -28,7 +28,6 @@ class ModList extends AbstractDescribedEntity implements ModListInterface
         }
 
         $this->mods->add($mod);
-        $mod->addModList($this);
     }
 
     public function removeMod(ModInterface $mod): void
@@ -38,7 +37,6 @@ class ModList extends AbstractDescribedEntity implements ModListInterface
         }
 
         $this->mods->removeElement($mod);
-        $mod->removeModList($this);
     }
 
     public function getMods(): array

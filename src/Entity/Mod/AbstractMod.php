@@ -36,26 +36,6 @@ abstract class AbstractMod extends AbstractDescribedEntity implements ModInterfa
         $this->type = $type;
     }
 
-    public function addModList(ModListInterface $modList): void
-    {
-        if ($this->modLists->contains($modList)) {
-            return;
-        }
-
-        $this->modLists->add($modList);
-        $modList->addMod($this);
-    }
-
-    public function removeModList(ModListInterface $modList): void
-    {
-        if (!$this->modLists->contains($modList)) {
-            return;
-        }
-
-        $this->modLists->removeElement($modList);
-        $modList->removeMod($this);
-    }
-
     public function getModLists(): array
     {
         return $this->modLists->toArray();
