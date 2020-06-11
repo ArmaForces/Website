@@ -1,22 +1,27 @@
-<!--Section About-->
+<!-- Section - About -->
 <section class="text-center">
     <a class="anchor" id="about"></a>
     <!-- Heading -->
     <h2 class="mb-5 font-weight-bold">{{ 'About us'|trans }}</h2>
+    <!--/ Heading -->
 
-    <!--Grid row-->
+    <!-- Grid row -->
     <div class="row d-flex justify-content-center mb-4">
-        <!--Grid column-->
+        <!-- Grid column -->
         <div class="col-md-8">
             <!-- Description -->
             <p class="grey-text">
                 {% include 'home/index/_partial/' ~ app_lang ~ '/_about_us.html.twig' %}
             </p>
+            <!--/ Description -->
         </div>
+        <!--/ Grid column -->
     </div>
-    <!--Grid row-->
+    <!--/ Grid row -->
+
+    <!-- Grid row -->
     <div class="row">
-        <!--Grid column-->
+        <!-- Grid column -->
         <div class="col-md-4 mb-5">
             <i class="fa fa-fighter-jet fa-4x orange-text"></i>
             <h4 class="my-4 font-weight-bold">{{ 'Fun'|trans }}</h4>
@@ -24,7 +29,9 @@
                 {% include 'home/index/_partial/' ~ app_lang ~ '/_fun.html.twig' %}
             </p>
         </div>
-        <!--Grid column-->
+        <!--/ Grid column -->
+
+        <!-- Grid column -->
         <div class="col-md-4 mb-1">
             <i class="fa fa-gamepad fa-4x orange-text"></i>
             <h4 class="my-4 font-weight-bold">{{ 'Gaming'|trans }}</h4>
@@ -32,7 +39,9 @@
                 {% include 'home/index/_partial/' ~ app_lang ~ '/_gaming.html.twig' %}
             </p>
         </div>
-        <!--Grid column-->
+        <!--/ Grid column -->
+
+        <!-- Grid column -->
         <div class="col-md-4 mb-1">
             <i class="fa fa-user-friends fa-4x orange-text"></i>
             <h4 class="my-4 font-weight-bold">{{ 'Community'|trans }}</h4>
@@ -40,5 +49,8 @@
                 {% include 'home/index/_partial/' ~ app_lang ~ '/_community.html.twig' %}
             </p>
         </div>
+        <!--/ Grid column -->
     </div>
+    <!--/ Grid row -->
 </section>
+<!--/ Section About -->

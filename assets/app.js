@@ -1,10 +1,11 @@
-
 import './app.scss';
 
 import jQuery from 'jquery';
 import yall from 'yall-js';
+
 // Init Bootstrap jQuery plugins
 import 'bootstrap';
+import * as form from './form';
 
 $(() => {
     $('[data-toggle="tooltip"]').tooltip();
@@ -21,7 +22,8 @@ $(() => {
         });
     });
 
+    form.initConfirmModals();
+
     // Image lazy loading
     yall();
-
 });

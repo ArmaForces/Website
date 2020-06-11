@@ -1,0 +1,23 @@
+{% macro row_action(path, iconClass, title, attrArray = {}) %}
+    {% if title %}
+        {% set attrArray = attrArray|merge({ 'title': title }) %}
+    {% endif %}
+
+    {% set attrString = attrArray|map((attrValue, attrName) => "#{attrName}=\"#{attrValue}\"")|join(' ') %}
+
+    <a class="mx-2" href="{{ path }}" {{ attrString|raw }}>
+        {% if iconClass %}
+            <i class="{{ iconClass }}"></i>
+        {% endif %}
+    </a>
+{% endmacro %}
+
+{% macro row_action_edit(path, title) %}
+    {{ _self.row_action(path, 'fas fa-edit', title) }}
+{% endmacro %}
+
+{% macro row_action_delete(path, confirmMessage, title) %}
+    {{ _self.row_action(path, 'fas fa-trash-alt text-danger', title, {
+        'data-modal-confirm': confirmMessage
+    }) }}
+{% endmacro %}

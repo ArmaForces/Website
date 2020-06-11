@@ -17,7 +17,7 @@ class ListUsersVoter extends Voter
      */
     protected function supports($attribute, $subject): bool
     {
-        return PermissionsEnum::USERS_LIST === $attribute;
+        return PermissionsEnum::USER_LIST === $attribute;
     }
 
     /**
@@ -31,6 +31,6 @@ class ListUsersVoter extends Voter
             return false;
         }
 
-        return $user->getPermissions()->getUsersPermissions()->canList();
+        return $user->getPermissions()->getUserPermissions()->canList();
     }
 }

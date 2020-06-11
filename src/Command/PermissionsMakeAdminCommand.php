@@ -95,9 +95,9 @@ class PermissionsMakeAdminCommand extends Command
         }
 
         $permissions = $user->getPermissions();
-        $usersPermissions = $permissions->getUsersPermissions();
-        $usersPermissions->setList(true);
-        $usersPermissions->setManagePermissions(true);
+        $userPermissions = $permissions->getUserPermissions();
+        $userPermissions->setList(true);
+        $userPermissions->setManagePermissions(true);
         $this->entityManager->flush();
 
         $io->success(sprintf('Successfully granted admin permissions for user with id: "%s" (%s)!', $discordUserId, $user->getUsername()));

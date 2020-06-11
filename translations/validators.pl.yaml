@@ -1,0 +1,16 @@
+# Unique Steam Workshop Mod Validator
+Mod associated with url "{{ modUrl }}" already exist: Mod znajdujący się pod adresem "{{ modUrl }}" już istnieje
+
+# Unique Directory Mod Validator
+Mod associated with directory "{{ directoryName }}" already exist: Mod znajdujący się w katalogu "{{ directoryName }}" już istnieje
+
+# Steam Workshop Arma 3 Mod Url Validator
+Invalid Steam Workshop mod URL: Błędny link do moda
+Mod not found: Nie znaleziono moda
+Mod is not an Arma 3 mod: Mod nie jest modem do Arma 3
+
+# Windows Directory Name Validator
+Invalid directory name: Błędny format nazwy katalogu
+
+# Unique Mod List Name Validator
+Mod list with the same name "{{ modListName }}" already exist: Lista modów o nazwie "{{ modListName }}" już istnieje

@@ -1,3 +1,5 @@
+<!-- Mission widget -->
+
 <!-- Mission image -->
 <div class="img-mission">
     {% set mission_image = mission.image ?? 'https://via.placeholder.com/300x200.png?text=No%20mission%20image' %}
@@ -7,6 +9,7 @@
         <img src="{{ proxy_image(mission_image) }}" alt="">
     {%- endif %}
 </div>
+<!--/ Mission image -->
 
 <!-- Mission header -->
 <div class="text-center mt-2 mb-4">
@@ -18,11 +21,11 @@
             <div>{{ mission.date|date('Y-m-d H:i') }}</div>
         {% else %}
             <div class="dropdown dropdown-no-arrow">
-                <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="dropdown-toggle" type="button" id="dropdown-menu-button" data-toggle="dropdown">
                     {{ mission.date|date('Y-m-d H:i') }}
                     <i class="fa fa-calendar-day"></i>
                 </a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div class="dropdown-menu">
                     <a class="dropdown-item" href="{{ mission_event_google(mission) }}">
                         <i class="fab fa-google"></i>oogle
                     </a>
@@ -37,8 +40,12 @@
         </span>
     </div>
 </div>
+<!--/ Mission header -->
 
 <!-- Mission description -->
 <div class="text-justify">
     {{ ((mission.description|u).truncate(350, '...'))|markdown_to_html }}
 </div>
+<!--/ Mission description -->
+
+<!--/ Mission widget -->

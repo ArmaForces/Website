@@ -1,10 +1,11 @@
 <!-- Footer -->
 <footer id="footer" class="page-footer font-small unique-color-dark">
 
-    <!--Footer Links-->
     <div class="container mt-5 mb-4 text-center text-md-left">
+        <!-- Grid row -->
         <div class="row pt-3">
-            <!-- Column-->
+
+            <!-- Grid column -->
             <div class="col-sm-3">
                 <h6 class="text-uppercase font-weight-bold">
                     <strong>{{ 'Useful links'|trans }}</strong>
@@ -20,22 +21,21 @@
                     <a href="{{ url.wiki }}">{{ 'Wiki'|trans }}</a>
                 </p>
             </div>
-            <!--/ Column-->
-        </div>
-    </div>
-    <!--/.Footer Links-->
+            <!--/ Grid row -->
 
-    <!-- Copyright -->
+        </div>
+        <!--/ Grid row -->
+    </div>
+
     <div class="footer-copyright text-center py-3">
         © {{ 'now'|date('Y') }} Copyright:
-        <a href="{{ url.github }}/contributors"> ArmaForces</a>
+        <a href="{{ url.github ~ '/contributors' }}"> ArmaForces</a>
         <br/>
         <span class="small">
             Version:
-            <a href="{{ url.github }}/commit/{{ app_version() }}">{{ app_version_short() }}</a>
+            <a href="{{ url.github ~ '/commit/' ~ app_version() }}">{{ app_version_short() }}</a>
         </span>
     </div>
-    <!-- Copyright -->
 
 </footer>
-<!-- Footer -->
+<!--/ Footer -->

@@ -1,31 +1,44 @@
 {% extends 'container.html.twig' %}
 
+{% import '_macro/table_macro.html.twig' as tableMacro %}
+
 {# @var currentUser \App\Entity\User\User #}
 {% set currentUser = app.token.user %}
 
 {% block content %}
-    <div class="table-responsive mt-3">
+    <div class="row my-3 align-items-center">
+        <div class="col-md-6">
+            <h2>{{ 'Users'|trans }}</h2>
+        </div>
+    </div>
+    <div class="table-responsive">
         <table class="table">
             <thead>
-            <tr>
-                <th scope="col">{{ 'Username'|trans }}</th>
-                <th scope="col">{{ 'Discord ID'|trans }}</th>
-                <th></th>
-            </tr>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">{{ 'Username'|trans }}</th>
+                    <th scope="col">{{ 'Discord ID'|trans }}</th>
+                    <th scope="col">{{ 'Created at'|trans }}</th>
+                    <th scope="col">{{ 'Last updated at'|trans }}</th>
+                    <th></th>
+                </tr>
             </thead>
             <tbody>
                 {# @var user \App\Entity\User\User #}
                 {% for user in users %}
                     <tr>
-                        <th scope="row">{{ user.username }}</th>
+                        <th scope="row">{{ loop.index }}</th>
+                        <td>{{ user.username }}</td>
                         <td>{{ user.externalId }}</td>
-                        <td class="table-actions">
-                            {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USERS_MANAGE_PERMISSIONS'), user) %}
-                                <a href="{{ path('app_user_permissions', { id: user.id }) }}">{{ 'Permissions'|trans }}</a>
+                        <th>{{ user.createdAt ? user.createdAt|format_datetime('short', 'short', locale=app_lang) : '-' }}</th>
+                        <th>{{ user.permissions.lastUpdatedAt ? user.permissions.lastUpdatedAt|format_datetime('short', 'short', locale=app_lang) : '-' }}</th>
+                        <td class="text-right">
+                            {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USER_PERMISSIONS_MANAGE'), user) %}
+                                {{ tableMacro.row_action(path('app_user_permissions', { id: user.id }), 'fas fa-user-shield', 'Manage user permissions'|trans) }}
                             {% endif %}
 
-                            {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USERS_DELETE'), user) %}
-                                <a href="{{ path('app_user_delete', { id: user.id }) }}">{{ 'Delete'|trans }}</a>
+                            {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USER_DELETE'), user) %}
+                                {{ tableMacro.row_action_delete(path('app_user_delete', { id: user.id }), 'Are you sure you want to delete %name%?'|trans({ name: user.username }), 'Delete user'|trans) }}
                             {% endif %}
                         </td>
                     </tr>

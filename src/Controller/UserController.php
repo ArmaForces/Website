@@ -37,7 +37,7 @@ class UserController extends AbstractController
     /**
      * @Route("/list", name="_list")
      *
-     * @IsGranted(PermissionsEnum::USERS_LIST)
+     * @IsGranted(PermissionsEnum::USER_LIST)
      */
     public function listAction(): Response
     {
@@ -51,13 +51,10 @@ class UserController extends AbstractController
     /**
      * @Route("/{id}/delete", name="_delete")
      *
-     * @IsGranted(PermissionsEnum::USERS_DELETE, subject="user")
+     * @IsGranted(PermissionsEnum::USER_DELETE, subject="user")
      */
     public function deleteAction(User $user): Response
     {
-        /** @var User $currentUser */
-        $currentUser = $this->getUser();
-
         $this->entityManager->remove($user);
         $this->entityManager->flush();
 
@@ -67,7 +64,7 @@ class UserController extends AbstractController
     /**
      * @Route("/{id}/permissions", name="_permissions")
      *
-     * @IsGranted(PermissionsEnum::USERS_MANAGE_PERMISSIONS, subject="user")
+     * @IsGranted(PermissionsEnum::USER_PERMISSIONS_MANAGE, subject="user")
      */
     public function permissionsAction(Request $request, User $user): Response
     {

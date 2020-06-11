@@ -96,6 +96,9 @@
     "egulias/email-validator": {
         "version": "2.1.11"
     },
+    "elao/enum": {
+        "version": "v1.7.0"
+    },
     "erusev/parsedown": {
         "version": "1.7.4"
     },
@@ -109,6 +112,18 @@
         },
         "files": [
             "./.php_cs.dist"
+        ]
+    },
+    "friendsofsymfony/jsrouting-bundle": {
+        "version": "2.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "2.3",
+            "ref": "a9f2e49180f75cdc71ae279a929c4b2e0638de84"
+        },
+        "files": [
+            "config/routes/fos_js_routing.yaml"
         ]
     },
     "guzzlehttp/command": {
@@ -140,6 +155,9 @@
         "files": [
             "config/packages/knpu_oauth2_client.yaml"
         ]
+    },
+    "league/csv": {
+        "version": "9.6.0"
     },
     "league/oauth2-client": {
         "version": "2.4.1"
@@ -605,6 +623,9 @@
     "twig/extra-bundle": {
         "version": "v3.0.0"
     },
+    "twig/intl-extra": {
+        "version": "v3.0.3"
+    },
     "twig/markdown-extra": {
         "version": "v3.0.1"
     },
@@ -616,6 +637,9 @@
     },
     "webmozart/assert": {
         "version": "1.6.0"
+    },
+    "willdurand/jsonp-callback-validator": {
+        "version": "v1.1.0"
     },
     "wohali/oauth2-discord-new": {
         "version": "v1.0.0"
