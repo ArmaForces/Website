@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Security\Voter\ModList;
 
-use App\Entity\User\User;
+use App\Entity\ModList\ModList;
+use App\Entity\ModList\ModListInterface;
 use App\Entity\User\UserInterface;
 use App\Security\Enum\PermissionsEnum;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -17,7 +18,7 @@ class UpdateModListVoter extends Voter
      */
     protected function supports($attribute, $subject): bool
     {
-        return PermissionsEnum::MOD_LIST_UPDATE === $attribute;
+        return PermissionsEnum::MOD_LIST_UPDATE === $attribute && $subject instanceof ModListInterface;
     }
 
     /**
@@ -25,16 +26,15 @@ class UpdateModListVoter extends Voter
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
-        /** @var User $user */
-        $user = $token->getUser();
-        if (!$user instanceof UserInterface) {
+        /** @var null|UserInterface $currentUser */
+        $currentUser = $token->getUser();
+        if (!$currentUser instanceof UserInterface) {
             return false;
         }
 
-        if ($user->getPermissions()->getModListPermissions()->canUpdate()) {
-            return true;
-        }
+        /** @var ModList $modList */
+        $modList = $subject;
 
-        return false;
+        return $modList->getCreatedBy() === $currentUser || $currentUser->getPermissions()->getModListPermissions()->canUpdate();
     }
 }

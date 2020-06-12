@@ -81,7 +81,7 @@ class ModListController extends AbstractController
     /**
      * @Route("/{id}/update", name="_update")
      *
-     * @IsGranted(PermissionsEnum::MOD_LIST_UPDATE)
+     * @IsGranted(PermissionsEnum::MOD_LIST_UPDATE, subject="modList")
      */
     public function updateAction(Request $request, ModList $modList): Response
     {
@@ -132,7 +132,7 @@ class ModListController extends AbstractController
     /**
      * @Route("/{id}/delete", name="_delete")
      *
-     * @IsGranted(PermissionsEnum::MOD_LIST_DELETE)
+     * @IsGranted(PermissionsEnum::MOD_LIST_DELETE, subject="modList")
      */
     public function deleteAction(ModList $modList): Response
     {
