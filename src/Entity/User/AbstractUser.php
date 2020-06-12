@@ -5,28 +5,37 @@ declare(strict_types=1);
 namespace App\Entity\User;
 
 use App\Entity\AbstractEntity;
+use App\Entity\Permissions\Permissions;
+use App\Entity\User\Traits\UserInterfaceTrait;
 use App\Security\Enum\RoleEnum;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class AbstractUser extends AbstractEntity implements UserInterface
 {
+    use UserInterfaceTrait;
+
     /** @var string */
     protected $username;
 
-    /** @var null|string */
-    protected $password;
-
-    /** @var null|string */
-    protected $salt;
+    /** @var string */
+    protected $email;
 
     /** @var string */
-    protected $role = RoleEnum::ROLE_USER;
+    protected $externalId;
 
-    public function __construct(string $username)
+    /** @var Permissions */
+    protected $permissions;
+
+    /** @var null|string */
+    protected $avatarHash;
+
+    public function __construct(string $username, string $email, string $externalId)
     {
         parent::__construct();
 
         $this->username = $username;
+        $this->email = $email;
+        $this->externalId = $externalId;
+        $this->permissions = new Permissions();
     }
 
     public function getUsername(): string
@@ -39,44 +48,48 @@ class AbstractUser extends AbstractEntity implements UserInterface
         $this->username = $username;
     }
 
-    public function getPassword(): ?string
+    public function getEmail(): string
     {
-        return $this->password;
+        return $this->email;
     }
 
-    public function setPassword(?string $password): void
+    public function setEmail(string $email): void
     {
-        $this->password = $password;
+        $this->email = $email;
     }
 
-    public function getSalt(): ?string
+    public function getExternalId(): string
     {
-        return $this->salt;
+        return $this->externalId;
     }
 
-    public function setSalt(?string $salt): void
+    public function setExternalId(string $externalId): void
     {
-        $this->salt = $salt;
+        $this->externalId = $externalId;
     }
 
-    public function getRole(): string
+    public function getPermissions(): Permissions
     {
-        return $this->role;
+        return $this->permissions;
     }
 
-    public function setRole(string $role): void
+    public function setPermissions(Permissions $permissions): void
     {
-        $this->role = $role;
+        $this->permissions = $permissions;
+    }
+
+    public function getAvatarHash(): ?string
+    {
+        return $this->avatarHash;
+    }
+
+    public function setAvatarHash(?string $avatarHash): void
+    {
+        $this->avatarHash = $avatarHash;
     }
 
     public function getRoles(): array
     {
-        return [
-            $this->getRole(),
-        ];
-    }
-
-    public function eraseCredentials(): void
-    {
+        return [RoleEnum::ROLE_USER];
     }
 }
