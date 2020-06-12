@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Security\Voter\ModList;
 
 use App\Entity\User\User;
+use App\Entity\User\UserInterface;
 use App\Security\Enum\PermissionsEnum;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class CopyModListVoter extends Voter
 {

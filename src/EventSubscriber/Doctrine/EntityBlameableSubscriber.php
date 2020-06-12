@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\EventSubscriber\Doctrine;
 
 use App\Entity\EntityInterface;
+use App\Entity\User\UserInterface;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
@@ -30,8 +31,9 @@ class EntityBlameableSubscriber implements EventSubscriber
 
     public function prePersist(LifecycleEventArgs $args): void
     {
-        $entity = $args->getEntity();
+        /** @var null|UserInterface $currentUser */
         $currentUser = $this->security->getUser();
+        $entity = $args->getEntity();
 
         if ($entity instanceof EntityInterface && $currentUser) {
             $entity->setCreatedBy($currentUser);
@@ -40,8 +42,9 @@ class EntityBlameableSubscriber implements EventSubscriber
 
     public function preUpdate(LifecycleEventArgs $args): void
     {
-        $entity = $args->getEntity();
+        /** @var null|UserInterface $currentUser */
         $currentUser = $this->security->getUser();
+        $entity = $args->getEntity();
 
         if ($entity instanceof EntityInterface && $currentUser) {
             $entity->setLastUpdatedBy($currentUser);
