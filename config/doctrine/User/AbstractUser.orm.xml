@@ -19,6 +19,10 @@
         <field name="avatarHash" type="string" length="512" nullable="true"/>
 
         <indexes>
+            <!-- This is needed because child index mappings override parent index mappings -->
+            <index columns="created_at"/>
+            <index columns="last_updated_at"/>
+
             <index columns="username"/>
             <index columns="external_id"/>
         </indexes>
