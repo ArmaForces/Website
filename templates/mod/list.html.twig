@@ -57,7 +57,7 @@
                             {% endif %}
 
                             {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_DELETE'), mod) %}
-                                {{ tableMacro.row_action_delete(path('app_mod_delete', { id: mod.id }), 'Are you sure you want to delete %name%?'|trans({'%name%': mod.name}), 'Delete mod'|trans) }}
+                                {{ tableMacro.row_action_delete(path('app_mod_delete', { id: mod.id }), 'Are you sure you want to delete %name%?'|trans({ '%name%': mod.name }), 'Delete mod'|trans) }}
                             {% endif %}
                         </td>
                     </tr>
