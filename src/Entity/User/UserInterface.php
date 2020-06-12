@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Entity\User;
 
+use App\Entity\EntityInterface;
 use App\Entity\Permissions\Permissions;
 use Symfony\Component\Security\Core\User\UserInterface as SymfonyUserInterface;
 
-interface UserInterface extends SymfonyUserInterface
+interface UserInterface extends EntityInterface, SymfonyUserInterface
 {
     public function getUsername(): string;
 
