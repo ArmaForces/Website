@@ -105,7 +105,7 @@ class ModListController extends AbstractController
     /**
      * @Route("/{id}/copy", name="_copy")
      *
-     * @IsGranted(PermissionsEnum::MOD_LIST_COPY)
+     * @IsGranted(PermissionsEnum::MOD_LIST_COPY, subject="modList")
      */
     public function copyAction(Request $request, ModList $modList): Response
     {

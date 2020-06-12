@@ -81,7 +81,7 @@ class ModController extends AbstractController
     /**
      * @Route("/{id}/update", name="_update")
      *
-     * @IsGranted(PermissionsEnum::MOD_UPDATE)
+     * @IsGranted(PermissionsEnum::MOD_UPDATE, subject="mod")
      */
     public function updateAction(Request $request, AbstractMod $mod): Response
     {
@@ -110,7 +110,7 @@ class ModController extends AbstractController
     /**
      * @Route("/{id}/delete", name="_delete")
      *
-     * @IsGranted(PermissionsEnum::MOD_DELETE)
+     * @IsGranted(PermissionsEnum::MOD_DELETE, subject="mod")
      */
     public function deleteAction(AbstractMod $mod): Response
     {
