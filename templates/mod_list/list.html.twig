@@ -21,6 +21,7 @@
                     <th>#</th>
                     <th scope="col">{{ 'Mod list name'|trans }}</th>
                     <th scope="col">{{ 'Mod list description'|trans }}</th>
+                    <th scope="col">{{ 'Created by'|trans }}</th>
                     <th scope="col">{{ 'Created at'|trans }}</th>
                     <th scope="col">{{ 'Last updated at'|trans }}</th>
                     <th></th>
@@ -33,6 +34,7 @@
                         <th scope="row">{{ loop.index }}</th>
                         <td>{{ modList.name }}</td>
                         <td>{{ modList.description }}</td>
+                        <td>{{ modList.createdBy ? modList.createdBy.username : '-' }}</td>
                         <td>{{ modList.createdAt|format_datetime('short', 'short', locale=app_lang) }}</td>
                         <td>{{ modList.lastUpdatedAt ? modList.lastUpdatedAt|format_datetime('short', 'short', locale=app_lang) : '-' }}</td>
                         <td class="text-right">
