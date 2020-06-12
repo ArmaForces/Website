@@ -35,11 +35,4 @@ class ModListOutput
      * @var \DateTimeInterface
      */
     public $lastUpdatedAt;
-
-    /**
-     * @Groups({"read"})
-     *
-     * @var ModOutput
-     */
-    public $mods;
 }
