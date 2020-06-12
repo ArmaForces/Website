@@ -21,6 +21,11 @@ use Doctrine\Common\Collections\Collection;
  *         "get": {
  *             "output": ModListDetailsOutput::class
  *         },
+ *         "get_by_name": {
+ *             "method": "get",
+ *             "path": "/mod-lists/by-name/{id}",
+ *             "output": ModListDetailsOutput::class
+ *         },
  *     },
  *     collectionOperations={"get"},
  * )
