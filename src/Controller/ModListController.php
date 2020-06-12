@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/mod-list", name="app_mod_list")
  *
- * @IsGranted("IS_AUTHENTICATED_REMEMBERED")
+ * @IsGranted("ROLE_USER")
  */
 class ModListController extends AbstractController
 {
