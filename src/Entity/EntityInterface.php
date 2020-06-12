@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use Symfony\Component\Security\Core\User\UserInterface;
+
 interface EntityInterface
 {
     public function getId(): string;
@@ -12,7 +14,15 @@ interface EntityInterface
 
     public function setCreatedAt(\DateTimeInterface $createdAt): void;
 
+    public function getCreatedBy(): ?UserInterface;
+
+    public function setCreatedBy(?UserInterface $createdBy): void;
+
     public function getLastUpdatedAt(): ?\DateTimeInterface;
 
     public function setLastUpdatedAt(?\DateTimeInterface $lastUpdatedAt): void;
+
+    public function getLastUpdatedBy(): ?UserInterface;
+
+    public function setLastUpdatedBy(?UserInterface $lastUpdatedBy): void;
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use Ramsey\Uuid\Uuid;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class AbstractEntity implements EntityInterface
 {
@@ -14,8 +15,14 @@ class AbstractEntity implements EntityInterface
     /** @var \DateTimeInterface */
     protected $createdAt;
 
+    /** @var null|UserInterface */
+    protected $createdBy;
+
     /** @var null|\DateTimeInterface */
     protected $lastUpdatedAt;
+
+    /** @var null|UserInterface */
+    protected $lastUpdatedBy;
 
     public function __construct()
     {
@@ -39,6 +46,16 @@ class AbstractEntity implements EntityInterface
         $this->createdAt = $createdAt;
     }
 
+    public function getCreatedBy(): ?UserInterface
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?UserInterface $createdBy): void
+    {
+        $this->createdBy = $createdBy;
+    }
+
     public function getLastUpdatedAt(): ?\DateTimeInterface
     {
         return $this->lastUpdatedAt;
@@ -47,5 +64,15 @@ class AbstractEntity implements EntityInterface
     public function setLastUpdatedAt(?\DateTimeInterface $lastUpdatedAt): void
     {
         $this->lastUpdatedAt = $lastUpdatedAt;
+    }
+
+    public function getLastUpdatedBy(): ?UserInterface
+    {
+        return $this->lastUpdatedBy;
+    }
+
+    public function setLastUpdatedBy(?UserInterface $lastUpdatedBy): void
+    {
+        $this->lastUpdatedBy = $lastUpdatedBy;
     }
 }
