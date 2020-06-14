@@ -1,51 +1,53 @@
 <!-- Mission widget -->
-
-<!-- Mission image -->
-<div class="img-mission">
-    {% set mission_image = mission.image ?? 'https://via.placeholder.com/300x200.png?text=No%20mission%20image' %}
-    {% if lazy is defined and lazy %}
-        <img class="lazy" src="{{ asset('img/placeholder_320x250.png') }}" data-src="{{ proxy_image(mission_image) }}" alt="">
-    {% else %}
-        <img src="{{ proxy_image(mission_image) }}" alt="">
-    {%- endif %}
-</div>
-<!--/ Mission image -->
-
-<!-- Mission header -->
-<div class="text-center mt-2 mb-4">
-    <h4>
-        <span class="font-weight-bold">{{ mission.title }}</span>
-    </h4>
-    <div class="d-flex justify-content-between">
-        {% if mission.state == constant('App\\Service\\Mission\\Enum\\MissionStateEnum::ARCHIVED') %}
-            <div>{{ mission.date|date('Y-m-d H:i') }}</div>
+<div data-mission-widget>
+    <!-- Mission image -->
+    <div class="img-mission">
+        {% set mission_image = mission.image ?? 'https://via.placeholder.com/300x200.png?text=No%20mission%20image' %}
+        {% if lazy is defined and lazy %}
+            <img class="lazy" src="{{ asset('img/placeholder_320x250.png') }}" data-src="{{ proxy_image(mission_image) }}" alt="">
         {% else %}
-            <div class="dropdown dropdown-no-arrow">
-                <a class="dropdown-toggle" type="button" id="dropdown-menu-button" data-toggle="dropdown">
-                    {{ mission.date|date('Y-m-d H:i') }}
-                    <i class="fa fa-calendar-day"></i>
-                </a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="{{ mission_event_google(mission) }}">
-                        <i class="fab fa-google"></i>oogle
-                    </a>
-                    <a class="dropdown-item" href="{{ mission_event_ical(mission) }}" type="text/calendar" download="{{ mission.title }}.ics">
-                        <i class="fa fa-calendar-alt"></i> iCal
-                    </a>
-                </div>
-            </div>
-        {% endif %}
-        <span>
-            {{ 'Enlisted'|trans }} {{ mission.occupiedSlots }}/{{ mission.allSlots }}
-        </span>
+            <img src="{{ proxy_image(mission_image) }}" alt="">
+        {%- endif %}
     </div>
-</div>
-<!--/ Mission header -->
+    <!--/ Mission image -->
 
-<!-- Mission description -->
-<div class="text-justify">
-    {{ ((mission.description|u).truncate(350, '...'))|markdown_to_html }}
-</div>
-<!--/ Mission description -->
+    <!-- Mission header -->
+    <div class="text-center mt-2 mb-4">
+        <h4>
+            <span class="font-weight-bold" data-mission-title>
+                {{ mission.title }}
+            </span>
+        </h4>
+        <div class="d-flex justify-content-between">
+            {% if mission.state == constant('App\\Service\\Mission\\Enum\\MissionStateEnum::ARCHIVED') %}
+                <div>{{ mission.date|date('Y-m-d H:i') }}</div>
+            {% else %}
+                <div class="dropdown dropdown-no-arrow">
+                    <a class="dropdown-toggle" type="button" data-toggle="dropdown">
+                        {{ mission.date|date('Y-m-d H:i') }}
+                        <i class="fa fa-calendar-day"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{{ mission_event_google(mission) }}">
+                            <i class="fab fa-google"></i>oogle
+                        </a>
+                        <a class="dropdown-item" href="{{ mission_event_ical(mission) }}" type="text/calendar" download="{{ mission.title }}.ics">
+                            <i class="fa fa-calendar-alt"></i> iCal
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+            <span>
+                {{ 'Enlisted'|trans }} {{ mission.occupiedSlots }}/{{ mission.allSlots }}
+            </span>
+        </div>
+    </div>
+    <!--/ Mission header -->
 
+    <!-- Mission description -->
+    <div class="text-justify">
+        {{ ((mission.description|u).truncate(350, '...'))|markdown_to_html }}
+    </div>
+    <!--/ Mission description -->
+</div>
 <!--/ Mission widget -->
