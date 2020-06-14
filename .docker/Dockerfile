@@ -1,7 +1,7 @@
 # the different stages of this Dockerfile are meant to be built into separate images
 # https://docs.docker.com/compose/compose-file/#target
 
-ARG PHP_VERSION=7.3
+ARG PHP_VERSION=7.4
 ARG NGINX_VERSION=1.17
 
 # Build assets in disposable node image
@@ -38,7 +38,7 @@ RUN set -eux; \
         zlib-dev \
     ; \
     \
-    docker-php-ext-configure zip --with-libzip; \
+    docker-php-ext-configure zip; \
     docker-php-ext-install -j$(nproc) \
         intl \
         zip \
