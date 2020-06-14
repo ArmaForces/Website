@@ -127,7 +127,7 @@ CMD ["nginx", "-g", "daemon off;"]
 
 FROM armaforces_web_php AS armaforces_web_php_dev
 
-ARG XDEBUG_VERSION=2.8.0
+ARG XDEBUG_VERSION=2.9.6
 RUN set -eux; \
     apk add --no-cache --virtual .build-deps $PHPIZE_DEPS; \
     pecl install xdebug-$XDEBUG_VERSION; \
