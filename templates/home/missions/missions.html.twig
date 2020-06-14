@@ -10,52 +10,55 @@
 
 {% block content %}
     <div class="mt-3">
+        {% if upcomingMissions is null or archivedMissions is null %}
+        <section id="missions" class="text-center">
+            <h2>{{ 'Something went wrong while fetching missions list...'|trans }}</h2>
+            <h3>{{ 'Try again later'|trans }}</h3>
+        </section>
+        {% else %}
         <!-- Section - Missions -->
         <section id="missions" class="text-center">
-            {% if upcomingMissions is null or archivedMissions is null %}
-                <h2>{{ 'Something went wrong while fetching missions list...'|trans }}</h2>
-                <h3>{{ 'Try again later'|trans }}</h3>
-            {% else %}
-                <!-- Heading -->
-                <h2 class="mb-5 font-weight-bold">{{ 'Upcoming missions'|trans }}</h2>
+            <!-- Heading -->
+            <h2 class="mb-5 font-weight-bold">{{ 'Upcoming missions'|trans }}</h2>
 
-                {% for missionsRow in upcomingMissions|reverse|batch(3) %}
-                    <!-- Grid row -->
-                    <div class="row">
-                        {% for mission in missionsRow %}
-                            {# @var mission \App\Service\Mission\Dto\MissionDto #}
-                            <!-- Grid column -->
-                            <div class="col-lg-4 col-md-6 mb-4 mission">
-                                {% include '_partial/_mission_widget.html.twig' with {'mission': mission} %}
-                            </div>
-                            <!--/ Grid column -->
-                        {% endfor %}
-                    </div>
-                    <!--/ Grid row -->
-                {% endfor %}
-            </section>
-
-            <!-- Section - Missions -->
-            <section id="missions-archive" class="text-center">
-                <!-- Heading -->
-                <h2 class="mb-5 font-weight-bold">{{ 'Completed missions'|trans }}</h2>
-
-                {% for missionsRow in archivedMissions|batch(3) %}
-                    <!-- Grid row -->
-                    <div class="row">
-                        {% for mission in missionsRow %}
-                            {# @var mission \App\Service\Mission\Dto\MissionDto #}
-                            <!-- Grid column -->
-                            <div class="col-lg-4 col-md-6 mb-4 mission">
-                                {% include '_partial/_mission_widget.html.twig' with {'mission': mission, 'lazy': true} %}
-                            </div>
-                            <!--/ Grid column -->
-                        {% endfor %}
-                    </div>
-                    <!--/ Grid row -->
-                {% endfor %}
-            {% endif %}
+            {% for missionsRow in upcomingMissions|reverse|batch(3) %}
+                <!-- Grid row -->
+                <div class="row">
+                    {% for mission in missionsRow %}
+                        {# @var mission \App\Service\Mission\Dto\MissionDto #}
+                        <!-- Grid column -->
+                        <div class="col-lg-4 col-md-6 mb-4 mission">
+                            {% include '_partial/_mission_widget.html.twig' with {'mission': mission} %}
+                        </div>
+                        <!--/ Grid column -->
+                    {% endfor %}
+                </div>
+                <!--/ Grid row -->
+            {% endfor %}
         </section>
         <!--/ Section - Missions -->
+
+        <!-- Section - Missions Archive -->
+        <section id="missions-archive" class="text-center">
+            <!-- Heading -->
+            <h2 class="mb-5 font-weight-bold">{{ 'Completed missions'|trans }}</h2>
+
+            {% for missionsRow in archivedMissions|batch(3) %}
+                <!-- Grid row -->
+                <div class="row">
+                    {% for mission in missionsRow %}
+                        {# @var mission \App\Service\Mission\Dto\MissionDto #}
+                        <!-- Grid column -->
+                        <div class="col-lg-4 col-md-6 mb-4 mission">
+                            {% include '_partial/_mission_widget.html.twig' with {'mission': mission, 'lazy': true} %}
+                        </div>
+                        <!--/ Grid column -->
+                    {% endfor %}
+                </div>
+                <!--/ Grid row -->
+            {% endfor %}
+        </section>
+        <!--/ Section - Missions Archive -->
+        {% endif %}
     </div>
 {% endblock %}
