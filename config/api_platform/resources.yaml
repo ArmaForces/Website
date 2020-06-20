@@ -1,0 +1,17 @@
+App\Entity\ModList\ModList:
+    attributes:
+        pagination_enabled: falsae
+    normalizationContext:
+        groups: ['read']
+    output: 'App\Api\Dto\ModListOutput'
+
+    itemOperations:
+        get:
+            output: 'App\Api\Dto\ModListDetailsOutput'
+        get_by_name:
+            method: 'GET'
+            path: '/mod-lists/by-name/{id}'
+            output: 'App\Api\Dto\ModListDetailsOutput'
+
+    collectionOperations:
+        get: ~

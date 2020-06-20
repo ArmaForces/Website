@@ -12,24 +12,6 @@ use App\Entity\Mod\ModInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-/**
- * @Api\ApiResource(
- *     attributes={"pagination_enabled": false},
- *     normalizationContext={"groups": {"read"}},
- *     output=ModListOutput::class,
- *     itemOperations={
- *         "get": {
- *             "output": ModListDetailsOutput::class
- *         },
- *         "get_by_name": {
- *             "method": "get",
- *             "path": "/mod-lists/by-name/{id}",
- *             "output": ModListDetailsOutput::class
- *         },
- *     },
- *     collectionOperations={"get"},
- * )
- */
 class ModList extends AbstractDescribedEntity implements ModListInterface
 {
     /** @var Collection|ModInterface[] */
