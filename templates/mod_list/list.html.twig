@@ -21,7 +21,6 @@
                     <th>#</th>
                     <th scope="col">{{ 'Mod list name'|trans }}</th>
                     <th scope="col">{{ 'Mod list description'|trans }}</th>
-                    <th scope="col">{{ 'Created by'|trans }}</th>
                     <th scope="col">{{ 'Created at'|trans }}</th>
                     <th scope="col">{{ 'Last updated at'|trans }}</th>
                     <th></th>
@@ -34,9 +33,8 @@
                         <th scope="row">{{ loop.index }}</th>
                         <td>{{ modList.name }}</td>
                         <td>{{ modList.description }}</td>
-                        <td>{{ modList.createdBy ? modList.createdBy.username : '-' }}</td>
-                        <td>{{ tableMacro.format_date(modList.createdAt) }}</td>
-                        <td>{{ tableMacro.format_date(modList.lastUpdatedAt) }}</td>
+                        <td>{{ tableMacro.row_blameable(modList.createdAt, modList.createdBy) }}</td>
+                        <td>{{ tableMacro.row_blameable(modList.lastUpdatedAt, modList.lastUpdatedBy) }}</td>
                         <td class="text-right">
                             {{ tableMacro.row_action(path('app_mod_list_public_customize', { id: modList.id }), 'fas fa-download', 'Download mod list'|trans) }}
 
