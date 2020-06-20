@@ -42,11 +42,18 @@ class EntityBlameableSubscriber implements EventSubscriber
 
     public function preUpdate(LifecycleEventArgs $args): void
     {
+        /** @var EntityInterface $entity */
+        $entity = $args->getEntity();
+        $this->markEntityAsUpdated($entity);
+    }
+
+    public function markEntityAsUpdated(?EntityInterface $entity): void
+    {
         /** @var null|UserInterface $currentUser */
         $currentUser = $this->security->getUser();
-        $entity = $args->getEntity();
 
-        if ($entity instanceof EntityInterface && $currentUser) {
+        if ($entity && $currentUser) {
+            $entity->setLastUpdatedAt(new \DateTimeImmutable());
             $entity->setLastUpdatedBy($currentUser);
         }
     }
