@@ -35,8 +35,8 @@
                         <td>{{ modList.name }}</td>
                         <td>{{ modList.description }}</td>
                         <td>{{ modList.createdBy ? modList.createdBy.username : '-' }}</td>
-                        <td>{{ modList.createdAt|format_datetime('short', 'short', locale=app_lang) }}</td>
-                        <td>{{ modList.lastUpdatedAt ? modList.lastUpdatedAt|format_datetime('short', 'short', locale=app_lang) : '-' }}</td>
+                        <td>{{ tableMacro.format_date(modList.createdAt) }}</td>
+                        <td>{{ tableMacro.format_date(modList.lastUpdatedAt) }}</td>
                         <td class="text-right">
                             {{ tableMacro.row_action(path('app_mod_list_public_customize', { id: modList.id }), 'fas fa-download', 'Download mod list'|trans) }}
 

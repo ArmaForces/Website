@@ -21,3 +21,7 @@
         'data-modal-confirm': confirmMessage
     }) }}
 {% endmacro %}
+
+{% macro format_date(date, dateFormat = 'short', timeFormat = 'short', emptyValue = '-') %}
+    {{ date ? date|format_datetime(dateFormat, timeFormat, locale=get_default_locale()) : emptyValue }}
+{% endmacro %}

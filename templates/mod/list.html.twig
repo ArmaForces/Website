@@ -50,7 +50,7 @@
                                 {{ 'Directory'|trans }}
                             {% endif %}
                         </td>
-                        <td>{{ mod.lastUpdatedAt ? mod.lastUpdatedAt|format_datetime('short', 'short', locale=app_lang) : '-' }}</td>
+                        <td>{{ tableMacro.format_date(mod.lastUpdatedAt) }}</td>
                         <td class="text-right">
                             {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_UPDATE'), mod) %}
                                 {{ tableMacro.row_action_edit(path('app_mod_update', { id: mod.id }), 'Edit mod'|trans) }}

@@ -27,7 +27,7 @@
                         <th scope="row">{{ loop.index }}</th>
                         <th>{{ modList.name }}</th>
                         <th>{{ modList.description }}</th>
-                        <th>{{ modList.lastUpdatedAt ? modList.lastUpdatedAt|format_datetime('short', 'short', locale=app_lang) : '-' }}</th>
+                        <th>{{ tableMacro.format_date(modList.lastUpdatedAt) }}</th>
                         <td class="text-right">
                             {{ tableMacro.row_action(path('app_mod_list_public_customize', { id: modList.id }), 'fas fa-download', 'Download mod list'|trans) }}
                         </td>
