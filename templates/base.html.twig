@@ -1,8 +1,7 @@
-{%- set app_lang = app.request.locale|split('_')[0] -%}
-{%- set app_community_description = include('home/index/_partial/' ~ app_lang ~ '/_about_us.html.twig')|striptags -%}
+{%- set app_community_description = include('home/index/_partial/' ~ get_default_locale() ~ '/_about_us.html.twig')|striptags -%}
 
 <!doctype html>
-<html lang="{{ app_lang }}">
+<html lang="{{ get_default_locale() }}">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
