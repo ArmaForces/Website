@@ -29,7 +29,7 @@ class ModListPermissionsType extends AbstractType
             ->add('update', CheckboxType::class, [
                 'label' => 'Can edit other users mod lists',
                 'label_attr' => ['class' => 'switch-custom'],
-                'help' => 'User can always edit his own mod lists',
+                'help' => 'Note: User can always edit his own mod lists',
             ])
             ->add('copy', CheckboxType::class, [
                 'label' => 'Can copy mod lists',
@@ -38,7 +38,7 @@ class ModListPermissionsType extends AbstractType
             ->add('delete', CheckboxType::class, [
                 'label' => 'Can delete other users mod lists',
                 'label_attr' => ['class' => 'switch-custom'],
-                'help' => 'User can always delete his own mod lists',
+                'help' => 'Note: User can always delete his own mod lists',
             ])
         ;
     }

@@ -68,10 +68,10 @@ Can delete mods: Może usuwać mody
 Can list mod lists: Może przeglądać listy modów
 Can create mod lists: Może tworzyć listy modów
 Can edit other users mod lists: Może edytować listy modów innych użytkowników
-User can always edit his own mod lists: Użytkownik zawsze może edytować stworzone przez siebie listy modów
+'Note: User can always edit his own mod lists': 'Uwaga: Użytkownik zawsze ma możliwość edycji stworzonych przez siebie list modów'
 Can copy mod lists: Może kopiować listy modów
 Can delete other users mod lists: Może usuwać listy modów innych użytkowników
-User can always delete his own mod lists: Użytkownik zawsze może usuwać stworzone przez siebie listy modów
+'Note: User can always delete his own mod lists': 'Uwaga: Użytkownik zawsze ma możliwość usuwania stworzonych przez siebie list modów'
 
 # Mods
 Create mod: Utwórz mod
