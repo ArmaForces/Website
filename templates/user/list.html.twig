@@ -31,7 +31,7 @@
                         <td>{{ user.username }}</td>
                         <td>{{ user.externalId }}</td>
                         <th>{{ tableMacro.format_date(user.createdAt) }}</th>
-                        <th>{{ tableMacro.format_date(user.permissions.lastUpdatedAt) }}</th>
+                        <th>{{ tableMacro.format_date(user.lastUpdatedAt) }}</th>
                         <td class="text-right">
                             {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USER_PERMISSIONS_MANAGE'), user) %}
                                 {{ tableMacro.row_action(path('app_user_permissions', { id: user.id }), 'fas fa-user-shield', 'Manage user permissions'|trans) }}

@@ -75,6 +75,9 @@ class UserController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            // Manually mark User entity as changed
+            $this->entityManager->getUnitOfWork()->scheduleForUpdate($user);
+
             $this->entityManager->flush();
 
             return $this->redirectToRoute('app_user_list');
