@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace App\Entity\ModList;
 
-use ApiPlatform\Core\Annotation as Api;
-use App\Api\Dto\ModListDetailsOutput;
-use App\Api\Dto\ModListOutput;
 use App\Entity\AbstractDescribedEntity;
 use App\Entity\Mod\ModInterface;
 use Doctrine\Common\Collections\ArrayCollection;
