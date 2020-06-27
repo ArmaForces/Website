@@ -38,6 +38,11 @@ class AbstractUser extends AbstractEntity implements UserInterface
         $this->permissions = new Permissions();
     }
 
+    public function getRoles(): array
+    {
+        return [RoleEnum::ROLE_USER];
+    }
+
     public function getUsername(): string
     {
         return $this->username;
@@ -86,10 +91,5 @@ class AbstractUser extends AbstractEntity implements UserInterface
     public function setAvatarHash(?string $avatarHash): void
     {
         $this->avatarHash = $avatarHash;
-    }
-
-    public function getRoles(): array
-    {
-        return [RoleEnum::ROLE_USER];
     }
 }
