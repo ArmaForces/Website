@@ -4,35 +4,65 @@ declare(strict_types=1);
 
 namespace App\Api\Dto;
 
-use Symfony\Component\Serializer\Annotation\Groups;
-
 class ModListOutput
 {
     /**
-     * @Groups({"read"})
-     *
-     * @var string
+     * @var null|string
      */
-    public $id;
+    protected $id;
 
     /**
-     * @Groups({"read"})
-     *
-     * @var string
+     * @var null|string
      */
-    public $name;
+    protected $name;
 
     /**
-     * @Groups({"read"})
-     *
-     * @var \DateTimeInterface
+     * @var null|\DateTimeInterface
      */
-    public $createdAt;
+    protected $createdAt;
 
     /**
-     * @Groups({"read"})
-     *
-     * @var \DateTimeInterface
+     * @var null|\DateTimeInterface
      */
-    public $lastUpdatedAt;
+    protected $lastUpdatedAt;
+
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
+
+    public function setId(?string $id): void
+    {
+        $this->id = $id;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): void
+    {
+        $this->name = $name;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?\DateTimeInterface $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    public function getLastUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->lastUpdatedAt;
+    }
+
+    public function setLastUpdatedAt(?\DateTimeInterface $lastUpdatedAt): void
+    {
+        $this->lastUpdatedAt = $lastUpdatedAt;
+    }
 }

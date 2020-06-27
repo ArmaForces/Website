@@ -29,15 +29,16 @@ class ModListDetailsOutputDataTransformer implements DataTransformerInterface
     {
         $output = new ModListDetailsOutput();
 
-        $output->id = $modList->getId();
-        $output->name = $modList->getName();
-        $output->createdAt = $modList->getCreatedAt();
-        $output->lastUpdatedAt = $modList->getLastUpdatedAt();
+        $output->setId($modList->getId());
+        $output->setName($modList->getName());
+        $output->setCreatedAt($modList->getCreatedAt());
+        $output->setLastUpdatedAt($modList->getLastUpdatedAt());
 
-        $output->mods = [];
+        $mods = [];
         foreach ($modList->getMods() as $mod) {
-            $output->mods[] = $this->modDataTransformer->transform($mod, ModOutput::class, $context);
+            $mods[] = $this->modDataTransformer->transform($mod, ModOutput::class, $context);
         }
+        $output->setMods($mods);
 
         return $output;
     }
