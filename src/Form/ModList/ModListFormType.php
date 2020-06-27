@@ -14,14 +14,30 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Security;
 
 class ModListFormType extends AbstractType
 {
+    /** @var Security */
+    protected $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        /** @var UserInterface $currentUser */
+        $currentUser = $this->security->getUser();
+
+        /** @var ModListFormDto $modListFormDto */
+        $modListFormDto = $builder->getData();
+        $modListExists = null !== $modListFormDto->getId();
+
         $builder
             ->add('name', TextType::class, [
                 'label' => 'Mod list name',
@@ -29,20 +45,31 @@ class ModListFormType extends AbstractType
             ->add('description', TextType::class, [
                 'label' => 'Mod list description',
             ])
-            ->add('createdBy', EntityType::class, [
-                'label' => 'Mod list owner',
-                'required' => false,
-                'class' => User::class,
-                'query_builder' => static function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
-                        ->join('u.permissions', 'p')
-                        ->orderBy('u.username', 'ASC')
-                    ;
-                },
-                'choice_label' => static function (UserInterface $user) {
-                    return $user->getUsername();
-                },
-            ])
+        ;
+
+        $ownerTypeConfig = [
+            'label' => 'Mod list owner',
+            'required' => false,
+            'class' => User::class,
+            'query_builder' => static function (EntityRepository $er) {
+                return $er->createQueryBuilder('u')
+                    ->join('u.permissions', 'p')
+                    ->orderBy('u.username', 'ASC')
+                ;
+            },
+            'choice_label' => static function (UserInterface $user) {
+                return $user->getUsername();
+            },
+        ];
+
+        if (!$modListExists) {
+            // Set current user as default owner when creating new Mod List
+            $ownerTypeConfig['data'] = $currentUser;
+        }
+
+        $builder->add('owner', EntityType::class, $ownerTypeConfig);
+
+        $builder
             ->add('mods', EntityType::class, [
                 'label' => 'Mods',
                 'label_attr' => ['class' => 'switch-custom'],

@@ -15,12 +15,16 @@
                 </inverse-join-columns>
             </join-table>
             <order-by>
-                <order-by-field name="name" direction="ASC" />
+                <order-by-field name="name" direction="ASC"/>
             </order-by>
             <cascade>
                 <cascade-persist/>
             </cascade>
         </many-to-many>
+
+        <many-to-one field="owner" target-entity="App\Entity\User\User" inversed-by="ownedModLists">
+            <join-column name="owner_id" referenced-column-name="id" nullable="true"/>
+        </many-to-one>
 
         <unique-constraints>
             <unique-constraint columns="name"/>

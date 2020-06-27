@@ -21,6 +21,7 @@
                     <th>#</th>
                     <th scope="col">{{ 'Mod list name'|trans }}</th>
                     <th scope="col">{{ 'Mod list description'|trans }}</th>
+                    <th scope="col">{{ 'Mod list owner'|trans }}</th>
                     <th scope="col">{{ 'Created at'|trans }}</th>
                     <th scope="col">{{ 'Last updated at'|trans }}</th>
                     <th></th>
@@ -33,6 +34,7 @@
                         <th scope="row">{{ loop.index }}</th>
                         <td>{{ modList.name }}</td>
                         <td>{{ modList.description }}</td>
+                        <td>{{ modList.owner ? modList.owner.username : ''  }}</td>
                         <td>{{ tableMacro.row_blameable(modList.createdAt, modList.createdBy) }}</td>
                         <td>{{ tableMacro.row_blameable(modList.lastUpdatedAt, modList.lastUpdatedBy) }}</td>
                         <td class="text-right">

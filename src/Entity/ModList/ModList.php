@@ -6,6 +6,7 @@ namespace App\Entity\ModList;
 
 use App\Entity\AbstractDescribedEntity;
 use App\Entity\Mod\ModInterface;
+use App\Entity\User\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
@@ -13,6 +14,9 @@ class ModList extends AbstractDescribedEntity implements ModListInterface
 {
     /** @var Collection|ModInterface[] */
     protected $mods;
+
+    /** @var null|UserInterface */
+    protected $owner;
 
     public function __construct(string $name)
     {
@@ -50,5 +54,15 @@ class ModList extends AbstractDescribedEntity implements ModListInterface
         foreach ($mods as $mod) {
             $this->addMod($mod);
         }
+    }
+
+    public function getOwner(): ?UserInterface
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?UserInterface $owner): void
+    {
+        $this->owner = $owner;
     }
 }

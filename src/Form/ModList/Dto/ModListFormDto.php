@@ -43,7 +43,7 @@ class ModListFormDto extends AbstractFormDto
     /**
      * @var null|UserInterface
      */
-    protected $createdBy;
+    protected $owner;
 
     public function __construct()
     {
@@ -117,13 +117,13 @@ class ModListFormDto extends AbstractFormDto
         }
     }
 
-    public function getCreatedBy(): ?UserInterface
+    public function getOwner(): ?UserInterface
     {
-        return $this->createdBy;
+        return $this->owner;
     }
 
-    public function setCreatedBy(?UserInterface $createdBy): void
+    public function setOwner(?UserInterface $owner): void
     {
-        $this->createdBy = $createdBy;
+        $this->owner = $owner;
     }
 }

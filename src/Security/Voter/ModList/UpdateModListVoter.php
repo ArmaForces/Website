@@ -35,6 +35,6 @@ class UpdateModListVoter extends Voter
         /** @var ModList $modList */
         $modList = $subject;
 
-        return $modList->getCreatedBy() === $currentUser || $currentUser->getPermissions()->getModListPermissions()->canUpdate();
+        return $modList->getOwner() === $currentUser || $currentUser->getPermissions()->getModListPermissions()->canUpdate();
     }
 }
