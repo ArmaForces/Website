@@ -44,6 +44,9 @@ final class Version20200620141223 extends AbstractMigration
         $this->addSql('CREATE UNIQUE INDEX UNIQ_1483A5E9FF8A180B ON users (last_updated_by)');
         $this->addSql('CREATE INDEX IDX_1483A5E98B8E8428 ON users (created_at)');
         $this->addSql('CREATE INDEX IDX_1483A5E9F85E0677 ON users (username)');
+        $this->addSql('ALTER TABLE mod_lists ADD owner_id VARCHAR(36) DEFAULT NULL');
+        $this->addSql('ALTER TABLE mod_lists ADD CONSTRAINT FK_ECB7A267E3C61F9 FOREIGN KEY (owner_id) REFERENCES users (id)');
+        $this->addSql('CREATE INDEX IDX_ECB7A267E3C61F9 ON mod_lists (owner_id)');
     }
 
     public function down(Schema $schema): void
@@ -73,5 +76,8 @@ final class Version20200620141223 extends AbstractMigration
         $this->addSql('DROP INDEX IDX_1483A5E98B8E8428 ON users');
         $this->addSql('DROP INDEX IDX_1483A5E9F85E0677 ON users');
         $this->addSql('ALTER TABLE users ADD password VARCHAR(255) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, DROP created_by, DROP last_updated_by');
+        $this->addSql('ALTER TABLE mod_lists DROP FOREIGN KEY FK_ECB7A267E3C61F9');
+        $this->addSql('DROP INDEX IDX_ECB7A267E3C61F9 ON mod_lists');
+        $this->addSql('ALTER TABLE mod_lists DROP owner_id');
     }
 }
