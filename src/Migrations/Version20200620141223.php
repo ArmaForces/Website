@@ -12,15 +12,15 @@ use Doctrine\Migrations\AbstractMigration;
  */
 final class Version20200620141223 extends AbstractMigration
 {
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return 'Add blameable behavior';
     }
 
-    public function up(Schema $schema) : void
+    public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE mod_lists ADD created_by VARCHAR(36) DEFAULT NULL, ADD last_updated_by VARCHAR(36) DEFAULT NULL');
         $this->addSql('ALTER TABLE mod_lists ADD CONSTRAINT FK_ECB7A26DE12AB56 FOREIGN KEY (created_by) REFERENCES users (id)');
@@ -46,10 +46,10 @@ final class Version20200620141223 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_1483A5E9F85E0677 ON users (username)');
     }
 
-    public function down(Schema $schema) : void
+    public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE mod_lists DROP FOREIGN KEY FK_ECB7A26DE12AB56');
         $this->addSql('ALTER TABLE mod_lists DROP FOREIGN KEY FK_ECB7A26FF8A180B');
