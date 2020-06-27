@@ -11,7 +11,7 @@
         <div class="col-md-8">
             <!-- Description -->
             <p class="grey-text">
-                {% include 'home/index/_partial/' ~ get_default_locale() ~ '/_about_us.html.twig' %}
+                {% include 'home/index/_partial/' ~ get_current_locale() ~ '/_about_us.html.twig' %}
             </p>
             <!--/ Description -->
         </div>
@@ -26,7 +26,7 @@
             <i class="fa fa-fighter-jet fa-4x orange-text"></i>
             <h4 class="my-4 font-weight-bold">{{ 'Fun'|trans }}</h4>
             <p class="grey-text">
-                {% include 'home/index/_partial/' ~ get_default_locale() ~ '/_fun.html.twig' %}
+                {% include 'home/index/_partial/' ~ get_current_locale() ~ '/_fun.html.twig' %}
             </p>
         </div>
         <!--/ Grid column -->
@@ -36,7 +36,7 @@
             <i class="fa fa-gamepad fa-4x orange-text"></i>
             <h4 class="my-4 font-weight-bold">{{ 'Gaming'|trans }}</h4>
             <p class="grey-text">
-                {% include 'home/index/_partial/' ~ get_default_locale() ~ '/_gaming.html.twig' %}
+                {% include 'home/index/_partial/' ~ get_current_locale() ~ '/_gaming.html.twig' %}
             </p>
         </div>
         <!--/ Grid column -->
@@ -46,7 +46,7 @@
             <i class="fa fa-user-friends fa-4x orange-text"></i>
             <h4 class="my-4 font-weight-bold">{{ 'Community'|trans }}</h4>
             <p class="grey-text">
-                {% include 'home/index/_partial/' ~ get_default_locale() ~ '/_community.html.twig' %}
+                {% include 'home/index/_partial/' ~ get_current_locale() ~ '/_community.html.twig' %}
             </p>
         </div>
         <!--/ Grid column -->

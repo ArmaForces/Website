@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Twig;
 
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 use Twig\TwigTest;
@@ -14,9 +15,13 @@ class UtilsExtension extends AbstractExtension
     /** @var ParameterBagInterface */
     protected $parameterBag;
 
-    public function __construct(ParameterBagInterface $parameterBag)
+    /** @var RequestStack */
+    protected $requestStack;
+
+    public function __construct(ParameterBagInterface $parameterBag, RequestStack $requestStack)
     {
         $this->parameterBag = $parameterBag;
+        $this->requestStack = $requestStack;
     }
 
     public function getTests(): array
@@ -26,10 +31,10 @@ class UtilsExtension extends AbstractExtension
         ];
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
-            new TwigFunction('get_default_locale', [$this, 'getDefaultLocale']),
+            new TwigFunction('get_current_locale', [$this, 'getCurrentLocale']),
         ];
     }
 
@@ -41,8 +46,15 @@ class UtilsExtension extends AbstractExtension
         return $var instanceof $instance;
     }
 
-    public function getDefaultLocale(): string
+    public function getCurrentLocale(): string
     {
-        return $this->parameterBag->get('kernel.default_locale');
+        $request = $this->requestStack->getMasterRequest();
+
+        // Fallback to default locale if out of request context
+        if (!$request) {
+            return $this->parameterBag->get('kernel.default_locale');
+        }
+
+        return $request->getLocale();
     }
 }

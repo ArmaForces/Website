@@ -1,7 +1,7 @@
-{%- set app_community_description = include('home/index/_partial/' ~ get_default_locale() ~ '/_about_us.html.twig')|striptags -%}
+{%- set app_community_description = include('home/index/_partial/' ~ get_current_locale() ~ '/_about_us.html.twig')|striptags -%}
 
 <!doctype html>
-<html lang="{{ get_default_locale() }}">
+<html lang="{{ get_current_locale() }}">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
