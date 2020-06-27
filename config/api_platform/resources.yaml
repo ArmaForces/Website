@@ -1,5 +1,6 @@
 App\Entity\ModList\ModList:
-    output: 'App\Api\Dto\ModListOutput'
+    attributes:
+        output: 'App\Api\Dto\ModListOutput'
 
     itemOperations:
         get:
