@@ -10,12 +10,13 @@ use Symfony\Component\Serializer\Exception\CircularReferenceException;
 class CircularReferenceHandler
 {
     /**
-     * @param mixed $object
+     * @param mixed   $object
+     * @param mixed[] $context
      */
-    public function __invoke($object, string $format, array $context)
+    public function __invoke($object, string $format, array $context): string
     {
         if ($object instanceof EntityInterface) {
-            return $object->getId();
+            return (string) $object->getId();
         }
 
         throw new CircularReferenceException(sprintf('A circular reference has been detected when serializing the object of class "%s"', \get_class($object)));

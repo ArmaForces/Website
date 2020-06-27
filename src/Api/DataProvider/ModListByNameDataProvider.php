@@ -8,7 +8,6 @@ use ApiPlatform\Core\DataProvider\ItemDataProviderInterface;
 use ApiPlatform\Core\DataProvider\RestrictedDataProviderInterface;
 use App\Entity\ModList\ModList;
 use App\Repository\ModListRepository;
-use Symfony\Component\Security\Core\Security;
 
 class ModListByNameDataProvider implements ItemDataProviderInterface, RestrictedDataProviderInterface
 {
@@ -17,7 +16,7 @@ class ModListByNameDataProvider implements ItemDataProviderInterface, Restricted
     /** @var ModListRepository */
     protected $modListRepository;
 
-    public function __construct(Security $security, ModListRepository $modListRepository)
+    public function __construct(ModListRepository $modListRepository)
     {
         $this->modListRepository = $modListRepository;
     }

@@ -11,7 +11,7 @@ class ModListDetailsOutput extends ModListOutput
     /**
      * @Groups({"read"})
      *
-     * @var ModOutput
+     * @var ModOutput[]
      */
     public $mods;
 }
