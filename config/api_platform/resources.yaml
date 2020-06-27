@@ -1,8 +1,4 @@
 App\Entity\ModList\ModList:
-    attributes:
-        pagination_enabled: falsae
-    normalizationContext:
-        groups: ['read']
     output: 'App\Api\Dto\ModListOutput'
 
     itemOperations:
