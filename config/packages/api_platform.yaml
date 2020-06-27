@@ -1,0 +1,16 @@
+api_platform:
+    title: "%app.api.name%"
+    version: "%app.api.version%"
+    show_webby: false
+    swagger:
+        versions: [3]
+
+    path_segment_name_generator: api_platform.path_segment_name_generator.dash
+    mapping:
+        paths: ['%kernel.project_dir%/config/api_platform']
+    patch_formats:
+        json: ['application/merge-patch+json']
+    formats:
+        json: ['application/json']
+        html: ['text/html']
+

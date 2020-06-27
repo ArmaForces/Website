@@ -4,6 +4,9 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    app.name: ArmaForces Website
+    app.api.name: "%app.name% Web API"
+    app.api.version: '1.0.0'
     app.security.oauth.discord.server_id: '%env(int:APP_SECURITY_OAUTH_DISCORD_SERVER_ID)%'
     app.security.oauth.discord.recruit_role_name: '%env(APP_SECURITY_OAUTH_DISCORD_RECRUIT_ROLE_NAME)%'
     app.security.oauth.discord.member_role_name: '%env(APP_SECURITY_OAUTH_DISCORD_MEMBER_ROLE_NAME)%'
