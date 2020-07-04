@@ -67,7 +67,10 @@ class ModListFormType extends AbstractType
             $ownerTypeConfig['data'] = $currentUser;
         }
 
-        $builder->add('owner', EntityType::class, $ownerTypeConfig);
+        // Add owner lists only if user has full permissions to edit Mod Lists
+        if ($currentUser->getPermissions()->getModListPermissions()->canUpdate()) {
+            $builder->add('owner', EntityType::class, $ownerTypeConfig);
+        }
 
         $builder
             ->add('mods', EntityType::class, [
