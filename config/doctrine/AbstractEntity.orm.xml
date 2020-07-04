@@ -8,20 +8,20 @@
         <id name="id" type="string" length="36"/>
 
         <field name="createdAt" type="datetime_immutable"/>
-        <one-to-one field="createdBy" target-entity="App\Entity\User\User">
+        <many-to-one field="createdBy" target-entity="App\Entity\User\User">
             <join-column name="created_by" referenced-column-name="id"/>
             <cascade>
                 <cascade-persist/>
             </cascade>
-        </one-to-one>
+        </many-to-one>
 
         <field name="lastUpdatedAt" type="datetime_immutable" nullable="true"/>
-        <one-to-one field="lastUpdatedBy" target-entity="App\Entity\User\User">
+        <many-to-one field="lastUpdatedBy" target-entity="App\Entity\User\User">
             <join-column name="last_updated_by" referenced-column-name="id"/>
             <cascade>
                 <cascade-persist/>
             </cascade>
-        </one-to-one>
+        </many-to-one>
 
         <indexes>
             <index columns="created_at"/>
