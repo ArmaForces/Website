@@ -62,12 +62,21 @@ class ModListController extends AbstractController
      */
     public function createAction(Request $request): Response
     {
+        /** @var UserInterface $currentUser */
+        $currentUser = $this->getUser();
+
         $modListFormDto = new ModListFormDto();
         $form = $this->createForm(ModListFormType::class, $modListFormDto);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $modList = $this->modListFormDtoDataTransformer->toEntity($modListFormDto);
+
+            // If user doesn't have full permissions to edit Mod Lists then he cannot change Mod List owner so we assign ModList to him
+            if (!$currentUser->getPermissions()->getModListPermissions()->canUpdate()) {
+                $modList->setOwner($currentUser);
+            }
+
             $this->entityManager->persist($modList);
             $this->entityManager->flush();
 
