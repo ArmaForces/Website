@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Form\ModList\Dto;
 
 use App\Entity\Mod\ModInterface;
+use App\Entity\User\UserInterface;
 use App\Form\AbstractFormDto;
 use App\Validator\ModList\UniqueModListName;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -38,6 +39,11 @@ class ModListFormDto extends AbstractFormDto
      * @var Collection|ModInterface[]
      */
     protected $mods;
+
+    /**
+     * @var null|UserInterface
+     */
+    protected $owner;
 
     public function __construct()
     {
@@ -109,5 +115,15 @@ class ModListFormDto extends AbstractFormDto
         foreach ($mods as $mod) {
             $this->addMod($mod);
         }
+    }
+
+    public function getOwner(): ?UserInterface
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?UserInterface $owner): void
+    {
+        $this->owner = $owner;
     }
 }

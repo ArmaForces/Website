@@ -30,15 +30,15 @@
                         <th scope="row">{{ loop.index }}</th>
                         <td>{{ user.username }}</td>
                         <td>{{ user.externalId }}</td>
-                        <th>{{ user.createdAt ? user.createdAt|format_datetime('short', 'short', locale=app_lang) : '-' }}</th>
-                        <th>{{ user.permissions.lastUpdatedAt ? user.permissions.lastUpdatedAt|format_datetime('short', 'short', locale=app_lang) : '-' }}</th>
+                        <th>{{ tableMacro.row_blameable(user.createdAt, user.createdBy) }}</th>
+                        <th>{{ tableMacro.row_blameable(user.lastUpdatedAt, user.lastUpdatedBy) }}</th>
                         <td class="text-right">
                             {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USER_PERMISSIONS_MANAGE'), user) %}
                                 {{ tableMacro.row_action(path('app_user_permissions', { id: user.id }), 'fas fa-user-shield', 'Manage user permissions'|trans) }}
                             {% endif %}
 
                             {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USER_DELETE'), user) %}
-                                {{ tableMacro.row_action_delete(path('app_user_delete', { id: user.id }), 'Are you sure you want to delete %name%?'|trans({ name: user.username }), 'Delete user'|trans) }}
+                                {{ tableMacro.row_action_delete(path('app_user_delete', { id: user.id }), 'Are you sure you want to delete %name%?'|trans({ '%name%': user.username }), 'Delete user'|trans) }}
                             {% endif %}
                         </td>
                     </tr>

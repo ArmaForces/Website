@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/user", name="app_user")
  *
- * @IsGranted("IS_AUTHENTICATED_REMEMBERED")
+ * @IsGranted("ROLE_USER")
  */
 class UserController extends AbstractController
 {
@@ -75,6 +75,9 @@ class UserController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            // Manually mark User entity as changed
+            $this->entityManager->getUnitOfWork()->scheduleForUpdate($user);
+
             $this->entityManager->flush();
 
             return $this->redirectToRoute('app_user_list');

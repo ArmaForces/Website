@@ -24,6 +24,7 @@ return PhpCsFixer\Config::create()
         '@PHP71Migration:risky' => true,
         '@PHP73Migration' => true,
 
+        'phpdoc_to_comment' => false,
         'ordered_class_elements' => [
             'order' => [
                 'use_trait', // traits

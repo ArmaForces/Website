@@ -6,6 +6,7 @@ namespace App\Entity\ModList;
 
 use App\Entity\DescribedEntityInterface;
 use App\Entity\Mod\ModInterface;
+use App\Entity\User\UserInterface;
 
 interface ModListInterface extends DescribedEntityInterface
 {
@@ -22,4 +23,8 @@ interface ModListInterface extends DescribedEntityInterface
      * @param ModInterface[] $mods
      */
     public function setMods(array $mods): void;
+
+    public function getOwner(): ?UserInterface;
+
+    public function setOwner(?UserInterface $owner): void;
 }

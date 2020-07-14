@@ -21,6 +21,7 @@
                     <th>#</th>
                     <th scope="col">{{ 'Mod list name'|trans }}</th>
                     <th scope="col">{{ 'Mod list description'|trans }}</th>
+                    <th scope="col">{{ 'Mod list owner'|trans }}</th>
                     <th scope="col">{{ 'Created at'|trans }}</th>
                     <th scope="col">{{ 'Last updated at'|trans }}</th>
                     <th></th>
@@ -33,8 +34,9 @@
                         <th scope="row">{{ loop.index }}</th>
                         <td>{{ modList.name }}</td>
                         <td>{{ modList.description }}</td>
-                        <td>{{ modList.createdAt|format_datetime('short', 'short', locale=app_lang) }}</td>
-                        <td>{{ modList.lastUpdatedAt ? modList.lastUpdatedAt|format_datetime('short', 'short', locale=app_lang) : '-' }}</td>
+                        <td>{{ modList.owner ? modList.owner.username : ''  }}</td>
+                        <td>{{ tableMacro.row_blameable(modList.createdAt, modList.createdBy) }}</td>
+                        <td>{{ tableMacro.row_blameable(modList.lastUpdatedAt, modList.lastUpdatedBy) }}</td>
                         <td class="text-right">
                             {{ tableMacro.row_action(path('app_mod_list_public_customize', { id: modList.id }), 'fas fa-download', 'Download mod list'|trans) }}
 
@@ -47,7 +49,7 @@
                             {% endif %}
 
                             {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_DELETE'), modList) %}
-                                {{ tableMacro.row_action_delete(path('app_mod_list_delete', { id: modList.id }), 'Are you sure you want to delete %name%?'|trans({ name: modList.name }), 'Delete mod list'|trans) }}
+                                {{ tableMacro.row_action_delete(path('app_mod_list_delete', { id: modList.id }), 'Are you sure you want to delete %name%?'|trans({ '%name%': modList.name }), 'Delete mod list'|trans) }}
                             {% endif %}
                         </td>
                     </tr>

@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Security\Voter\ModList;
 
-use App\Entity\User\User;
+use App\Entity\ModList\ModList;
+use App\Entity\ModList\ModListInterface;
+use App\Entity\User\UserInterface;
 use App\Security\Enum\PermissionsEnum;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class DeleteModListVoter extends Voter
 {
@@ -17,7 +18,7 @@ class DeleteModListVoter extends Voter
      */
     protected function supports($attribute, $subject): bool
     {
-        return PermissionsEnum::MOD_LIST_DELETE === $attribute;
+        return PermissionsEnum::MOD_LIST_DELETE === $attribute && $subject instanceof ModListInterface;
     }
 
     /**
@@ -25,16 +26,15 @@ class DeleteModListVoter extends Voter
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
-        /** @var User $user */
-        $user = $token->getUser();
-        if (!$user instanceof UserInterface) {
+        /** @var null|UserInterface $currentUser */
+        $currentUser = $token->getUser();
+        if (!$currentUser instanceof UserInterface) {
             return false;
         }
 
-        if ($user->getPermissions()->getModListPermissions()->canDelete()) {
-            return true;
-        }
+        /** @var ModList $modList */
+        $modList = $subject;
 
-        return false;
+        return $modList->getOwner() === $currentUser || $currentUser->getPermissions()->getModListPermissions()->canDelete();
     }
 }

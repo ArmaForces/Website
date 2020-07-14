@@ -50,14 +50,14 @@
                                 {{ 'Directory'|trans }}
                             {% endif %}
                         </td>
-                        <td>{{ mod.lastUpdatedAt ? mod.lastUpdatedAt|format_datetime('short', 'short', locale=app_lang) : '-' }}</td>
+                        <td>{{ tableMacro.row_blameable(mod.lastUpdatedAt, mod.lastUpdatedBy) }}</td>
                         <td class="text-right">
                             {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_UPDATE'), mod) %}
                                 {{ tableMacro.row_action_edit(path('app_mod_update', { id: mod.id }), 'Edit mod'|trans) }}
                             {% endif %}
 
                             {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_DELETE'), mod) %}
-                                {{ tableMacro.row_action_delete(path('app_mod_delete', { id: mod.id }), 'Are you sure you want to delete %name%?'|trans({'%name%': mod.name}), 'Delete mod'|trans) }}
+                                {{ tableMacro.row_action_delete(path('app_mod_delete', { id: mod.id }), 'Are you sure you want to delete %name%?'|trans({ '%name%': mod.name }), 'Delete mod'|trans) }}
                             {% endif %}
                         </td>
                     </tr>

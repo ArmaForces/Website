@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\ModList\ModList;
+use App\Entity\User\UserInterface;
 use App\Form\ModList\DataTransformer\ModListFormDtoDataTransformer;
 use App\Form\ModList\Dto\ModListFormDto;
 use App\Form\ModList\ModListFormType;
@@ -20,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/mod-list", name="app_mod_list")
  *
- * @IsGranted("IS_AUTHENTICATED_REMEMBERED")
+ * @IsGranted("ROLE_USER")
  */
 class ModListController extends AbstractController
 {
@@ -61,12 +62,21 @@ class ModListController extends AbstractController
      */
     public function createAction(Request $request): Response
     {
+        /** @var UserInterface $currentUser */
+        $currentUser = $this->getUser();
+
         $modListFormDto = new ModListFormDto();
         $form = $this->createForm(ModListFormType::class, $modListFormDto);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $modList = $this->modListFormDtoDataTransformer->toEntity($modListFormDto);
+
+            // If user doesn't have full permissions to edit Mod Lists then he cannot change Mod List owner so we assign ModList to him
+            if (!$currentUser->getPermissions()->getModListPermissions()->canUpdate()) {
+                $modList->setOwner($currentUser);
+            }
+
             $this->entityManager->persist($modList);
             $this->entityManager->flush();
 
@@ -81,7 +91,7 @@ class ModListController extends AbstractController
     /**
      * @Route("/{id}/update", name="_update")
      *
-     * @IsGranted(PermissionsEnum::MOD_LIST_UPDATE)
+     * @IsGranted(PermissionsEnum::MOD_LIST_UPDATE, subject="modList")
      */
     public function updateAction(Request $request, ModList $modList): Response
     {
@@ -105,18 +115,26 @@ class ModListController extends AbstractController
     /**
      * @Route("/{id}/copy", name="_copy")
      *
-     * @IsGranted(PermissionsEnum::MOD_LIST_COPY)
+     * @IsGranted(PermissionsEnum::MOD_LIST_COPY, subject="modList")
      */
     public function copyAction(Request $request, ModList $modList): Response
     {
+        /** @var UserInterface $currentUser */
+        $currentUser = $this->getUser();
+
         $modListFormDto = $this->modListFormDtoDataTransformer->fromEntity($modList);
-        $form = $this->createForm(ModListFormType::class, $modListFormDto);
         $modListFormDto->setId(null); // Entity will be treated as new by the unique name validator
 
+        $form = $this->createForm(ModListFormType::class, $modListFormDto);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $modListCopy = $this->modListFormDtoDataTransformer->toEntity($modListFormDto);
+
+            // If user doesn't have full permissions to edit Mod Lists then he cannot change Mod List owner so we assign ModList to him
+            if (!$currentUser->getPermissions()->getModListPermissions()->canUpdate()) {
+                $modListCopy->setOwner($currentUser);
+            }
 
             $this->entityManager->persist($modListCopy);
             $this->entityManager->flush();
@@ -132,7 +150,7 @@ class ModListController extends AbstractController
     /**
      * @Route("/{id}/delete", name="_delete")
      *
-     * @IsGranted(PermissionsEnum::MOD_LIST_DELETE)
+     * @IsGranted(PermissionsEnum::MOD_LIST_DELETE, subject="modList")
      */
     public function deleteAction(ModList $modList): Response
     {

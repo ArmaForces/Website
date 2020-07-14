@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Security\Voter\ModList;
 
-use App\Entity\User\User;
+use App\Entity\User\UserInterface;
 use App\Security\Enum\PermissionsEnum;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class ListModListsVoter extends Voter
 {
@@ -25,16 +24,12 @@ class ListModListsVoter extends Voter
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
-        /** @var User $user */
-        $user = $token->getUser();
-        if (!$user instanceof UserInterface) {
+        /** @var null|UserInterface $currentUser */
+        $currentUser = $token->getUser();
+        if (!$currentUser instanceof UserInterface) {
             return false;
         }
 
-        if ($user->getPermissions()->getModListPermissions()->canList()) {
-            return true;
-        }
-
-        return false;
+        return $currentUser->getPermissions()->getModListPermissions()->canList();
     }
 }
