@@ -3,7 +3,7 @@
     <head>
         <meta name="arma:Type" content="preset"/>
         <meta name="arma:PresetName" content="{{ modList.name }}"/>
-        <meta name="generator" content="ArmaForces - https://armaforces.com/"/>
+        <meta name="generator" content="{{ global.app.organization ~ ' - ' ~ global.app.url.website }}"/>
         <title>{{ modList.name }}</title>
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" media="all" href="http://modlist.armaforces.com/static/launcher.css"/>
@@ -40,7 +40,7 @@
             </table>
         </div>
         <div class="footer">
-            <span>Created by ArmaForces Modlist</span>
+            <span>Created by {{ global.app.name }}</span>
         </div>
     </body>
 </html>

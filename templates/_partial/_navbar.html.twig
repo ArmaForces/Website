@@ -58,7 +58,7 @@
         <ul class="navbar-nav nav-flex-icons">
             <!-- Discord -->
             <li class="nav-item">
-                <a href="{{ url.discord }}" target="_blank" class="nav-link">
+                <a href="{{ global.app.url.discord }}" target="_blank" class="nav-link">
                     <i class="fab fa-discord"></i>
                 </a>
             </li>
@@ -66,7 +66,7 @@
 
             <!-- Steam -->
             <li class="nav-item">
-                <a href="{{ url.steam }}" target="_blank" class="nav-link">
+                <a href="{{ global.app.url.steam }}" target="_blank" class="nav-link">
                     <i class="fab fa-steam"></i>
                 </a>
             </li>
@@ -82,7 +82,7 @@
                 {% if not is_granted('ROLE_USER') -%}
                     <a class="nav-link disabled"><i class="fab fa-teamspeak"></i></a>
                 {%- else -%}
-                    <a href="{{ url.teamspeak }}" class="nav-link">
+                    <a href="{{ global.app.url.teamspeak }}" class="nav-link">
                         <i class="fab fa-teamspeak"></i>
                     </a>
                 {%- endif %}
