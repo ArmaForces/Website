@@ -7,11 +7,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content="{{ app_community_description }}">
-        <meta name="author" content="ArmaForces">
+        <meta name="author" content="{{ global.app.organization }}">
 
         <!-- OpenGraph -->
-        <meta property="og:site_name" content="ArmaForces">
-        <meta property="og:title" content="{{ title ?? ('ArmaForces - ' ~ 'Polish Arma 3 group'|trans) }}">
+        <meta property="og:site_name" content="{{ global.app.organization }}">
+        <meta property="og:title" content="{{ title ?? (global.app.organization ~ ' - ' ~ 'Polish Arma 3 group'|trans) }}">
         <meta property="og:description" content="{{ app_community_description }}">
         <meta property="og:image" content="{{ asset('img/favicon-192x192.png') }}">
         <!--/ OpenGraph -->
@@ -26,7 +26,7 @@
         <!-- Theme -->
         <meta name="theme-color" content="#343a40 ">
 
-        <title>{{ title ?? ('ArmaForces - ' ~ 'Polish Arma 3 group'|trans) }}</title>
+        <title>{{ title ?? (global.app.organization ~ ' - ' ~ 'Polish Arma 3 group'|trans) }}</title>
 
         <!-- FontAwesome -->
         <link
@@ -49,18 +49,22 @@
         >
         <!--/ FontAwesome -->
 
-        {% if google_analytics_token %}
+        {% if global.app.google_analytics_token %}
             <!-- Global site tag (gtag.js) - Google Analytics -->
-            <script async src="https://www.googletagmanager.com/gtag/js?id={{ google_analytics_token }}"></script>
+            <script async src="https://www.googletagmanager.com/gtag/js?id={{ global.app.google_analytics_token }}"></script>
             <script>
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
+                window.dataLayer = window.dataLayer || [];
 
-              gtag('config', '{{ google_analytics_token }}');
+                function gtag() {
+                    dataLayer.push(arguments);
+                }
+
+                gtag('js', new Date());
+
+                gtag('config', '{{ global.app.google_analytics_token }}');
             </script>
             <!--/ Global site tag (gtag.js) - Google Analytics -->
-        {% endif  %}
+        {% endif %}
 
         <!-- Stylesheets -->
         {% block stylesheets %}
