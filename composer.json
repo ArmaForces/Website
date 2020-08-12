@@ -107,7 +107,7 @@
             "php vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix"
         ],
         "stan": [
-            "php vendor/phpstan/phpstan/phpstan analyse --level=6 src"
+            "php vendor/phpstan/phpstan/phpstan analyse --level=6 src --memory-limit=128M"
         ],
         "lint": [
             "php bin/console lint:twig templates/",
