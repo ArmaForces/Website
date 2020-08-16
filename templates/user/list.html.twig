@@ -32,7 +32,7 @@
                         <td>{{ user.externalId }}</td>
                         <th>{{ tableMacro.row_blameable(user.createdAt, user.createdBy) }}</th>
                         <th>{{ tableMacro.row_blameable(user.lastUpdatedAt, user.lastUpdatedBy) }}</th>
-                        <td class="text-right">
+                        <td class="text-right text-nowrap">
                             {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USER_PERMISSIONS_MANAGE'), user) %}
                                 {{ tableMacro.row_action(path('app_user_permissions', { id: user.id }), 'fas fa-user-shield', 'Manage user permissions'|trans) }}
                             {% endif %}
