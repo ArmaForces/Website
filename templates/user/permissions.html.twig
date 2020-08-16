@@ -3,11 +3,11 @@
 {# @var user \App\Entity\User\User #}
 
 {% block content %}
-    <div class="row my-3 align-items-center">
-        <div class="col-md-12">
-            <h2>{{ user.username }} - {{ 'User permissions management'|trans }}</h2>
-        </div>
-    </div>
+    {% embed '_partial/_page_header.html.twig' %}
+        {% block page_title %}
+            {{ user.username }} - {{ 'User permissions management'|trans }}
+        {% endblock %}
+    {% endembed %}
 
     {{ form_start(form) }}
     {{ form_widget(form) }}

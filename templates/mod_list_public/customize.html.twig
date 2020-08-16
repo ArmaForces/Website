@@ -6,11 +6,11 @@
 {% endblock %}
 
 {% block content %}
-    <div class="row my-3 align-items-center">
-        <div class="col-md-6">
-            <h2>{{ modList.name }}</h2>
-        </div>
-        <div class="col-md-6 text-right">
+    {% embed '_partial/_page_header.html.twig' %}
+        {% block page_title %}
+            {{ modList.name }}
+        {% endblock %}
+        {% block page_actions %}
             <div class="btn-group">
                 <button type="button" class="btn btn-primary" data-download-optional="{{ modList.id }}">
                     {{ 'Download'|trans }}
@@ -22,8 +22,8 @@
                     <a class="dropdown-item" href="#" data-download-required="{{ modList.id }}">{{ 'Download required'|trans }}</a>
                 </div>
             </div>
-        </div>
-    </div>
+        {% endblock %}
+    {% endembed %}
 
     <div class="row">
         <div class="col-md-12">
