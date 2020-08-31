@@ -48,7 +48,7 @@ class ModListFormDto extends AbstractFormDto
     /**
      * @var bool
      */
-    protected $active;
+    protected $active = true;
 
     public function __construct()
     {
