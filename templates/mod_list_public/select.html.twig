@@ -29,7 +29,7 @@
                         <th>{{ modList.description }}</th>
                         <th>{{ tableMacro.format_date(modList.lastUpdatedAt) }}</th>
                         <td class="text-right">
-                            {{ tableMacro.row_action(path('app_mod_list_public_customize', { id: modList.id }), 'fas fa-download', 'Download mod list'|trans) }}
+                            {{ tableMacro.row_action(path('app_mod_list_public_customize', { name: modList.name }), 'fas fa-download', 'Download mod list'|trans) }}
                         </td>
                     </tr>
                 {% endfor %}

@@ -34,8 +34,11 @@ class ModListController extends AbstractController
     /** @var ModListFormDtoDataTransformer */
     protected $modListFormDtoDataTransformer;
 
-    public function __construct(EntityManagerInterface $entityManager, ModListRepository $modListRepository, ModListFormDtoDataTransformer $modListFormDtoDataTransformer)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        ModListRepository $modListRepository,
+        ModListFormDtoDataTransformer $modListFormDtoDataTransformer
+    ) {
         $this->entityManager = $entityManager;
         $this->modListRepository = $modListRepository;
         $this->modListFormDtoDataTransformer = $modListFormDtoDataTransformer;
@@ -89,7 +92,7 @@ class ModListController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/update", name="_update")
+     * @Route("/{name}/update", name="_update")
      *
      * @IsGranted(PermissionsEnum::MOD_LIST_UPDATE, subject="modList")
      */
@@ -113,7 +116,7 @@ class ModListController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/copy", name="_copy")
+     * @Route("/{name}/copy", name="_copy")
      *
      * @IsGranted(PermissionsEnum::MOD_LIST_COPY, subject="modList")
      */
@@ -148,7 +151,7 @@ class ModListController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/delete", name="_delete")
+     * @Route("/{name}/delete", name="_delete")
      *
      * @IsGranted(PermissionsEnum::MOD_LIST_DELETE, subject="modList")
      */

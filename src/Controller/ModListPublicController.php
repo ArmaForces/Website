@@ -37,7 +37,7 @@ class ModListPublicController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/customize", name="_customize")
+     * @Route("/{name}/customize", name="_customize")
      */
     public function customizeAction(ModList $modList): Response
     {
@@ -47,7 +47,7 @@ class ModListPublicController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/download/{optionalModsJson}", name="_download", options={"expose": true})
+     * @Route("/{name}/download/{optionalModsJson}", name="_download", options={"expose": true})
      */
     public function downloadAction(ModList $modList, string $optionalModsJson = null): Response
     {
