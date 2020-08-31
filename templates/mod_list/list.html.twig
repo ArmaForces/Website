@@ -34,22 +34,22 @@
                         <th scope="row">{{ loop.index }}</th>
                         <td>{{ modList.name }}</td>
                         <td>{{ modList.description }}</td>
-                        <td>{{ modList.owner ? modList.owner.username : ''  }}</td>
+                        <td>{{ modList.owner ? modList.owner.username : '' }}</td>
                         <td>{{ tableMacro.row_blameable(modList.createdAt, modList.createdBy) }}</td>
                         <td>{{ tableMacro.row_blameable(modList.lastUpdatedAt, modList.lastUpdatedBy) }}</td>
                         <td class="text-right">
-                            {{ tableMacro.row_action(path('app_mod_list_public_customize', { id: modList.id }), 'fas fa-download', 'Download mod list'|trans) }}
+                            {{ tableMacro.row_action(path('app_mod_list_public_customize', { name: modList.name }), 'fas fa-download', 'Download mod list'|trans) }}
 
                             {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_UPDATE'), modList) %}
-                                {{ tableMacro.row_action_edit(path('app_mod_list_update', { id: modList.id }), 'Edit mod list'|trans) }}
+                                {{ tableMacro.row_action_edit(path('app_mod_list_update', { name: modList.name }), 'Edit mod list'|trans) }}
                             {% endif %}
 
                             {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_COPY'), modList) %}
-                                {{ tableMacro.row_action(path('app_mod_list_copy', { id: modList.id }), 'fas fa-copy', 'Copy and edit mod list'|trans) }}
+                                {{ tableMacro.row_action(path('app_mod_list_copy', { name: modList.name }), 'fas fa-copy', 'Copy and edit mod list'|trans) }}
                             {% endif %}
 
                             {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_DELETE'), modList) %}
-                                {{ tableMacro.row_action_delete(path('app_mod_list_delete', { id: modList.id }), 'Are you sure you want to delete %name%?'|trans({ '%name%': modList.name }), 'Delete mod list'|trans) }}
+                                {{ tableMacro.row_action_delete(path('app_mod_list_delete', { name: modList.name }), 'Are you sure you want to delete %name%?'|trans({ '%name%': modList.name }), 'Delete mod list'|trans) }}
                             {% endif %}
                         </td>
                     </tr>

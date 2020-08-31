@@ -33,8 +33,11 @@ class ModController extends AbstractController
     /** @var ModFormDtoDataTransformer */
     protected $modFormDtoDataTransformer;
 
-    public function __construct(EntityManagerInterface $entityManager, ModRepository $modRepository, ModFormDtoDataTransformer $modFormDtoDataTransformer)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        ModRepository $modRepository,
+        ModFormDtoDataTransformer $modFormDtoDataTransformer
+    ) {
         $this->entityManager = $entityManager;
         $this->modRepository = $modRepository;
         $this->modFormDtoDataTransformer = $modFormDtoDataTransformer;
