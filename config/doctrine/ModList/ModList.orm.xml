@@ -26,6 +26,8 @@
             <join-column name="owner_id" referenced-column-name="id" nullable="true"/>
         </many-to-one>
 
+        <field name="active" type="boolean"/>
+
         <unique-constraints>
             <unique-constraint columns="name"/>
         </unique-constraints>

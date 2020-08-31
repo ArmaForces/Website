@@ -18,6 +18,9 @@ class ModList extends AbstractDescribedEntity implements ModListInterface
     /** @var null|UserInterface */
     protected $owner;
 
+    /** @var bool */
+    protected $active = true;
+
     public function __construct(string $name)
     {
         parent::__construct($name);
@@ -64,5 +67,15 @@ class ModList extends AbstractDescribedEntity implements ModListInterface
     public function setOwner(?UserInterface $owner): void
     {
         $this->owner = $owner;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): void
+    {
+        $this->active = $active;
     }
 }

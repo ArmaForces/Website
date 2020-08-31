@@ -27,4 +27,8 @@ interface ModListInterface extends DescribedEntityInterface
     public function getOwner(): ?UserInterface;
 
     public function setOwner(?UserInterface $owner): void;
+
+    public function isActive(): bool;
+
+    public function setActive(bool $active): void;
 }
