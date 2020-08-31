@@ -45,6 +45,11 @@ class ModListFormDto extends AbstractFormDto
      */
     protected $owner;
 
+    /**
+     * @var bool
+     */
+    protected $active;
+
     public function __construct()
     {
         $this->mods = new ArrayCollection();
@@ -125,5 +130,15 @@ class ModListFormDto extends AbstractFormDto
     public function setOwner(?UserInterface $owner): void
     {
         $this->owner = $owner;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): void
+    {
+        $this->active = $active;
     }
 }

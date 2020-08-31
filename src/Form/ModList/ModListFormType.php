@@ -11,6 +11,7 @@ use App\Form\ModList\Dto\ModListFormDto;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -67,12 +68,16 @@ class ModListFormType extends AbstractType
             $ownerTypeConfig['data'] = $currentUser;
         }
 
-        // Add owner lists only if user has full permissions to edit Mod Lists
+        // Add owner list only if user has full permissions to edit Mod Lists
         if ($currentUser->getPermissions()->getModListPermissions()->canUpdate()) {
             $builder->add('owner', EntityType::class, $ownerTypeConfig);
         }
 
         $builder
+            ->add('active', CheckboxType::class, [
+                'label' => 'Mod list active',
+                'required' => false,
+            ])
             ->add('mods', EntityType::class, [
                 'label' => 'Mods',
                 'label_attr' => ['class' => 'switch-custom'],
