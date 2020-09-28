@@ -31,7 +31,7 @@ class ModListPublicController extends AbstractController
      */
     public function selectAction(): Response
     {
-        $modLists = $this->modListRepository->findBy([], ['name' => 'ASC']);
+        $modLists = $this->modListRepository->findBy(['active' => true], ['name' => 'ASC']);
 
         return $this->render('mod_list_public/select.html.twig', [
             'modLists' => $modLists,
