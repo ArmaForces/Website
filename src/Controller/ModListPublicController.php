@@ -6,6 +6,8 @@ namespace App\Controller;
 
 use App\Entity\ModList\ModList;
 use App\Repository\ModListRepository;
+use App\Security\Enum\PermissionsEnum;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
@@ -29,7 +31,7 @@ class ModListPublicController extends AbstractController
      */
     public function selectAction(): Response
     {
-        $modLists = $this->modListRepository->findBy([], ['name' => 'ASC']);
+        $modLists = $this->modListRepository->findBy(['active' => true], ['name' => 'ASC']);
 
         return $this->render('mod_list_public/select.html.twig', [
             'modLists' => $modLists,
@@ -38,6 +40,8 @@ class ModListPublicController extends AbstractController
 
     /**
      * @Route("/{name}/customize", name="_customize")
+     *
+     * @IsGranted(PermissionsEnum::MOD_LIST_DOWNLOAD, subject="modList")
      */
     public function customizeAction(ModList $modList): Response
     {
@@ -48,6 +52,8 @@ class ModListPublicController extends AbstractController
 
     /**
      * @Route("/{name}/download/{optionalModsJson}", name="_download", options={"expose": true})
+     *
+     * @IsGranted(PermissionsEnum::MOD_LIST_DOWNLOAD, subject="modList")
      */
     public function downloadAction(ModList $modList, string $optionalModsJson = null): Response
     {

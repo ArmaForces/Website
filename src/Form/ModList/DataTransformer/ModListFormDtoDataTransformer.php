@@ -33,6 +33,7 @@ class ModListFormDtoDataTransformer implements FormDtoDataTransformerInterface
         $entity->setDescription($dto->getDescription());
         $entity->setMods($dto->getMods());
         $entity->setOwner($dto->getOwner());
+        $entity->setActive($dto->isActive());
 
         return $entity;
     }
@@ -56,6 +57,7 @@ class ModListFormDtoDataTransformer implements FormDtoDataTransformerInterface
         $dto->setDescription($entity->getDescription());
         $dto->setMods($entity->getMods());
         $dto->setOwner($entity->getOwner());
+        $dto->setActive($entity->isActive());
 
         return $dto;
     }
