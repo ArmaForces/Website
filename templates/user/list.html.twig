@@ -6,11 +6,12 @@
 {% set currentUser = app.token.user %}
 
 {% block content %}
-    <div class="row my-3 align-items-center">
-        <div class="col-md-6">
-            <h2>{{ 'Users'|trans }}</h2>
-        </div>
-    </div>
+    {% embed '_partial/_page_header.html.twig' %}
+        {% block page_title %}
+            {{ 'Users'|trans }}
+        {% endblock %}
+    {% endembed %}
+
     <div class="table-responsive">
         <table class="table">
             <thead>
@@ -32,7 +33,7 @@
                         <td>{{ user.externalId }}</td>
                         <th>{{ tableMacro.row_blameable(user.createdAt, user.createdBy) }}</th>
                         <th>{{ tableMacro.row_blameable(user.lastUpdatedAt, user.lastUpdatedBy) }}</th>
-                        <td class="text-right">
+                        <td class="text-right text-nowrap">
                             {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USER_PERMISSIONS_MANAGE'), user) %}
                                 {{ tableMacro.row_action(path('app_user_permissions', { id: user.id }), 'fas fa-user-shield', 'Manage user permissions'|trans) }}
                             {% endif %}

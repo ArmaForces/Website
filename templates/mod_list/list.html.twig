@@ -3,16 +3,16 @@
 {% import '_macro/table_macro.html.twig' as tableMacro %}
 
 {% block content %}
-    <div class="row my-3 align-items-center">
-        <div class="col-md-6">
-            <h2>{{ 'Mod lists'|trans }}</h2>
-        </div>
-        <div class="col-md-6 text-right">
+    {% embed '_partial/_page_header.html.twig' %}
+        {% block page_title %}
+            {{ 'Mod lists'|trans }}
+        {% endblock %}
+        {% block page_actions %}
             {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_CREATE')) %}
                 <a href="{{ path('app_mod_list_create') }}" class="btn btn-primary">{{ 'Create mod list'|trans }}</a>
             {% endif %}
-        </div>
-    </div>
+        {% endblock %}
+    {% endembed %}
 
     <div class="table-responsive">
         <table class="table">

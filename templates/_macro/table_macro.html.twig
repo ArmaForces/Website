@@ -6,9 +6,9 @@
     {% set attrString = attrArray|map((attrValue, attrName) => "#{attrName}=\"#{attrValue}\"")|join(' ') %}
 
     <a class="mx-2" href="{{ path }}" {{ attrString|raw }}>
-        {% if iconClass %}
+        {%- if iconClass -%}
             <i class="{{ iconClass }}"></i>
-        {% endif %}
+        {%- endif -%}
     </a>
 {% endmacro %}
 
