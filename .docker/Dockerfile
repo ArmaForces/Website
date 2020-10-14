@@ -88,6 +88,7 @@ RUN set -eux; \
 # copy only specifically what we need
 COPY bin bin/
 COPY config config/
+COPY migrations migrations/
 COPY public public/
 COPY src src/
 COPY templates templates/
