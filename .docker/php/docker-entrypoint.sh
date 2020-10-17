@@ -24,4 +24,9 @@ if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
     fi
 fi
 
+# Update xdebug config if exists
+if test -f "$XDEBUG_INI_PATH"; then
+    printf '%s\n' 'xdebug.remote_enable=0' 'xdebug.remote_host=' 'xdebug.remote_port=9097' 'xdebug.remote_autostart=1' >> $XDEBUG_INI_PATH
+fi
+
 exec docker-php-entrypoint "$@"
