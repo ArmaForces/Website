@@ -12,6 +12,7 @@ use App\Security\Exception\RequiredRolesNotAssignedException;
 use App\Security\Exception\RoleNotFoundException;
 use App\Security\Exception\UserNotADiscordMemberException;
 use App\Service\RestCord\DiscordClientFactory;
+use App\Service\RestCord\Enum\TokenTypeEnum;
 use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Client\OAuth2ClientInterface;
@@ -117,10 +118,16 @@ class DiscordAuthenticator extends SocialAuthenticator
         $discordResourceOwner = $this->getDiscordClient()->fetchUserFromToken($credentials);
 
         $userToken = $credentials->getToken();
-        $discordClientAsUser = $this->discordClientFactory->createFromToken($userToken, DiscordClientFactory::TOKEN_TYPE_OAUTH);
+        $discordClientAsUser = $this->discordClientFactory->createFromToken(
+            $userToken,
+            TokenTypeEnum::get(TokenTypeEnum::TOKEN_TYPE_OAUTH)
+        );
         $this->verifyDiscordMembership($discordClientAsUser, $discordResourceOwner);
 
-        $discordClientAsBot = $this->discordClientFactory->createFromToken($this->botToken, DiscordClientFactory::TOKEN_TYPE_BOT);
+        $discordClientAsBot = $this->discordClientFactory->createFromToken(
+            $this->botToken,
+            TokenTypeEnum::get(TokenTypeEnum::TOKEN_TYPE_BOT)
+        );
         $this->verifyDiscordRoleAssigned($discordClientAsBot, $discordResourceOwner);
 
         $fullUsername = $discordResourceOwner->getUsername().'#'.$discordResourceOwner->getDiscriminator();
