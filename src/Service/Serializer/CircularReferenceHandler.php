@@ -9,6 +9,9 @@ use Symfony\Component\Serializer\Exception\CircularReferenceException;
 
 class CircularReferenceHandler
 {
+    /**
+     * @param mixed $object
+     */
     public function __invoke($object, string $format, array $context): string
     {
         if ($object instanceof EntityInterface) {
