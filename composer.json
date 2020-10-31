@@ -77,7 +77,9 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\Tests\\": "tests/"
+            "App\\Tests\\Unit\\": "tests/unit",
+            "App\\Tests\\Integration\\": "tests/integration",
+            "App\\Tests\\Functional\\": "tests/functional"
         }
     },
     "replace": {
@@ -99,6 +101,23 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "cs": [
+            "php vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix"
+        ],
+        "stan": [
+            "php vendor/phpstan/phpstan/phpstan analyse --level=6 src --memory-limit=128M"
+        ],
+        "lint": [
+            "php bin/console lint:twig templates/",
+            "php bin/console lint:yaml --parse-tags config/",
+            "php bin/console doctrine:schema:validate",
+            "php bin/console doctrine:mapping:info",
+            "php bin/console debug:translation --domain=messages pl --only-unused",
+            "php bin/console debug:translation --domain=messages pl --only-missing"
+        ],
+        "tests": [
+            "php bin/phpunit --testdox"
         ]
     },
     "conflict": {
