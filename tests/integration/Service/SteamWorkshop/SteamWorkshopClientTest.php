@@ -10,7 +10,7 @@ use Symfony\Component\HttpClient\HttpClient;
 
 /**
  * @internal
- * @@covers \App\Service\SteamWorkshop\SteamWorkshopClient
+ * @covers \App\Service\SteamWorkshop\SteamWorkshopClient
  */
 final class SteamWorkshopClientTest extends TestCase
 {
