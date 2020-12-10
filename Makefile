@@ -15,5 +15,8 @@ cs:
 	docker-compose exec php php bin/console doctrine:schema:validate
 	docker-compose exec php php bin/console doctrine:mapping:info
 
-	docker run -it --rm -v $$PWD:/app -w /app oskarstark/php-cs-fixer-ga:latest
-	docker run -it --rm -v $$PWD:/app -w /app phpstan/phpstan:latest analyse
+	docker run -it --rm -v $$PWD:/project -w /project jakzal/phpqa:1.42-php7.4-alpine php-cs-fixer fix
+	docker run -it --rm -v $$PWD:/project -w /project jakzal/phpqa:1.42-php7.4-alpine phpstan analyse
+
+test:
+	docker-compose exec php php bin/phpunit --testdox
