@@ -8,7 +8,7 @@ jobs:
         steps:
             -   uses: actions/checkout@master
 
-            -   uses: docker://oskarstark/php-cs-fixer-ga
+            -   uses: docker://jakzal/phpqa:1.42-php7.4-alpine
                 name: PHP-CS-Fixer
                 with:
-                    args: --diff --dry-run
+                    args: php-cs-fixer fix --diff --dry-run
