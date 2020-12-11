@@ -8,7 +8,7 @@ use App\Entity\Mod\Enum\ModTypeEnum;
 
 class SteamWorkshopMod extends AbstractMod implements SteamWorkshopModInterface
 {
-    /** @var int */
+    /** @var int|string */
     protected $itemId;
 
     public function __construct(string $name, ModTypeEnum $type, int $itemId)
@@ -20,7 +20,7 @@ class SteamWorkshopMod extends AbstractMod implements SteamWorkshopModInterface
 
     public function getItemId(): int
     {
-        return $this->itemId;
+        return (int) $this->itemId;
     }
 
     public function setItemId(int $itemId): void
