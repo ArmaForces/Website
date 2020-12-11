@@ -8,5 +8,5 @@ interface SteamWorkshopModInterface extends ModInterface
 {
     public function getItemId(): int;
 
-    public function setItemId(int $url): void;
+    public function setItemId(int $itemId): void;
 }
