@@ -1,13 +1,13 @@
 setup:
-	docker-compose exec php php php bin/console doctrine:database:drop --if-exists --force
-	docker-compose exec php php php bin/console doctrine:database:create --if-not-exists
+	docker-compose exec php php bin/console doctrine:database:drop --if-exists --force
+	docker-compose exec php php bin/console doctrine:database:create --if-not-exists
 
-	docker-compose exec php php php bin/console doctrine:migration:migrate --no-interaction
+	docker-compose exec php php bin/console doctrine:migration:migrate --no-interaction
 
-	docker-compose exec php php php bin/console app:import:modlists
+	docker-compose exec php php bin/console app:import:modlists
 
 admin:
-	docker-compose exec php php php bin/console app:permissions:make-admin
+	docker-compose exec php php bin/console app:permissions:make-admin
 
 cs:
 	docker-compose exec php php bin/console lint:twig templates/
