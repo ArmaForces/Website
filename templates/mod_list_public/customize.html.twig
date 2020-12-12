@@ -12,14 +12,14 @@
         {% endblock %}
         {% block page_actions %}
             <div class="btn-group">
-                <button type="button" class="btn btn-primary" data-download-optional="{{ modList.id }}">
+                <button type="button" class="btn btn-primary" data-download-optional="{{ modList.name }}">
                     {{ 'Download'|trans }}
                 </button>
                 <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
                     <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#" data-download-required="{{ modList.id }}">{{ 'Download required'|trans }}</a>
+                    <a class="dropdown-item" href="#" data-download-required="{{ modList.name }}">{{ 'Download required'|trans }}</a>
                 </div>
             </div>
         {% endblock %}
