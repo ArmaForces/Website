@@ -2,20 +2,19 @@
 
 declare(strict_types=1);
 
-namespace App\Form\ModList\Dto;
+namespace App\Form\ModGroup\Dto;
 
 use App\Entity\Mod\ModInterface;
-use App\Entity\User\UserInterface;
 use App\Form\AbstractFormDto;
-use App\Validator\ModList\UniqueModListName;
+use App\Validator\ModGroup\UniqueModGroupName;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @UniqueModListName(errorPath="name")
+ * @UniqueModGroupName(errorPath="name")
  */
-class ModListFormDto extends AbstractFormDto
+class ModGroupFormDto extends AbstractFormDto
 {
     /** @var null|string */
     protected $id;
@@ -39,16 +38,6 @@ class ModListFormDto extends AbstractFormDto
      * @var Collection|ModInterface[]
      */
     protected $mods;
-
-    /**
-     * @var null|UserInterface
-     */
-    protected $owner;
-
-    /**
-     * @var bool
-     */
-    protected $active = true;
 
     public function __construct()
     {
@@ -120,25 +109,5 @@ class ModListFormDto extends AbstractFormDto
         foreach ($mods as $mod) {
             $this->addMod($mod);
         }
-    }
-
-    public function getOwner(): ?UserInterface
-    {
-        return $this->owner;
-    }
-
-    public function setOwner(?UserInterface $owner): void
-    {
-        $this->owner = $owner;
-    }
-
-    public function isActive(): bool
-    {
-        return $this->active;
-    }
-
-    public function setActive(bool $active): void
-    {
-        $this->active = $active;
     }
 }

@@ -1,0 +1,15 @@
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th scope="col">{{ 'Mod name'|trans }}</th>
+                <th scope="col">{{ 'Include mod?'|trans }}</th>
+                <th scope="col">{{ 'Mod source'|trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% block table_body %}{% endblock %}
+        </tbody>
+    </table>
+</div>
