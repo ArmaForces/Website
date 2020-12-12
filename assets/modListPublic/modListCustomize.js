@@ -1,17 +1,17 @@
 let modListCustomize = {};
 
-modListCustomize.downloadMods = (modListId, optionalModsJson) => {
+modListCustomize.downloadMods = (modListName, optionalModsJson) => {
     window.location = Routing.generate('app_mod_list_public_download', {
-        'id': modListId,
+        'name': modListName,
         'optionalModsJson': optionalModsJson ? JSON.stringify(optionalModsJson) : null,
     });
 };
 
 modListCustomize.downloadRequired = () => {
     const $element = $('[data-download-required]');
-    const modListId = $element.data('download-required');
+    const modListName = $element.data('download-required');
 
-    modListCustomize.downloadMods(modListId);
+    modListCustomize.downloadMods(modListName);
 };
 
 modListCustomize.downloadOptional = () => {
