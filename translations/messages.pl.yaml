@@ -9,6 +9,7 @@ Missions: Misje
 Get mods: Pobierz mody
 Manage mods: Zarządzaj modami
 Mods: Mody
+Mod groups: Grupy modów
 Mod lists: Listy modów
 
 Users: Użytkownicy
@@ -99,6 +100,14 @@ Mod directory: Katalog moda
 
 Optional for mods from Steam Workshop: Opcjonalne dla modów ze Steam Workshop
 
+# Mod Groups
+Create mod group: Utwórz grupę modów
+Edit mod group: Edytuj grupę modów
+Delete mod group: Usuń grupę modów
+
+Mod group name: Nazwa grupy modów
+Mod group description: Opis grupy modów
+
 # Mod Lists
 Download mod list: Pobierz listę modów
 Create mod list: Utwórz listę modów
@@ -114,7 +123,6 @@ Mod list active: Aktywna
 # Mod Lists Customization
 Mod list customization: Konfiguracja listy modów
 Download required: Pobierz wymagane
-Include mod?: Dołączyć?
 
 # Other
 Try again later: Spróbuj ponownie później
@@ -132,3 +140,4 @@ Last updated by: Ostatnia modyfikacja przez
 Confirm: Potwierdź
 Confirmation: Potwierdzenie
 Are you sure you want to delete %name%?: Czy na pewno chcesz usunąć %name%?
+Include?: Dołączyć?
