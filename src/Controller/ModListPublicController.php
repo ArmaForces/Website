@@ -45,8 +45,13 @@ class ModListPublicController extends AbstractController
      */
     public function customizeAction(ModList $modList): Response
     {
+        $optionalMods = $this->modListRepository->findIncludedOptionalSteamWorkshopMods($modList);
+        $requiredMods = $this->modListRepository->findIncludedRequiredSteamWorkshopMods($modList);
+
         return $this->render('mod_list_public/customize.html.twig', [
             'modList' => $modList,
+            'optionalMods' => $optionalMods,
+            'requiredMods' => $requiredMods,
         ]);
     }
 
@@ -59,6 +64,7 @@ class ModListPublicController extends AbstractController
     {
         $template = $this->renderView('mod_list_public/launcher_preset_template.html.twig', [
             'modList' => $modList,
+            'mods' => $this->modListRepository->findIncludedSteamWorkshopMods($modList),
             'optionalMods' => $optionalModsJson ? json_decode($optionalModsJson, true) : [],
         ]);
 

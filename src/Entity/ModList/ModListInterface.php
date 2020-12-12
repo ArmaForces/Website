@@ -6,6 +6,7 @@ namespace App\Entity\ModList;
 
 use App\Entity\DescribedEntityInterface;
 use App\Entity\Mod\ModInterface;
+use App\Entity\ModGroup\ModGroupInterface;
 use App\Entity\User\UserInterface;
 
 interface ModListInterface extends DescribedEntityInterface
@@ -23,6 +24,20 @@ interface ModListInterface extends DescribedEntityInterface
      * @param ModInterface[] $mods
      */
     public function setMods(array $mods): void;
+
+    public function addModGroup(ModGroupInterface $modGroup): void;
+
+    public function removeModGroup(ModGroupInterface $modGroup): void;
+
+    /**
+     * @return ModGroupInterface[]
+     */
+    public function getModGroups(): array;
+
+    /**
+     * @param ModGroupInterface[] $modGroups
+     */
+    public function setModGroups(array $modGroups): void;
 
     public function getOwner(): ?UserInterface;
 

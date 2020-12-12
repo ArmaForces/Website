@@ -1,0 +1,34 @@
+<div class="row">
+    <div class="col-md-12">
+        <ul class="nav nav-tabs justify-content-end" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="mod-groups-tab" data-toggle="tab" href="#mod-groups" role="tab">
+                    {{ 'Mod groups'|trans }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="server-side-mods-tab" data-toggle="tab" href="#server-side-mods" role="tab">
+                    {{ 'Server side mods'|trans }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="required-mods-tab" data-toggle="tab" href="#required-mods" role="tab">
+                    {{ 'Required mods'|trans }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="optional-mods-tab" data-toggle="tab" href="#optional-mods" role="tab">
+                    {{ 'Optional mods'|trans }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="client-side-mods-tab" data-toggle="tab" href="#client-side-mods" role="tab">
+                    {{ 'Client side mods'|trans }}
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            {% block mod_tabs %}{% endblock %}
+        </div>
+    </div>
+</div>
