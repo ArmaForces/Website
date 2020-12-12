@@ -15,6 +15,11 @@ class PermissionsEnum
     public const MOD_UPDATE = 'mod_update';
     public const MOD_DELETE = 'mod_delete';
 
+    public const MOD_GROUP_LIST = 'mod_group_list';
+    public const MOD_GROUP_CREATE = 'mod_group_create';
+    public const MOD_GROUP_UPDATE = 'mod_group_update';
+    public const MOD_GROUP_DELETE = 'mod_group_delete';
+
     public const MOD_LIST_LIST = 'mod_list_list';
     public const MOD_LIST_DOWNLOAD = 'mod_list_download';
     public const MOD_LIST_CREATE = 'mod_list_create';

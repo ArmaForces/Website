@@ -7,6 +7,7 @@
     <entity name="App\Entity\Permissions\Permissions" table="permissions" repository-class="App\Repository\PermissionsRepository">
         <embedded name="userPermissions" class="App\Entity\Permissions\User\UserPermissions" column-prefix="user_"/>
         <embedded name="modPermissions" class="App\Entity\Permissions\Mod\ModPermissions" column-prefix="mod_"/>
+        <embedded name="modGroupPermissions" class="App\Entity\Permissions\ModGroup\ModGroupPermissions" column-prefix="mod_group_"/>
         <embedded name="modListPermissions" class="App\Entity\Permissions\ModList\ModListPermissions" column-prefix="mod_list_"/>
     </entity>
 

@@ -6,6 +6,7 @@ namespace App\Entity\Permissions;
 
 use App\Entity\AbstractEntity;
 use App\Entity\Permissions\Mod\ModPermissions;
+use App\Entity\Permissions\ModGroup\ModGroupPermissions;
 use App\Entity\Permissions\ModList\ModListPermissions;
 use App\Entity\Permissions\User\UserPermissions;
 
@@ -17,6 +18,9 @@ class Permissions extends AbstractEntity
     /** @var ModPermissions */
     protected $modPermissions;
 
+    /** @var ModGroupPermissions */
+    protected $modGroupPermissions;
+
     /** @var ModListPermissions */
     protected $modListPermissions;
 
@@ -26,6 +30,7 @@ class Permissions extends AbstractEntity
 
         $this->userPermissions = new UserPermissions();
         $this->modPermissions = new ModPermissions();
+        $this->modGroupPermissions = new ModGroupPermissions();
         $this->modListPermissions = new ModListPermissions();
     }
 
@@ -37,6 +42,11 @@ class Permissions extends AbstractEntity
     public function getModPermissions(): ModPermissions
     {
         return $this->modPermissions;
+    }
+
+    public function getModGroupPermissions(): ModGroupPermissions
+    {
+        return $this->modGroupPermissions;
     }
 
     public function getModListPermissions(): ModListPermissions
