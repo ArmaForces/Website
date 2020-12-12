@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Entity\ModGroup\ModGroup" table="mod_groups" repository-class="App\Repository\ModGroupRepository">
+        <many-to-many field="mods" target-entity="App\Entity\Mod\AbstractMod" fetch="EAGER">
+            <join-table name="mod_group_mods">
+                <join-columns>
+                    <join-column name="mod_group_id" referenced-column-name="id"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="mod_id" referenced-column-name="id"/>
+                </inverse-join-columns>
+            </join-table>
+            <order-by>
+                <order-by-field name="name" direction="ASC"/>
+            </order-by>
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </many-to-many>
+    </entity>
+
+</doctrine-mapping>

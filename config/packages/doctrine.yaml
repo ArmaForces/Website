@@ -28,6 +28,12 @@ doctrine:
                 dir: '%kernel.project_dir%/config/doctrine/Mod'
                 prefix: 'App\Entity\Mod'
                 alias: Mod
+            ModGroup:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/config/doctrine/ModGroup'
+                prefix: 'App\Entity\ModGroup'
+                alias: ModGroup
             ModList:
                 is_bundle: false
                 type: xml
