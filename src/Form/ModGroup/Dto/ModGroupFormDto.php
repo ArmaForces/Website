@@ -30,7 +30,7 @@ class ModGroupFormDto extends AbstractFormDto
     /**
      * @var null|string
      *
-     * @Assert\Length(max=255)
+     * @Assert\Length(min=1, max=255)
      */
     protected $description;
 
