@@ -30,6 +30,31 @@ class ModListRepository extends ServiceEntityRepository
     /**
      * @return SteamWorkshopModInterface[]
      */
+    public function findIncludedMods(ModListInterface $modList): array
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $expr = $qb->expr();
+
+        $qb
+            ->addSelect('m')
+            ->from(SteamWorkshopMod::class, 'm')
+            ->leftJoin(ModGroup::class, 'mg', Join::WITH, (string) $expr->isMemberOf('m', 'mg.mods'))
+            ->leftJoin(ModList::class, 'ml', Join::WITH, (string) $expr->isMemberOf('m', 'ml.mods'))
+            ->andWhere(
+                $expr->orX(
+                    $expr->eq('ml.id', $expr->literal($modList->getId())),
+                    $expr->isMemberOf('m', 'mg.mods')
+                )
+            )
+            ->addOrderBy('m.name', 'ASC')
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @return SteamWorkshopModInterface[]
+     */
     public function findIncludedSteamWorkshopMods(ModListInterface $modList): array
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
