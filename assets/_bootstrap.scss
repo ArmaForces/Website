@@ -25,4 +25,14 @@ $container-max-widths: (
     xl: 1240px  // 1140px
 );
 
+$sizes: () !default;
+$sizes: map-merge(
+    (
+        5: 5%,
+        10: 10%,
+        15: 15%,
+    ),
+    $sizes
+);
+
 @import "~bootstrap/scss/bootstrap";
