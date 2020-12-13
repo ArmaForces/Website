@@ -9,6 +9,7 @@ use App\Form\ModGroup\DataTransformer\ModGroupFormDtoDataTransformer;
 use App\Form\ModGroup\Dto\ModGroupFormDto;
 use App\Form\ModGroup\ModGroupFormType;
 use App\Repository\ModGroupRepository;
+use App\Repository\ModListRepository;
 use App\Security\Enum\PermissionsEnum;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -30,16 +31,21 @@ class ModGroupController extends AbstractController
     /** @var ModGroupRepository */
     protected $modGroupRepository;
 
+    /** @var ModListRepository */
+    protected $modListRepository;
+
     /** @var ModGroupFormDtoDataTransformer */
     protected $modGroupFormDtoDataTransformer;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         ModGroupRepository $modGroupRepository,
+        ModListRepository $modListRepository,
         ModGroupFormDtoDataTransformer $modGroupFormDtoDataTransformer
     ) {
         $this->entityManager = $entityManager;
         $this->modGroupRepository = $modGroupRepository;
+        $this->modListRepository = $modListRepository;
         $this->modGroupFormDtoDataTransformer = $modGroupFormDtoDataTransformer;
     }
 
@@ -113,6 +119,10 @@ class ModGroupController extends AbstractController
      */
     public function deleteAction(ModGroup $modGroup): Response
     {
+        foreach ($this->modListRepository->findAll() as $modList) {
+            $modList->removeModGroup($modGroup);
+        }
+
         $this->entityManager->remove($modGroup);
         $this->entityManager->flush();
 

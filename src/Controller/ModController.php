@@ -8,6 +8,8 @@ use App\Entity\Mod\AbstractMod;
 use App\Form\Mod\DataTransformer\ModFormDtoDataTransformer;
 use App\Form\Mod\Dto\ModFormDto;
 use App\Form\Mod\ModFormType;
+use App\Repository\ModGroupRepository;
+use App\Repository\ModListRepository;
 use App\Repository\ModRepository;
 use App\Security\Enum\PermissionsEnum;
 use Doctrine\ORM\EntityManagerInterface;
@@ -30,16 +32,26 @@ class ModController extends AbstractController
     /** @var ModRepository */
     protected $modRepository;
 
+    /** @var ModGroupRepository */
+    protected $modGroupRepository;
+
+    /** @var ModListRepository */
+    protected $modListRepository;
+
     /** @var ModFormDtoDataTransformer */
     protected $modFormDtoDataTransformer;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         ModRepository $modRepository,
+        ModGroupRepository $modGroupRepository,
+        ModListRepository $modListRepository,
         ModFormDtoDataTransformer $modFormDtoDataTransformer
     ) {
         $this->entityManager = $entityManager;
         $this->modRepository = $modRepository;
+        $this->modGroupRepository = $modGroupRepository;
+        $this->modListRepository = $modListRepository;
         $this->modFormDtoDataTransformer = $modFormDtoDataTransformer;
     }
 
@@ -117,6 +129,14 @@ class ModController extends AbstractController
      */
     public function deleteAction(AbstractMod $mod): Response
     {
+        foreach ($this->modGroupRepository->findAll() as $modGroup) {
+            $modGroup->removeMod($mod);
+        }
+
+        foreach ($this->modListRepository->findAll() as $modList) {
+            $modList->removeMod($mod);
+        }
+
         $this->entityManager->remove($mod);
         $this->entityManager->flush();
 
