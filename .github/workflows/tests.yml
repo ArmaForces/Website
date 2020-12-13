@@ -2,7 +2,7 @@ on: [ pull_request ]
 
 name: Tests
 jobs:
-    tests:
+    PHP-Unit:
         runs-on: ubuntu-latest
         steps:
             -   name: Checkout branch
