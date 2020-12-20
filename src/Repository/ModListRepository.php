@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
+use App\Entity\Mod\AbstractMod;
 use App\Entity\Mod\Enum\ModTypeEnum;
 use App\Entity\Mod\SteamWorkshopMod;
 use App\Entity\Mod\SteamWorkshopModInterface;
@@ -37,7 +38,7 @@ class ModListRepository extends ServiceEntityRepository
 
         $qb
             ->addSelect('m')
-            ->from(SteamWorkshopMod::class, 'm')
+            ->from(AbstractMod::class, 'm')
             ->leftJoin(ModGroup::class, 'mg', Join::WITH, (string) $expr->isMemberOf('m', 'mg.mods'))
             ->leftJoin(ModList::class, 'ml', Join::WITH, (string) $expr->isMemberOf('m', 'ml.mods'))
             ->andWhere(
