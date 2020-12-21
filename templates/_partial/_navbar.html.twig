@@ -97,7 +97,11 @@
             <!-- Login -->
             <li id="navmenu" class="nav-item dropdown dropleft">
                 <a class="nav-link dropdown-toggle" href="#" id="navbar-dropdown" role="button" data-toggle="dropdown">
-                    <i class="fa fa-user-circle {% if is_granted('ROLE_USER') %}avatar" style="background-image: url({{ current_user_avatar_url() }}){% endif %}"></i>
+                    <i class="fa fa-user-circle
+                        {% if is_granted('ROLE_USER') %}
+                            avatar" style="background-image: url({{ current_user_avatar_url() }}), url({{ default_avatar_url() }});
+                        {% endif %}"
+                    ></i>
                 </a>
                 <div class="dropdown-menu">
                     {% if is_granted('ROLE_USER') -%}

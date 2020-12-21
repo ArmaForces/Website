@@ -27,6 +27,7 @@ class UserExtension extends AbstractExtension
         return [
             new TwigFunction('current_user_avatar_url', [$this, 'getCurrentUserAvatarUrl']),
             new TwigFunction('user_avatar_url', [$this, 'getUserAvatarUrl']),
+            new TwigFunction('default_avatar_url', [$this, 'getDefaultAvatarUrl']),
         ];
     }
 
@@ -51,6 +52,11 @@ class UserExtension extends AbstractExtension
             return sprintf('%s/avatars/%s/%s.png', self::AVATAR_CDN, $user->getExternalId(), $avatarHash);
         }
 
+        return $this->getDefaultAvatarUrl();
+    }
+
+    public function getDefaultAvatarUrl(): string
+    {
         return sprintf('%s%s', self::AVATAR_CDN, self::DEFAULT_AVATAR_URL);
     }
 }
