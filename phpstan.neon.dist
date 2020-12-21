@@ -1,11 +1,14 @@
 includes:
-    - vendor/phpstan/phpstan-symfony/extension.neon
-    - vendor/phpstan/phpstan-symfony/rules.neon
-    - vendor/phpstan/phpstan-doctrine/extension.neon
-    - vendor/phpstan/phpstan-doctrine/rules.neon
+    - /tools/.composer/vendor-bin/phpstan/vendor/phpstan/phpstan-symfony/extension.neon
+    - /tools/.composer/vendor-bin/phpstan/vendor/phpstan/phpstan-symfony/rules.neon
+    - /tools/.composer/vendor-bin/phpstan/vendor/phpstan/phpstan-doctrine/extension.neon
+    - /tools/.composer/vendor-bin/phpstan/vendor/phpstan/phpstan-doctrine/rules.neon
 
 parameters:
-    autoload_directories:
-        - %rootDir%/../../../src/Migrations
+    level: 6
+    paths:
+        - src
     symfony:
-        container_xml_path: '%rootDir%/../../../var/cache/dev/srcApp_KernelDevDebugContainer.xml'
+        container_xml_path: '/project/var/cache/dev/srcApp_KernelDevDebugContainer.xml'
+    checkGenericClassInNonGenericObjectType: false
+    checkMissingIterableValueType: false

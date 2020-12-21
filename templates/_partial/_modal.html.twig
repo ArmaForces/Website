@@ -1,0 +1,25 @@
+<script id="modal-confirm-template" type="x-template">
+    <div class="modal fade" id="modal-confirm" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ 'Confirmation'|trans }}</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    __content__
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" id="modal-confirm-button-cancel" class="btn btn-default" data-dismiss="modal">
+                        {{ 'Cancel'|trans }}
+                    </button>
+                    <button type="button" id="modal-confirm-button-confirm" class="btn btn-primary" data-dismiss="modal">
+                        {{ 'Confirm'|trans }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

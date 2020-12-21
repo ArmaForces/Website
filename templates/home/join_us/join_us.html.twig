@@ -1,4 +1,4 @@
-{% set title = 'ArmaForces - ' ~ 'Join polish Arma 3 clan'|trans %}
+{% set title = global.app.organization ~ ' - ' ~ 'Join polish Arma 3 clan'|trans %}
 
 {% extends 'container_fluid.html.twig' %}
 
@@ -16,7 +16,7 @@
     <div id="intro">
         <div class="mask mask-half">
             <div class="container-fluid h-100">
-
+                <!-- Grid row -->
                 <div class="row d-flex justify-content-center text-center">
                     <!-- Card -->
                     <div class="card bg-dark my-4 mx-auto col-md-12 col-lg-6">
@@ -24,7 +24,7 @@
                             <h4 class="card-title">{{ 'Join ArmaForces'|trans }}</h4>
                             <section class="text-left">
                                 <ul id="join-steps">
-                                    {% include 'home/join_us/_partial/' ~ app_lang ~ '/join_steps.html.twig' %}
+                                    {% include 'home/join_us/_partial/' ~ get_current_locale() ~ '/join_steps.html.twig' %}
                                 </ul>
                             </section>
                             <section class="text-left">
@@ -35,9 +35,10 @@
                                 </ul>
                             </section>
                         </div>
-                        <!--/ Card -->
                     </div>
+                    <!--/ Card -->
                 </div>
+                <!--/ Grid row -->
             </div>
         </div>
     </div>

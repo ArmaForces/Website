@@ -1,13 +1,13 @@
 <li>
-    Zacznij od zapoznania się z <a href="{{ url.statute }}">regulaminem</a>.
+    Zacznij od zapoznania się z <a href="{{ global.app.url.statute }}">regulaminem</a>.
 </li>
 <li>
-    Dołącz do naszego <a href="{{ url.discord }}">Discorda</a> i złóż podanie na kanale #rekrutacja.
+    Dołącz do naszego <a href="{{ global.app.url.discord }}">Discorda</a> i złóż podanie na kanale #rekrutacja.
 </li>
 <li>
     Gdy już otrzymasz rangę rekruta będziesz mógł zalogować się na stronie i dołączyć do naszego
     {%- if is_granted('ROLE_USER') %}
-    <a href="{{ url.teamspeak }}">TeamSpeaka</a>
+    <a href="{{ global.app.url.teamspeak }}">TeamSpeaka</a>
 {%- else %}
     <a href="#" title="{{ 'Available after login'|trans }}"
        data-toggle="tooltip" data-placement="bottom">TeamSpeaka</a>

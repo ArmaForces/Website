@@ -1,0 +1,27 @@
+{% extends 'container.html.twig' %}
+
+{% form_theme form _self %}
+
+{% block content %}
+    {# @var modGroupFormDto \App\Form\Mod\Dto\ModGroupFormDto #}
+    {% set modGroupFormDto = form.vars.data %}
+
+    {% embed '_partial/_page_header.html.twig' %}
+        {% block page_title %}
+            {{ modGroupFormDto.id ? 'Edit mod group'|trans : 'Create mod group'|trans }}
+        {% endblock %}
+    {% endembed %}
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+
+    <div class="form-group text-right">
+        <button type="submit" class="btn-primary btn">{{ modGroupFormDto.id ? 'Apply'|trans : 'Create mod group'|trans }}</button>
+        <a href="{{ path('app_mod_group_list') }}" class="btn-secondary btn">{{ 'Cancel'|trans }}</a>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block _mod_group_form_mods_row %}
+    {% include 'mod_group/_partial/_mod_group_form_mods_row.html.twig' %}
+{% endblock %}

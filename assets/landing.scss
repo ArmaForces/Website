@@ -32,6 +32,11 @@ header, #intro {
         background-size: cover;
     }
 
+    &.bg-ifa-2 {
+        background: url("img/landing_ifa-2.jpg") no-repeat center center fixed;
+        background-size: cover;
+    }
+
     &.bg-cup {
         background: url("img/landing_cup.jpg") no-repeat center center fixed;
         background-size: cover;

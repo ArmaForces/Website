@@ -1,18 +1,17 @@
-{%- set app_lang = app.request.locale|split('_')[0] -%}
-{%- set app_community_description = include('home/index/_partial/' ~ app_lang ~ '/_about_us.html.twig')|striptags -%}
+{%- set app_community_description = include('home/index/_partial/' ~ get_current_locale() ~ '/_about_us.html.twig')|striptags -%}
 
 <!doctype html>
-<html lang="{{ app_lang }}">
+<html lang="{{ get_current_locale() }}">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content="{{ app_community_description }}">
-        <meta name="author" content="ArmaForces">
+        <meta name="author" content="{{ global.app.organization }}">
 
         <!-- OpenGraph -->
-        <meta property="og:site_name" content="ArmaForces">
-        <meta property="og:title" content="{{ title ?? ('ArmaForces - ' ~ 'Polish Arma 3 group'|trans) }}">
+        <meta property="og:site_name" content="{{ global.app.organization }}">
+        <meta property="og:title" content="{{ title ?? (global.app.organization ~ ' - ' ~ 'Polish Arma 3 group'|trans) }}">
         <meta property="og:description" content="{{ app_community_description }}">
         <meta property="og:image" content="{{ asset('img/favicon-192x192.png') }}">
         <!--/ OpenGraph -->
@@ -22,10 +21,12 @@
         <link rel="icon" href="{{ asset('img/favicon-192x192.png') }}" sizes="192x192" type="image/png">
         <link rel="apple-touch-icon" href="{{ asset('img/favicon-192x192.png') }}">
         <link rel="mask-icon" href="{{ asset('img/logo.svg') }}" color="#343a40">
+        <!--/ Icons -->
+
         <!-- Theme -->
         <meta name="theme-color" content="#343a40 ">
 
-        <title>{{ title ?? ('ArmaForces - ' ~ 'Polish Arma 3 group'|trans) }}</title>
+        <title>{{ title ?? (global.app.organization ~ ' - ' ~ 'Polish Arma 3 group'|trans) }}</title>
 
         <!-- FontAwesome -->
         <link
@@ -46,29 +47,43 @@
             integrity="sha384-VoScp22LWX8GkkUAmdkkkj+rz+/r84lmCD6FALIryJxjwBSz6kE6oebSlamQx19e"
             crossorigin="anonymous"
         >
+        <!--/ FontAwesome -->
 
-        {% if google_analytics_token %}
+        {% if global.app.google_analytics_token %}
             <!-- Global site tag (gtag.js) - Google Analytics -->
-            <script async src="https://www.googletagmanager.com/gtag/js?id={{ google_analytics_token }}"></script>
+            <script async src="https://www.googletagmanager.com/gtag/js?id={{ global.app.google_analytics_token }}"></script>
             <script>
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
+                window.dataLayer = window.dataLayer || [];
 
-              gtag('config', '{{ google_analytics_token }}');
+                function gtag() {
+                    dataLayer.push(arguments);
+                }
+
+                gtag('js', new Date());
+
+                gtag('config', '{{ global.app.google_analytics_token }}');
             </script>
-        {% endif  %}
+            <!--/ Global site tag (gtag.js) - Google Analytics -->
+        {% endif %}
 
+        <!-- Stylesheets -->
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
+        <!--/ Stylesheets -->
     </head>
     <body>
         {% block body %}
         {% endblock %}
 
+        <!-- Javascripts -->
         {% block javascripts %}
+            <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+            <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
             {{ encore_entry_script_tags('app') }}
+            {{ encore_entry_script_tags('multiRowSelect') }}
         {% endblock %}
+        <!--/ Javascripts -->
     </body>
 </html>

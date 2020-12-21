@@ -1,7 +1,7 @@
 # the different stages of this Dockerfile are meant to be built into separate images
 # https://docs.docker.com/compose/compose-file/#target
 
-ARG PHP_VERSION=7.3
+ARG PHP_VERSION=7.4
 ARG NGINX_VERSION=1.17
 
 # Build assets in disposable node image
@@ -38,7 +38,7 @@ RUN set -eux; \
         zlib-dev \
     ; \
     \
-    docker-php-ext-configure zip --with-libzip; \
+    docker-php-ext-configure zip; \
     docker-php-ext-install -j$(nproc) \
         intl \
         zip \
@@ -64,7 +64,8 @@ RUN set -eux; \
     apk del .build-deps \
 ;
 
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+ARG COMPOSER_VERSION=1
+COPY --from=composer:1 /usr/bin/composer /usr/bin/composer
 RUN ln -s $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
 COPY .docker/php/conf.d/armaforces-web.ini $PHP_INI_DIR/conf.d/armaforces-web.ini
 
@@ -88,6 +89,7 @@ RUN set -eux; \
 # copy only specifically what we need
 COPY bin bin/
 COPY config config/
+COPY migrations migrations/
 COPY public public/
 COPY src src/
 COPY templates templates/
@@ -127,7 +129,9 @@ CMD ["nginx", "-g", "daemon off;"]
 
 FROM armaforces_web_php AS armaforces_web_php_dev
 
-ARG XDEBUG_VERSION=2.8.0
+ENV XDEBUG_INI_PATH=/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
+ARG XDEBUG_VERSION=2.9.6
 RUN set -eux; \
     apk add --no-cache --virtual .build-deps $PHPIZE_DEPS; \
     pecl install xdebug-$XDEBUG_VERSION; \
@@ -137,3 +141,7 @@ RUN set -eux; \
 RUN apk add --no-cache \
         nodejs \
         npm
+
+COPY .docker/php/scripts/xon.sh /usr/bin/xon
+COPY .docker/php/scripts/xoff.sh /usr/bin/xoff
+RUN chmod +x /usr/bin/xon /usr/bin/xoff

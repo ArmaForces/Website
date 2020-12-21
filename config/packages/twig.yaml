@@ -5,18 +5,25 @@ parameters:
 twig:
     default_path: '%kernel.project_dir%/templates'
     debug: '%kernel.debug%'
+    auto_reload: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     exception_controller: null
     form_themes:
-        - 'bootstrap_4_layout.html.twig'
+        - 'app_theme.html.twig'
     globals:
-        google_analytics_token: '%app.google_analytics_token%'
-        url:
-            discord: 'https://discord.gg/wcuVSrU'
-            steam:   'https://steamcommunity.com/id/armaforces/myworkshopfiles?appid=107410'
-            statute: 'https://drive.google.com/file/d/1a2Ote4EegVOxYUP7Un9gosLzBSmWV8fj'
-            modlist: 'https://modlist.armaforces.com'
-            wiki:    'https://wiki.armaforces.com'
-            teamspeak: '%app.url.teamspeak%'
-            calendar: 'https://docs.google.com/spreadsheets/d/1t1158AsoxIwXI5FlPNjqbaXk6Cx7oq7Ocgchnsk2_TE'
-            github: 'https://github.com/ArmaForces/Website'
+        global:
+            app:
+                name: "%app.name%"
+                organization: "%app.organization%"
+                motto: 'Semper specialis'
+                google_analytics_token: '%app.google_analytics_token%'
+                url:
+                    website: 'https://armaforces.com/'
+                    discord: 'https://discord.gg/wcuVSrU'
+                    steam: 'https://steamcommunity.com/id/armaforces/myworkshopfiles?appid=107410'
+                    statute: 'https://drive.google.com/file/d/1a2Ote4EegVOxYUP7Un9gosLzBSmWV8fj'
+                    modlist: 'https://modlist.armaforces.com'
+                    wiki: 'https://wiki.armaforces.com'
+                    teamspeak: '%app.url.teamspeak%'
+                    calendar: 'https://docs.google.com/spreadsheets/d/1t1158AsoxIwXI5FlPNjqbaXk6Cx7oq7Ocgchnsk2_TE'
+                    github: 'https://github.com/ArmaForces/Website'

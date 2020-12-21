@@ -1,0 +1,68 @@
+<div class="tab-pane fade" id="server-side-mods" role="tabpanel">
+    {% embed 'mod_list/_partial/_mod_list_form_mods/_mod_list_form_mods_table.html.twig' %}
+        {% block table_body %}
+            {% set rowNo = 1 %}
+
+            {# @var mod \App\Entity\Mod\Mod #}
+            {% for child in form.children %}
+                {% set mod = form.vars.choices[loop.index0].data %}
+                {% if mod.type.value == constant('\\App\\Entity\\Mod\\Enum\\ModTypeEnum::SERVER_SIDE') %}
+                    {% include 'mod_list/_partial/_mod_list_form_mods/_mod_list_form_mods_table_row.html.twig' with { mod: mod } %}
+
+                    {% set rowNo = rowNo + 1 %}
+                {% endif %}
+            {% endfor %}
+        {% endblock %}
+    {% endembed %}
+</div>
+<div class="tab-pane fade" id="required-mods" role="tabpanel">
+    {% embed 'mod_list/_partial/_mod_list_form_mods/_mod_list_form_mods_table.html.twig' %}
+        {% block table_body %}
+            {% set rowNo = 1 %}
+
+            {# @var mod \App\Entity\Mod\Mod #}
+            {% for child in form.children %}
+                {% set mod = form.vars.choices[loop.index0].data %}
+                {% if mod.type.value == constant('\\App\\Entity\\Mod\\Enum\\ModTypeEnum::REQUIRED') %}
+                    {% include 'mod_list/_partial/_mod_list_form_mods/_mod_list_form_mods_table_row.html.twig' with { mod: mod } %}
+
+                    {% set rowNo = rowNo + 1 %}
+                {% endif %}
+            {% endfor %}
+        {% endblock %}
+    {% endembed %}
+</div>
+<div class="tab-pane fade" id="optional-mods" role="tabpanel">
+    {% embed 'mod_list/_partial/_mod_list_form_mods/_mod_list_form_mods_table.html.twig' %}
+        {% block table_body %}
+            {% set rowNo = 1 %}
+
+            {# @var mod \App\Entity\Mod\Mod #}
+            {% for child in form.children %}
+                {% set mod = form.vars.choices[loop.index0].data %}
+                {% if mod.type.value == constant('\\App\\Entity\\Mod\\Enum\\ModTypeEnum::OPTIONAL') %}
+                    {% include 'mod_list/_partial/_mod_list_form_mods/_mod_list_form_mods_table_row.html.twig' with { mod: mod } %}
+
+                    {% set rowNo = rowNo + 1 %}
+                {% endif %}
+            {% endfor %}
+        {% endblock %}
+    {% endembed %}
+</div>
+<div class="tab-pane fade" id="client-side-mods" role="tabpanel">
+    {% embed 'mod_list/_partial/_mod_list_form_mods/_mod_list_form_mods_table.html.twig' %}
+        {% block table_body %}
+            {% set rowNo = 1 %}
+
+            {# @var mod \App\Entity\Mod\Mod #}
+            {% for child in form.children %}
+                {% set mod = form.vars.choices[loop.index0].data %}
+                {% if mod.type.value == constant('\\App\\Entity\\Mod\\Enum\\ModTypeEnum::CLIENT_SIDE') %}
+                    {% include 'mod_list/_partial/_mod_list_form_mods/_mod_list_form_mods_table_row.html.twig' with { mod: mod } %}
+
+                    {% set rowNo = rowNo + 1 %}
+                {% endif %}
+            {% endfor %}
+        {% endblock %}
+    {% endembed %}
+</div>

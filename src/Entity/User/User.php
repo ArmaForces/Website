@@ -4,68 +4,27 @@ declare(strict_types=1);
 
 namespace App\Entity\User;
 
-use App\Entity\Permissions\Permissions;
+use App\Entity\ModList\ModListInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 class User extends AbstractUser
 {
-    /** @var string */
-    protected $email;
-
-    /** @var string */
-    protected $externalId;
-
-    /** @var Permissions */
-    protected $permissions;
-
-    /** @var null|string */
-    protected $avatarHash;
+    /** @var Collection|ModListInterface[] */
+    protected $ownedModLists;
 
     public function __construct(string $username, string $email, string $externalId)
     {
-        parent::__construct($username);
+        parent::__construct($username, $email, $externalId);
 
-        $this->email = $email;
-        $this->externalId = $externalId;
-        $this->permissions = new Permissions();
+        $this->ownedModLists = new ArrayCollection();
     }
 
-    public function getEmail(): string
+    /**
+     * @return Collection|ModListInterface[]
+     */
+    public function getOwnedModLists()
     {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): void
-    {
-        $this->email = $email;
-    }
-
-    public function getExternalId(): string
-    {
-        return $this->externalId;
-    }
-
-    public function setExternalId(string $externalId): void
-    {
-        $this->externalId = $externalId;
-    }
-
-    public function getPermissions(): Permissions
-    {
-        return $this->permissions;
-    }
-
-    public function setPermissions(Permissions $permissions): void
-    {
-        $this->permissions = $permissions;
-    }
-
-    public function getAvatarHash(): ?string
-    {
-        return $this->avatarHash;
-    }
-
-    public function setAvatarHash(?string $avatarHash): void
-    {
-        $this->avatarHash = $avatarHash;
+        return $this->ownedModLists;
     }
 }

@@ -1,29 +1,30 @@
-<!--Section Missions-->
+<!-- Section - Missions -->
 <section id="missions" class="text-center">
-    <!--Grid row-->
+    <!-- Grid row -->
     <div class="row justify-content-center">
 
-        <!--Grid column-->
+        <!-- Grid column -->
         <div class="col-lg-7 col-md-6 mb-4">
             <h4 class="my-4 font-weight-bold">{{ 'When do we play'|trans }}</h4>
             <p class="grey-text">
-                {% include 'home/index/_partial/' ~ app_lang ~ '/_games.html.twig' %}
+                {% include 'home/index/_partial/' ~ get_current_locale() ~ '/_games.html.twig' %}
             </p>
         </div>
-        <!--/Grid column-->
+        <!--/ Grid column -->
 
         {# @var nearestMission \App\Service\Mission\Dto\MissionDto #}
         {% if nearestMission is not null %}
-            <!--Grid column-->
+            <!-- Grid column -->
             <div class="col-lg-4 col-md-6 mission">
                 <h4 class="my-4 font-weight-bold">
                     {{ nearestMission.state == constant('App\\Service\\Mission\\Enum\\MissionStateEnum::ARCHIVED') ? 'Last mission'|trans : 'Nearest mission'|trans }}
                 </h4>
 
-                {% include '_partial/_mission_widget.html.twig' with {'mission': nearestMission} %}
+                {% include '_partial/_mission_widget.html.twig' with { 'mission': nearestMission } %}
             </div>
-            <!--/Grid column-->
+            <!--/ Grid column -->
         {% endif %}
     </div>
-    <!--Grid row-->
+    <!--/ Grid row -->
 </section>
+<!--/ Section - Missions -->

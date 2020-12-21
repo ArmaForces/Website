@@ -1,0 +1,68 @@
+{% extends 'container.html.twig' %}
+
+{% import '_macro/table_macro.html.twig' as tableMacro %}
+
+{% block content %}
+    {% embed '_partial/_page_header.html.twig' %}
+        {% block page_title %}
+            {{ 'Mods'|trans }}
+        {% endblock %}
+        {% block page_actions %}
+            {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_CREATE')) %}
+                <a href="{{ path('app_mod_create') }}" class="btn btn-primary">{{ 'Create mod'|trans }}</a>
+            {% endif %}
+        {% endblock %}
+    {% endembed %}
+
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th scope="col">{{ 'Mod name'|trans }}</th>
+                    <th scope="col">{{ 'Mod type'|trans }}</th>
+                    <th scope="col">{{ 'Mod source'|trans }}</th>
+                    <th scope="col">{{ 'Last updated at'|trans }}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {# @var mod \App\Entity\Mod\Mod #}
+                {% for mod in mods %}
+                    <tr>
+                        <th scope="row">{{ loop.index }}</th>
+                        <td>{{ mod.name }}</td>
+                        <td>
+                            {% if mod.type.is(constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::SERVER_SIDE')) %}
+                                {{ 'Server side mod'|trans }}
+                            {% elseif mod.type.is(constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::REQUIRED')) %}
+                                {{ 'Required mod'|trans }}
+                            {% elseif mod.type.is(constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::OPTIONAL')) %}
+                                {{ 'Optional mod'|trans }}
+                            {% elseif mod.type.is(constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::CLIENT_SIDE')) %}
+                                {{ 'Client side mod'|trans }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if mod is instance_of('\\App\\Entity\\Mod\\SteamWorkshopMod') %}
+                                <a href="{{ steam_workshop_item_url(mod.itemId) }}">{{ 'Steam Workshop'|trans }}</a>
+                            {% elseif mod is instance_of('\\App\\Entity\\Mod\\DirectoryMod') %}
+                                {{ 'Directory'|trans }}
+                            {% endif %}
+                        </td>
+                        <td>{{ tableMacro.row_blameable(mod.lastUpdatedAt, mod.lastUpdatedBy) }}</td>
+                        <td class="text-right text-nowrap">
+                            {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_UPDATE'), mod) %}
+                                {{ tableMacro.row_action_edit(path('app_mod_update', { id: mod.id }), 'Edit mod'|trans) }}
+                            {% endif %}
+
+                            {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_DELETE'), mod) %}
+                                {{ tableMacro.row_action_delete(path('app_mod_delete', { id: mod.id }), 'Are you sure you want to delete %name%?'|trans({ '%name%': mod.name }), 'Delete mod'|trans) }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

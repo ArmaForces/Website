@@ -16,3 +16,57 @@ doctrine:
                 dir: '%kernel.project_dir%/config/doctrine'
                 prefix: 'App\Entity'
                 alias: App
+            User:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/config/doctrine/User'
+                prefix: 'App\Entity\User'
+                alias: User
+            Mod:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/config/doctrine/Mod'
+                prefix: 'App\Entity\Mod'
+                alias: Mod
+            ModGroup:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/config/doctrine/ModGroup'
+                prefix: 'App\Entity\ModGroup'
+                alias: ModGroup
+            ModList:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/config/doctrine/ModList'
+                prefix: 'App\Entity\ModList'
+                alias: Mod
+            Permissions:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/config/doctrine/Permissions'
+                prefix: 'App\Entity\Permissions'
+                alias: Permissions
+            UserPermissions:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/config/doctrine/Permissions/User'
+                prefix: 'App\Entity\Permissions\User'
+                alias: UserPermissions
+            ModPermissions:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/config/doctrine/Permissions/Mod'
+                prefix: 'App\Entity\Permissions\Mod'
+                alias: ModPermissions
+            ModGroupPermissions:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/config/doctrine/Permissions/ModGroup'
+                prefix: 'App\Entity\Permissions\ModGroup'
+                alias: ModGroupPermissions
+            ModListPermissions:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/config/doctrine/Permissions/ModList'
+                prefix: 'App\Entity\Permissions\ModList'
+                alias: ModListPermissions

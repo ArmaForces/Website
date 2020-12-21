@@ -1,0 +1,39 @@
+{% extends 'container.html.twig' %}
+
+{% import '_macro/table_macro.html.twig' as tableMacro %}
+
+{% block content %}
+    {% embed '_partial/_page_header.html.twig' %}
+        {% block page_title %}
+            {{ 'Mod lists'|trans }}
+        {% endblock %}
+    {% endembed %}
+
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th scope="col">{{ 'Mod list name'|trans }}</th>
+                    <th scope="col">{{ 'Mod list description'|trans }}</th>
+                    <th scope="col">{{ 'Last updated at'|trans }}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {# @var modList \App\Entity\ModList\ModList #}
+                {% for modList in modLists %}
+                    <tr>
+                        <th scope="row">{{ loop.index }}</th>
+                        <th>{{ modList.name }}</th>
+                        <th>{{ modList.description }}</th>
+                        <th>{{ tableMacro.format_date(modList.lastUpdatedAt) }}</th>
+                        <td class="text-right">
+                            {{ tableMacro.row_action(path('app_mod_list_public_customize', { name: modList.name }), 'fas fa-download', 'Download mod list'|trans) }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

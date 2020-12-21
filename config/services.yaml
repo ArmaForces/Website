@@ -4,6 +4,10 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    app.organization: ArmaForces
+    app.name: "%app.organization% Website"
+    app.api.name: "%app.name% Web API"
+    app.api.version: '1.0.0'
     app.security.oauth.discord.server_id: '%env(int:APP_SECURITY_OAUTH_DISCORD_SERVER_ID)%'
     app.security.oauth.discord.recruit_role_name: '%env(APP_SECURITY_OAUTH_DISCORD_RECRUIT_ROLE_NAME)%'
     app.security.oauth.discord.member_role_name: '%env(APP_SECURITY_OAUTH_DISCORD_MEMBER_ROLE_NAME)%'
@@ -20,13 +24,17 @@ services:
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
-        resource: '../src/*'
-        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+            - '../src/Tests/'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
     App\Controller\:
-        resource: '../src/Controller'
+        resource: '../src/Controller/'
         tags: ['controller.service_arguments']
 
     # add more service definitions when explicit configuration is needed
@@ -37,6 +45,12 @@ services:
             $botToken: '%app.security.oauth.discord.bot_token%'
             $recruitRoleName: '%app.security.oauth.discord.recruit_role_name%'
             $memberRoleName: '%app.security.oauth.discord.member_role_name%'
+
+    # Register Doctrine subscribers
+    App\EventSubscriber\Doctrine\:
+        resource: '../src/EventSubscriber/Doctrine'
+        tags:
+            - { name: 'doctrine.event_subscriber' }
 
     App\Service\Mission\MissionClient:
         arguments:
