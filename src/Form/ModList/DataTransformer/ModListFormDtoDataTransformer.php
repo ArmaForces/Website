@@ -11,6 +11,7 @@ use App\Entity\ModList\ModListInterface;
 use App\Form\FormDtoDataTransformerInterface;
 use App\Form\FormDtoInterface;
 use App\Form\ModList\Dto\ModListFormDto;
+use Ramsey\Uuid\Uuid;
 
 class ModListFormDtoDataTransformer implements FormDtoDataTransformerInterface
 {
@@ -26,7 +27,7 @@ class ModListFormDtoDataTransformer implements FormDtoDataTransformerInterface
         }
 
         if (!$entity instanceof ModListInterface) {
-            $entity = new ModList($dto->getName());
+            $entity = new ModList(Uuid::uuid4(), $dto->getName());
         }
 
         $entity->setName($dto->getName());

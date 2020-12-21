@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Entity\User\UserInterface;
+use Ramsey\Uuid\UuidInterface;
 
 interface EntityInterface
 {
-    public function getId(): string;
+    public function getId(): UuidInterface;
 
     public function getCreatedAt(): \DateTimeInterface;
 

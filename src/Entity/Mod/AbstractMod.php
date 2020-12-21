@@ -6,15 +6,16 @@ namespace App\Entity\Mod;
 
 use App\Entity\AbstractDescribedEntity;
 use App\Entity\Mod\Enum\ModTypeEnum;
+use Ramsey\Uuid\UuidInterface;
 
 abstract class AbstractMod extends AbstractDescribedEntity implements ModInterface
 {
     /** @var ModTypeEnum */
     protected $type;
 
-    public function __construct(string $name, ModTypeEnum $type)
+    public function __construct(UuidInterface $id, string $name, ModTypeEnum $type)
     {
-        parent::__construct($name);
+        parent::__construct($id, $name);
 
         $this->type = $type;
     }

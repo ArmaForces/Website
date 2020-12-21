@@ -8,6 +8,7 @@ use App\Entity\AbstractEntity;
 use App\Entity\Permissions\Permissions;
 use App\Entity\User\Traits\UserInterfaceTrait;
 use App\Security\Enum\RoleEnum;
+use Ramsey\Uuid\UuidInterface;
 
 class AbstractUser extends AbstractEntity implements UserInterface
 {
@@ -28,14 +29,19 @@ class AbstractUser extends AbstractEntity implements UserInterface
     /** @var null|string */
     protected $avatarHash;
 
-    public function __construct(string $username, string $email, string $externalId)
-    {
-        parent::__construct();
+    public function __construct(
+        UuidInterface $id,
+        string $username,
+        string $email,
+        string $externalId,
+        Permissions $permissions
+    ) {
+        parent::__construct($id);
 
         $this->username = $username;
         $this->email = $email;
         $this->externalId = $externalId;
-        $this->permissions = new Permissions();
+        $this->permissions = $permissions;
     }
 
     public function getRoles(): array

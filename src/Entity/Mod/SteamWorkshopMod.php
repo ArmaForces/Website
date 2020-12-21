@@ -5,15 +5,16 @@ declare(strict_types=1);
 namespace App\Entity\Mod;
 
 use App\Entity\Mod\Enum\ModTypeEnum;
+use Ramsey\Uuid\UuidInterface;
 
 class SteamWorkshopMod extends AbstractMod implements SteamWorkshopModInterface
 {
     /** @var int|string */
     protected $itemId;
 
-    public function __construct(string $name, ModTypeEnum $type, int $itemId)
+    public function __construct(UuidInterface $id, string $name, ModTypeEnum $type, int $itemId)
     {
-        parent::__construct($name, $type);
+        parent::__construct($id, $name, $type);
 
         $this->itemId = $itemId;
     }

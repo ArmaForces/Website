@@ -11,6 +11,7 @@ use App\Entity\ModGroup\ModGroupInterface;
 use App\Form\FormDtoDataTransformerInterface;
 use App\Form\FormDtoInterface;
 use App\Form\ModGroup\Dto\ModGroupFormDto;
+use Ramsey\Uuid\Uuid;
 
 class ModGroupFormDtoDataTransformer implements FormDtoDataTransformerInterface
 {
@@ -26,7 +27,7 @@ class ModGroupFormDtoDataTransformer implements FormDtoDataTransformerInterface
         }
 
         if (!$entity instanceof ModGroupInterface) {
-            $entity = new ModGroup($dto->getName());
+            $entity = new ModGroup(Uuid::uuid4(), $dto->getName());
         }
 
         $entity->setName($dto->getName());
@@ -50,7 +51,7 @@ class ModGroupFormDtoDataTransformer implements FormDtoDataTransformerInterface
             return $dto;
         }
 
-        $dto->setId($entity->getId());
+        $dto->setId(Uuid::uuid4());
         $dto->setName($entity->getName());
         $dto->setDescription($entity->getDescription());
         $dto->setMods($entity->getMods());

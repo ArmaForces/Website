@@ -10,6 +10,7 @@ use App\Entity\ModList\ModList;
 use App\Repository\DirectoryModRepository;
 use App\Repository\SteamWorkshopModRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\Finder\Finder;
 
 class ModListImport
@@ -50,7 +51,7 @@ class ModListImport
             $filePath = $file->getPathname();
             $baseName = $file->getBasename($extension);
 
-            $modList = new ModList($baseName);
+            $modList = new ModList(Uuid::uuid4(), $baseName);
 
             foreach ($this->modListCsvReader->readCsvRow($filePath) as $modCsvEntryDto) {
                 $modEntity = $this->dtoToEntityConverter->convert($modCsvEntryDto);

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Security;
 
+use App\Entity\Permissions\Permissions;
 use App\Entity\User\AbstractUser;
 use App\Entity\User\User;
 use App\Entity\User\UserInterface;
@@ -17,6 +18,7 @@ use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Client\OAuth2ClientInterface;
 use KnpU\OAuth2ClientBundle\Security\Authenticator\SocialAuthenticator;
 use League\OAuth2\Client\Token\AccessToken;
+use Ramsey\Uuid\Uuid;
 use RestCord\DiscordClient;
 use RestCord\Model\Guild\Guild;
 use RestCord\Model\Guild\GuildMember;
@@ -135,7 +137,8 @@ class DiscordAuthenticator extends SocialAuthenticator
             $user->setUsername($fullUsername);
             $user->setAvatarHash($discordResourceOwner->getAvatarHash());
         } catch (UsernameNotFoundException $ex) {
-            $user = new User($fullUsername, $email, $externalId);
+            $permissions = new Permissions(Uuid::uuid4());
+            $user = new User(Uuid::uuid4(), $fullUsername, $email, $externalId, $permissions);
             $user->setAvatarHash($discordResourceOwner->getAvatarHash());
 
             /**

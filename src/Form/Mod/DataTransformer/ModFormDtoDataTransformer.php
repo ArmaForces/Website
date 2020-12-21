@@ -15,6 +15,7 @@ use App\Form\FormDtoInterface;
 use App\Form\Mod\Dto\ModFormDto;
 use App\Service\SteamWorkshop\Helper\SteamWorkshopHelper;
 use App\Service\SteamWorkshop\SteamWorkshopClient;
+use Ramsey\Uuid\Uuid;
 
 class ModFormDtoDataTransformer implements FormDtoDataTransformerInterface
 {
@@ -34,7 +35,9 @@ class ModFormDtoDataTransformer implements FormDtoDataTransformerInterface
     public function toEntity(FormDtoInterface $dto, EntityInterface $entity = null): EntityInterface
     {
         if (!$dto instanceof ModFormDto) {
-            throw new \InvalidArgumentException(sprintf('Dto must be of type of %s, got %s', ModFormDto::class, \get_class($dto)));
+            throw new \InvalidArgumentException(
+                sprintf('Dto must be of type of %s, got %s', ModFormDto::class, \get_class($dto))
+            );
         }
 
         /** @var ModSourceEnum $source */
@@ -48,14 +51,14 @@ class ModFormDtoDataTransformer implements FormDtoDataTransformerInterface
             $name = $dto->getName() ?: substr($this->steamWorkshopClient->getWorkshopItemInfo($itemId)->getName(), 0, 255);
 
             if (!$entity instanceof SteamWorkshopMod) {
-                $entity = new SteamWorkshopMod($name, $type, $itemId);
+                $entity = new SteamWorkshopMod(Uuid::uuid4(), $name, $type, $itemId);
             } else {
                 $entity->setName($name);
                 $entity->setItemId($itemId);
             }
         } elseif ($source->is(ModSourceEnum::DIRECTORY)) {
             if (!$entity instanceof DirectoryMod) {
-                $entity = new DirectoryMod($dto->getName(), $type, $dto->getDirectory());
+                $entity = new DirectoryMod(Uuid::uuid4(), $dto->getName(), $type, $dto->getDirectory());
             } else {
                 $entity->setName($dto->getName());
                 $entity->setDirectory($dto->getDirectory());
