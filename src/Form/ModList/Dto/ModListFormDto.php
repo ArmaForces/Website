@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Form\ModList\Dto;
 
 use App\Entity\Mod\ModInterface;
+use App\Entity\ModGroup\ModGroupInterface;
 use App\Entity\User\UserInterface;
 use App\Form\AbstractFormDto;
 use App\Validator\ModList\UniqueModListName;
@@ -24,7 +25,7 @@ class ModListFormDto extends AbstractFormDto
      * @var null|string
      *
      * @Assert\NotBlank
-     * @Assert\Length(min=1, max=255)
+     * @Assert\Length(max=255)
      */
     protected $name;
 
@@ -41,6 +42,11 @@ class ModListFormDto extends AbstractFormDto
     protected $mods;
 
     /**
+     * @var Collection|ModGroupInterface[]
+     */
+    protected $modGroups;
+
+    /**
      * @var null|UserInterface
      */
     protected $owner;
@@ -53,6 +59,7 @@ class ModListFormDto extends AbstractFormDto
     public function __construct()
     {
         $this->mods = new ArrayCollection();
+        $this->modGroups = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -119,6 +126,43 @@ class ModListFormDto extends AbstractFormDto
         $this->mods->clear();
         foreach ($mods as $mod) {
             $this->addMod($mod);
+        }
+    }
+
+    public function addModGroup(ModGroupInterface $modGroup): void
+    {
+        if ($this->modGroups->contains($modGroup)) {
+            return;
+        }
+
+        $this->modGroups->add($modGroup);
+    }
+
+    public function removeModGroup(ModGroupInterface $modGroup): void
+    {
+        if (!$this->modGroups->contains($modGroup)) {
+            return;
+        }
+
+        $this->modGroups->removeElement($modGroup);
+    }
+
+    /**
+     * @return ModGroupInterface[]
+     */
+    public function getModGroups(): array
+    {
+        return $this->modGroups->toArray();
+    }
+
+    /**
+     * @param ModGroupInterface[] $modGroups
+     */
+    public function setModGroups(array $modGroups): void
+    {
+        $this->modGroups->clear();
+        foreach ($modGroups as $modGroup) {
+            $this->addModGroup($modGroup);
         }
     }
 

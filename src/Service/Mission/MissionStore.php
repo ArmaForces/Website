@@ -69,6 +69,8 @@ class MissionStore implements StoreInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @param string $url
      */
     public function purge($url): bool
     {

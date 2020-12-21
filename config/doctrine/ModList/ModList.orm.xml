@@ -5,7 +5,7 @@
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
     <entity name="App\Entity\ModList\ModList" repository-class="App\Repository\ModListRepository" table="mod_lists">
-        <many-to-many field="mods" target-entity="App\Entity\Mod\AbstractMod" inversed-by="modLists" fetch="EAGER">
+        <many-to-many field="mods" target-entity="App\Entity\Mod\AbstractMod">
             <join-table name="mod_lists_mods">
                 <join-columns>
                     <join-column name="mod_list_id" referenced-column-name="id"/>
@@ -14,9 +14,20 @@
                     <join-column name="mod_id" referenced-column-name="id"/>
                 </inverse-join-columns>
             </join-table>
-            <order-by>
-                <order-by-field name="name" direction="ASC"/>
-            </order-by>
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </many-to-many>
+
+        <many-to-many field="modGroups" target-entity="App\Entity\ModGroup\ModGroup">
+            <join-table name="mod_lists_mod_groups">
+                <join-columns>
+                    <join-column name="mod_list_id" referenced-column-name="id"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="mod_group_id" referenced-column-name="id"/>
+                </inverse-join-columns>
+            </join-table>
             <cascade>
                 <cascade-persist/>
             </cascade>

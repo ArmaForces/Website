@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Form\ModList;
 
 use App\Entity\Mod\AbstractMod;
+use App\Entity\ModGroup\ModGroup;
 use App\Entity\User\User;
 use App\Entity\User\UserInterface;
 use App\Form\ModList\Dto\ModListFormDto;
@@ -32,13 +33,6 @@ class ModListFormType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        /** @var UserInterface $currentUser */
-        $currentUser = $this->security->getUser();
-
-        /** @var ModListFormDto $modListFormDto */
-        $modListFormDto = $builder->getData();
-        $modListExists = null !== $modListFormDto->getId();
-
         $builder
             ->add('name', TextType::class, [
                 'label' => 'Mod list name',
@@ -48,30 +42,7 @@ class ModListFormType extends AbstractType
             ])
         ;
 
-        $ownerTypeConfig = [
-            'label' => 'Mod list owner',
-            'required' => false,
-            'class' => User::class,
-            'query_builder' => static function (EntityRepository $er) {
-                return $er->createQueryBuilder('u')
-                    ->join('u.permissions', 'p')
-                    ->orderBy('u.username', 'ASC')
-                ;
-            },
-            'choice_label' => static function (UserInterface $user) {
-                return $user->getUsername();
-            },
-        ];
-
-        if (!$modListExists) {
-            // Set current user as default owner when creating new Mod List
-            $ownerTypeConfig['data'] = $currentUser;
-        }
-
-        // Add owner list only if user has full permissions to edit Mod Lists
-        if ($currentUser->getPermissions()->getModListPermissions()->canUpdate()) {
-            $builder->add('owner', EntityType::class, $ownerTypeConfig);
-        }
+        $this->addOwnerType($builder);
 
         $builder
             ->add('active', CheckboxType::class, [
@@ -91,6 +62,19 @@ class ModListFormType extends AbstractType
                     ;
                 },
             ])
+            ->add('modGroups', EntityType::class, [
+                'label' => 'Mod groups',
+                'label_attr' => ['class' => 'switch-custom'],
+                'choice_label' => false,
+                'multiple' => true,
+                'expanded' => true,
+                'class' => ModGroup::class,
+                'query_builder' => static function (EntityRepository $er) {
+                    return $er->createQueryBuilder('mg')
+                        ->orderBy('mg.name', 'ASC')
+                    ;
+                },
+            ])
         ;
     }
 
@@ -103,5 +87,40 @@ class ModListFormType extends AbstractType
             'data_class' => ModListFormDto::class,
             'required' => false,
         ]);
+    }
+
+    protected function addOwnerType(FormBuilderInterface $builder): void
+    {
+        /** @var UserInterface $currentUser */
+        $currentUser = $this->security->getUser();
+
+        /** @var ModListFormDto $modListFormDto */
+        $modListFormDto = $builder->getData();
+        $modListExists = null !== $modListFormDto->getId();
+
+        $ownerTypeConfig = [
+            'label' => 'Mod list owner',
+            'required' => false,
+            'class' => User::class,
+            'query_builder' => static function (EntityRepository $er) {
+                return $er->createQueryBuilder('u')
+                    ->join('u.permissions', 'p')
+                    ->orderBy('u.username', 'ASC')
+                    ;
+            },
+            'choice_label' => static function (UserInterface $user) {
+                return $user->getUsername();
+            },
+        ];
+
+        if (!$modListExists) {
+            // Set current user as default owner when creating new Mod List
+            $ownerTypeConfig['data'] = $currentUser;
+        }
+
+        // Add owner list only if user has full permissions to edit Mod Lists
+        if ($currentUser->getPermissions()->getModListPermissions()->canUpdate()) {
+            $builder->add('owner', EntityType::class, $ownerTypeConfig);
+        }
     }
 }

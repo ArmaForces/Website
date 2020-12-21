@@ -28,6 +28,12 @@ doctrine:
                 dir: '%kernel.project_dir%/config/doctrine/Mod'
                 prefix: 'App\Entity\Mod'
                 alias: Mod
+            ModGroup:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/config/doctrine/ModGroup'
+                prefix: 'App\Entity\ModGroup'
+                alias: ModGroup
             ModList:
                 is_bundle: false
                 type: xml
@@ -52,6 +58,12 @@ doctrine:
                 dir: '%kernel.project_dir%/config/doctrine/Permissions/Mod'
                 prefix: 'App\Entity\Permissions\Mod'
                 alias: ModPermissions
+            ModGroupPermissions:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/config/doctrine/Permissions/ModGroup'
+                prefix: 'App\Entity\Permissions\ModGroup'
+                alias: ModGroupPermissions
             ModListPermissions:
                 is_bundle: false
                 type: xml
