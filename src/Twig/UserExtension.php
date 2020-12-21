@@ -51,6 +51,6 @@ class UserExtension extends AbstractExtension
             return sprintf('%s/avatars/%s/%s.png', self::AVATAR_CDN, $user->getExternalId(), $avatarHash);
         }
 
-        return sprintf('%s/%s', self::AVATAR_CDN, self::DEFAULT_AVATAR_URL);
+        return sprintf('%s%s', self::AVATAR_CDN, self::DEFAULT_AVATAR_URL);
     }
 }
