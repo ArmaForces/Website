@@ -51,8 +51,8 @@ final class SteamWorkshopHelperTest extends TestCase
      */
     public function itemUrlToItemId_validItemUrl_returnsItemId(string $itemUrl): void
     {
-        $itemUrl = SteamWorkshopHelper::itemUrlToItemId($itemUrl);
-        static::assertSame(self::ITEM_ID, $itemUrl);
+        $itemId = SteamWorkshopHelper::itemUrlToItemId($itemUrl);
+        static::assertSame(self::ITEM_ID, $itemId);
     }
 
     public function validItemUrls(): array
