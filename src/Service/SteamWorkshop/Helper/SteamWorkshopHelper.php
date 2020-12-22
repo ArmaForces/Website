@@ -10,7 +10,7 @@ class SteamWorkshopHelper
 {
     public const ITEM_URL_REGEX = '~https:\/\/steamcommunity\.com\/(?:sharedfiles|workshop)\/filedetails\/\?id=(\d+)~';
 
-    public static function validateItemUrlFormat(string $itemUrl): bool
+    public static function isValidItemUrl(string $itemUrl): bool
     {
         return 1 === preg_match(self::ITEM_URL_REGEX, $itemUrl);
     }

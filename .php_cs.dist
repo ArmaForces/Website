@@ -24,6 +24,10 @@ return PhpCsFixer\Config::create()
         '@PHP71Migration:risky' => true,
         '@PHP73Migration' => true,
 
+        'php_unit_test_annotation' => [
+            'style' => 'annotation',
+        ],
+        'php_unit_method_casing' => false,
         'phpdoc_to_comment' => false,
         'ordered_class_elements' => [
             'order' => [

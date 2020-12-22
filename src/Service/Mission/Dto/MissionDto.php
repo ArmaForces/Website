@@ -33,8 +33,17 @@ class MissionDto
     /** @var string */
     protected $state;
 
-    public function __construct(?int $id, string $title, \DateTimeImmutable $date, \DateTimeImmutable $closeDate, string $description, int $freeSlots, int $allSlots, string $state, ?string $image = null)
-    {
+    public function __construct(
+        ?int $id,
+        string $title,
+        \DateTimeImmutable $date,
+        \DateTimeImmutable $closeDate,
+        string $description,
+        int $freeSlots,
+        int $allSlots,
+        string $state,
+        ?string $image = null
+    ) {
         $this->id = $id;
         $this->title = $title;
         $this->date = $date;

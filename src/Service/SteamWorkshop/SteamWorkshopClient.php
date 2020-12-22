@@ -6,6 +6,7 @@ namespace App\Service\SteamWorkshop;
 
 use App\Service\SteamWorkshop\Dto\SteamWorkshopItemInfoDto;
 use App\Service\SteamWorkshop\Exception\ItemNotFoundException;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class SteamWorkshopClient
@@ -21,7 +22,7 @@ class SteamWorkshopClient
     public function getWorkshopItemInfo(int $itemId): SteamWorkshopItemInfoDto
     {
         $url = 'https://api.steampowered.com/ISteamRemoteStorage/GetPublishedFileDetails/v1/';
-        $response = $this->httpClient->request('POST', $url, [
+        $response = $this->httpClient->request(Request::METHOD_POST, $url, [
             'body' => [
                 'itemcount' => 1,
                 'publishedfileids' => [
