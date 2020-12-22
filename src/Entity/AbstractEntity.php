@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Entity\User\UserInterface;
-use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 class AbstractEntity implements EntityInterface
 {
-    /** @var string */
+    /** @var UuidInterface */
     protected $id;
 
     /** @var \DateTimeInterface */
@@ -24,14 +24,14 @@ class AbstractEntity implements EntityInterface
     /** @var null|UserInterface */
     protected $lastUpdatedBy;
 
-    public function __construct()
+    public function __construct(UuidInterface $id)
     {
-        $this->id = Uuid::uuid4()->toString();
+        $this->id = $id;
 
         $this->createdAt = new \DateTimeImmutable();
     }
 
-    public function getId(): string
+    public function getId(): UuidInterface
     {
         return $this->id;
     }

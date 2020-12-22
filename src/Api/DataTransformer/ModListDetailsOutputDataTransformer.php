@@ -37,7 +37,7 @@ class ModListDetailsOutputDataTransformer implements DataTransformerInterface
     {
         $output = new ModListDetailsOutput();
 
-        $output->setId($modList->getId());
+        $output->setId($modList->getId()->toString());
         $output->setName($modList->getName());
         $output->setCreatedAt($modList->getCreatedAt());
         $output->setLastUpdatedAt($modList->getLastUpdatedAt());

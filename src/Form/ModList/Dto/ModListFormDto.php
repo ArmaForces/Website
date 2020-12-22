@@ -11,6 +11,7 @@ use App\Form\AbstractFormDto;
 use App\Validator\ModList\UniqueModListName;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -18,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class ModListFormDto extends AbstractFormDto
 {
-    /** @var null|string */
+    /** @var null|UuidInterface */
     protected $id;
 
     /**
@@ -62,12 +63,12 @@ class ModListFormDto extends AbstractFormDto
         $this->modGroups = new ArrayCollection();
     }
 
-    public function getId(): ?string
+    public function getId(): ?UuidInterface
     {
         return $this->id;
     }
 
-    public function setId(?string $id): void
+    public function setId(?UuidInterface $id): void
     {
         $this->id = $id;
     }

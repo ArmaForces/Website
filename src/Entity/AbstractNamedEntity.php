@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use Ramsey\Uuid\UuidInterface;
+
 class AbstractNamedEntity extends AbstractEntity implements NamedEntityInterface
 {
     /** @var string */
     protected $name;
 
-    public function __construct(string $name)
+    public function __construct(UuidInterface $id, string $name)
     {
-        parent::__construct();
+        parent::__construct($id);
 
         $this->name = $name;
     }

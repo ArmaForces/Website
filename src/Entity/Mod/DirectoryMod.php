@@ -5,15 +5,16 @@ declare(strict_types=1);
 namespace App\Entity\Mod;
 
 use App\Entity\Mod\Enum\ModTypeEnum;
+use Ramsey\Uuid\UuidInterface;
 
 class DirectoryMod extends AbstractMod implements DirectoryModInterface
 {
     /** @var string */
     protected $directory;
 
-    public function __construct(string $name, ModTypeEnum $type, string $directory)
+    public function __construct(UuidInterface $id, string $name, ModTypeEnum $type, string $directory)
     {
-        parent::__construct($name, $type);
+        parent::__construct($id, $name, $type);
 
         $this->directory = $directory;
     }
