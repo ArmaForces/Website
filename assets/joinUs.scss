@@ -1,3 +1,4 @@
+@import "bootstrap";
 
 $headerHeight: 64px;
 $listBlockSize: 30;
@@ -5,6 +6,12 @@ $listBlockSize: 30;
 #main {
     padding: 0;
     height: calc(100% - #{$headerHeight});
+    @include media-breakpoint-down(sm) {
+        height: 120%;
+    }
+    @include media-breakpoint-down(xs) {
+        height: 140%;
+    }
 }
 
 #intro {
