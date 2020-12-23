@@ -44,22 +44,5 @@ header, #intro {
 }
 
 .navbar.scrolling-navbar {
-    transition: background 0.5s ease-in-out, padding 0.5s ease-in-out;
-}
-
-@media (min-width: 600px) {
-    .navbar.scrolling-navbar {
-        padding-top: 16px;
-        padding-bottom: 16px;
-    }
-
-    .navbar.scrolling-navbar .navbar-nav > li {
-        -webkit-transition-duration: 1s;
-        transition-duration: 1s;
-    }
-
-    .navbar.scrolling-navbar.top-nav-collapse {
-        padding-top: 12px;
-        padding-bottom: 12px;
-    }
+    transition: background 0.5s ease-in-out;
 }
