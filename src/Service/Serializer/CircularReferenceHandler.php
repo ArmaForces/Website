@@ -15,7 +15,7 @@ class CircularReferenceHandler
     public function __invoke($object, string $format, array $context): string
     {
         if ($object instanceof EntityInterface) {
-            return $object->getId();
+            return $object->getId()->toString();
         }
 
         throw new CircularReferenceException(
