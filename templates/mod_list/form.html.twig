@@ -18,7 +18,7 @@
     {{ form_row(form.owner) }}
     {{ form_row(form.active) }}
 
-    {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_APPROVE')) %}
+    {% if form.approved is defined %}
         {{ form_row(form.approved) }}
     {% endif %}
 
