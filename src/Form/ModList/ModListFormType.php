@@ -49,6 +49,11 @@ class ModListFormType extends AbstractType
                 'label' => 'Mod list active',
                 'required' => false,
             ])
+        ;
+
+        $this->addApprovedType($builder);
+
+        $builder
             ->add('mods', EntityType::class, [
                 'label' => 'Mods',
                 'label_attr' => ['class' => 'switch-custom'],
@@ -106,7 +111,7 @@ class ModListFormType extends AbstractType
                 return $er->createQueryBuilder('u')
                     ->join('u.permissions', 'p')
                     ->orderBy('u.username', 'ASC')
-                    ;
+                ;
             },
             'choice_label' => static function (UserInterface $user) {
                 return $user->getUsername();
@@ -121,6 +126,21 @@ class ModListFormType extends AbstractType
         // Add owner list only if user has full permissions to edit Mod Lists
         if ($currentUser->getPermissions()->getModListPermissions()->canUpdate()) {
             $builder->add('owner', EntityType::class, $ownerTypeConfig);
+        }
+    }
+
+    protected function addApprovedType(FormBuilderInterface $builder): void
+    {
+        /** @var UserInterface $currentUser */
+        $currentUser = $this->security->getUser();
+
+        if ($currentUser->getPermissions()->getModListPermissions()->canApprove()) {
+            $builder
+                ->add('approved', CheckboxType::class, [
+                    'label' => 'Mod list approved',
+                    'required' => false,
+                ])
+            ;
         }
     }
 }

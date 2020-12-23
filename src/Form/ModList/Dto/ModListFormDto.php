@@ -57,6 +57,11 @@ class ModListFormDto extends AbstractFormDto
      */
     protected $active = true;
 
+    /**
+     * @var bool
+     */
+    protected $approved = false;
+
     public function __construct()
     {
         $this->mods = new ArrayCollection();
@@ -185,5 +190,15 @@ class ModListFormDto extends AbstractFormDto
     public function setActive(bool $active): void
     {
         $this->active = $active;
+    }
+
+    public function isApproved(): bool
+    {
+        return $this->approved;
+    }
+
+    public function setApproved(bool $approved): void
+    {
+        $this->approved = $approved;
     }
 }

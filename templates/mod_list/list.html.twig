@@ -18,7 +18,8 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th scope="col" class="w-5">#</th>
+                    <th scope="col" class="w-5"></th>
                     <th scope="col">{{ 'Mod list name'|trans }}</th>
                     <th scope="col">{{ 'Mod list description'|trans }}</th>
                     <th scope="col">{{ 'Mod list owner'|trans }}</th>
@@ -33,6 +34,11 @@
                 {% for modList in modLists %}
                     <tr>
                         <th scope="row">{{ loop.index }}</th>
+                        <td>
+                            {% if modList.approved %}
+                                <i class="fas fa-check" title="{{ 'Mod list approved'|trans }}"></i>
+                            {% endif %}
+                        </td>
                         <td>{{ modList.name }}</td>
                         <td>{{ modList.description }}</td>
                         <td>{{ modList.owner ? modList.owner.username : '' }}</td>

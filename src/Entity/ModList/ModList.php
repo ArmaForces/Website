@@ -26,6 +26,9 @@ class ModList extends AbstractDescribedEntity implements ModListInterface
     /** @var bool */
     protected $active = true;
 
+    /** @var bool */
+    protected $approved = false;
+
     public function __construct(UuidInterface $id, string $name)
     {
         parent::__construct($id, $name);
@@ -114,5 +117,15 @@ class ModList extends AbstractDescribedEntity implements ModListInterface
     public function setActive(bool $active): void
     {
         $this->active = $active;
+    }
+
+    public function isApproved(): bool
+    {
+        return $this->approved;
+    }
+
+    public function setApproved(bool $approved): void
+    {
+        $this->approved = $approved;
     }
 }

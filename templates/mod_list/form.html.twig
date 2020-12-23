@@ -18,6 +18,10 @@
     {{ form_row(form.owner) }}
     {{ form_row(form.active) }}
 
+    {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_APPROVE')) %}
+        {{ form_row(form.approved) }}
+    {% endif %}
+
     {% embed 'mod_list/_partial/_mod_tabs.html.twig' %}
         {% block mod_tabs %}
             {{ form_row(form.modGroups) }}

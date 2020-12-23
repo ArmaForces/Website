@@ -38,6 +38,7 @@
         </many-to-one>
 
         <field name="active" type="boolean"/>
+        <field name="approved" type="boolean"/>
 
         <unique-constraints>
             <unique-constraint columns="name"/>
