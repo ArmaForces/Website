@@ -1,0 +1,11 @@
+{% extends 'container.html.twig' %}
+
+{% block container %}
+    <!-- Container -->
+    <main id="main" class="container">
+        <div class="container card bg-dark mt-4">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+    <!--/ Container -->
+{% endblock %}

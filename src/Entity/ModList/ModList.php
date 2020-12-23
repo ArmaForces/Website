@@ -10,6 +10,7 @@ use App\Entity\ModGroup\ModGroupInterface;
 use App\Entity\User\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Ramsey\Uuid\UuidInterface;
 
 class ModList extends AbstractDescribedEntity implements ModListInterface
 {
@@ -25,9 +26,12 @@ class ModList extends AbstractDescribedEntity implements ModListInterface
     /** @var bool */
     protected $active = true;
 
-    public function __construct(string $name)
+    /** @var bool */
+    protected $approved = false;
+
+    public function __construct(UuidInterface $id, string $name)
     {
-        parent::__construct($name);
+        parent::__construct($id, $name);
 
         $this->mods = new ArrayCollection();
         $this->modGroups = new ArrayCollection();
@@ -113,5 +117,15 @@ class ModList extends AbstractDescribedEntity implements ModListInterface
     public function setActive(bool $active): void
     {
         $this->active = $active;
+    }
+
+    public function isApproved(): bool
+    {
+        return $this->approved;
+    }
+
+    public function setApproved(bool $approved): void
+    {
+        $this->approved = $approved;
     }
 }

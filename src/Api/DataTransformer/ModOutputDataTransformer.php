@@ -22,7 +22,7 @@ class ModOutputDataTransformer implements DataTransformerInterface
     {
         $output = new ModOutput();
 
-        $output->setId($mod->getId());
+        $output->setId($mod->getId()->toString());
         $output->setName($mod->getName());
         $output->setCreatedAt($mod->getCreatedAt());
         $output->setLastUpdatedAt($mod->getLastUpdatedAt());

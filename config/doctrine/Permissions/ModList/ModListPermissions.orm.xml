@@ -6,6 +6,7 @@
 
     <embeddable name="App\Entity\Permissions\ModList\ModListPermissions">
         <field name="copy" type="boolean"/>
+        <field name="approve" type="boolean"/>
     </embeddable>
 
 </doctrine-mapping>

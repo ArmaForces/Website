@@ -46,4 +46,8 @@ interface ModListInterface extends DescribedEntityInterface
     public function isActive(): bool;
 
     public function setActive(bool $active): void;
+
+    public function isApproved(): bool;
+
+    public function setApproved(bool $approved): void;
 }

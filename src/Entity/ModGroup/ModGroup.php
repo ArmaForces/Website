@@ -8,15 +8,16 @@ use App\Entity\AbstractDescribedEntity;
 use App\Entity\Mod\ModInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Ramsey\Uuid\UuidInterface;
 
 class ModGroup extends AbstractDescribedEntity implements ModGroupInterface
 {
     /** @var Collection|ModInterface[] */
     protected $mods;
 
-    public function __construct(string $name)
+    public function __construct(UuidInterface $id, string $name)
     {
-        parent::__construct($name);
+        parent::__construct($id, $name);
 
         $this->mods = new ArrayCollection();
     }

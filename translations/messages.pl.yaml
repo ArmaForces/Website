@@ -78,6 +78,7 @@ Can edit other users mod lists: Może edytować listy modów innych użytkownik�
 Can copy mod lists: Może kopiować listy modów
 Can delete other users mod lists: Może usuwać listy modów innych użytkowników
 'Note: User can always delete his own or assigned to him mod lists': 'Uwaga: Użytkownik zawsze ma możliwość usuwania stworzonych przez siebie lub przypisanych mu list modów'
+Can approve mod lists: Może zatwierdzać listy modów
 
 # Mods
 Create mod: Utwórz mod
@@ -93,10 +94,10 @@ Optional mods: Opcjonalne
 Client side mod: Kliencki
 Client side mods: Klienckie
 
-Mod name: Nazwa moda
-Mod description: Opis moda
-Mod type: Typ moda
-Mod source: Źródło moda
+Mod name: Nazwa
+Mod description: Opis
+Mod type: Typ
+Mod source: Źródło
 Steam Workshop: Steam Workshop
 Directory: Katalog
 Steam Workshop URL: Link do moda
@@ -110,8 +111,8 @@ Create mod group: Utwórz grupę modów
 Edit mod group: Edytuj grupę modów
 Delete mod group: Usuń grupę modów
 
-Mod group name: Nazwa grupy modów
-Mod group description: Opis grupy modów
+Mod group name: Nazwa
+Mod group description: Opis
 
 # Mod Lists
 Download mod list: Pobierz listę modów
@@ -120,10 +121,11 @@ Edit mod list: Edytuj listę modów
 Copy and edit mod list: Kopiuj i edytuj listę modów
 Delete mod list: Usuń listę modów
 
-Mod list name: Nazwa listy modów
-Mod list description: Opis listy modów
-Mod list owner: Właściciel listy modów
+Mod list name: Nazwa
+Mod list description: Opis
+Mod list owner: Właściciel
 Mod list active: Aktywna
+Mod list approved: Zatwierdzona
 
 # Mod Lists Customization
 Mod list customization: Konfiguracja listy modów

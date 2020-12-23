@@ -4,18 +4,16 @@ declare(strict_types=1);
 
 namespace App\Service\RestCord;
 
+use App\Service\RestCord\Enum\TokenTypeEnum;
 use RestCord\DiscordClient;
 
 class DiscordClientFactory
 {
-    public const TOKEN_TYPE_OAUTH = 'OAuth';
-    public const TOKEN_TYPE_BOT = 'Bot';
-
-    public function createFromToken(string $token, string $tokenType = self::TOKEN_TYPE_BOT): DiscordClient
+    public function createFromToken(string $token, TokenTypeEnum $tokenType): DiscordClient
     {
         return new DiscordClient([
             'token' => $token,
-            'tokenType' => $tokenType,
+            'tokenType' => $tokenType->getValue(),
         ]);
     }
 }

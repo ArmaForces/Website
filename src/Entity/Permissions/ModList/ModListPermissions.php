@@ -11,6 +11,9 @@ class ModListPermissions extends AbstractCrudPermissions
     /** @var bool */
     protected $copy = false;
 
+    /** @var bool */
+    protected $approve = false;
+
     public function canCopy(): bool
     {
         return $this->copy;
@@ -19,5 +22,15 @@ class ModListPermissions extends AbstractCrudPermissions
     public function setCopy(bool $copy): void
     {
         $this->copy = $copy;
+    }
+
+    public function canApprove(): bool
+    {
+        return $this->approve;
+    }
+
+    public function setApprove(bool $approve): void
+    {
+        $this->approve = $approve;
     }
 }

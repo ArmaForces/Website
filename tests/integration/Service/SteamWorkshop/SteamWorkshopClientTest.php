@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Service\SteamWorkshop;
+namespace App\Tests\Integration\Service\SteamWorkshop;
 
 use App\Service\SteamWorkshop\SteamWorkshopClient;
 use PHPUnit\Framework\TestCase;
@@ -10,7 +10,7 @@ use Symfony\Component\HttpClient\HttpClient;
 
 /**
  * @internal
- * @coversNothing
+ * @covers \App\Service\SteamWorkshop\SteamWorkshopClient
  */
 final class SteamWorkshopClientTest extends TestCase
 {
@@ -18,7 +18,10 @@ final class SteamWorkshopClientTest extends TestCase
     protected const ITEM_NAME = 'ArmaForces - Mods';
     protected const ITEM_GAME_ID = 107410;
 
-    public function testGetExistingWorkshopItemInfo(): void
+    /**
+     * @test
+     */
+    public function getExistingWorkshopItemInfo(): void
     {
         $httpClient = HttpClient::create();
         $steamWorkshopClient = new SteamWorkshopClient($httpClient);

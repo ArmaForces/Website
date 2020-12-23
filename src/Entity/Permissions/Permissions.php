@@ -9,6 +9,7 @@ use App\Entity\Permissions\Mod\ModPermissions;
 use App\Entity\Permissions\ModGroup\ModGroupPermissions;
 use App\Entity\Permissions\ModList\ModListPermissions;
 use App\Entity\Permissions\User\UserPermissions;
+use Ramsey\Uuid\UuidInterface;
 
 class Permissions extends AbstractEntity
 {
@@ -24,9 +25,9 @@ class Permissions extends AbstractEntity
     /** @var ModListPermissions */
     protected $modListPermissions;
 
-    public function __construct()
+    public function __construct(UuidInterface $id)
     {
-        parent::__construct();
+        parent::__construct($id);
 
         $this->userPermissions = new UserPermissions();
         $this->modPermissions = new ModPermissions();

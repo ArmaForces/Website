@@ -9,6 +9,7 @@ use App\Entity\Mod\Enum\ModTypeEnum;
 use App\Entity\Mod\ModInterface;
 use App\Entity\Mod\SteamWorkshopMod;
 use App\Service\LegacyModListImport\Dto\ModCsvEntryDto;
+use Ramsey\Uuid\Uuid;
 
 /**
  * @see https://github.com/ArmaForces/modlist/blob/master/src/util/mods.js
@@ -37,9 +38,9 @@ class DtoToEntityConverter
         $modTypeEnum = ModTypeEnum::get($modType);
 
         if ($isSteamWorkshopMod) {
-            return new SteamWorkshopMod($name, $modTypeEnum, (int) $id);
+            return new SteamWorkshopMod(Uuid::uuid4(), $name, $modTypeEnum, (int) $id);
         }
 
-        return new DirectoryMod($name, $modTypeEnum, $name);
+        return new DirectoryMod(Uuid::uuid4(), $name, $modTypeEnum, $name);
     }
 }

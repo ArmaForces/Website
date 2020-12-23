@@ -10,6 +10,7 @@ use App\Validator\Mod\SteamWorkshopArma3ModUrl;
 use App\Validator\Mod\UniqueDirectoryMod;
 use App\Validator\Mod\UniqueSteamWorkshopMod;
 use App\Validator\Mod\WindowsDirectoryName;
+use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -18,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class ModFormDto extends AbstractFormDto
 {
-    /** @var null|string */
+    /** @var null|UuidInterface */
     protected $id;
 
     /**
@@ -82,12 +83,12 @@ class ModFormDto extends AbstractFormDto
         return $validationGroups;
     }
 
-    public function getId(): ?string
+    public function getId(): ?UuidInterface
     {
         return $this->id;
     }
 
-    public function setId(?string $id): void
+    public function setId(?UuidInterface $id): void
     {
         $this->id = $id;
     }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Security;
 
+use App\Entity\Permissions\Permissions;
 use App\Entity\User\AbstractUser;
 use App\Entity\User\User;
 use App\Entity\User\UserInterface;
@@ -12,11 +13,13 @@ use App\Security\Exception\RequiredRolesNotAssignedException;
 use App\Security\Exception\RoleNotFoundException;
 use App\Security\Exception\UserNotADiscordMemberException;
 use App\Service\RestCord\DiscordClientFactory;
+use App\Service\RestCord\Enum\TokenTypeEnum;
 use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Client\OAuth2ClientInterface;
 use KnpU\OAuth2ClientBundle\Security\Authenticator\SocialAuthenticator;
 use League\OAuth2\Client\Token\AccessToken;
+use Ramsey\Uuid\Uuid;
 use RestCord\DiscordClient;
 use RestCord\Model\Guild\Guild;
 use RestCord\Model\Guild\GuildMember;
@@ -117,10 +120,16 @@ class DiscordAuthenticator extends SocialAuthenticator
         $discordResourceOwner = $this->getDiscordClient()->fetchUserFromToken($credentials);
 
         $userToken = $credentials->getToken();
-        $discordClientAsUser = $this->discordClientFactory->createFromToken($userToken, DiscordClientFactory::TOKEN_TYPE_OAUTH);
+        $discordClientAsUser = $this->discordClientFactory->createFromToken(
+            $userToken,
+            TokenTypeEnum::get(TokenTypeEnum::TOKEN_TYPE_OAUTH)
+        );
         $this->verifyDiscordMembership($discordClientAsUser, $discordResourceOwner);
 
-        $discordClientAsBot = $this->discordClientFactory->createFromToken($this->botToken, DiscordClientFactory::TOKEN_TYPE_BOT);
+        $discordClientAsBot = $this->discordClientFactory->createFromToken(
+            $this->botToken,
+            TokenTypeEnum::get(TokenTypeEnum::TOKEN_TYPE_BOT)
+        );
         $this->verifyDiscordRoleAssigned($discordClientAsBot, $discordResourceOwner);
 
         $fullUsername = $discordResourceOwner->getUsername().'#'.$discordResourceOwner->getDiscriminator();
@@ -135,7 +144,8 @@ class DiscordAuthenticator extends SocialAuthenticator
             $user->setUsername($fullUsername);
             $user->setAvatarHash($discordResourceOwner->getAvatarHash());
         } catch (UsernameNotFoundException $ex) {
-            $user = new User($fullUsername, $email, $externalId);
+            $permissions = new Permissions(Uuid::uuid4());
+            $user = new User(Uuid::uuid4(), $fullUsername, $email, $externalId, $permissions);
             $user->setAvatarHash($discordResourceOwner->getAvatarHash());
 
             /**

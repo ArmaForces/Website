@@ -1,4 +1,4 @@
-{% extends 'container.html.twig' %}
+{% extends 'card.html.twig' %}
 
 {% block javascripts %}
     {{ parent() }}
@@ -36,6 +36,9 @@
                 <li class="nav-item">
                     <a class="nav-link" id="required-mods-tab" data-toggle="tab" href="#required-mods" role="tab">
                         {{ 'Required mods'|trans }}
+                        <span class="badge badge-light badge-pill">
+                            {{ requiredMods|length }}
+                        </span>
                     </a>
                 </li>
             </ul>

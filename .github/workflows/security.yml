@@ -1,4 +1,4 @@
-on: [push, pull_request]
+on: [ push ]
 
 name: Security
 jobs:
@@ -6,5 +6,5 @@ jobs:
         name: Symfony Security Checker
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@master
-            - uses: symfonycorp/security-checker-action@v2
+            -   uses: actions/checkout@master
+            -   uses: symfonycorp/security-checker-action@v2
