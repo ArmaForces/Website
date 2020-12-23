@@ -18,6 +18,10 @@
     {{ form_row(form.owner) }}
     {{ form_row(form.active) }}
 
+    {% if form.approved is defined %}
+        {{ form_row(form.approved) }}
+    {% endif %}
+
     {% embed 'mod_list/_partial/_mod_tabs.html.twig' %}
         {% block mod_tabs %}
             {{ form_row(form.modGroups) }}

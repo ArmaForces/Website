@@ -40,6 +40,10 @@ class ModListPermissionsType extends AbstractType
                 'label_attr' => ['class' => 'switch-custom'],
                 'help' => 'Note: User can always delete his own or assigned to him mod lists',
             ])
+            ->add('approve', CheckboxType::class, [
+                'label' => 'Can approve mod lists',
+                'label_attr' => ['class' => 'switch-custom'],
+            ])
         ;
     }
 

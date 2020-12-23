@@ -2,9 +2,6 @@
 
 {% import '_macro/table_macro.html.twig' as tableMacro %}
 
-{# @var currentUser \App\Entity\User\User #}
-{% set currentUser = app.token.user %}
-
 {% block content %}
     {% embed '_partial/_page_header.html.twig' %}
         {% block page_title %}
@@ -16,7 +13,7 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col" class="w-5">#</th>
                     <th scope="col">{{ 'Username'|trans }}</th>
                     <th scope="col">{{ 'Discord ID'|trans }}</th>
                     <th scope="col">{{ 'Created at'|trans }}</th>
@@ -31,8 +28,8 @@
                         <th scope="row">{{ loop.index }}</th>
                         <td>{{ user.username }}</td>
                         <td>{{ user.externalId }}</td>
-                        <th>{{ tableMacro.row_blameable(user.createdAt, user.createdBy) }}</th>
-                        <th>{{ tableMacro.row_blameable(user.lastUpdatedAt, user.lastUpdatedBy) }}</th>
+                        <td>{{ tableMacro.row_blameable(user.createdAt, user.createdBy) }}</td>
+                        <td>{{ tableMacro.row_blameable(user.lastUpdatedAt, user.lastUpdatedBy) }}</td>
                         <td class="text-right text-nowrap">
                             {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USER_PERMISSIONS_MANAGE'), user) %}
                                 {{ tableMacro.row_action(path('app_user_permissions', { id: user.id }), 'fas fa-user-shield', 'Manage user permissions'|trans) }}
