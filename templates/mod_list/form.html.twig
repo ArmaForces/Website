@@ -22,8 +22,13 @@
         {{ form_row(form.approved) }}
     {% endif %}
 
-    {% embed 'mod_list/_partial/_mod_tabs.html.twig' %}
-        {% block mod_tabs %}
+    {% embed '_partial/mod_tabs/_mod_tabs.html.twig' %}
+        {% block nav %}
+            {% include '_partial/mod_group_tabs/_mod_group_tabs_nav.html.twig' with { active: 'mod-groups' } %}
+            {{ parent() }}
+        {% endblock %}
+
+        {% block tab_content %}
             {{ form_row(form.modGroups) }}
             {{ form_row(form.mods) }}
         {% endblock %}
@@ -36,11 +41,10 @@
     {{ form_end(form) }}
 {% endblock %}
 
-{% block _mod_list_form_mods_row %}
-    {% include 'mod_list/_partial/_mod_list_form_mods/_mod_list_form_mods_row.html.twig' %}
+{% block _mod_list_form_modGroups_row %}
+    {% include '_partial/mod_group_tabs/_mod_group_tabs_content.html.twig' with { active: 'mod-groups' } %}
 {% endblock %}
 
-
-{% block _mod_list_form_modGroups_row %}
-    {% include 'mod_list/_partial/_mod_list_form_mod_groups/_mod_list_form_mod_groups_row.html.twig' %}
+{% block _mod_list_form_mods_row %}
+    {% include '_partial/mod_tabs/_mod_tabs_content.html.twig' %}
 {% endblock %}

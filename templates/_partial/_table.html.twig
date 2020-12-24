@@ -1,0 +1,12 @@
+{% import '_macro/table_macro.html.twig' as tableMacro %}
+
+<div class="table-responsive">
+    <table class="table table-hover text-nowrap">
+        <thead>
+            {% block table_head %}{% endblock %}
+        </thead>
+        <tbody>
+            {% block table_body %}{% endblock %}
+        </tbody>
+    </table>
+</div>
