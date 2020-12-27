@@ -40,16 +40,16 @@ class UniqueModGroupNameValidator extends ConstraintValidator
         $qb = $this->entityManager->createQueryBuilder();
         $expr = $qb->expr();
         $qb
-            ->addSelect($expr->count('ml'))
-            ->from(ModGroup::class, 'ml')
-            ->andWhere($expr->eq('ml.name', ':name'))
+            ->addSelect($expr->count('mg'))
+            ->from(ModGroup::class, 'mg')
+            ->andWhere($expr->eq('mg.name', ':name'))
             ->setParameter('name', $name)
         ;
 
         $entityId = $modGroupFormDto->getId();
         if ($entityId) {
             $qb
-                ->andWhere($expr->neq('ml.id', ':id'))
+                ->andWhere($expr->neq('mg.id', ':id'))
                 ->setParameter('id', $entityId)
             ;
         }
