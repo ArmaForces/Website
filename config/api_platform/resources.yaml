@@ -7,8 +7,10 @@ App\Entity\ModList\ModList:
             output: 'App\Api\Dto\ModListDetailsOutput'
         get_by_name:
             method: 'GET'
-            path: '/mod-lists/by-name/{id}'
+            path: '/mod-lists/by-name/{name}'
+            controller: 'App\Api\Controller\GetModListByNameAction'
             output: 'App\Api\Dto\ModListDetailsOutput'
+            read: false
 
     collectionOperations:
         get: ~
