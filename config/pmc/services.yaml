@@ -1,4 +1,4 @@
 services:
     App\Pmc\Controller\:
-        resource: '../src/Pmc/Controller/'
+        resource: '../../src/Pmc/Controller/'
         tags: [ 'controller.service_arguments' ]
