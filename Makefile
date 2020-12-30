@@ -19,4 +19,11 @@ admin:
 	docker-compose exec php php bin/console app:permissions:make-admin
 
 test:
+	docker-compose exec php php bin/console doctrine:database:drop --if-exists --force --env=test
+	docker-compose exec php php bin/console doctrine:database:create --if-not-exists --env=test
+
+	docker-compose exec php php bin/console doctrine:migration:migrate --no-interaction --env=test
+
+	docker-compose exec php php bin/console doctrine:fixtures:load --no-interaction --env=test
+
 	docker-compose exec php php bin/phpunit --testdox
