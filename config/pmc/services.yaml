@@ -2,3 +2,8 @@ services:
     App\Pmc\Controller\:
         resource: '../../src/Pmc/Controller/'
         tags: [ 'controller.service_arguments' ]
+
+    App\Pmc\Service\Dynulo\DynuloClient:
+        arguments:
+            $dynuloUrl: '%env(APP_URL_API_DYNULO)%'
+            $dynuloToken: '%env(APP_TOKEN_API_DYNULO)%'
