@@ -25,8 +25,16 @@
 {% macro row_blameable(date, user) %}
     {{ _self.format_date(date) }}
     {% if user %}
-        <i class="fas fa-question-circle" title="{{ user.username }}"></i>
+        <i class="fas fa-user" title="{{ user.username }}"></i>
     {% endif %}
+{% endmacro %}
+
+{% macro row_described(name, description = null) %}
+    <span
+        {% if description %}
+            title="{{ description }}" data-toggle="tooltip"
+        {% endif %}
+    >{{ name }}</span>
 {% endmacro %}
 
 {% macro format_date(date, dateFormat = 'short', timeFormat = 'short', emptyValue = '-') %}

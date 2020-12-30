@@ -1,0 +1,14 @@
+<div class="row">
+    <div class="col-md-12">
+        <ul class="nav nav-tabs justify-content-end" role="tablist">
+            {% block nav %}
+                {% include '_partial/mod_tabs/_mod_tabs_nav.html.twig' %}
+            {% endblock %}
+        </ul>
+        <div class="tab-content">
+            {% block tab_content %}
+                {% include '_partial/mod_tabs/_mod_tabs_content.html.twig' %}
+            {% endblock %}
+        </div>
+    </div>
+</div>

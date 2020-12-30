@@ -23,5 +23,5 @@
 {% endblock %}
 
 {% block _mod_group_form_mods_row %}
-    {% include 'mod_group/_partial/_mod_group_form_mods_row.html.twig' %}
+    {% include '_partial/mod_tabs/_mod_tabs.html.twig' with { active: 'server-side-mods' } %}
 {% endblock %}

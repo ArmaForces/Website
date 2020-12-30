@@ -8,7 +8,9 @@ import 'bootstrap';
 import * as form from './form';
 
 $(() => {
-    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="tooltip"]').tooltip({
+        boundary: 'window'
+    });
 
     // smooth scrolling for anchor links
     $('a.smooth-scroll').on('click', e => {

@@ -1,0 +1,43 @@
+{% embed '_partial/_table.html.twig' %}
+    {% import '_macro/table_macro.html.twig' as tableMacro %}
+
+    {% block table_head %}
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col" class="w-100">{{ 'Mod name'|trans }}</th>
+            <th scope="col">{{ 'Mod source'|trans }}</th>
+            <th scope="col">{{ 'Include?'|trans }}</th>
+        </tr>
+    {% endblock %}
+    {% block table_body %}
+        {% set rowNo = 1 %}
+
+        {# @var mod \App\Entity\Mod\Mod #}
+        {% for child in form.children %}
+            {% set mod = form.vars.choices[loop.index0].data %}
+            {% if mod.type.value == modType %}
+                <tr>
+                    <th scope="row">{{ rowNo }}</th>
+                    <td>
+                        {{ tableMacro.row_described(mod.name, mod.description) }}
+                    </td>
+                    <td>
+                        {% if mod is instance_of('\\App\\Entity\\Mod\\SteamWorkshopMod') %}
+                            <a href="{{ steam_workshop_item_url(mod.itemId) }}">{{ 'Steam Workshop'|trans }}</a>
+                        {% elseif mod is instance_of('\\App\\Entity\\Mod\\DirectoryMod') %}
+                            {{ 'Directory'|trans }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{- form_widget(child, {
+                            parent_label_class: label_attr.class|default(''),
+                            translation_domain: choice_translation_domain,
+                        }) -}}
+                    </td>
+                </tr>
+
+                {% set rowNo = rowNo + 1 %}
+            {% endif %}
+        {% endfor %}
+    {% endblock %}
+{% endembed %}
