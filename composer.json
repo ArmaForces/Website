@@ -9,6 +9,7 @@
         "composer/package-versions-deprecated": "^1.10",
         "doctrine/annotations": "^1.0",
         "doctrine/doctrine-bundle": "^2.1",
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
         "doctrine/doctrine-migrations-bundle": "^2.0",
         "doctrine/orm": "^2.7",
         "elao/enum": "^1.7",
