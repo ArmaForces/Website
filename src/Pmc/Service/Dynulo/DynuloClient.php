@@ -31,6 +31,29 @@ class DynuloClient
     {
         $response = $this->httpClient->request('GET', '/v2/items');
 
-        return array_map(static function ($x) {return ItemDto::fromArray($x);}, $response->toArray());
+        return array_map(static function ($x) {return ItemDto::fromArray($x); }, $response->toArray());
+    }
+
+    public function getItem(string $className): ItemDto
+    {
+        $response = $this->httpClient->request('GET', "/v2/item/{$className}");
+
+        return ItemDto::fromArray($response->toArray());
+    }
+
+    public function createItem(ItemDto $item): int
+    {
+        $response = $this->httpClient->request('POST', '/v2/items', [
+            'json' => $item,
+        ]);
+
+        return $response->getStatusCode();
+    }
+
+    public function deleteItem(string $className): int
+    {
+        $response = $this->httpClient->request('DELETE', "/v2/item/{$className}");
+
+        return $response->getStatusCode();
     }
 }
