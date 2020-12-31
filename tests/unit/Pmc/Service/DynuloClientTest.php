@@ -27,15 +27,35 @@ final class DynuloClientTest extends TestCase
         $dynuloClient = new DynuloClient($httpClient, 'https://dev.dynulo.com/pmc', '');
         $items = $dynuloClient->getItems();
 
-        self::assertEquals('cup_arifle_m16a1', $items[0]->getClass());
-        self::assertEquals('M16A1', $items[0]->getPretty());
-        self::assertEquals(1800, $items[0]->getCost());
-        self::assertEquals(['trait1', 'trait2'], $items[0]->getTraits());
+        static::assertSame('cup_arifle_m16a1', $items[0]->getClass());
+        static::assertSame('M16A1', $items[0]->getPretty());
+        static::assertSame(1800, $items[0]->getCost());
+        static::assertSame(['trait1', 'trait2'], $items[0]->getTraits());
+        static::assertSame(1609347416, $items[0]->getCreated()->getTimestamp());
 
-        self::assertEquals('cup_arifle_m4a1_black', $items[1]->getClass());
-        self::assertEquals('M4A1', $items[1]->getPretty());
-        self::assertEquals(1500, $items[1]->getCost());
-        self::assertEquals([], $items[1]->getTraits());
+        static::assertSame('cup_arifle_m4a1_black', $items[1]->getClass());
+        static::assertSame('M4A1', $items[1]->getPretty());
+        static::assertSame(1500, $items[1]->getCost());
+        static::assertSame([], $items[1]->getTraits());
+        static::assertSame(1609346164, $items[1]->getCreated()->getTimestamp());
+    }
+
+    /**
+     * @test
+     */
+    public function getItem_returnsItemDto(): void
+    {
+        $responsePayload = $this->mockItemPayload();
+        $httpClient = $this->mockHttpClient($responsePayload);
+
+        $dynuloClient = new DynuloClient($httpClient, 'https://dev.dynulo.com/pmc', '');
+        $item = $dynuloClient->getItem('cup_arifle_m16a1');
+
+        static::assertSame('cup_arifle_m16a1', $item->getClass());
+        static::assertSame('M16A1', $item->getPretty());
+        static::assertSame(1800, $item->getCost());
+        static::assertSame(['trait1', 'trait2'], $item->getTraits());
+        static::assertSame(1609347416, $item->getCreated()->getTimestamp());
     }
 
     private function mockItemsPayload(): array
@@ -58,6 +78,18 @@ final class DynuloClientTest extends TestCase
         ];
     }
 
+    private function mockItemPayload(): array
+    {
+        return
+            [
+                'class' => 'cup_arifle_m16a1',
+                'pretty' => 'M16A1',
+                'cost' => 1800,
+                'traits' => 'trait1|trait2',
+                'created' => '2020-12-30T16:56:56.973535',
+            ];
+    }
+
     /**
      * @return HttpClientInterface|MockObject
      */
@@ -71,5 +103,4 @@ final class DynuloClientTest extends TestCase
 
         return $httpClient;
     }
-
 }

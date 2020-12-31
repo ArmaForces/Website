@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Pmc\Service\Dynulo\Dto;
 
-class ItemDto
+class ItemDto implements \JsonSerializable
 {
     /** @var string */
     protected $class;
@@ -18,13 +18,13 @@ class ItemDto
     /** @var array<string> */
     protected $traits;
 
-    /** @var \DateTimeImmutable */
+    /** @var null|\DateTimeImmutable */
     protected $created;
 
     /**
      * @param array<string> $traits
      */
-    public function __construct(string $class, string $pretty, int $cost, array $traits, \DateTimeImmutable $created)
+    public function __construct(string $class, string $pretty, int $cost, array $traits, ?\DateTimeImmutable $created)
     {
         $this->class = $class;
         $this->pretty = $pretty;
@@ -41,9 +41,19 @@ class ItemDto
             $array['class'],
             $array['pretty'],
             $array['cost'],
-            $array['traits'] !== '' ? \explode('|', $array['traits']) : [],
+            '' !== $array['traits'] ? explode('|', $array['traits']) : [],
             \DateTimeImmutable::createFromFormat('Y-m-d\TH:i:s', substr($array['created'], 0, 19), $timezone),
         );
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'class' => $this->getClass(),
+            'pretty' => $this->pretty,
+            'cost' => $this->getCost(),
+            'traits' => implode('|', $this->getTraits()),
+        ];
     }
 
     public function getClass(): string
