@@ -24,7 +24,7 @@ final class DynuloClientTest extends TestCase
         $responsePayload = $this->mockItemsPayload();
         $httpClient = $this->mockHttpClient($responsePayload);
 
-        $dynuloClient = new DynuloClient($httpClient, 'https://dev.dynulo.com/pmc', '');
+        $dynuloClient = new DynuloClient($httpClient, 'https://dev.dynulo.com/pmc/', '');
         $items = $dynuloClient->getItems();
 
         static::assertSame('cup_arifle_m16a1', $items[0]->getClass());
@@ -48,7 +48,7 @@ final class DynuloClientTest extends TestCase
         $responsePayload = $this->mockItemPayload();
         $httpClient = $this->mockHttpClient($responsePayload);
 
-        $dynuloClient = new DynuloClient($httpClient, 'https://dev.dynulo.com/pmc', '');
+        $dynuloClient = new DynuloClient($httpClient, 'https://dev.dynulo.com/pmc/', '');
         $item = $dynuloClient->getItem('cup_arifle_m16a1');
 
         static::assertSame('cup_arifle_m16a1', $item->getClass());
