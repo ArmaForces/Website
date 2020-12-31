@@ -41,19 +41,21 @@ class DynuloClient
         return ItemDto::fromArray($response->toArray());
     }
 
-    public function createItem(ItemDto $item): int
+    public function createItem(ItemDto $item): void
     {
         $response = $this->httpClient->request('POST', 'v2/items', [
             'json' => $item,
         ]);
 
-        return $response->getStatusCode();
+        // ensure exceptions on non 200 responses
+        $response->getContent();
     }
 
-    public function deleteItem(string $className): int
+    public function deleteItem(string $className): void
     {
         $response = $this->httpClient->request('DELETE', "v2/items/{$className}");
 
-        return $response->getStatusCode();
+        // ensure exceptions on non 200 responses
+        $response->getContent();
     }
 }
