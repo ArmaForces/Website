@@ -116,15 +116,9 @@ class ModListRepository extends ServiceEntityRepository
         $expr = $queryBuilder->expr();
 
         $queryBuilder
-            ->leftJoin(ModList::class, 'ml', Join::WITH, (string) $expr->andX(
-                $expr->isMemberOf('m', 'ml.mods')
-            ))
-            ->leftJoin(ModGroup::class, 'mg', Join::WITH, (string) $expr->andX(
-                $expr->isMemberOf('m', 'mg.mods')
-            ))
-            ->leftJoin(ModList::class, 'mgml', Join::WITH, (string) $expr->andX(
-                $expr->isMemberOf('mg', 'mgml.modGroups')
-            ))
+            ->leftJoin(ModList::class, 'ml', Join::WITH, (string) $expr->isMemberOf('m', 'ml.mods'))
+            ->leftJoin(ModGroup::class, 'mg', Join::WITH, (string) $expr->isMemberOf('m', 'mg.mods'))
+            ->leftJoin(ModList::class, 'mgml', Join::WITH, (string) $expr->isMemberOf('mg', 'mgml.modGroups'))
             ->andWhere($expr->orX(
                 $expr->eq('ml.id', $expr->literal($modList->getId()->toString())),
                 $expr->eq('mgml.id', $expr->literal($modList->getId()->toString()))
