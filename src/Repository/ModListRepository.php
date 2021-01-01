@@ -6,6 +6,7 @@ namespace App\Repository;
 
 use App\Entity\Mod\AbstractMod;
 use App\Entity\Mod\Enum\ModTypeEnum;
+use App\Entity\Mod\ModInterface;
 use App\Entity\Mod\SteamWorkshopMod;
 use App\Entity\Mod\SteamWorkshopModInterface;
 use App\Entity\ModGroup\ModGroup;
@@ -30,7 +31,7 @@ class ModListRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return SteamWorkshopModInterface[]
+     * @return ModInterface[]
      */
     public function findIncludedMods(ModListInterface $modList): array
     {
