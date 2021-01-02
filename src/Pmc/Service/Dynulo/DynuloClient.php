@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Pmc\Service\Dynulo;
 
 use App\Pmc\Service\Dynulo\Dto\ItemDto;
+use App\Pmc\Service\Dynulo\Dto\PlayerDto;
 use Symfony\Component\HttpClient\ScopingHttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -57,5 +58,22 @@ class DynuloClient
 
         // ensure exceptions on non 200 responses
         $response->getContent();
+    }
+
+    /**
+     * @return PlayerDto[]
+     */
+    public function getPlayers(): array
+    {
+        $response = $this->httpClient->request('GET', 'v2/players');
+
+        return array_map(static function ($x) {return PlayerDto::fromArray($x); }, $response->toArray());
+    }
+
+    public function getPlayer(int $steamId): PlayerDto
+    {
+        $response = $this->httpClient->request('GET', "v2/players/{$steamId}");
+
+        return PlayerDto::fromArray($response->toArray());
     }
 }
