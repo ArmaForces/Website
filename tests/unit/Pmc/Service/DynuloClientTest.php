@@ -58,6 +58,42 @@ final class DynuloClientTest extends TestCase
         static::assertSame(1609347416, $item->getCreated()->getTimestamp());
     }
 
+    /**
+     * @test
+     */
+    public function getPlayers_returnsPlayersDtos(): void
+    {
+        $responsePayload = $this->mockPlayersPayload();
+        $httpClient = $this->mockHttpClient($responsePayload);
+
+        $dynuloClient = new DynuloClient($httpClient, 'https://dev.dynulo.com/pmc/', '');
+        $items = $dynuloClient->getPlayers();
+
+        static::assertSame(123, $items[0]->getPlayer());
+        static::assertSame('player1', $items[0]->getNickname());
+        static::assertSame(1602902078, $items[0]->getCreated()->getTimestamp());
+
+        static::assertSame(456, $items[1]->getPlayer());
+        static::assertSame('player2', $items[1]->getNickname());
+        static::assertSame(1608297858, $items[1]->getCreated()->getTimestamp());
+    }
+
+    /**
+     * @test
+     */
+    public function getPlayer_returnsPlayerDto(): void
+    {
+        $responsePayload = $this->mockPlayersPayload()[0];
+        $httpClient = $this->mockHttpClient($responsePayload);
+
+        $dynuloClient = new DynuloClient($httpClient, 'https://dev.dynulo.com/pmc/', '');
+        $item = $dynuloClient->getPlayer(123);
+
+        static::assertSame(123, $item->getPlayer());
+        static::assertSame('player1', $item->getNickname());
+        static::assertSame(1602902078, $item->getCreated()->getTimestamp());
+    }
+
     private function mockItemsPayload(): array
     {
         return [
@@ -88,6 +124,22 @@ final class DynuloClientTest extends TestCase
                 'traits' => 'trait1|trait2',
                 'created' => '2020-12-30T16:56:56.973535',
             ];
+    }
+
+    private function mockPlayersPayload(): array
+    {
+        return [
+            [
+                'player' => 123,
+                'nickname' => 'player1',
+                'created' => '2020-10-17T03:34:38.612335',
+            ],
+            [
+                'player' => 456,
+                'nickname' => 'player2',
+                'created' => '2020-12-18T13:24:18.401222',
+            ],
+        ];
     }
 
     /**
