@@ -54,4 +54,28 @@ class Permissions extends AbstractEntity
     {
         return $this->modListPermissions;
     }
+
+    public function grantAll(): void
+    {
+        $this->getUserPermissions()->setList(true);
+        $this->getUserPermissions()->setManagePermissions(true);
+        $this->getUserPermissions()->setDelete(true);
+
+        $this->getModPermissions()->setList(true);
+        $this->getModPermissions()->setCreate(true);
+        $this->getModPermissions()->setUpdate(true);
+        $this->getModPermissions()->setDelete(true);
+
+        $this->getModGroupPermissions()->setList(true);
+        $this->getModGroupPermissions()->setCreate(true);
+        $this->getModGroupPermissions()->setUpdate(true);
+        $this->getModGroupPermissions()->setDelete(true);
+
+        $this->getModListPermissions()->setList(true);
+        $this->getModListPermissions()->setCreate(true);
+        $this->getModListPermissions()->setUpdate(true);
+        $this->getModListPermissions()->setDelete(true);
+        $this->getModListPermissions()->setCopy(true);
+        $this->getModListPermissions()->setApprove(true);
+    }
 }

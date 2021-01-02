@@ -29,8 +29,8 @@ final class DiscordClientFactoryTest extends TestCase
         $optionsProperty->setAccessible(true);
         $optionsPropertyValue = $optionsProperty->getValue($discordClient);
 
-        static::assertSame($token, $optionsPropertyValue['token']);
-        static::assertSame($tokenType->getValue(), $optionsPropertyValue['tokenType']);
+        $this::assertSame($token, $optionsPropertyValue['token']);
+        $this::assertSame($tokenType->getValue(), $optionsPropertyValue['tokenType']);
     }
 
     public function tokenTypes(): array

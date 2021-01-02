@@ -150,8 +150,9 @@ class DiscordAuthenticator extends SocialAuthenticator
             $user->setAvatarHash($discordResourceOwner->getAvatarHash());
 
             /**
-             * FIXME: Manually persist permissions association because cascade persists
-             * stopped working after adding blameable User association.
+             * FIXME:
+             *      Manually persist permissions association because cascade persists
+             *      stopped working after adding blameable User association.
              *
              * @see AbstractUser::setCreatedBy()
              * @see AbstractUser::setLastUpdatedBy()
