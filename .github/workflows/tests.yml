@@ -1,20 +1,40 @@
-on: [ pull_request ]
+on:
+    push:
+        branches:
+            - master
+            - dev
+    pull_request: ~
 
 name: Tests
+env:
+    REPO_LOWERCASE: armaforces/website
 jobs:
-    PHP-Unit:
+    qa:
+        name: Code Quality & Tests
         runs-on: ubuntu-latest
         steps:
             -   name: Checkout branch
                 uses: actions/checkout@v2
 
-            -   name: Install dependencies
-                uses: MilesChou/composer-action/7.4/install@master
-                with:
-                    args: install
+            -   name: Pull app image
+                run: |
+                    echo ${{ secrets.GITHUB_TOKEN }} | docker login -u ${{ github.actor }} --password-stdin docker.pkg.github.com
+                    docker pull docker.pkg.github.com/${REPO_LOWERCASE}/app_php:dev
+
+            -   name: Start stack
+                run: |
+                    docker-compose -f docker-compose.test.yml up -d
+                    docker-compose exec -T php composer install
+
+            -   name: Setup database
+                run: |
+                    make db env=test
+
+            -   name: Run lint
+                run: |
+                    docker-compose exec -T php bin/console cache:warmup --env=dev
+                    make cs env=test ci=true
 
             -   name: Run tests
-                uses: php-actions/phpunit@v9
-                with:
-                    configuration: phpunit.xml.dist
-                    args: --testdox
+                run: |
+                    make test-ci
