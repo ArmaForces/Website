@@ -94,6 +94,30 @@ final class DynuloClientTest extends TestCase
         static::assertSame(1602902078, $item->getCreated()->getTimestamp());
     }
 
+    /**
+     * @test
+     */
+    public function getPlayerPurchases_returnsPlayerPurchasesDtos(): void
+    {
+        $responsePayload = $this->mockPlayerPurchasesPayload();
+        $httpClient = $this->mockHttpClient($responsePayload);
+
+        $dynuloClient = new DynuloClient($httpClient, 'https://dev.dynulo.com/pmc/', '');
+        $items = $dynuloClient->getPlayerPurchases(123);
+
+        static::assertSame(123, $items[0]->getPlayer());
+        static::assertSame(5, $items[0]->getAmount());
+        static::assertSame(1, $items[0]->getQuantity());
+        static::assertSame('ace_earplugs', $items[0]->getClass());
+        static::assertSame(1605402069, $items[0]->getCreated()->getTimestamp());
+
+        static::assertSame(123, $items[1]->getPlayer());
+        static::assertSame(15, $items[1]->getAmount());
+        static::assertSame(2, $items[1]->getQuantity());
+        static::assertSame('ace_splint', $items[1]->getClass());
+        static::assertSame(1605402069, $items[1]->getCreated()->getTimestamp());
+    }
+
     private function mockItemsPayload(): array
     {
         return [
@@ -138,6 +162,26 @@ final class DynuloClientTest extends TestCase
                 'player' => 456,
                 'nickname' => 'player2',
                 'created' => '2020-12-18T13:24:18.401222',
+            ],
+        ];
+    }
+
+    private function mockPlayerPurchasesPayload(): array
+    {
+        return [
+            [
+                'player' => 123,
+                'amount' => 5,
+                'quantity' => 1,
+                'class' => 'ace_earplugs',
+                'created' => '2020-11-15T01:01:09.781098',
+            ],
+            [
+                'player' => 123,
+                'amount' => 15,
+                'quantity' => 2,
+                'class' => 'ace_splint',
+                'created' => '2020-11-15T01:01:09.781098',
             ],
         ];
     }
