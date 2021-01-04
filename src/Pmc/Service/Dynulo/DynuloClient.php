@@ -6,6 +6,7 @@ namespace App\Pmc\Service\Dynulo;
 
 use App\Pmc\Service\Dynulo\Dto\ItemDto;
 use App\Pmc\Service\Dynulo\Dto\PlayerDto;
+use App\Pmc\Service\Dynulo\Dto\PlayerPurchaseDto;
 use Symfony\Component\HttpClient\ScopingHttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -75,5 +76,15 @@ class DynuloClient
         $response = $this->httpClient->request('GET', "v2/players/{$steamId}");
 
         return PlayerDto::fromArray($response->toArray());
+    }
+
+    /**
+     * @return PlayerPurchaseDto[]
+     */
+    public function getPlayerPurchases(int $steamId): array
+    {
+        $response = $this->httpClient->request('GET', "v2/players/{$steamId}/purchases");
+
+        return array_map(static function ($x) {return PlayerPurchaseDto::fromArray($x); }, $response->toArray());
     }
 }
