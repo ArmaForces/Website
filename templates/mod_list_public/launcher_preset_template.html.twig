@@ -17,7 +17,8 @@
             <table>
                 {# @var mod \App\Entity\Mod\SteamWorkshopMod #}
                 {% for mod in mods %}
-                    {% if mod.type.value == constant('\\App\\Entity\\Mod\\Enum\\ModTypeEnum::REQUIRED') or (mod.id in optionalMods|keys and optionalMods[mod.id] == true) %}
+                    {% if mod.type.is(constant('\\App\\Entity\\Mod\\Enum\\ModTypeEnum::REQUIRED'))
+                        or (mod.id.toString in optionalMods|keys and optionalMods[mod.id.toString] == true) %}
                         <tr data-type="ModContainer">
                             <td data-type="DisplayName">{{ mod.name }}</td>
                             <td>

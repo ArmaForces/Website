@@ -1,0 +1,7 @@
+{% macro nav_active(active, type) %}
+    {{- active == type ? ' active' : '' -}}
+{% endmacro %}
+
+{% macro tab_show(active, type) %}
+    {{- active == type ? ' show active' : '' -}}
+{% endmacro %}

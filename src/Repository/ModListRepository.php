@@ -6,6 +6,7 @@ namespace App\Repository;
 
 use App\Entity\Mod\AbstractMod;
 use App\Entity\Mod\Enum\ModTypeEnum;
+use App\Entity\Mod\ModInterface;
 use App\Entity\Mod\SteamWorkshopMod;
 use App\Entity\Mod\SteamWorkshopModInterface;
 use App\Entity\ModGroup\ModGroup;
@@ -14,6 +15,7 @@ use App\Entity\ModList\ModListInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * @method null|ModListInterface find($id, $lockMode = null, $lockVersion = null)
@@ -29,26 +31,18 @@ class ModListRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return SteamWorkshopModInterface[]
+     * @return ModInterface[]
      */
     public function findIncludedMods(ModListInterface $modList): array
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
-        $expr = $qb->expr();
 
         $qb
             ->addSelect('m')
             ->from(AbstractMod::class, 'm')
-            ->leftJoin(ModGroup::class, 'mg', Join::WITH, (string) $expr->isMemberOf('m', 'mg.mods'))
-            ->leftJoin(ModList::class, 'ml', Join::WITH, (string) $expr->isMemberOf('m', 'ml.mods'))
-            ->andWhere(
-                $expr->orX(
-                    $expr->eq('ml.id', $expr->literal($modList->getId())),
-                    $expr->isMemberOf('m', 'mg.mods')
-                )
-            )
             ->addOrderBy('m.name', 'ASC')
         ;
+        $this->applyIncludedModsFilter($qb, $modList);
 
         return $qb->getQuery()->getResult();
     }
@@ -64,21 +58,14 @@ class ModListRepository extends ServiceEntityRepository
         $qb
             ->addSelect('m')
             ->from(SteamWorkshopMod::class, 'm')
-            ->leftJoin(ModGroup::class, 'mg', Join::WITH, (string) $expr->isMemberOf('m', 'mg.mods'))
-            ->leftJoin(ModList::class, 'ml', Join::WITH, (string) $expr->isMemberOf('m', 'ml.mods'))
             ->andWhere($expr->in('m.type', [
                 ModTypeEnum::CLIENT_SIDE,
                 ModTypeEnum::OPTIONAL,
                 ModTypeEnum::REQUIRED,
             ]))
-            ->andWhere(
-                $expr->orX(
-                    $expr->eq('ml.id', $expr->literal($modList->getId())),
-                    $expr->isMemberOf('m', 'mg.mods')
-                )
-            )
             ->addOrderBy('m.name', 'ASC')
         ;
+        $this->applyIncludedModsFilter($qb, $modList);
 
         return $qb->getQuery()->getResult();
     }
@@ -94,20 +81,13 @@ class ModListRepository extends ServiceEntityRepository
         $qb
             ->addSelect('m')
             ->from(SteamWorkshopMod::class, 'm')
-            ->leftJoin(ModGroup::class, 'mg', Join::WITH, (string) $expr->isMemberOf('m', 'mg.mods'))
-            ->leftJoin(ModList::class, 'ml', Join::WITH, (string) $expr->isMemberOf('m', 'ml.mods'))
             ->andWhere($expr->in('m.type', [
                 ModTypeEnum::CLIENT_SIDE,
                 ModTypeEnum::OPTIONAL,
             ]))
-            ->andWhere(
-                $expr->orX(
-                    $expr->eq('ml.id', $expr->literal($modList->getId())),
-                    $expr->isMemberOf('m', 'mg.mods')
-                )
-            )
             ->addOrderBy('m.name', 'ASC')
         ;
+        $this->applyIncludedModsFilter($qb, $modList);
 
         return $qb->getQuery()->getResult();
     }
@@ -123,18 +103,26 @@ class ModListRepository extends ServiceEntityRepository
         $qb
             ->addSelect('m')
             ->from(SteamWorkshopMod::class, 'm')
-            ->leftJoin(ModGroup::class, 'mg', Join::WITH, (string) $expr->isMemberOf('m', 'mg.mods'))
-            ->leftJoin(ModList::class, 'ml', Join::WITH, (string) $expr->isMemberOf('m', 'ml.mods'))
             ->andWhere($expr->eq('m.type', $expr->literal(ModTypeEnum::REQUIRED)))
-            ->andWhere(
-                $expr->orX(
-                    $expr->eq('ml.id', $expr->literal($modList->getId())),
-                    $expr->isMemberOf('m', 'mg.mods')
-                )
-            )
             ->addOrderBy('m.name', 'ASC')
         ;
+        $this->applyIncludedModsFilter($qb, $modList);
 
         return $qb->getQuery()->getResult();
+    }
+
+    protected function applyIncludedModsFilter(QueryBuilder $queryBuilder, ModListInterface $modList): void
+    {
+        $expr = $queryBuilder->expr();
+
+        $queryBuilder
+            ->leftJoin(ModList::class, 'ml', Join::WITH, (string) $expr->isMemberOf('m', 'ml.mods'))
+            ->leftJoin(ModGroup::class, 'mg', Join::WITH, (string) $expr->isMemberOf('m', 'mg.mods'))
+            ->leftJoin(ModList::class, 'mgml', Join::WITH, (string) $expr->isMemberOf('mg', 'mgml.modGroups'))
+            ->andWhere($expr->orX(
+                $expr->eq('ml.id', $expr->literal($modList->getId()->toString())),
+                $expr->eq('mgml.id', $expr->literal($modList->getId()->toString()))
+            ))
+        ;
     }
 }

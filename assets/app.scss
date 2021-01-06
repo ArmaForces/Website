@@ -63,6 +63,7 @@ html, body {
             height: 40px;
             padding-left: 0.7rem;
             padding-right: 0.7rem;
+
             i {
                 font-size: 18px;
             }
@@ -165,4 +166,12 @@ html, body {
 
 .custom-switch label {
     cursor: pointer;
+}
+
+td span[title] {
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    -webkit-text-underline-position: under;
+    -ms-text-underline-position: below;
+    text-underline-position: under;
 }

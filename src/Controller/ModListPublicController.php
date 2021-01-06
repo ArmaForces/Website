@@ -42,7 +42,7 @@ class ModListPublicController extends AbstractController
     }
 
     /**
-     * @Route("/{name}/customize", name="_customize")
+     * @Route("/{name}", name="_customize")
      *
      * @IsGranted(PermissionsEnum::MOD_LIST_DOWNLOAD, subject="modList")
      */

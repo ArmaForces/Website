@@ -51,7 +51,7 @@ class ModGroupFormDtoDataTransformer implements FormDtoDataTransformerInterface
             return $dto;
         }
 
-        $dto->setId(Uuid::uuid4());
+        $dto->setId($entity->getId());
         $dto->setName($entity->getName());
         $dto->setDescription($entity->getDescription());
         $dto->setMods($entity->getMods());
