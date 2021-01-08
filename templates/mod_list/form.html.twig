@@ -15,7 +15,11 @@
     {{ form_start(form) }}
     {{ form_row(form.name) }}
     {{ form_row(form.description) }}
-    {{ form_row(form.owner) }}
+
+    {% if form.owner is defined %}
+        {{ form_row(form.owner) }}
+    {% endif %}
+
     {{ form_row(form.active) }}
 
     {% if form.approved is defined %}
