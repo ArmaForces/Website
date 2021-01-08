@@ -48,10 +48,10 @@ class ModFormType extends AbstractType
             ->add('type', ChoiceType::class, [
                 'label' => 'Mod type',
                 'choices' => [
-                    'Server side mod' => ModTypeEnum::SERVER_SIDE,
                     'Required mod' => ModTypeEnum::REQUIRED,
-                    'Optional mod' => ModTypeEnum::OPTIONAL,
+                    'Server side mod' => ModTypeEnum::SERVER_SIDE,
                     'Client side mod' => ModTypeEnum::CLIENT_SIDE,
+                    'Optional mod' => ModTypeEnum::OPTIONAL,
                 ],
                 'empty_data' => ModTypeEnum::REQUIRED,
             ])
