@@ -19,6 +19,7 @@ jobs:
             -   name: Pull app image
                 run: |
                     echo ${{ secrets.GITHUB_TOKEN }} | docker login -u ${{ github.actor }} --password-stdin docker.pkg.github.com
+                    docker pull docker.pkg.github.com/${REPO_LOWERCASE}/app_assets:dev
                     docker pull docker.pkg.github.com/${REPO_LOWERCASE}/app_php:dev
 
             -   name: Start stack
