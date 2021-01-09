@@ -107,7 +107,8 @@ COPY --from=armaforces_web_assets /tmp/app_build/public/build/ public/build/
 COPY .docker/php/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint
 
-COPY VERSIO[N] ./
+# .env is copied again as COPY needs to copy at least one file
+COPY .env VERSIO[N] ./
 
 ENTRYPOINT ["docker-entrypoint"]
 CMD ["php-fpm"]
