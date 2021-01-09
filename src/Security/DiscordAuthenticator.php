@@ -142,6 +142,7 @@ class DiscordAuthenticator extends SocialAuthenticator
             /** @var User $user */
             $user = $userProvider->loadUserByUsername($externalId);
             $user->setUsername($fullUsername);
+            $user->setEmail($email);
             $user->setAvatarHash($discordResourceOwner->getAvatarHash());
         } catch (UsernameNotFoundException $ex) {
             $permissions = new Permissions(Uuid::uuid4());
@@ -155,7 +156,7 @@ class DiscordAuthenticator extends SocialAuthenticator
              * @see AbstractUser::setCreatedBy()
              * @see AbstractUser::setLastUpdatedBy()
              */
-            $this->em->persist($user->getPermissions());
+            $this->em->persist($permissions);
             $this->em->persist($user);
         }
 
