@@ -1,5 +1,7 @@
 {% extends 'container_fluid.html.twig' %}
 
+{% import '_macro/common_macro.html.twig' as commonMacro %}
+
 {% block stylesheets %}
     {{ parent() }}
     {{ encore_entry_link_tags('landing') }}
@@ -20,7 +22,7 @@
         <!--/ Navbar -->
 
         <!-- Mask -->
-        <div id="intro" class="{{ random(['bg-unsung', 'bg-rhs', 'bg-vanilla', 'bg-ifa', 'bg-ifa-2', 'bg-cup']) }}">
+        <div id="intro" class="background" {{ commonMacro.random_background_image_style() }}>
             <div class="mask">
                 <div class="container-fluid d-flex align-items-center justify-content-center h-100">
 

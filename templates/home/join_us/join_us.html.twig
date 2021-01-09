@@ -2,6 +2,8 @@
 
 {% extends 'container_fluid.html.twig' %}
 
+{% import '_macro/common_macro.html.twig' as commonMacro %}
+
 {% block stylesheets %}
     {{ parent() }}
     {{ encore_entry_link_tags('joinUs') }}
@@ -13,7 +15,7 @@
 {% endblock %}
 
 {% block content %}
-    <div id="intro">
+    <div id="intro" {{ commonMacro.random_background_image_style() }}>
         <div class="mask mask-half">
             <div class="container-fluid h-100">
                 <!-- Grid row -->
