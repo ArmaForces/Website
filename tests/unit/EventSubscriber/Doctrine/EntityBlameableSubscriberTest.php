@@ -32,7 +32,7 @@ final class EntityBlameableSubscriberTest extends TestCase
         ];
 
         $subscribedEvents = $entityBlameableSubscriberTest->getSubscribedEvents();
-        static::assertSame($expectedEvents, $subscribedEvents);
+        $this::assertSame($expectedEvents, $subscribedEvents);
     }
 
     /**
@@ -44,9 +44,9 @@ final class EntityBlameableSubscriberTest extends TestCase
 
         $entity = $this->createMock(EntityInterface::class);
         $entity
-            ->expects(static::once())
+            ->expects($this::once())
             ->method('setCreatedBy')
-            ->with(static::isInstanceOf(UserInterface::class))
+            ->with($this::isInstanceOf(UserInterface::class))
         ;
 
         $security = $this->createMock(Security::class);
@@ -87,14 +87,14 @@ final class EntityBlameableSubscriberTest extends TestCase
 
         $entity = $this->createMock(EntityInterface::class);
         $entity
-            ->expects(static::once())
+            ->expects($this::once())
             ->method('setLastUpdatedBy')
-            ->with(static::isInstanceOf(UserInterface::class))
+            ->with($this::isInstanceOf(UserInterface::class))
         ;
         $entity
-            ->expects(static::once())
+            ->expects($this::once())
             ->method('setLastUpdatedAt')
-            ->with(static::isInstanceOf(\DateTimeInterface::class))
+            ->with($this::isInstanceOf(\DateTimeInterface::class))
         ;
 
         $security = $this->createMock(Security::class);
@@ -132,18 +132,18 @@ final class EntityBlameableSubscriberTest extends TestCase
         $invalidUser = null;
 
         $validEntity = $this->createMock(EntityInterface::class);
-        $validEntity->expects(static::never())->method('setCreatedBy');
-        $validEntity->expects(static::never())->method('setLastUpdatedBy');
-        $validEntity->expects(static::never())->method('setLastUpdatedAt');
+        $validEntity->expects($this::never())->method('setCreatedBy');
+        $validEntity->expects($this::never())->method('setLastUpdatedBy');
+        $validEntity->expects($this::never())->method('setLastUpdatedAt');
 
         $invalidEntity = $this->getMockBuilder(\stdClass::class)->setMethods([
             'setCreatedBy',
             'setLastUpdatedBy',
             'setLastUpdatedAt',
         ])->getMock();
-        $invalidEntity->expects(static::never())->method('setCreatedBy');
-        $invalidEntity->expects(static::never())->method('setLastUpdatedBy');
-        $invalidEntity->expects(static::never())->method('setLastUpdatedAt');
+        $invalidEntity->expects($this::never())->method('setCreatedBy');
+        $invalidEntity->expects($this::never())->method('setLastUpdatedBy');
+        $invalidEntity->expects($this::never())->method('setLastUpdatedAt');
 
         return [
             'valid user, invalid entity' => [

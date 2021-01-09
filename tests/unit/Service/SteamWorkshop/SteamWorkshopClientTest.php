@@ -26,15 +26,15 @@ final class SteamWorkshopClientTest extends TestCase
      */
     public function getWorkshopItemInfo_existingItem_returnsItemDto(): void
     {
-        $responsePayload = $this->mockResponsePayload(1, self::ITEM_NAME, self::ITEM_GAME_ID);
+        $responsePayload = $this->mockResponsePayload(1, $this::ITEM_NAME, $this::ITEM_GAME_ID);
 
         $httpClient = $this->mockHttpClient($responsePayload);
         $steamWorkshopClient = new SteamWorkshopClient($httpClient);
-        $workshopItemInfoDto = $steamWorkshopClient->getWorkshopItemInfo(self::ITEM_ID);
+        $workshopItemInfoDto = $steamWorkshopClient->getWorkshopItemInfo($this::ITEM_ID);
 
-        static::assertSame(self::ITEM_ID, $workshopItemInfoDto->getId());
-        static::assertSame(self::ITEM_NAME, $workshopItemInfoDto->getName());
-        static::assertSame(self::ITEM_GAME_ID, $workshopItemInfoDto->getGameId());
+        $this::assertSame($this::ITEM_ID, $workshopItemInfoDto->getId());
+        $this::assertSame($this::ITEM_NAME, $workshopItemInfoDto->getName());
+        $this::assertSame($this::ITEM_GAME_ID, $workshopItemInfoDto->getGameId());
     }
 
     /**
@@ -42,7 +42,7 @@ final class SteamWorkshopClientTest extends TestCase
      */
     public function getWorkshopItemInfo_nonExistingItem_throwsException(): void
     {
-        $responsePayload = $this->mockResponsePayload(0, self::ITEM_NAME, self::ITEM_GAME_ID);
+        $responsePayload = $this->mockResponsePayload(0, $this::ITEM_NAME, $this::ITEM_GAME_ID);
 
         $httpClient = $this->mockHttpClient($responsePayload);
         $steamWorkshopClient = new SteamWorkshopClient($httpClient);
@@ -50,7 +50,7 @@ final class SteamWorkshopClientTest extends TestCase
         $this->expectException(ItemNotFoundException::class);
         $this->expectExceptionMessage(sprintf('No items found by item id "%s"!', $this::ITEM_ID));
 
-        $steamWorkshopClient->getWorkshopItemInfo(self::ITEM_ID);
+        $steamWorkshopClient->getWorkshopItemInfo($this::ITEM_ID);
     }
 
     private function mockResponsePayload(int $resultCount, string $itemName, int $itemGameId): array

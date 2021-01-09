@@ -23,7 +23,7 @@ final class SteamWorkshopHelperTest extends TestCase
     public function isValidItemUrl_validItemUrl_returnsTrue(string $itemUrl): void
     {
         $result = SteamWorkshopHelper::isValidItemUrl($itemUrl);
-        static::assertTrue($result);
+        $this::assertTrue($result);
     }
 
     /**
@@ -33,7 +33,7 @@ final class SteamWorkshopHelperTest extends TestCase
     public function isValidItemUrl_invalidItemUrl_returnsFalse(string $itemUrl): void
     {
         $result = SteamWorkshopHelper::isValidItemUrl($itemUrl);
-        static::assertFalse($result);
+        $this::assertFalse($result);
     }
 
     /**
@@ -41,8 +41,8 @@ final class SteamWorkshopHelperTest extends TestCase
      */
     public function itemIdToItemUrl_validItemId_returnsUrl(): void
     {
-        $itemUrl = SteamWorkshopHelper::itemIdToItemUrl(self::ITEM_ID);
-        static::assertSame('https://steamcommunity.com/sharedfiles/filedetails/?id=1934142795', $itemUrl);
+        $itemUrl = SteamWorkshopHelper::itemIdToItemUrl($this::ITEM_ID);
+        $this::assertSame('https://steamcommunity.com/sharedfiles/filedetails/?id=1934142795', $itemUrl);
     }
 
     /**
@@ -52,7 +52,7 @@ final class SteamWorkshopHelperTest extends TestCase
     public function itemUrlToItemId_validItemUrl_returnsItemId(string $itemUrl): void
     {
         $itemId = SteamWorkshopHelper::itemUrlToItemId($itemUrl);
-        static::assertSame(self::ITEM_ID, $itemId);
+        $this::assertSame($this::ITEM_ID, $itemId);
     }
 
     public function validItemUrls(): array

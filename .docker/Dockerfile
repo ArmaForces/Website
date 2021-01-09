@@ -64,7 +64,6 @@ RUN set -eux; \
     apk del .build-deps \
 ;
 
-ARG COMPOSER_VERSION=1
 COPY --from=composer:1 /usr/bin/composer /usr/bin/composer
 RUN ln -s $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
 COPY .docker/php/conf.d/armaforces-web.ini $PHP_INI_DIR/conf.d/armaforces-web.ini

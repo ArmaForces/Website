@@ -23,6 +23,7 @@
 .php_cs.cache
 bin/*
 !bin/console
+!bin/phpunit
 build/
 docker/db/data/
 helm/

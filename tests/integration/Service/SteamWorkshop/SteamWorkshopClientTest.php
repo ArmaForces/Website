@@ -25,10 +25,10 @@ final class SteamWorkshopClientTest extends TestCase
     {
         $httpClient = HttpClient::create();
         $steamWorkshopClient = new SteamWorkshopClient($httpClient);
-        $workshopItemInfoDto = $steamWorkshopClient->getWorkshopItemInfo(self::ITEM_ID);
+        $workshopItemInfoDto = $steamWorkshopClient->getWorkshopItemInfo($this::ITEM_ID);
 
-        static::assertSame(self::ITEM_ID, $workshopItemInfoDto->getId());
-        static::assertSame(self::ITEM_NAME, $workshopItemInfoDto->getName());
-        static::assertSame(self::ITEM_GAME_ID, $workshopItemInfoDto->getGameId());
+        $this::assertSame($this::ITEM_ID, $workshopItemInfoDto->getId());
+        $this::assertSame($this::ITEM_NAME, $workshopItemInfoDto->getName());
+        $this::assertSame($this::ITEM_GAME_ID, $workshopItemInfoDto->getGameId());
     }
 }
