@@ -9,7 +9,6 @@ on:
 env:
     REPO_LOWERCASE: armaforces/website
     COMPOSE_DOCKER_CLI_BUILD: 1
-    DOCKER_BUILDKIT: ${{ secrets.DOCKER_BUILDKIT }}
 
 jobs:
     github:
