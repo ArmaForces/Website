@@ -1,13 +1,20 @@
-{% macro row_action(path, iconClass, title, attrArray = {}) %}
-    {% if title %}
-        {% set attrArray = attrArray|merge({ 'title': title }) %}
-    {% endif %}
+{% macro format_date(date, dateFormat = 'short', timeFormat = 'short', emptyValue = '-') %}
+    {{ date ? date|format_datetime(dateFormat, timeFormat, locale=get_current_locale()) : emptyValue }}
+{% endmacro %}
 
+{%- macro icon(iconClass, title) -%}
+    <i class="{{ iconClass }}"
+       {% if title %}title="{{ title }}"{% endif %}
+       data-toggle="tooltip"
+    ></i>
+{%- endmacro -%}
+
+{% macro row_action(path, iconClass, title, attrArray = {}) %}
     {% set attrString = attrArray|map((attrValue, attrName) => "#{attrName}=\"#{attrValue}\"")|join(' ') %}
 
     <a class="mx-2" href="{{ path }}" {{ attrString|raw }}>
         {%- if iconClass -%}
-            <i class="{{ iconClass }}"></i>
+            {{ _self.icon(iconClass, title) }}
         {%- endif -%}
     </a>
 {% endmacro %}
@@ -25,14 +32,20 @@
 {% macro row_blameable(date, user) %}
     {{ _self.format_date(date) }}
     {% if user %}
-        <i class="fas fa-user" title="{{ user.username }}"></i>
+        {{ _self.icon('fas fa-user', user.username) }}
     {% endif %}
 {% endmacro %}
 
-{% macro row_described(name, description = null) %}
+{% macro row_name_with_description(name, description = null) %}
     <span
         {% if description %}
             title="{{ description }}" data-toggle="tooltip"
         {% endif %}
     >{{ name }}</span>
+{% endmacro %}
+
+{% macro row_mod_status_icon(mod) %}
+    {% if mod.isStatusDeprecated() %}{{ _self.icon('fas fa-skull text-warning', 'Deprecated'|trans) }}{% endif %}
+    {% if mod.isStatusBroken() %}{{ _self.icon('fas fa-exclamation-triangle text-warning', 'Broken'|trans) }}{% endif %}
+    {% if mod.isStatusDisabled() %}{{ _self.icon('fas fa-times-circle text-danger', 'Disabled'|trans) }}{% endif %}
 {% endmacro %}

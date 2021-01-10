@@ -18,6 +18,7 @@
         {% block table_head %}
             <tr>
                 <th scope="col">#</th>
+                <th scope="col"></th>
                 <th scope="col" class="w-100">{{ 'Mod name'|trans }}</th>
                 <th scope="col">{{ 'Mod type'|trans }}</th>
                 <th scope="col">{{ 'Mod source'|trans }}</th>
@@ -26,10 +27,13 @@
             </tr>
         {% endblock %}
         {% block table_body %}
-            {# @var mod \App\Entity\Mod\Mod #}
+            {# @var mod \App\Entity\Mod\ModInterface #}
             {% for mod in mods %}
                 <tr>
                     <th scope="row">{{ loop.index }}</th>
+                    <td>
+                        {{ tableMacro.row_mod_status_icon(mod) }}
+                    </td>
                     <td>
                         {{ tableMacro.row_name_with_description(mod.name, mod.description) }}
                     </td>

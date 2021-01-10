@@ -29,6 +29,10 @@ class ModOutputDataTransformer implements DataTransformerInterface
 
         $output->setType($mod->getType()->getValue());
 
+        /** @var null|string $status */
+        $status = $mod->getStatus() ? $mod->getStatus()->getValue() : null;
+        $output->setStatus($status);
+
         if ($mod instanceof SteamWorkshopMod) {
             $output->setSource(ModSourceEnum::STEAM_WORKSHOP);
             $output->setItemId($mod->getItemId());

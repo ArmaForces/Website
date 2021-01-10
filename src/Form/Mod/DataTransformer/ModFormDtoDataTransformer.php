@@ -7,6 +7,7 @@ namespace App\Form\Mod\DataTransformer;
 use App\Entity\EntityInterface;
 use App\Entity\Mod\DirectoryMod;
 use App\Entity\Mod\Enum\ModSourceEnum;
+use App\Entity\Mod\Enum\ModStatusEnum;
 use App\Entity\Mod\Enum\ModTypeEnum;
 use App\Entity\Mod\ModInterface;
 use App\Entity\Mod\SteamWorkshopMod;
@@ -46,6 +47,9 @@ class ModFormDtoDataTransformer implements FormDtoDataTransformerInterface
         /** @var ModTypeEnum $type */
         $type = ModTypeEnum::get($dto->getType());
 
+        /** @var null|ModStatusEnum $status */
+        $status = $dto->getStatus() ? ModStatusEnum::get($dto->getStatus()) : null;
+
         if ($source->is(ModSourceEnum::STEAM_WORKSHOP)) {
             $itemId = SteamWorkshopHelper::itemUrlToItemId($dto->getUrl());
             $name = $dto->getName() ?: substr($this->steamWorkshopClient->getWorkshopItemInfo($itemId)->getName(), 0, 255);
@@ -67,6 +71,7 @@ class ModFormDtoDataTransformer implements FormDtoDataTransformerInterface
 
         $entity->setDescription($dto->getDescription());
         $entity->setType($type);
+        $entity->setStatus($status);
 
         return $entity;
     }
@@ -85,10 +90,14 @@ class ModFormDtoDataTransformer implements FormDtoDataTransformerInterface
             return $dto;
         }
 
+        /** @var null|string $status */
+        $status = $entity->getStatus() ? $entity->getStatus()->getValue() : null;
+
         $dto->setId($entity->getId());
         $dto->setName($entity->getName());
         $dto->setDescription($entity->getDescription());
         $dto->setType($entity->getType()->getValue());
+        $dto->setStatus($status);
 
         if ($entity instanceof SteamWorkshopMod) {
             $dto->setSource(ModSourceEnum::STEAM_WORKSHOP);

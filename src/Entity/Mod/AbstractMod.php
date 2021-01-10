@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity\Mod;
 
 use App\Entity\AbstractDescribedEntity;
+use App\Entity\Mod\Enum\ModStatusEnum;
 use App\Entity\Mod\Enum\ModTypeEnum;
 use Ramsey\Uuid\UuidInterface;
 
@@ -12,6 +13,9 @@ abstract class AbstractMod extends AbstractDescribedEntity implements ModInterfa
 {
     /** @var ModTypeEnum */
     protected $type;
+
+    /** @var ?ModStatusEnum */
+    protected $status;
 
     public function __construct(UuidInterface $id, string $name, ModTypeEnum $type)
     {
@@ -58,5 +62,38 @@ abstract class AbstractMod extends AbstractDescribedEntity implements ModInterfa
     public function isTypeClientSide(): bool
     {
         return $this->getType()->is(ModTypeEnum::CLIENT_SIDE);
+    }
+
+    public function isUserSelectable(): bool
+    {
+        return $this->isSteamWorkshopMod() && \in_array($this->getType()->getValue(), [
+            ModTypeEnum::CLIENT_SIDE,
+            ModTypeEnum::OPTIONAL,
+        ], true);
+    }
+
+    public function getStatus(): ?ModStatusEnum
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?ModStatusEnum $status): void
+    {
+        $this->status = $status;
+    }
+
+    public function isStatusDeprecated(): bool
+    {
+        return $this->getStatus() instanceof ModStatusEnum && $this->getStatus()->is(ModStatusEnum::DEPRECATED);
+    }
+
+    public function isStatusBroken(): bool
+    {
+        return $this->getStatus() instanceof ModStatusEnum && $this->getStatus()->is(ModStatusEnum::BROKEN);
+    }
+
+    public function isStatusDisabled(): bool
+    {
+        return $this->getStatus() instanceof ModStatusEnum && $this->getStatus()->is(ModStatusEnum::DISABLED);
     }
 }

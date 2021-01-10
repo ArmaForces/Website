@@ -17,8 +17,9 @@
             <table>
                 {# @var mod \App\Entity\Mod\SteamWorkshopMod #}
                 {% for mod in mods %}
-                    {% if mod.type.is(constant('\\App\\Entity\\Mod\\Enum\\ModTypeEnum::REQUIRED'))
-                        or (mod.id.toString in optionalMods|keys and optionalMods[mod.id.toString] == true) %}
+                    {% set isSelected = (mod.id.toString in optionalMods|keys and optionalMods[mod.id.toString] == true) %}
+
+                    {% if not mod.statusDisabled() and (mod.isTypeRequired() or (mod.isUserSelectable() and isSelected)) %}
                         <tr data-type="ModContainer">
                             <td data-type="DisplayName">{{ mod.name }}</td>
                             <td>
