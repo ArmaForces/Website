@@ -34,22 +34,14 @@
                         {{ tableMacro.row_described(mod.name, mod.description) }}
                     </td>
                     <td>
-                        {% if mod.type.is(constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::SERVER_SIDE')) %}
-                            {{ 'Server side mod'|trans }}
-                        {% elseif mod.type.is(constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::REQUIRED')) %}
-                            {{ 'Required mod'|trans }}
-                        {% elseif mod.type.is(constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::OPTIONAL')) %}
-                            {{ 'Optional mod'|trans }}
-                        {% elseif mod.type.is(constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::CLIENT_SIDE')) %}
-                            {{ 'Client side mod'|trans }}
-                        {% endif %}
+                        {% if mod.isTypeServerSide() %}{{ 'Server side mod'|trans }}{% endif %}
+                        {% if mod.isTypeRequired() %}{{ 'Required mod'|trans }}{% endif %}
+                        {% if mod.isTypeOptional() %}{{ 'Optional mod'|trans }}{% endif %}
+                        {% if mod.isTypeClientSide() %}{{ 'Client side mod'|trans }}{% endif %}
                     </td>
                     <td>
-                        {% if mod is instance_of('\\App\\Entity\\Mod\\SteamWorkshopMod') %}
-                            <a href="{{ steam_workshop_item_url(mod.itemId) }}">{{ 'Steam Workshop'|trans }}</a>
-                        {% elseif mod is instance_of('\\App\\Entity\\Mod\\DirectoryMod') %}
-                            {{ 'Directory'|trans }}
-                        {% endif %}
+                        {% if mod.isSteamWorkshopMod() %}<a href="{{ steam_workshop_item_url(mod.itemId) }}">{{ 'Steam Workshop'|trans }}</a>{% endif %}
+                        {% if mod.isDirectoryMod() %}{{ 'Directory'|trans }}{% endif %}
                     </td>
                     <td>{{ tableMacro.row_blameable(mod.lastUpdatedAt, mod.lastUpdatedBy) }}</td>
                     <td class="text-right">

@@ -20,6 +20,16 @@ abstract class AbstractMod extends AbstractDescribedEntity implements ModInterfa
         $this->type = $type;
     }
 
+    public function isSteamWorkshopMod(): bool
+    {
+        return $this instanceof SteamWorkshopMod;
+    }
+
+    public function isDirectoryMod(): bool
+    {
+        return $this instanceof DirectoryMod;
+    }
+
     public function getType(): ModTypeEnum
     {
         return $this->type;
@@ -28,5 +38,25 @@ abstract class AbstractMod extends AbstractDescribedEntity implements ModInterfa
     public function setType(ModTypeEnum $type): void
     {
         $this->type = $type;
+    }
+
+    public function isTypeServerSide(): bool
+    {
+        return $this->getType()->is(ModTypeEnum::SERVER_SIDE);
+    }
+
+    public function isTypeRequired(): bool
+    {
+        return $this->getType()->is(ModTypeEnum::REQUIRED);
+    }
+
+    public function isTypeOptional(): bool
+    {
+        return $this->getType()->is(ModTypeEnum::OPTIONAL);
+    }
+
+    public function isTypeClientSide(): bool
+    {
+        return $this->getType()->is(ModTypeEnum::CLIENT_SIDE);
     }
 }
