@@ -31,7 +31,7 @@
                 <tr>
                     <th scope="row">{{ loop.index }}</th>
                     <td>
-                        {{ tableMacro.row_described(mod.name, mod.description) }}
+                        {{ tableMacro.row_name_with_description(mod.name, mod.description) }}
                     </td>
                     <td>
                         {% if mod.isTypeServerSide() %}{{ 'Server side mod'|trans }}{% endif %}

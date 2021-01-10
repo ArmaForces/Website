@@ -36,7 +36,3 @@
         {% endif %}
     >{{ name }}</span>
 {% endmacro %}
-
-{% macro format_date(date, dateFormat = 'short', timeFormat = 'short', emptyValue = '-') %}
-    {{ date ? date|format_datetime(dateFormat, timeFormat, locale=get_current_locale()) : emptyValue }}
-{% endmacro %}
