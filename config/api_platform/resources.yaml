@@ -14,3 +14,16 @@ App\Entity\ModList\ModList:
 
     collectionOperations:
         get: ~
+
+App\Entity\Mod\AbstractMod:
+    attributes:
+        output: 'App\Api\Dto\ModOutput'
+
+    itemOperations:
+        get:
+            path: '/mods/{id}'
+            output: 'App\Api\Dto\ModListDetailsOutput'
+
+    collectionOperations:
+        get:
+            path: '/mods'
