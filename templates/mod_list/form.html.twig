@@ -2,6 +2,11 @@
 
 {% form_theme form _self %}
 
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('modList') }}
+{% endblock %}
+
 {% block content %}
     {# @var modListFormDto \App\Form\Mod\Dto\ModListFormDto #}
     {% set modListFormDto = form.vars.data %}
@@ -43,6 +48,12 @@
         <a href="{{ path('app_mod_list_list') }}" class="btn-secondary btn">{{ 'Cancel'|trans }}</a>
     </div>
     {{ form_end(form) }}
+
+    <form id="modlist" class="d-flex justify-content-center">
+        <div class="spinner-grow text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </form>
 {% endblock %}
 
 {% block _mod_list_form_modGroups_row %}
