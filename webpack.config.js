@@ -12,6 +12,8 @@ Encore
     // public path used by the web server to access the output path
     .setPublicPath('/build')
 
+    .enableVueLoader()
+
     /*
      * ENTRY CONFIG
      */
@@ -20,6 +22,7 @@ Encore
     .addEntry('landing', './assets/landing.js')
     .addEntry('joinUs', './assets/joinUs.js')
     .addEntry('modForm', './assets/mod/modForm.js')
+    .addEntry('modList', './assets/modList/index.js')
     .addEntry('modListCustomize', './assets/modListPublic/modListCustomize.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.

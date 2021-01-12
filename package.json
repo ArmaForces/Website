@@ -1,11 +1,17 @@
 {
     "devDependencies": {
         "@symfony/webpack-encore": "^0.28.0",
+        "@vue/cli-plugin-eslint": "^4.5.10",
         "core-js": "^3.0.0",
+        "eslint": "^6.7.2",
+        "eslint-plugin-import": "^2.20.2",
+        "eslint-plugin-vue": "^6.2.2",
         "expose-loader": "^0.7.5",
         "node-sass": "^4.13.0",
         "regenerator-runtime": "^0.13.2",
         "sass-loader": "^7.0.1",
+        "vue-loader": "^15.0.11",
+        "vue-template-compiler": "^2.6.12",
         "webpack-notifier": "^1.6.0"
     },
     "license": "GPL-3.0",
@@ -15,12 +21,16 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress",
-        "build:ci": "encore production"
+        "build:ci": "encore production",
+        "lint": "eslint --ext .js,.vue assets"
     },
     "dependencies": {
+        "axios": "^0.21.1",
         "bootstrap": "^4.5.3",
         "jquery": "^3.5.0",
         "popper.js": "^1.16.0",
+        "vue": "^2.6.12",
+        "vuex": "^3.6.0",
         "yall-js": "^3.1.7"
     }
 }

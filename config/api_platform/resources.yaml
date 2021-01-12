@@ -1,6 +1,7 @@
 App\Entity\ModList\ModList:
     attributes:
         output: 'App\Api\Dto\ModListOutput'
+        pagination_enabled: false
 
     itemOperations:
         get:
@@ -14,3 +15,17 @@ App\Entity\ModList\ModList:
 
     collectionOperations:
         get: ~
+
+App\Entity\Mod\AbstractMod:
+    attributes:
+        output: 'App\Api\Dto\ModOutput'
+        pagination_enabled: false
+
+    itemOperations:
+        get:
+            path: '/mods/{id}'
+            output: 'App\Api\Dto\ModOutput'
+
+    collectionOperations:
+        get:
+            path: '/mods'
