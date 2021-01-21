@@ -26,7 +26,7 @@
                     <th scope="row">{{ loop.index }}</th>
                     <td>
                         {% if modList.approved %}
-                            <i class="fas fa-check" title="{{ 'Mod list approved'|trans }}"></i>
+                            {{ tableMacro.icon('fas fa-check', 'Mod list approved'|trans) }}
                         {% endif %}
                     </td>
                     <td>{{ modList.name }}</td>

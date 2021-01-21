@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace App\DataFixtures\ModList;
 
 use App\DataFixtures\Mod\ArmaForcesModsModFixture;
+use App\DataFixtures\Mod\Broken;
+use App\DataFixtures\Mod\Deprecated;
+use App\DataFixtures\Mod\Disabled;
 use App\Entity\ModList\ModList;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -24,6 +27,10 @@ class DefaultModListFixture extends Fixture
 
         $mods = [
             $this->getReference(ArmaForcesModsModFixture::ID),
+
+            $this->getReference(Broken\ArmaForcesAceMedicalModFixture::ID),
+            $this->getReference(Deprecated\LegacyArmaForcesModsModFixture::ID),
+            $this->getReference(Disabled\ArmaForcesJbadBuildingFixModFixture::ID),
         ];
 
         foreach ($mods as $mod) {

@@ -4,6 +4,7 @@
     {% block table_head %}
         <tr>
             <th scope="col">#</th>
+            <th scope="col"></th>
             <th scope="col" class="w-100">{{ 'Mod name'|trans }}</th>
             <th scope="col">{{ 'Mod source'|trans }}</th>
             <th scope="col">{{ 'Include?'|trans }}</th>
@@ -12,19 +13,22 @@
     {% block table_body %}
         {% set rowNo = 1 %}
 
-        {# @var mod \App\Entity\Mod\Mod #}
+        {# @var mod \App\Entity\Mod\ModInterface #}
         {% for child in form.children %}
             {% set mod = form.vars.choices[loop.index0].data %}
             {% if mod.type.value == modType %}
                 <tr>
                     <th scope="row">{{ rowNo }}</th>
                     <td>
-                        {{ tableMacro.row_described(mod.name, mod.description) }}
+                        {{ tableMacro.row_mod_status_icon(mod) }}
                     </td>
                     <td>
-                        {% if mod is instance_of('\\App\\Entity\\Mod\\SteamWorkshopMod') %}
+                        {{ tableMacro.row_name_with_description(mod.name, mod.description) }}
+                    </td>
+                    <td>
+                        {% if mod.isSteamWorkshopMod() %}
                             <a href="{{ steam_workshop_item_url(mod.itemId) }}">{{ 'Steam Workshop'|trans }}</a>
-                        {% elseif mod is instance_of('\\App\\Entity\\Mod\\DirectoryMod') %}
+                        {% elseif mod.isDirectoryMod() %}
                             {{ 'Directory'|trans }}
                         {% endif %}
                     </td>

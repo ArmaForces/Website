@@ -34,6 +34,11 @@ class ModOutput
     /**
      * @var null|string
      */
+    protected $status;
+
+    /**
+     * @var null|string
+     */
     protected $type;
 
     /**
@@ -94,6 +99,16 @@ class ModOutput
     public function setSource(?string $source): void
     {
         $this->source = $source;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?string $status): void
+    {
+        $this->status = $status;
     }
 
     public function getType(): ?string

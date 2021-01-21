@@ -16,7 +16,7 @@ charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 
-[*.{html, twig}]
+[*.{html, twig, xml}]
 max_line_length = off
 
 [*.md]

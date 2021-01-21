@@ -1,8 +1,11 @@
 <div class="tab-pane fade show active" id="optional-mods" role="tabpanel">
     {% embed '_partial/_table.html.twig' %}
+        {% import '_macro/table_macro.html.twig' as tableMacro %}
+        
         {% block table_head %}
             <tr>
                 <th scope="col">#</th>
+                <th scope="col"></th>
                 <th scope="col" class="w-100">{{ 'Mod name'|trans }}</th>
                 <th scope="col">{{ 'Include?'|trans }}</th>
                 <th scope="col">{{ 'Steam Workshop ID'|trans }}</th>
@@ -14,24 +17,29 @@
 
             {# @var mod \App\Entity\Mod\SteamWorkshopMod #}
             {% for mod in optionalMods %}
-                <tr>
-                    <th scope="row">{{ rowNo }}</th>
-                    <td>{{ mod.name }}</td>
-                    <td>
-                        {% set modEntryId = 'mod-' ~ mod.id %}
+                {% if not mod.statusDisabled %}
+                    <tr>
+                        <th scope="row">{{ rowNo }}</th>
+                        <td>
+                            {{ tableMacro.row_mod_status_icon(mod) }}
+                        </td>
+                        <td>{{ mod.name }}</td>
+                        <td>
+                            {% set modEntryId = 'mod-' ~ mod.id %}
 
-                        <div class="custom-control custom-switch">
-                            <input type="checkbox" id="{{ modEntryId }}" class="custom-control-input" data-multi-row-select="optionalMods" data-multi-row-select-element-id="{{ mod.id }}">
-                            <label class="switch-custom custom-control-label" for="{{ modEntryId }}"></label>
-                        </div>
-                    </td>
-                    <td>
-                        <a href="{{ steam_workshop_item_url(mod.itemId) }}">{{ mod.itemId }}</a>
-                    </td>
-                    <td></td>
-                </tr>
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" id="{{ modEntryId }}" class="custom-control-input" data-multi-row-select="optionalMods" data-multi-row-select-element-id="{{ mod.id }}">
+                                <label class="switch-custom custom-control-label" for="{{ modEntryId }}"></label>
+                            </div>
+                        </td>
+                        <td>
+                            <a href="{{ steam_workshop_item_url(mod.itemId) }}">{{ mod.itemId }}</a>
+                        </td>
+                        <td></td>
+                    </tr>
 
-                {% set rowNo = rowNo + 1 %}
+                    {% set rowNo = rowNo + 1 %}
+                {% endif %}
             {% endfor %}
         {% endblock %}
     {% endembed %}

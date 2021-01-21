@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Form\Mod;
 
 use App\Entity\Mod\Enum\ModSourceEnum;
+use App\Entity\Mod\Enum\ModStatusEnum;
 use App\Entity\Mod\Enum\ModTypeEnum;
+use App\Entity\User\UserInterface;
 use App\Form\Mod\Dto\ModFormDto;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -13,9 +15,18 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Security;
 
 class ModFormType extends AbstractType
 {
+    /** @var Security */
+    protected $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -55,6 +66,11 @@ class ModFormType extends AbstractType
                 ],
                 'empty_data' => ModTypeEnum::REQUIRED,
             ])
+        ;
+
+        $this->addChangeStatusType($builder);
+
+        $builder
             ->add('name', TextType::class, [
                 'label' => 'Mod name',
                 'help' => 'Optional for mods from Steam Workshop',
@@ -80,5 +96,27 @@ class ModFormType extends AbstractType
                 return $modFormDto->resolveValidationGroups();
             },
         ]);
+    }
+
+    protected function addChangeStatusType(FormBuilderInterface $builder): void
+    {
+        /** @var UserInterface $currentUser */
+        $currentUser = $this->security->getUser();
+
+        if (!$currentUser->getPermissions()->getModPermissions()->canChangeStatus()) {
+            return;
+        }
+
+        $builder
+            ->add('status', ChoiceType::class, [
+                'label' => 'Mod status',
+                'required' => false,
+                'choices' => [
+                    'Deprecated' => ModStatusEnum::DEPRECATED,
+                    'Broken' => ModStatusEnum::BROKEN,
+                    'Disabled' => ModStatusEnum::DISABLED,
+                ],
+            ])
+        ;
     }
 }

@@ -99,6 +99,11 @@ class ModListFormType extends AbstractType
         /** @var UserInterface $currentUser */
         $currentUser = $this->security->getUser();
 
+        // Add owner list only if user has full permissions to edit Mod Lists
+        if (!$currentUser->getPermissions()->getModListPermissions()->canUpdate()) {
+            return;
+        }
+
         /** @var ModListFormDto $modListFormDto */
         $modListFormDto = $builder->getData();
         $modListExists = null !== $modListFormDto->getId();
@@ -123,10 +128,7 @@ class ModListFormType extends AbstractType
             $ownerTypeConfig['data'] = $currentUser;
         }
 
-        // Add owner list only if user has full permissions to edit Mod Lists
-        if ($currentUser->getPermissions()->getModListPermissions()->canUpdate()) {
-            $builder->add('owner', EntityType::class, $ownerTypeConfig);
-        }
+        $builder->add('owner', EntityType::class, $ownerTypeConfig);
     }
 
     protected function addApprovedType(FormBuilderInterface $builder): void
@@ -134,13 +136,15 @@ class ModListFormType extends AbstractType
         /** @var UserInterface $currentUser */
         $currentUser = $this->security->getUser();
 
-        if ($currentUser->getPermissions()->getModListPermissions()->canApprove()) {
-            $builder
-                ->add('approved', CheckboxType::class, [
-                    'label' => 'Mod list approved',
-                    'required' => false,
-                ])
-            ;
+        if (!$currentUser->getPermissions()->getModListPermissions()->canApprove()) {
+            return;
         }
+
+        $builder
+            ->add('approved', CheckboxType::class, [
+                'label' => 'Mod list approved',
+                'required' => false,
+            ])
+        ;
     }
 }

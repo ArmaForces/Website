@@ -27,7 +27,7 @@ setup: db
 
 test:
 	make db env=test
-	make test
+	make test-ci
 
 test-ci:
 	docker-compose exec -T php php bin/console doctrine:fixtures:load --no-interaction --env=test

@@ -65,6 +65,7 @@ Can list mods: Może przeglądać mody
 Can create mods: Może tworzyć mody
 Can edit mods: Może edytować mody
 Can delete mods: Może usuwać mody
+Can change mods status: Może zmieniać status modów
 
 Can list mod groups: Może przeglądać grupy modów
 Can create mod groups: Może tworzyć grupy modów
@@ -97,6 +98,10 @@ Client side mods: Klienckie
 Mod name: Nazwa
 Mod description: Opis
 Mod type: Typ
+Mod status: Status
+Deprecated: Niewspierany
+Broken: Uszkodzony
+Disabled: Nieaktywny
 Mod source: Źródło
 Steam Workshop: Steam Workshop
 Directory: Katalog
