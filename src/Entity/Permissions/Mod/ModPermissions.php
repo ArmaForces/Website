@@ -8,4 +8,16 @@ use App\Entity\Permissions\AbstractCrudPermissions;
 
 class ModPermissions extends AbstractCrudPermissions
 {
+    /** @var bool */
+    protected $changeStatus = false;
+
+    public function canChangeStatus(): bool
+    {
+        return $this->changeStatus;
+    }
+
+    public function setChangeStatus(bool $changeStatus): void
+    {
+        $this->changeStatus = $changeStatus;
+    }
 }

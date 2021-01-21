@@ -64,7 +64,6 @@ RUN set -eux; \
     apk del .build-deps \
 ;
 
-ARG COMPOSER_VERSION=1
 COPY --from=composer:1 /usr/bin/composer /usr/bin/composer
 RUN ln -s $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
 COPY .docker/php/conf.d/armaforces-web.ini $PHP_INI_DIR/conf.d/armaforces-web.ini
@@ -81,7 +80,7 @@ WORKDIR /www/app
 ARG APP_ENV=prod
 
 # prevent the reinstallation of vendors at every changes in the source code
-COPY composer.json composer.lock symfony.lock .env VERSIO[N] ./
+COPY composer.json composer.lock symfony.lock .env ./
 RUN set -eux; \
     composer install --prefer-dist --no-dev --no-scripts --no-progress --no-suggest; \
     composer clear-cache
@@ -107,6 +106,9 @@ COPY --from=armaforces_web_assets /tmp/app_build/public/build/ public/build/
 
 COPY .docker/php/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint
+
+# .env is copied again as COPY needs to copy at least one file
+COPY .env VERSIO[N] ./
 
 ENTRYPOINT ["docker-entrypoint"]
 CMD ["php-fpm"]

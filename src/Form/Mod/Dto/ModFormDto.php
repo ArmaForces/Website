@@ -48,6 +48,11 @@ class ModFormDto extends AbstractFormDto
 
     /**
      * @var null|string
+     */
+    protected $status;
+
+    /**
+     * @var null|string
      *
      * @Assert\Expression(
      *     "!(this.getSource() == constant('App\\Entity\\Mod\\Enum\\ModSourceEnum::DIRECTORY') && this.getType() != constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::SERVER_SIDE'))",
@@ -121,6 +126,16 @@ class ModFormDto extends AbstractFormDto
     public function setType(?string $type): void
     {
         $this->type = $type;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?string $status): void
+    {
+        $this->status = $status;
     }
 
     public function getSource(): ?string

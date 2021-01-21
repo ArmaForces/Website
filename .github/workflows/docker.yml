@@ -8,6 +8,7 @@ on:
 
 env:
     REPO_LOWERCASE: armaforces/website
+    COMPOSE_DOCKER_CLI_BUILD: 1
 
 jobs:
     github:
@@ -25,6 +26,11 @@ jobs:
             -   name: Create VERSION
                 run: echo $GITHUB_SHA > VERSION
 
+            -   name: Build Assets
+                if: github.ref == 'refs/heads/dev'
+                run: docker build -t docker.pkg.github.com/${REPO_LOWERCASE}/app_assets:${IMAGE_TAG}
+                    --target armaforces_web_assets -f .docker/Dockerfile .
+
             -   name: Build PHP
                 if: success()
                 run: docker build -t docker.pkg.github.com/${REPO_LOWERCASE}/app_php:${IMAGE_TAG}
@@ -34,6 +40,12 @@ jobs:
                 if: success()
                 run: docker build -t docker.pkg.github.com/${REPO_LOWERCASE}/app_nginx:${IMAGE_TAG}
                     --target armaforces_web_nginx -f .docker/Dockerfile .
+
+            -   name: Push Assets
+                if: github.ref == 'refs/heads/dev'
+                uses: actions-hub/docker@master
+                with:
+                    args: push docker.pkg.github.com/${REPO_LOWERCASE}/app_assets:${IMAGE_TAG}
 
             -   name: Push PHP
                 if: success()

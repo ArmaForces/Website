@@ -130,6 +130,7 @@ class ModListController extends AbstractController
 
         $modListFormDto = $this->modListFormDtoDataTransformer->fromEntity($modList);
         $modListFormDto->setId(null); // Entity will be treated as new by the unique name validator
+        $modListFormDto->setApproved(false); // Reset approval status
 
         $form = $this->createForm(ModListFormType::class, $modListFormDto);
         $form->handleRequest($request);

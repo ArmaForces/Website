@@ -34,6 +34,10 @@ class ModPermissionsType extends AbstractType
                 'label' => 'Can delete mods',
                 'label_attr' => ['class' => 'switch-custom'],
             ])
+            ->add('changeStatus', CheckboxType::class, [
+                'label' => 'Can change mods status',
+                'label_attr' => ['class' => 'switch-custom'],
+            ])
         ;
     }
 

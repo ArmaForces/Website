@@ -18,6 +18,7 @@
         {% block table_head %}
             <tr>
                 <th scope="col">#</th>
+                <th scope="col"></th>
                 <th scope="col" class="w-100">{{ 'Mod name'|trans }}</th>
                 <th scope="col">{{ 'Mod type'|trans }}</th>
                 <th scope="col">{{ 'Mod source'|trans }}</th>
@@ -26,30 +27,25 @@
             </tr>
         {% endblock %}
         {% block table_body %}
-            {# @var mod \App\Entity\Mod\Mod #}
+            {# @var mod \App\Entity\Mod\ModInterface #}
             {% for mod in mods %}
                 <tr>
                     <th scope="row">{{ loop.index }}</th>
                     <td>
-                        {{ tableMacro.row_described(mod.name, mod.description) }}
+                        {{ tableMacro.row_mod_status_icon(mod) }}
                     </td>
                     <td>
-                        {% if mod.type.is(constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::SERVER_SIDE')) %}
-                            {{ 'Server side mod'|trans }}
-                        {% elseif mod.type.is(constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::REQUIRED')) %}
-                            {{ 'Required mod'|trans }}
-                        {% elseif mod.type.is(constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::OPTIONAL')) %}
-                            {{ 'Optional mod'|trans }}
-                        {% elseif mod.type.is(constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::CLIENT_SIDE')) %}
-                            {{ 'Client side mod'|trans }}
-                        {% endif %}
+                        {{ tableMacro.row_name_with_description(mod.name, mod.description) }}
                     </td>
                     <td>
-                        {% if mod is instance_of('\\App\\Entity\\Mod\\SteamWorkshopMod') %}
-                            <a href="{{ steam_workshop_item_url(mod.itemId) }}">{{ 'Steam Workshop'|trans }}</a>
-                        {% elseif mod is instance_of('\\App\\Entity\\Mod\\DirectoryMod') %}
-                            {{ 'Directory'|trans }}
-                        {% endif %}
+                        {% if mod.isTypeServerSide() %}{{ 'Server side mod'|trans }}{% endif %}
+                        {% if mod.isTypeRequired() %}{{ 'Required mod'|trans }}{% endif %}
+                        {% if mod.isTypeOptional() %}{{ 'Optional mod'|trans }}{% endif %}
+                        {% if mod.isTypeClientSide() %}{{ 'Client side mod'|trans }}{% endif %}
+                    </td>
+                    <td>
+                        {% if mod.isSteamWorkshopMod() %}<a href="{{ steam_workshop_item_url(mod.itemId) }}">{{ 'Steam Workshop'|trans }}</a>{% endif %}
+                        {% if mod.isDirectoryMod() %}{{ 'Directory'|trans }}{% endif %}
                     </td>
                     <td>{{ tableMacro.row_blameable(mod.lastUpdatedAt, mod.lastUpdatedBy) }}</td>
                     <td class="text-right">

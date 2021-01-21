@@ -31,7 +31,7 @@ final class CircularReferenceHandlerTest extends TestCase
         $circularReferenceHandler = new CircularReferenceHandler();
         $result = $circularReferenceHandler($object, 'json', []);
 
-        static::assertSame($uuid, $result);
+        $this::assertSame($uuid, $result);
     }
 
     /**
