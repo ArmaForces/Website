@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Entity\ModList\ModList;
 use App\Repository\ModListRepository;
+use App\Repository\ModRepository;
 use App\Security\Enum\PermissionsEnum;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,11 +19,15 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ModListPublicController extends AbstractController
 {
+    /** @var ModRepository */
+    protected $modRepository;
+
     /** @var ModListRepository */
     protected $modListRepository;
 
-    public function __construct(ModListRepository $modListRepository)
+    public function __construct(ModRepository $modRepository, ModListRepository $modListRepository)
     {
+        $this->modRepository = $modRepository;
         $this->modListRepository = $modListRepository;
     }
 
@@ -48,8 +53,8 @@ class ModListPublicController extends AbstractController
      */
     public function customizeAction(ModList $modList): Response
     {
-        $optionalMods = $this->modListRepository->findIncludedOptionalSteamWorkshopMods($modList);
-        $requiredMods = $this->modListRepository->findIncludedRequiredSteamWorkshopMods($modList);
+        $optionalMods = $this->modRepository->findIncludedOptionalSteamWorkshopMods($modList);
+        $requiredMods = $this->modRepository->findIncludedRequiredSteamWorkshopMods($modList);
 
         return $this->render('mod_list_public/customize.html.twig', [
             'modList' => $modList,
@@ -67,7 +72,7 @@ class ModListPublicController extends AbstractController
     {
         $template = $this->renderView('mod_list_public/launcher_preset_template.html.twig', [
             'modList' => $modList,
-            'mods' => $this->modListRepository->findIncludedSteamWorkshopMods($modList),
+            'mods' => $this->modRepository->findIncludedSteamWorkshopMods($modList),
             'optionalMods' => $optionalModsJson ? json_decode($optionalModsJson, true) : [],
         ]);
 
