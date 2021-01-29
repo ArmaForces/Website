@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\ModGroup\ModGroup;
-use App\Form\ModGroup\DataTransformer\ModGroupFormDtoDataTransformer;
+use App\Form\DataTransformerRegistry;
 use App\Form\ModGroup\Dto\ModGroupFormDto;
 use App\Form\ModGroup\ModGroupFormType;
 use App\Repository\ModGroupRepository;
@@ -34,19 +34,19 @@ class ModGroupController extends AbstractController
     /** @var ModListRepository */
     protected $modListRepository;
 
-    /** @var ModGroupFormDtoDataTransformer */
-    protected $modGroupFormDtoDataTransformer;
+    /** @var DataTransformerRegistry */
+    protected $dataTransformerRegistry;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         ModGroupRepository $modGroupRepository,
         ModListRepository $modListRepository,
-        ModGroupFormDtoDataTransformer $modGroupFormDtoDataTransformer
+        DataTransformerRegistry $dataTransformerRegistry
     ) {
         $this->entityManager = $entityManager;
         $this->modGroupRepository = $modGroupRepository;
         $this->modListRepository = $modListRepository;
-        $this->modGroupFormDtoDataTransformer = $modGroupFormDtoDataTransformer;
+        $this->dataTransformerRegistry = $dataTransformerRegistry;
     }
 
     /**
@@ -75,7 +75,7 @@ class ModGroupController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $modGroup = $this->modGroupFormDtoDataTransformer->toEntity($modGroupFormDto);
+            $modGroup = $this->dataTransformerRegistry->transformToEntity($modGroupFormDto);
 
             $this->entityManager->persist($modGroup);
             $this->entityManager->flush();
@@ -95,12 +95,12 @@ class ModGroupController extends AbstractController
      */
     public function updateAction(Request $request, ModGroup $modGroup): Response
     {
-        $modGroupFormDto = $this->modGroupFormDtoDataTransformer->fromEntity($modGroup);
+        $modGroupFormDto = $this->dataTransformerRegistry->transformFromEntity(new ModGroupFormDto(), $modGroup);
         $form = $this->createForm(ModGroupFormType::class, $modGroupFormDto);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->modGroupFormDtoDataTransformer->toEntity($modGroupFormDto, $modGroup);
+            $this->dataTransformerRegistry->transformToEntity($modGroupFormDto, $modGroup);
 
             $this->entityManager->flush();
 

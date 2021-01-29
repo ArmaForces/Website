@@ -8,62 +8,68 @@ use App\Entity\EntityInterface;
 use App\Entity\Mod\ModInterface;
 use App\Entity\ModList\ModList;
 use App\Entity\ModList\ModListInterface;
-use App\Form\FormDtoDataTransformerInterface;
 use App\Form\FormDtoInterface;
 use App\Form\ModList\Dto\ModListFormDto;
+use App\Form\RegisteredDataTransformerInterface;
 use Ramsey\Uuid\Uuid;
 
-class ModListFormDtoDataTransformer implements FormDtoDataTransformerInterface
+class ModListFormDtoDataTransformer implements RegisteredDataTransformerInterface
 {
     /**
+     * @param ModListFormDto        $formDto
      * @param null|ModListInterface $entity
      *
      * @return ModListInterface
      */
-    public function toEntity(FormDtoInterface $dto, EntityInterface $entity = null): EntityInterface
+    public function transformToEntity(FormDtoInterface $formDto, EntityInterface $entity = null): EntityInterface
     {
-        if (!$dto instanceof ModListFormDto) {
-            throw new \InvalidArgumentException(sprintf('Dto must be of type of %s, got %s', ModListFormDto::class, \get_class($dto)));
-        }
-
         if (!$entity instanceof ModListInterface) {
-            $entity = new ModList(Uuid::uuid4(), $dto->getName());
+            $entity = new ModList(Uuid::uuid4(), $formDto->getName());
         }
 
-        $entity->setName($dto->getName());
-        $entity->setDescription($dto->getDescription());
-        $entity->setMods($dto->getMods());
-        $entity->setModGroups($dto->getModGroups());
-        $entity->setOwner($dto->getOwner());
-        $entity->setActive($dto->isActive());
-        $entity->setApproved($dto->isApproved());
+        $entity->setName($formDto->getName());
+        $entity->setDescription($formDto->getDescription());
+        $entity->setMods($formDto->getMods());
+        $entity->setModGroups($formDto->getModGroups());
+        $entity->setOwner($formDto->getOwner());
+        $entity->setActive($formDto->isActive());
+        $entity->setApproved($formDto->isApproved());
 
         return $entity;
     }
 
     /**
+     * @param ModListFormDto        $formDto
      * @param null|ModListInterface $entity
      *
      * @return ModListFormDto
      */
-    public function fromEntity(EntityInterface $entity = null): FormDtoInterface
+    public function transformFromEntity(FormDtoInterface $formDto, EntityInterface $entity = null): FormDtoInterface
     {
-        $dto = new ModListFormDto();
-
         /** @var ModInterface $entity */
         if (!$entity instanceof ModListInterface) {
-            return $dto;
+            return $formDto;
         }
 
-        $dto->setId($entity->getId());
-        $dto->setName($entity->getName());
-        $dto->setDescription($entity->getDescription());
-        $dto->setMods($entity->getMods());
-        $dto->setModGroups($entity->getModGroups());
-        $dto->setOwner($entity->getOwner());
-        $dto->setActive($entity->isActive());
-        $dto->setApproved($entity->isApproved());
+        $formDto->setId($entity->getId());
+        $formDto->setName($entity->getName());
+        $formDto->setDescription($entity->getDescription());
+        $formDto->setMods($entity->getMods());
+        $formDto->setModGroups($entity->getModGroups());
+        $formDto->setOwner($entity->getOwner());
+        $formDto->setActive($entity->isActive());
+        $formDto->setApproved($entity->isApproved());
 
-        return $dto;
+        return $formDto;
+    }
+
+    public function supportsTransformationToEntity(FormDtoInterface $formDto, EntityInterface $entity = null): bool
+    {
+        return $formDto instanceof ModListFormDto;
+    }
+
+    public function supportsTransformationFromEntity(FormDtoInterface $formDto, EntityInterface $entity = null): bool
+    {
+        return $formDto instanceof ModListFormDto;
     }
 }

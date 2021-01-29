@@ -8,54 +8,60 @@ use App\Entity\EntityInterface;
 use App\Entity\Mod\ModInterface;
 use App\Entity\ModGroup\ModGroup;
 use App\Entity\ModGroup\ModGroupInterface;
-use App\Form\FormDtoDataTransformerInterface;
 use App\Form\FormDtoInterface;
 use App\Form\ModGroup\Dto\ModGroupFormDto;
+use App\Form\RegisteredDataTransformerInterface;
 use Ramsey\Uuid\Uuid;
 
-class ModGroupFormDtoDataTransformer implements FormDtoDataTransformerInterface
+class ModGroupFormDtoDataTransformer implements RegisteredDataTransformerInterface
 {
     /**
+     * @param ModGroupFormDto        $formDto
      * @param null|ModGroupInterface $entity
      *
      * @return ModGroupInterface
      */
-    public function toEntity(FormDtoInterface $dto, EntityInterface $entity = null): EntityInterface
+    public function transformToEntity(FormDtoInterface $formDto, EntityInterface $entity = null): EntityInterface
     {
-        if (!$dto instanceof ModGroupFormDto) {
-            throw new \InvalidArgumentException(sprintf('Dto must be of type of %s, got %s', ModGroupFormDto::class, \get_class($dto)));
-        }
-
         if (!$entity instanceof ModGroupInterface) {
-            $entity = new ModGroup(Uuid::uuid4(), $dto->getName());
+            $entity = new ModGroup(Uuid::uuid4(), $formDto->getName());
         }
 
-        $entity->setName($dto->getName());
-        $entity->setDescription($dto->getDescription());
-        $entity->setMods($dto->getMods());
+        $entity->setName($formDto->getName());
+        $entity->setDescription($formDto->getDescription());
+        $entity->setMods($formDto->getMods());
 
         return $entity;
     }
 
     /**
+     * @param ModGroupFormDto        $formDto
      * @param null|ModGroupInterface $entity
      *
      * @return ModGroupFormDto
      */
-    public function fromEntity(EntityInterface $entity = null): FormDtoInterface
+    public function transformFromEntity(FormDtoInterface $formDto, EntityInterface $entity = null): FormDtoInterface
     {
-        $dto = new ModGroupFormDto();
-
         /** @var ModInterface $entity */
         if (!$entity instanceof ModGroupInterface) {
-            return $dto;
+            return $formDto;
         }
 
-        $dto->setId($entity->getId());
-        $dto->setName($entity->getName());
-        $dto->setDescription($entity->getDescription());
-        $dto->setMods($entity->getMods());
+        $formDto->setId($entity->getId());
+        $formDto->setName($entity->getName());
+        $formDto->setDescription($entity->getDescription());
+        $formDto->setMods($entity->getMods());
 
-        return $dto;
+        return $formDto;
+    }
+
+    public function supportsTransformationToEntity(FormDtoInterface $formDto, EntityInterface $entity = null): bool
+    {
+        return $formDto instanceof ModGroupFormDto;
+    }
+
+    public function supportsTransformationFromEntity(FormDtoInterface $formDto, EntityInterface $entity = null): bool
+    {
+        return $formDto instanceof ModGroupFormDto;
     }
 }
