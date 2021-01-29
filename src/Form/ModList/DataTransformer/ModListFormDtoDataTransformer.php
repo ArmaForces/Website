@@ -8,13 +8,23 @@ use App\Entity\EntityInterface;
 use App\Entity\Mod\ModInterface;
 use App\Entity\ModList\ModList;
 use App\Entity\ModList\ModListInterface;
+use App\Entity\User\UserInterface;
 use App\Form\FormDtoInterface;
 use App\Form\ModList\Dto\ModListFormDto;
 use App\Form\RegisteredDataTransformerInterface;
 use Ramsey\Uuid\Uuid;
+use Symfony\Component\Security\Core\Security;
 
 class ModListFormDtoDataTransformer implements RegisteredDataTransformerInterface
 {
+    /** @var Security */
+    protected $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     /**
      * @param ModListFormDto        $formDto
      * @param null|ModListInterface $entity
@@ -27,11 +37,17 @@ class ModListFormDtoDataTransformer implements RegisteredDataTransformerInterfac
             $entity = new ModList(Uuid::uuid4(), $formDto->getName());
         }
 
+        /** @var UserInterface $currentUser */
+        $currentUser = $this->security->getUser();
+
+        // If user has permissions set selected user as owner. Otherwise assign current user.
+        $owner = $currentUser->getPermissions()->getModListPermissions()->canUpdate() ? $formDto->getOwner() : $currentUser;
+
         $entity->setName($formDto->getName());
         $entity->setDescription($formDto->getDescription());
         $entity->setMods($formDto->getMods());
         $entity->setModGroups($formDto->getModGroups());
-        $entity->setOwner($formDto->getOwner());
+        $entity->setOwner($owner);
         $entity->setActive($formDto->isActive());
         $entity->setApproved($formDto->isApproved());
 

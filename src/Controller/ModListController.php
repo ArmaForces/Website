@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\ModList\ModList;
-use App\Entity\ModList\ModListInterface;
-use App\Entity\User\UserInterface;
 use App\Form\DataTransformerRegistry;
 use App\Form\ModList\Dto\ModListFormDto;
 use App\Form\ModList\ModListFormType;
@@ -69,21 +67,12 @@ class ModListController extends AbstractController
      */
     public function createAction(Request $request): Response
     {
-        /** @var UserInterface $currentUser */
-        $currentUser = $this->getUser();
-
         $modListFormDto = new ModListFormDto();
         $form = $this->createForm(ModListFormType::class, $modListFormDto);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var ModListInterface $modList */
             $modList = $this->dataTransformerRegistry->transformToEntity($modListFormDto);
-
-            // If user doesn't have full permissions to edit Mod Lists then he cannot change Mod List owner so we assign ModList to him
-            if (!$currentUser->getPermissions()->getModListPermissions()->canUpdate()) {
-                $modList->setOwner($currentUser);
-            }
 
             $this->entityManager->persist($modList);
             $this->entityManager->flush();
@@ -127,9 +116,6 @@ class ModListController extends AbstractController
      */
     public function copyAction(Request $request, ModList $modList): Response
     {
-        /** @var UserInterface $currentUser */
-        $currentUser = $this->getUser();
-
         /** @var ModListFormDto $modListFormDto */
         $modListFormDto = $this->dataTransformerRegistry->transformFromEntity(new ModListFormDto(), $modList);
         $modListFormDto->setId(null); // Entity will be treated as new by the unique name validator
@@ -139,13 +125,7 @@ class ModListController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var ModListInterface $modListCopy */
             $modListCopy = $this->dataTransformerRegistry->transformToEntity($modListFormDto);
-
-            // If user doesn't have full permissions to edit Mod Lists then he cannot change Mod List owner so we assign ModList to him
-            if (!$currentUser->getPermissions()->getModListPermissions()->canUpdate()) {
-                $modListCopy->setOwner($currentUser);
-            }
 
             $this->entityManager->persist($modListCopy);
             $this->entityManager->flush();
