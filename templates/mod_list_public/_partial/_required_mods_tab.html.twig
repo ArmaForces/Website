@@ -19,7 +19,7 @@
                     <tr>
                         <th scope="row">{{ rowNo }}</th>
                         <td>{{ tableMacro.row_mod_status_icon(mod) }}</td>
-                        <td>{{ mod.name }}</td>
+                        <td>{{ tableMacro.row_name_with_description(mod.name, mod.description) }}</td>
                         <td><a href="{{ steam_workshop_item_url(mod.itemId) }}">{{ mod.itemId }}</a></td>
                     </tr>
 
