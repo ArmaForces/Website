@@ -1,7 +1,7 @@
 <div class="tab-pane fade show active" id="optional-mods" role="tabpanel">
     {% embed '_partial/_table.html.twig' %}
         {% import '_macro/table_macro.html.twig' as tableMacro %}
-        
+
         {% block table_head %}
             <tr>
                 <th scope="col">#</th>
@@ -20,9 +20,7 @@
                 {% if not mod.statusDisabled %}
                     <tr>
                         <th scope="row">{{ rowNo }}</th>
-                        <td>
-                            {{ tableMacro.row_mod_status_icon(mod) }}
-                        </td>
+                        <td>{{ tableMacro.row_mod_status_icon(mod) }}</td>
                         <td>{{ mod.name }}</td>
                         <td>
                             {% set modEntryId = 'mod-' ~ mod.id %}
@@ -32,9 +30,7 @@
                                 <label class="switch-custom custom-control-label" for="{{ modEntryId }}"></label>
                             </div>
                         </td>
-                        <td>
-                            <a href="{{ steam_workshop_item_url(mod.itemId) }}">{{ mod.itemId }}</a>
-                        </td>
+                        <td><a href="{{ steam_workshop_item_url(mod.itemId) }}">{{ mod.itemId }}</a></td>
                         <td></td>
                     </tr>
 
