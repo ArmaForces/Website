@@ -22,6 +22,12 @@ doctrine:
                 dir: '%kernel.project_dir%/config/doctrine/User'
                 prefix: 'App\Entity\User'
                 alias: User
+            UserGroup:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/config/doctrine/UserGroup'
+                prefix: 'App\Entity\UserGroup'
+                alias: UserGroup
             Mod:
                 is_bundle: false
                 type: xml
