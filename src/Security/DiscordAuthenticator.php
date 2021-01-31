@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Security;
 
 use App\Entity\Permissions\Permissions;
-use App\Entity\User\AbstractUser;
 use App\Entity\User\User;
 use App\Entity\User\UserInterface;
 use App\Security\Exception\MultipleRolesFound;
@@ -154,8 +153,8 @@ class DiscordAuthenticator extends SocialAuthenticator
              *      Manually persist permissions association because cascade persists
              *      stopped working after adding blameable User association.
              *
-             * @see AbstractUser::setCreatedBy()
-             * @see AbstractUser::setLastUpdatedBy()
+             * @see User::setCreatedBy()
+             * @see User::setLastUpdatedBy()
              */
             $this->em->persist($permissions);
             $this->em->persist($user);

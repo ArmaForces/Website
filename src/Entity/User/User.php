@@ -4,16 +4,29 @@ declare(strict_types=1);
 
 namespace App\Entity\User;
 
-use App\Entity\ModList\ModListInterface;
+use App\Entity\AbstractEntity;
 use App\Entity\Permissions\Permissions;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\User\Traits\UserInterfaceTrait;
 use Ramsey\Uuid\UuidInterface;
 
-class User extends AbstractUser
+class User extends AbstractEntity implements UserInterface
 {
-    /** @var Collection|ModListInterface[] */
-    protected $ownedModLists;
+    use UserInterfaceTrait;
+
+    /** @var string */
+    protected $username;
+
+    /** @var string */
+    protected $email;
+
+    /** @var string */
+    protected $externalId;
+
+    /** @var Permissions */
+    protected $permissions;
+
+    /** @var null|string */
+    protected $avatarHash;
 
     public function __construct(
         UuidInterface $id,
@@ -22,21 +35,61 @@ class User extends AbstractUser
         string $externalId,
         Permissions $permissions
     ) {
-        parent::__construct($id, $username, $email, $externalId, $permissions);
+        parent::__construct($id);
 
         $this->username = $username;
         $this->email = $email;
         $this->externalId = $externalId;
         $this->permissions = $permissions;
-
-        $this->ownedModLists = new ArrayCollection();
     }
 
-    /**
-     * @return Collection|ModListInterface[]
-     */
-    public function getOwnedModLists()
+    public function getUsername(): string
     {
-        return $this->ownedModLists;
+        return $this->username;
+    }
+
+    public function setUsername(string $username): void
+    {
+        $this->username = $username;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
+    }
+
+    public function getExternalId(): string
+    {
+        return $this->externalId;
+    }
+
+    public function setExternalId(string $externalId): void
+    {
+        $this->externalId = $externalId;
+    }
+
+    public function getPermissions(): Permissions
+    {
+        return $this->permissions;
+    }
+
+    public function setPermissions(Permissions $permissions): void
+    {
+        $this->permissions = $permissions;
+    }
+
+    public function getAvatarHash(): ?string
+    {
+        return $this->avatarHash;
+    }
+
+    public function setAvatarHash(?string $avatarHash): void
+    {
+        $this->avatarHash = $avatarHash;
     }
 }
