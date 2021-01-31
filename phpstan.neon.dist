@@ -12,3 +12,5 @@ parameters:
         container_xml_path: '/project/var/cache/dev/srcApp_KernelDevDebugContainer.xml'
     checkGenericClassInNonGenericObjectType: false
     checkMissingIterableValueType: false
+    ignoreErrors:
+        - '#WarmableInterface::warmUp#'
