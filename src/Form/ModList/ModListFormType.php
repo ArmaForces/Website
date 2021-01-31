@@ -100,7 +100,7 @@ class ModListFormType extends AbstractType
         $currentUser = $this->security->getUser();
 
         // Add owner list only if user has full permissions to edit Mod Lists
-        if (!$currentUser->getPermissions()->getModListPermissions()->canUpdate()) {
+        if (!$currentUser->getPermissions()->getModListManagementPermissions()->canUpdate()) {
             return;
         }
 
@@ -136,7 +136,7 @@ class ModListFormType extends AbstractType
         /** @var UserInterface $currentUser */
         $currentUser = $this->security->getUser();
 
-        if (!$currentUser->getPermissions()->getModListPermissions()->canApprove()) {
+        if (!$currentUser->getPermissions()->getModListManagementPermissions()->canApprove()) {
             return;
         }
 

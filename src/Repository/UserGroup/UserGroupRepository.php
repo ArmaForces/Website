@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Repository;
+namespace App\Repository\UserGroup;
 
 use App\Entity\UserGroup\UserGroup;
 use App\Entity\UserGroup\UserGroupInterface;

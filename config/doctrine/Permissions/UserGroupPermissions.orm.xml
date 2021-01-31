@@ -4,8 +4,6 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="App\Entity\Mod\DirectoryMod" repository-class="App\Repository\Mod\DirectoryModRepository">
-        <field name="directory" type="string" length="255" unique="true"/>
-    </entity>
+    <entity name="App\Entity\Permissions\UserGroupPermissions" repository-class="App\Repository\Permissions\UserGroupPermissionsRepository"/>
 
 </doctrine-mapping>

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Entity\Permissions\ModList;
 
-use App\Entity\Permissions\AbstractCrudPermissions;
+use App\Entity\Permissions\AbstractManagementPermissions;
 
-class ModListPermissions extends AbstractCrudPermissions
+class ModListManagementPermissions extends AbstractManagementPermissions
 {
     /** @var bool */
     protected $copy = false;

@@ -33,6 +33,6 @@ class DeleteUserVoter extends Voter
         /** @var UserInterface $user */
         $user = $subject;
 
-        return $currentUser->getId() !== $user->getId() && $currentUser->getPermissions()->getUserPermissions()->canDelete();
+        return $currentUser->getId() !== $user->getId() && $currentUser->getPermissions()->getUserManagementPermissions()->canDelete();
     }
 }

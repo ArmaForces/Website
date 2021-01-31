@@ -9,7 +9,7 @@ use App\Entity\Permissions\Traits\DeletePermissionTrait;
 use App\Entity\Permissions\Traits\ListPermissionTrait;
 use App\Entity\Permissions\Traits\UpdatePermissionTrait;
 
-abstract class AbstractCrudPermissions
+abstract class AbstractManagementPermissions
 {
     use ListPermissionTrait;
     use CreatePermissionTrait;

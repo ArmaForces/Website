@@ -31,6 +31,6 @@ class DeleteModVoter extends Voter
             return false;
         }
 
-        return $currentUser->getPermissions()->getModPermissions()->canDelete();
+        return $currentUser->getPermissions()->getModManagementPermissions()->canDelete();
     }
 }

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\ModList\ModList;
-use App\Repository\ModListRepository;
-use App\Repository\ModRepository;
+use App\Repository\Mod\ModRepository;
+use App\Repository\ModList\ModListRepository;
 use App\Security\Enum\PermissionsEnum;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

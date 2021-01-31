@@ -31,6 +31,6 @@ class UpdateModGroupVoter extends Voter
             return false;
         }
 
-        return $currentUser->getPermissions()->getModGroupPermissions()->canUpdate();
+        return $currentUser->getPermissions()->getModGroupManagementPermissions()->canUpdate();
     }
 }

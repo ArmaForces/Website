@@ -30,6 +30,6 @@ class ManageUserPermissionsVoter extends Voter
             return false;
         }
 
-        return $currentUser->getPermissions()->getUserPermissions()->canManagePermissions();
+        return $currentUser->getPermissions()->getUserManagementPermissions()->canManagePermissions();
     }
 }

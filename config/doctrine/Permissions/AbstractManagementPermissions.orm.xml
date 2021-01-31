@@ -4,6 +4,11 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <embeddable name="App\Entity\Permissions\ModGroup\ModGroupPermissions"/>
+    <mapped-superclass name="App\Entity\Permissions\AbstractManagementPermissions">
+        <field name="list" type="boolean"/>
+        <field name="create" type="boolean"/>
+        <field name="update" type="boolean"/>
+        <field name="delete" type="boolean"/>
+    </mapped-superclass>
 
 </doctrine-mapping>

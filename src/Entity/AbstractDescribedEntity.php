@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-class AbstractDescribedEntity extends AbstractNamedEntity implements DescribedEntityInterface
+abstract class AbstractDescribedEntity extends AbstractNamedEntity implements DescribedEntityInterface
 {
     /** @var null|string */
     protected $description;

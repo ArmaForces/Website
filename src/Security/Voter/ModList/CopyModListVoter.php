@@ -31,6 +31,6 @@ class CopyModListVoter extends Voter
             return false;
         }
 
-        return $currentUser->getPermissions()->getModListPermissions()->canCopy();
+        return $currentUser->getPermissions()->getModListManagementPermissions()->canCopy();
     }
 }

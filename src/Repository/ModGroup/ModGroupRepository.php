@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Repository;
+namespace App\Repository\ModGroup;
 
 use App\Entity\ModGroup\ModGroup;
 use App\Entity\ModGroup\ModGroupInterface;

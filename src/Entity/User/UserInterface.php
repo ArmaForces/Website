@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Entity\User;
 
 use App\Entity\EntityInterface;
-use App\Entity\Permissions\Permissions;
+use App\Entity\Permissions\UserPermissions;
 use App\Entity\UserGroup\UserGroupInterface;
 use Symfony\Component\Security\Core\User\UserInterface as SymfonyUserInterface;
 
@@ -23,14 +23,17 @@ interface UserInterface extends EntityInterface, SymfonyUserInterface
 
     public function setExternalId(string $externalId): void;
 
-    public function getPermissions(): Permissions;
+    public function getPermissions(): UserPermissions;
 
-    public function setPermissions(Permissions $permissions): void;
+    public function setPermissions(UserPermissions $permissions): void;
 
     public function addUserGroup(UserGroupInterface $userGroup): void;
 
     public function removeUserGroup(UserGroupInterface $userGroup): void;
 
+    /**
+     * @return UserGroupInterface[]
+     */
     public function getUserGroups(): array;
 
     public function setUserGroups(array $userGroups): void;

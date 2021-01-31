@@ -5,32 +5,32 @@ declare(strict_types=1);
 namespace App\Entity\UserGroup;
 
 use App\Entity\AbstractDescribedEntity;
-use App\Entity\Permissions\Permissions;
+use App\Entity\Permissions\UserGroupPermissions;
 use App\Entity\User\UserInterface;
 use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\UuidInterface;
 
 class UserGroup extends AbstractDescribedEntity
 {
-    /** @var Permissions */
+    /** @var UserGroupPermissions */
     protected $permissions;
 
     /** @var Collection|UserInterface[] */
     protected $users;
 
-    public function __construct(UuidInterface $id, string $name, Permissions $permissions)
+    public function __construct(UuidInterface $id, string $name, UserGroupPermissions $permissions)
     {
         parent::__construct($id, $name);
 
         $this->permissions = $permissions;
     }
 
-    public function getPermissions(): Permissions
+    public function getPermissions(): UserGroupPermissions
     {
         return $this->permissions;
     }
 
-    public function setPermissions(Permissions $permissions): void
+    public function setPermissions(UserGroupPermissions $permissions): void
     {
         $this->permissions = $permissions;
     }

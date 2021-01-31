@@ -31,6 +31,6 @@ class UpdateModVoter extends Voter
             return false;
         }
 
-        return $currentUser->getPermissions()->getModPermissions()->canUpdate();
+        return $currentUser->getPermissions()->getModManagementPermissions()->canUpdate();
     }
 }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Entity\User;
 
 use App\Entity\AbstractEntity;
-use App\Entity\Permissions\Permissions;
+use App\Entity\Permissions\UserPermissions;
 use App\Entity\User\Traits\UserInterfaceTrait;
 use App\Entity\UserGroup\UserGroupInterface;
 use Doctrine\Common\Collections\Collection;
@@ -24,7 +24,7 @@ class User extends AbstractEntity implements UserInterface
     /** @var string */
     protected $externalId;
 
-    /** @var Permissions */
+    /** @var UserPermissions */
     protected $permissions;
 
     /** @var Collection|UserGroupInterface[] */
@@ -38,7 +38,7 @@ class User extends AbstractEntity implements UserInterface
         string $username,
         string $email,
         string $externalId,
-        Permissions $permissions
+        UserPermissions $permissions
     ) {
         parent::__construct($id);
 
@@ -78,12 +78,12 @@ class User extends AbstractEntity implements UserInterface
         $this->externalId = $externalId;
     }
 
-    public function getPermissions(): Permissions
+    public function getPermissions(): UserPermissions
     {
         return $this->permissions;
     }
 
-    public function setPermissions(Permissions $permissions): void
+    public function setPermissions(UserPermissions $permissions): void
     {
         $this->permissions = $permissions;
     }

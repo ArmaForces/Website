@@ -30,6 +30,6 @@ class CreateModListVoter extends Voter
             return false;
         }
 
-        return $currentUser->getPermissions()->getModListPermissions()->canCreate();
+        return $currentUser->getPermissions()->getModListManagementPermissions()->canCreate();
     }
 }

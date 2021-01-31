@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Form\Permissions\Mod;
+namespace App\Form\Permissions\ModGroup;
 
-use App\Entity\Permissions\Mod\ModPermissions;
+use App\Entity\Permissions\ModGroup\ModGroupManagementPermissions;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ModPermissionsType extends AbstractType
+class ModGroupManagementPermissionsType extends AbstractType
 {
     /**
      * @param mixed[] $options
@@ -19,23 +19,19 @@ class ModPermissionsType extends AbstractType
     {
         $builder
             ->add('list', CheckboxType::class, [
-                'label' => 'Can list mods',
+                'label' => 'Can list mod groups',
                 'label_attr' => ['class' => 'switch-custom'],
             ])
             ->add('create', CheckboxType::class, [
-                'label' => 'Can create mods',
+                'label' => 'Can create mod groups',
                 'label_attr' => ['class' => 'switch-custom'],
             ])
             ->add('update', CheckboxType::class, [
-                'label' => 'Can edit mods',
+                'label' => 'Can edit mod groups',
                 'label_attr' => ['class' => 'switch-custom'],
             ])
             ->add('delete', CheckboxType::class, [
-                'label' => 'Can delete mods',
-                'label_attr' => ['class' => 'switch-custom'],
-            ])
-            ->add('changeStatus', CheckboxType::class, [
-                'label' => 'Can change mods status',
+                'label' => 'Can delete mod groups',
                 'label_attr' => ['class' => 'switch-custom'],
             ])
         ;
@@ -47,7 +43,7 @@ class ModPermissionsType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => ModPermissions::class,
+            'data_class' => ModGroupManagementPermissions::class,
             'required' => false,
         ]);
     }

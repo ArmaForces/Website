@@ -55,22 +55,34 @@ doctrine:
             UserPermissions:
                 is_bundle: false
                 type: xml
+                dir: '%kernel.project_dir%/config/doctrine/Permissions'
+                prefix: 'App\Entity\Permissions'
+                alias: UserPermissions
+            UserGroupPermissions:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/config/doctrine/Permissions'
+                prefix: 'App\Entity\Permissions'
+                alias: UserGroupPermissions
+            UserManagementPermissions:
+                is_bundle: false
+                type: xml
                 dir: '%kernel.project_dir%/config/doctrine/Permissions/User'
                 prefix: 'App\Entity\Permissions\User'
                 alias: UserPermissions
-            ModPermissions:
+            ModManagementPermissions:
                 is_bundle: false
                 type: xml
                 dir: '%kernel.project_dir%/config/doctrine/Permissions/Mod'
                 prefix: 'App\Entity\Permissions\Mod'
                 alias: ModPermissions
-            ModGroupPermissions:
+            ModGroupManagementPermissions:
                 is_bundle: false
                 type: xml
                 dir: '%kernel.project_dir%/config/doctrine/Permissions/ModGroup'
                 prefix: 'App\Entity\Permissions\ModGroup'
                 alias: ModGroupPermissions
-            ModListPermissions:
+            ModListManagementPermissions:
                 is_bundle: false
                 type: xml
                 dir: '%kernel.project_dir%/config/doctrine/Permissions/ModList'

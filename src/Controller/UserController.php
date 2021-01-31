@@ -6,7 +6,7 @@ namespace App\Controller;
 
 use App\Entity\User\User;
 use App\Form\Permissions\PermissionsType;
-use App\Repository\UserRepository;
+use App\Repository\User\UserRepository;
 use App\Security\Enum\PermissionsEnum;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;

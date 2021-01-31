@@ -8,7 +8,7 @@ use App\Entity\ModList\ModList;
 use App\Form\DataTransformerRegistry;
 use App\Form\ModList\Dto\ModListFormDto;
 use App\Form\ModList\ModListFormType;
-use App\Repository\ModListRepository;
+use App\Repository\ModList\ModListRepository;
 use App\Security\Enum\PermissionsEnum;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;

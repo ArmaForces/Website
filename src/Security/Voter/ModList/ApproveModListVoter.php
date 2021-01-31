@@ -30,6 +30,6 @@ class ApproveModListVoter extends Voter
             return false;
         }
 
-        return $currentUser->getPermissions()->getModListPermissions()->canApprove();
+        return $currentUser->getPermissions()->getModListManagementPermissions()->canApprove();
     }
 }

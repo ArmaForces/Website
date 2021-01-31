@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace App\Form\Permissions\User;
 
-use App\Entity\Permissions\User\UserPermissions;
+use App\Entity\Permissions\User\UserManagementPermissions;
 use App\Entity\User\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Security;
 
-class UserPermissionsType extends AbstractType
+class UserManagementPermissionsType extends AbstractType
 {
-    /** @var TokenStorageInterface */
-    protected $tokenStorage;
+    /** @var Security */
+    protected $security;
 
-    public function __construct(TokenStorageInterface $tokenStorage)
+    public function __construct(Security $security)
     {
-        $this->tokenStorage = $tokenStorage;
+        $this->security = $security;
     }
 
     /**
@@ -28,7 +28,7 @@ class UserPermissionsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         /** @var User $currentUser */
-        $currentUser = $this->tokenStorage->getToken()->getUser();
+        $currentUser = $this->security->getUser();
         /** @var User $relatedUser */
         $relatedUser = $options['relatedUser'];
 
@@ -59,7 +59,7 @@ class UserPermissionsType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'data_class' => UserPermissions::class,
+                'data_class' => UserManagementPermissions::class,
                 'required' => false,
             ])
             ->setRequired([

@@ -7,7 +7,7 @@ namespace App\Entity\Permissions\User;
 use App\Entity\Permissions\Traits\DeletePermissionTrait;
 use App\Entity\Permissions\Traits\ListPermissionTrait;
 
-class UserPermissions
+class UserManagementPermissions
 {
     use ListPermissionTrait;
     use DeletePermissionTrait;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Repository;
+namespace App\Repository\Mod;
 
 use App\Entity\Mod\AbstractMod;
 use App\Entity\Mod\Enum\ModTypeEnum;

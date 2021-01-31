@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Entity\Permissions\Mod;
 
-use App\Entity\Permissions\AbstractCrudPermissions;
+use App\Entity\Permissions\AbstractManagementPermissions;
 
-class ModPermissions extends AbstractCrudPermissions
+class ModManagementPermissions extends AbstractManagementPermissions
 {
     /** @var bool */
     protected $changeStatus = false;

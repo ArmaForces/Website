@@ -30,6 +30,6 @@ class ListModGroupsVoter extends Voter
             return false;
         }
 
-        return $currentUser->getPermissions()->getModGroupPermissions()->canList();
+        return $currentUser->getPermissions()->getModGroupManagementPermissions()->canList();
     }
 }

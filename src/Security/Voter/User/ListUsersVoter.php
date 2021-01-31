@@ -30,6 +30,6 @@ class ListUsersVoter extends Voter
             return false;
         }
 
-        return $currentUser->getPermissions()->getUserPermissions()->canList();
+        return $currentUser->getPermissions()->getUserManagementPermissions()->canList();
     }
 }

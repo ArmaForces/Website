@@ -38,6 +38,6 @@ class DownloadModListVoter extends Voter
         }
 
         // Otherwise user needs to be logged-in and have "List" permission granted
-        return $currentUser instanceof UserInterface && $currentUser->getPermissions()->getModListPermissions()->canList();
+        return $currentUser instanceof UserInterface && $currentUser->getPermissions()->getModListManagementPermissions()->canList();
     }
 }
