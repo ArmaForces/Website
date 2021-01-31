@@ -22,6 +22,9 @@ class BackgroundImageCacheWarmer extends CacheWarmer
         return 'background_images.php';
     }
 
+    /**
+     * @param string $cacheDir
+     */
     public function warmUp($cacheDir): void
     {
         $fileTemplate = '<?php return %s;';
@@ -29,6 +32,11 @@ class BackgroundImageCacheWarmer extends CacheWarmer
             $cacheDir.'/'.static::getCacheFileName(),
             sprintf($fileTemplate, var_export($this->findImagesToCache(), true))
         );
+    }
+
+    public function isOptional(): bool
+    {
+        return false;
     }
 
     protected function findImagesToCache(): array
@@ -40,10 +48,5 @@ class BackgroundImageCacheWarmer extends CacheWarmer
         }, iterator_to_array($imagesIterator));
 
         return array_values($images);
-    }
-
-    public function isOptional(): bool
-    {
-        return false;
     }
 }
