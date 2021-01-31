@@ -6,12 +6,13 @@ namespace App\Security\Voter\ModList;
 
 use App\Entity\ModList\ModList;
 use App\Entity\ModList\ModListInterface;
+use App\Entity\Permissions\PermissionsInterface;
 use App\Entity\User\UserInterface;
 use App\Security\Enum\PermissionsEnum;
+use App\Security\Voter\AbstractVoter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class UpdateModListVoter extends Voter
+class UpdateModListVoter extends AbstractVoter
 {
     /**
      * {@inheritdoc}
@@ -35,6 +36,10 @@ class UpdateModListVoter extends Voter
         /** @var ModList $modList */
         $modList = $subject;
 
-        return $modList->getOwner() === $currentUser || $currentUser->getPermissions()->getModListManagementPermissions()->canUpdate();
+        return $modList->getOwner() === $currentUser
+            || $this->userHasPermissions($currentUser, static function (PermissionsInterface $permissions) {
+                return $permissions->getModListManagementPermissions()->canUpdate();
+            })
+        ;
     }
 }

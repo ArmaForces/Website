@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace App\Security\Voter\Mod;
 
 use App\Entity\Mod\ModInterface;
+use App\Entity\Permissions\PermissionsInterface;
 use App\Entity\User\UserInterface;
 use App\Security\Enum\PermissionsEnum;
+use App\Security\Voter\AbstractVoter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class DeleteModVoter extends Voter
+class DeleteModVoter extends AbstractVoter
 {
     /**
      * {@inheritdoc}
@@ -31,6 +32,8 @@ class DeleteModVoter extends Voter
             return false;
         }
 
-        return $currentUser->getPermissions()->getModManagementPermissions()->canDelete();
+        return $this->userHasPermissions($currentUser, static function (PermissionsInterface $permissions) {
+            return $permissions->getModManagementPermissions()->canDelete();
+        });
     }
 }
