@@ -29,21 +29,22 @@ class UserManagementPermissionsType extends AbstractType
     {
         /** @var User $currentUser */
         $currentUser = $this->security->getUser();
-        /** @var User $relatedUser */
-        $relatedUser = $options['relatedUser'];
+
+        /** @var null|User $target */
+        $target = $options['target'];
 
         $builder
             ->add('managePermissions', CheckboxType::class, [
                 'label' => 'Can manage users permissions',
                 'label_attr' => ['class' => 'switch-custom'],
                 // User cannot change his own base permissions
-                'disabled' => $currentUser->getId() === $relatedUser->getId(),
+                'disabled' => $currentUser === $target,
             ])
             ->add('list', CheckboxType::class, [
                 'label' => 'Can list users',
                 'label_attr' => ['class' => 'switch-custom'],
                 // User cannot change his own base permissions
-                'disabled' => $currentUser->getId() === $relatedUser->getId(),
+                'disabled' => $currentUser === $target,
             ])
             ->add('delete', CheckboxType::class, [
                 'label' => 'Can delete users',
@@ -63,7 +64,7 @@ class UserManagementPermissionsType extends AbstractType
                 'required' => false,
             ])
             ->setRequired([
-                'relatedUser',
+                'target',
             ])
         ;
     }

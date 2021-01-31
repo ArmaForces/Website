@@ -70,7 +70,7 @@ class UserController extends AbstractController
     {
         $permissions = $user->getPermissions();
         $form = $this->createForm(PermissionsType::class, $permissions, [
-            'relatedUser' => $user,
+            'target' => $user,
         ]);
 
         $form->handleRequest($request);

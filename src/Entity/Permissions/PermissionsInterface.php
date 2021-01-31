@@ -8,10 +8,13 @@ use App\Entity\Permissions\Mod\ModManagementPermissions;
 use App\Entity\Permissions\ModGroup\ModGroupManagementPermissions;
 use App\Entity\Permissions\ModList\ModListManagementPermissions;
 use App\Entity\Permissions\User\UserManagementPermissions;
+use App\Entity\Permissions\UserGroup\UserGroupManagementPermissions;
 
 interface PermissionsInterface
 {
     public function getUserManagementPermissions(): UserManagementPermissions;
+
+    public function getUserGroupManagementPermissions(): UserGroupManagementPermissions;
 
     public function getModManagementPermissions(): ModManagementPermissions;
 

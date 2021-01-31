@@ -8,6 +8,7 @@ use App\Entity\AbstractEntity;
 use App\Entity\Permissions\UserPermissions;
 use App\Entity\User\Traits\UserInterfaceTrait;
 use App\Entity\UserGroup\UserGroupInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\UuidInterface;
 
@@ -46,6 +47,8 @@ class User extends AbstractEntity implements UserInterface
         $this->email = $email;
         $this->externalId = $externalId;
         $this->permissions = $permissions;
+
+        $this->userGroups = new ArrayCollection();
     }
 
     public function getUsername(): string

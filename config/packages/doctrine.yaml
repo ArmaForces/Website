@@ -70,6 +70,12 @@ doctrine:
                 dir: '%kernel.project_dir%/config/doctrine/Permissions/User'
                 prefix: 'App\Entity\Permissions\User'
                 alias: UserPermissions
+            UserGroupManagementPermissions:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/config/doctrine/Permissions/UserGroup'
+                prefix: 'App\Entity\Permissions\UserGroup'
+                alias: UserGroupPermissions
             ModManagementPermissions:
                 is_bundle: false
                 type: xml
