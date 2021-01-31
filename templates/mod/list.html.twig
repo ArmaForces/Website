@@ -31,12 +31,8 @@
             {% for mod in mods %}
                 <tr>
                     <th scope="row">{{ loop.index }}</th>
-                    <td>
-                        {{ tableMacro.row_mod_status_icon(mod) }}
-                    </td>
-                    <td>
-                        {{ tableMacro.row_name_with_description(mod.name, mod.description) }}
-                    </td>
+                    <td>{{ tableMacro.row_mod_status_icon(mod) }}</td>
+                    <td>{{ tableMacro.row_name_with_description(mod.name, mod.description) }}</td>
                     <td>
                         {% if mod.isTypeServerSide() %}{{ 'Server side mod'|trans }}{% endif %}
                         {% if mod.isTypeRequired() %}{{ 'Required mod'|trans }}{% endif %}
