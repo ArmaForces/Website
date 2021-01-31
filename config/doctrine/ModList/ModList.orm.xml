@@ -6,7 +6,7 @@
 
     <entity name="App\Entity\ModList\ModList" repository-class="App\Repository\ModListRepository" table="mod_lists">
         <many-to-many field="mods" target-entity="App\Entity\Mod\AbstractMod">
-            <join-table name="mod_lists_mods">
+            <join-table name="mod_lists_to_mods">
                 <join-columns>
                     <join-column name="mod_list_id" referenced-column-name="id"/>
                 </join-columns>
@@ -20,7 +20,7 @@
         </many-to-many>
 
         <many-to-many field="modGroups" target-entity="App\Entity\ModGroup\ModGroup">
-            <join-table name="mod_lists_mod_groups">
+            <join-table name="mod_lists_to_mod_groups">
                 <join-columns>
                     <join-column name="mod_list_id" referenced-column-name="id"/>
                 </join-columns>

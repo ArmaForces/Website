@@ -6,7 +6,7 @@
 
     <entity name="App\Entity\ModGroup\ModGroup" table="mod_groups" repository-class="App\Repository\ModGroupRepository">
         <many-to-many field="mods" target-entity="App\Entity\Mod\AbstractMod">
-            <join-table name="mod_group_mods">
+            <join-table name="mod_group_to_mods">
                 <join-columns>
                     <join-column name="mod_group_id" referenced-column-name="id"/>
                 </join-columns>
