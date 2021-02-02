@@ -33,13 +33,16 @@ final class Version20210131115809 extends AbstractMigration
         $this->addSql('ALTER TABLE mod_lists_to_mod_groups RENAME INDEX idx_47cb2915fd60cd19 TO IDX_CAF4DA88FD60CD19');
         $this->addSql('ALTER TABLE mod_lists_to_mod_groups RENAME INDEX idx_47cb2915e095e5f4 TO IDX_CAF4DA88E095E5F4');
 
-        $this->addSql('CREATE TABLE users_to_user_groups (user_id CHAR(36) NOT NULL COMMENT \'(DC2Type:uuid)\', user_group_id CHAR(36) NOT NULL COMMENT \'(DC2Type:uuid)\', INDEX IDX_C514859BA76ED395 (user_id), INDEX IDX_C514859B1ED93D47 (user_group_id), PRIMARY KEY(user_id, user_group_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE user_group (id CHAR(36) NOT NULL COMMENT \'(DC2Type:uuid)\', created_by CHAR(36) DEFAULT NULL COMMENT \'(DC2Type:uuid)\', last_updated_by CHAR(36) DEFAULT NULL COMMENT \'(DC2Type:uuid)\', created_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', last_updated_at DATETIME DEFAULT NULL COMMENT \'(DC2Type:datetime_immutable)\', name VARCHAR(255) NOT NULL, description VARCHAR(255) DEFAULT NULL, INDEX IDX_8F02BF9DDE12AB56 (created_by), INDEX IDX_8F02BF9DFF8A180B (last_updated_by), INDEX IDX_8F02BF9D8B8E8428 (created_at), INDEX IDX_8F02BF9DAA163775 (last_updated_at), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-
-        $this->addSql('ALTER TABLE users_to_user_groups ADD CONSTRAINT FK_C514859BA76ED395 FOREIGN KEY (user_id) REFERENCES users (id)');
-        $this->addSql('ALTER TABLE users_to_user_groups ADD CONSTRAINT FK_C514859B1ED93D47 FOREIGN KEY (user_group_id) REFERENCES user_group (id)');
+        $this->addSql('CREATE TABLE user_group (id CHAR(36) NOT NULL COMMENT \'(DC2Type:uuid)\', created_by CHAR(36) DEFAULT NULL COMMENT \'(DC2Type:uuid)\', last_updated_by CHAR(36) DEFAULT NULL COMMENT \'(DC2Type:uuid)\', permissions_id CHAR(36) NOT NULL COMMENT \'(DC2Type:uuid)\', created_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', last_updated_at DATETIME DEFAULT NULL COMMENT \'(DC2Type:datetime_immutable)\', name VARCHAR(255) NOT NULL, description VARCHAR(255) DEFAULT NULL, INDEX IDX_8F02BF9DDE12AB56 (created_by), INDEX IDX_8F02BF9DFF8A180B (last_updated_by), UNIQUE INDEX UNIQ_8F02BF9D9C3E4F87 (permissions_id), INDEX IDX_8F02BF9D8B8E8428 (created_at), INDEX IDX_8F02BF9DAA163775 (last_updated_at), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE users_to_user_groups (user_group_id CHAR(36) NOT NULL COMMENT \'(DC2Type:uuid)\', user_id CHAR(36) NOT NULL COMMENT \'(DC2Type:uuid)\', INDEX IDX_C514859B1ED93D47 (user_group_id), INDEX IDX_C514859BA76ED395 (user_id), PRIMARY KEY(user_group_id, user_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE user_group ADD CONSTRAINT FK_8F02BF9DDE12AB56 FOREIGN KEY (created_by) REFERENCES users (id)');
         $this->addSql('ALTER TABLE user_group ADD CONSTRAINT FK_8F02BF9DFF8A180B FOREIGN KEY (last_updated_by) REFERENCES users (id)');
+        $this->addSql('ALTER TABLE user_group ADD CONSTRAINT FK_8F02BF9D9C3E4F87 FOREIGN KEY (permissions_id) REFERENCES permissions (id)');
+        $this->addSql('ALTER TABLE users_to_user_groups ADD CONSTRAINT FK_C514859B1ED93D47 FOREIGN KEY (user_group_id) REFERENCES user_group (id)');
+        $this->addSql('ALTER TABLE users_to_user_groups ADD CONSTRAINT FK_C514859BA76ED395 FOREIGN KEY (user_id) REFERENCES users (id)');
+        $this->addSql('ALTER TABLE permissions ADD user_group_list TINYINT(1) NOT NULL, ADD user_group_create TINYINT(1) NOT NULL, ADD user_group_update TINYINT(1) NOT NULL, ADD user_group_delete TINYINT(1) NOT NULL, ADD type VARCHAR(255) NOT NULL');
+
+        $this->addSql("UPDATE permissions SET type = 'user'");
     }
 
     public function down(Schema $schema): void
@@ -59,7 +62,8 @@ final class Version20210131115809 extends AbstractMigration
         $this->addSql('ALTER TABLE mod_lists_mods RENAME INDEX idx_43a6b6ea338e21cd TO IDX_77414C92338E21CD');
 
         $this->addSql('ALTER TABLE users_to_user_groups DROP FOREIGN KEY FK_C514859B1ED93D47');
-        $this->addSql('DROP TABLE users_to_user_groups');
         $this->addSql('DROP TABLE user_group');
+        $this->addSql('DROP TABLE users_to_user_groups');
+        $this->addSql('ALTER TABLE permissions DROP user_group_list, DROP user_group_create, DROP user_group_update, DROP user_group_delete, DROP type');
     }
 }
