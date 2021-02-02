@@ -1,0 +1,14 @@
+{% import '_macro/tab_macro.html.twig' as tabMacro %}
+
+{% set active = active|default('') %}
+
+<li class="nav-item">
+    <a class="nav-link{{ tabMacro.nav_active(active, 'users') }}" data-toggle="tab" href="#users" role="tab">
+        {{ 'Users'|trans }}
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link{{ tabMacro.nav_active(active, 'permissions') }}" data-toggle="tab" href="#permissions" role="tab">
+        {{ 'Permissions'|trans }}
+    </a>
+</li>

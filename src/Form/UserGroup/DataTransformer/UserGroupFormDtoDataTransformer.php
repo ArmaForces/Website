@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace App\Form\UserGroup\DataTransformer;
 
 use App\Entity\EntityInterface;
-use App\Entity\ModGroup\ModGroup;
-use App\Entity\ModGroup\ModGroupInterface;
+use App\Entity\UserGroup\UserGroup;
 use App\Entity\UserGroup\UserGroupInterface;
 use App\Form\FormDtoInterface;
 use App\Form\RegisteredDataTransformerInterface;
@@ -19,12 +18,12 @@ class UserGroupFormDtoDataTransformer implements RegisteredDataTransformerInterf
      * @param UserGroupFormDto        $formDto
      * @param null|UserGroupInterface $entity
      *
-     * @return ModGroupInterface
+     * @return UserGroupInterface
      */
     public function transformToEntity(FormDtoInterface $formDto, EntityInterface $entity = null): EntityInterface
     {
-        if (!$entity instanceof ModGroupInterface) {
-            $entity = new ModGroup(Uuid::uuid4(), $formDto->getName());
+        if (!$entity instanceof UserGroupInterface) {
+            $entity = new UserGroup(Uuid::uuid4(), $formDto->getName(), $formDto->getPermissions());
         }
 
         $entity->setName($formDto->getName());

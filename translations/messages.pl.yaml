@@ -14,6 +14,7 @@ Mod lists: Listy modów
 
 Users: Użytkownicy
 User groups: Grupy użytkowników
+Permissions: Uprawnienia
 
 Available after login: Dostępne po zalogowaniu
 Login: Zaloguj
@@ -62,6 +63,7 @@ Delete user group: Usuń grupę użytkowników
 
 User group name: Nazwa
 User group description: Opis
+User group permissions: Uprawnienia grupy użytkowników
 
 # Permissions
 User permissions management: Zarządzanie uprawnieniami użytkownika

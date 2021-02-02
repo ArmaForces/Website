@@ -16,16 +16,7 @@
             </cascade>
         </one-to-one>
 
-        <many-to-many field="userGroups" inversed-by="users" target-entity="App\Entity\UserGroup\UserGroup">
-            <join-table name="users_to_user_groups">
-                <join-columns>
-                    <join-column name="user_id" referenced-column-name="id"/>
-                </join-columns>
-                <inverse-join-columns>
-                    <join-column name="user_group_id" referenced-column-name="id"/>
-                </inverse-join-columns>
-            </join-table>
-        </many-to-many>
+        <many-to-many field="userGroups" mapped-by="users" target-entity="App\Entity\UserGroup\UserGroup"/>
 
         <field name="avatarHash" type="string" length="512" nullable="true"/>
 

@@ -83,7 +83,7 @@ class UserGroupController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/update", name="_update")
+     * @Route("/{name}/update", name="_update")
      *
      * @IsGranted(PermissionsEnum::USER_GROUP_UPDATE, subject="userGroup")
      */
@@ -113,6 +113,9 @@ class UserGroupController extends AbstractController
      */
     public function deleteAction(UserGroup $userGroup): Response
     {
+        $this->entityManager->remove($userGroup);
+        $this->entityManager->flush();
+
         return $this->redirectToRoute('app_user_group_list');
     }
 }

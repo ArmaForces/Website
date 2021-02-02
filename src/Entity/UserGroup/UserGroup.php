@@ -7,10 +7,11 @@ namespace App\Entity\UserGroup;
 use App\Entity\AbstractDescribedEntity;
 use App\Entity\Permissions\UserGroupPermissions;
 use App\Entity\User\UserInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\UuidInterface;
 
-class UserGroup extends AbstractDescribedEntity
+class UserGroup extends AbstractDescribedEntity implements UserGroupInterface
 {
     /** @var UserGroupPermissions */
     protected $permissions;
@@ -23,6 +24,8 @@ class UserGroup extends AbstractDescribedEntity
         parent::__construct($id, $name);
 
         $this->permissions = $permissions;
+
+        $this->users = new ArrayCollection();
     }
 
     public function getPermissions(): UserGroupPermissions

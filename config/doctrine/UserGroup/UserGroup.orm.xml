@@ -12,7 +12,16 @@
             </cascade>
         </one-to-one>
 
-        <many-to-many field="users" mapped-by="userGroups" target-entity="App\Entity\User\User"/>
+        <many-to-many field="users" inversed-by="userGroups" target-entity="App\Entity\User\User">
+            <join-table name="users_to_user_groups">
+                <join-columns>
+                    <join-column name="user_group_id" referenced-column-name="id"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="user_id" referenced-column-name="id"/>
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
     </entity>
 
 </doctrine-mapping>
