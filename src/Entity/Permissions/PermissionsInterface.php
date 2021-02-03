@@ -7,6 +7,7 @@ namespace App\Entity\Permissions;
 use App\Entity\Permissions\Mod\ModManagementPermissions;
 use App\Entity\Permissions\ModGroup\ModGroupManagementPermissions;
 use App\Entity\Permissions\ModList\ModListManagementPermissions;
+use App\Entity\Permissions\ModTag\ModTagManagementPermissions;
 use App\Entity\Permissions\User\UserManagementPermissions;
 use App\Entity\Permissions\UserGroup\UserGroupManagementPermissions;
 
@@ -17,6 +18,8 @@ interface PermissionsInterface
     public function getUserGroupManagementPermissions(): UserGroupManagementPermissions;
 
     public function getModManagementPermissions(): ModManagementPermissions;
+
+    public function getModTagManagementPermissions(): ModTagManagementPermissions;
 
     public function getModGroupManagementPermissions(): ModGroupManagementPermissions;
 

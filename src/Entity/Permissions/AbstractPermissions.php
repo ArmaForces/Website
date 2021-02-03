@@ -8,6 +8,7 @@ use App\Entity\AbstractEntity;
 use App\Entity\Permissions\Mod\ModManagementPermissions;
 use App\Entity\Permissions\ModGroup\ModGroupManagementPermissions;
 use App\Entity\Permissions\ModList\ModListManagementPermissions;
+use App\Entity\Permissions\ModTag\ModTagManagementPermissions;
 use App\Entity\Permissions\User\UserManagementPermissions;
 use App\Entity\Permissions\UserGroup\UserGroupManagementPermissions;
 use Ramsey\Uuid\UuidInterface;
@@ -23,6 +24,9 @@ abstract class AbstractPermissions extends AbstractEntity implements Permissions
     /** @var ModManagementPermissions */
     protected $modManagementPermissions;
 
+    /** @var ModTagManagementPermissions */
+    protected $modTagManagementPermissions;
+
     /** @var ModGroupManagementPermissions */
     protected $modGroupManagementPermissions;
 
@@ -36,6 +40,7 @@ abstract class AbstractPermissions extends AbstractEntity implements Permissions
         $this->userManagementPermissions = new UserManagementPermissions();
         $this->userGroupManagementPermissions = new UserGroupManagementPermissions();
         $this->modManagementPermissions = new ModManagementPermissions();
+        $this->modTagManagementPermissions = new ModTagManagementPermissions();
         $this->modGroupManagementPermissions = new ModGroupManagementPermissions();
         $this->modListManagementPermissions = new ModListManagementPermissions();
     }
@@ -53,6 +58,11 @@ abstract class AbstractPermissions extends AbstractEntity implements Permissions
     public function getModManagementPermissions(): ModManagementPermissions
     {
         return $this->modManagementPermissions;
+    }
+
+    public function getModTagManagementPermissions(): ModTagManagementPermissions
+    {
+        return $this->modTagManagementPermissions;
     }
 
     public function getModGroupManagementPermissions(): ModGroupManagementPermissions

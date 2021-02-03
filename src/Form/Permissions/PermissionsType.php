@@ -8,6 +8,7 @@ use App\Entity\Permissions\UserPermissions;
 use App\Form\Permissions\Mod\ModManagementPermissionsType;
 use App\Form\Permissions\ModGroup\ModGroupManagementPermissionsType;
 use App\Form\Permissions\ModList\ModListManagementPermissionsType;
+use App\Form\Permissions\ModTag\ModTagManagementPermissionsType;
 use App\Form\Permissions\User\UserManagementPermissionsType;
 use App\Form\Permissions\UserGroup\UserGroupManagementPermissionsType;
 use Symfony\Component\Form\AbstractType;
@@ -33,6 +34,9 @@ class PermissionsType extends AbstractType
             ])
             ->add('modManagementPermissions', ModManagementPermissionsType::class, [
                 'label' => 'Mods',
+            ])
+            ->add('modTagManagementPermissions', ModTagManagementPermissionsType::class, [
+                'label' => 'Mod tags',
             ])
             ->add('modGroupManagementPermissions', ModGroupManagementPermissionsType::class, [
                 'label' => 'Mod groups',

@@ -8,6 +8,7 @@
         <embedded name="userManagementPermissions" class="App\Entity\Permissions\User\UserManagementPermissions" column-prefix="user_"/>
         <embedded name="userGroupManagementPermissions" class="App\Entity\Permissions\UserGroup\UserGroupManagementPermissions" column-prefix="user_group_"/>
         <embedded name="modManagementPermissions" class="App\Entity\Permissions\Mod\ModManagementPermissions" column-prefix="mod_"/>
+        <embedded name="modTagManagementPermissions" class="App\Entity\Permissions\ModTag\ModTagManagementPermissions" column-prefix="mod_tag_"/>
         <embedded name="modGroupManagementPermissions" class="App\Entity\Permissions\ModGroup\ModGroupManagementPermissions" column-prefix="mod_group_"/>
         <embedded name="modListManagementPermissions" class="App\Entity\Permissions\ModList\ModListManagementPermissions" column-prefix="mod_list_"/>
 

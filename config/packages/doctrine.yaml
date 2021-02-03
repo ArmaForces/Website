@@ -88,6 +88,12 @@ doctrine:
                 dir: '%kernel.project_dir%/config/doctrine/Permissions/Mod'
                 prefix: 'App\Entity\Permissions\Mod'
                 alias: ModManagementPermissions
+            ModTagManagementPermissions:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/config/doctrine/Permissions/ModTag'
+                prefix: 'App\Entity\Permissions\ModTag'
+                alias: ModTagManagementPermissions
             ModGroupManagementPermissions:
                 is_bundle: false
                 type: xml
