@@ -24,6 +24,7 @@
             </li>
             {% if
                 is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST'))
+                or is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_TAG_LIST'))
                 or is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_GROUP_LIST'))
                 or is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_LIST'))
             -%}
@@ -37,6 +38,11 @@
                         {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST')) %}
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ path('app_mod_list') }}">{{ 'Mods'|trans }}</a>
+                        {% endif %}
+
+                        {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_TAG_LIST')) %}
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ path('app_mod_tag_list') }}">{{ 'Mod tags'|trans }}</a>
                         {% endif %}
 
                         {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_GROUP_LIST')) %}

@@ -9,6 +9,7 @@ Missions: Misje
 Get mods: Pobierz mody
 Manage mods: Zarządzaj modami
 Mods: Mody
+Mod tags: Tagi
 Mod groups: Grupy modów
 Mod lists: Listy modów
 
@@ -83,6 +84,11 @@ Can edit mods: Może edytować mody
 Can delete mods: Może usuwać mody
 Can change mods status: Może zmieniać status modów
 
+Can list mod tags: Może przeglądać tagi
+Can create mod tags: Może tworzyć tagi
+Can edit mod tags: Może edytować tagi
+Can delete mod tags: Może usuwać tagi
+
 Can list mod groups: Może przeglądać grupy modów
 Can create mod groups: Może tworzyć grupy modów
 Can edit mod groups: Może edytować grupy modów
@@ -126,6 +132,14 @@ Steam Workshop ID: ID moda
 Mod directory: Katalog moda
 
 Optional for mods from Steam Workshop: Opcjonalne dla modów ze Steam Workshop
+
+# Mod Tags
+Create mod tag: Utwórz tag
+Edit mod tag: Edytuj tag
+Delete mod tag: Usuń tag
+
+Mod tag name: Nazwa
+Mod tag description: Opis
 
 # Mod Groups
 Create mod group: Utwórz grupę modów

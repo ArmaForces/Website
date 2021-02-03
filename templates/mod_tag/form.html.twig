@@ -1,0 +1,23 @@
+{% extends 'card.html.twig' %}
+
+{% form_theme form _self %}
+
+{% block content %}
+    {# @var modTagFormDto \App\Form\Mod\Dto\ModTagFormDto #}
+    {% set modTagFormDto = form.vars.data %}
+
+    {% embed '_partial/_page_header.html.twig' %}
+        {% block page_title %}
+            {{ modTagFormDto.id ? 'Edit mod tag'|trans : 'Create mod tag'|trans }}
+        {% endblock %}
+    {% endembed %}
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+
+    <div class="form-group text-right">
+        <button type="submit" class="btn-primary btn">{{ modTagFormDto.id ? 'Apply'|trans : 'Create mod tag'|trans }}</button>
+        <a href="{{ path('app_mod_tag_list') }}" class="btn-secondary btn">{{ 'Cancel'|trans }}</a>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
