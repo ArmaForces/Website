@@ -34,6 +34,12 @@ doctrine:
                 dir: '%kernel.project_dir%/config/doctrine/Mod'
                 prefix: 'App\Entity\Mod'
                 alias: Mod
+            ModTag:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/config/doctrine/ModTag'
+                prefix: 'App\Entity\ModTag'
+                alias: ModTag
             ModGroup:
                 is_bundle: false
                 type: xml

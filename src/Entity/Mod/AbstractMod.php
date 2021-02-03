@@ -7,6 +7,9 @@ namespace App\Entity\Mod;
 use App\Entity\AbstractDescribedEntity;
 use App\Entity\Mod\Enum\ModStatusEnum;
 use App\Entity\Mod\Enum\ModTypeEnum;
+use App\Entity\ModTag\ModTagInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\UuidInterface;
 
 abstract class AbstractMod extends AbstractDescribedEntity implements ModInterface
@@ -17,11 +20,16 @@ abstract class AbstractMod extends AbstractDescribedEntity implements ModInterfa
     /** @var ?ModStatusEnum */
     protected $status;
 
+    /** @var Collection|ModTagInterface[] */
+    protected $tags;
+
     public function __construct(UuidInterface $id, string $name, ModTypeEnum $type)
     {
         parent::__construct($id, $name);
 
         $this->type = $type;
+
+        $this->tags = new ArrayCollection();
     }
 
     public function isSteamWorkshopMod(): bool
@@ -95,5 +103,36 @@ abstract class AbstractMod extends AbstractDescribedEntity implements ModInterfa
     public function isStatusDisabled(): bool
     {
         return $this->getStatus() instanceof ModStatusEnum && $this->getStatus()->is(ModStatusEnum::DISABLED);
+    }
+
+    public function addTag(ModTagInterface $tag): void
+    {
+        if ($this->tags->contains($tag)) {
+            return;
+        }
+
+        $this->tags->add($tag);
+    }
+
+    public function removeTag(ModTagInterface $tag): void
+    {
+        if (!$this->tags->contains($tag)) {
+            return;
+        }
+
+        $this->tags->removeElement($tag);
+    }
+
+    public function getTags(): array
+    {
+        return $this->tags->toArray();
+    }
+
+    public function setTags(array $tags): void
+    {
+        $this->tags->clear();
+        foreach ($tags as $tag) {
+            $this->addTag($tag);
+        }
     }
 }

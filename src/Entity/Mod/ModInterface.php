@@ -7,6 +7,7 @@ namespace App\Entity\Mod;
 use App\Entity\DescribedEntityInterface;
 use App\Entity\Mod\Enum\ModStatusEnum;
 use App\Entity\Mod\Enum\ModTypeEnum;
+use App\Entity\ModTag\ModTagInterface;
 
 interface ModInterface extends DescribedEntityInterface
 {
@@ -35,4 +36,12 @@ interface ModInterface extends DescribedEntityInterface
     public function isStatusBroken(): bool;
 
     public function isStatusDisabled(): bool;
+
+    public function addTag(ModTagInterface $tag): void;
+
+    public function removeTag(ModTagInterface $tag): void;
+
+    public function getTags(): array;
+
+    public function setTags(array $tags): void;
 }
