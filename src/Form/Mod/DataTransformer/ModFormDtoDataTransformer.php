@@ -67,6 +67,7 @@ class ModFormDtoDataTransformer implements RegisteredDataTransformerInterface
         $entity->setDescription($formDto->getDescription());
         $entity->setType($type);
         $entity->setStatus($status);
+        $entity->setTags($formDto->getTags());
 
         return $entity;
     }
@@ -92,6 +93,7 @@ class ModFormDtoDataTransformer implements RegisteredDataTransformerInterface
         $formDto->setDescription($entity->getDescription());
         $formDto->setType($entity->getType()->getValue());
         $formDto->setStatus($status);
+        $formDto->setTags($entity->getTags());
 
         if ($entity instanceof SteamWorkshopMod) {
             $formDto->setSource(ModSourceEnum::STEAM_WORKSHOP);

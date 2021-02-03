@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace App\Form\Mod\Dto;
 
 use App\Entity\Mod\Enum\ModSourceEnum;
+use App\Entity\ModTag\ModTagInterface;
 use App\Form\AbstractFormDto;
 use App\Validator\Mod\SteamWorkshopArma3ModUrl;
 use App\Validator\Mod\UniqueDirectoryMod;
 use App\Validator\Mod\UniqueSteamWorkshopMod;
 use App\Validator\Mod\WindowsDirectoryName;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -51,6 +54,9 @@ class ModFormDto extends AbstractFormDto
      */
     protected $status;
 
+    /** @var Collection|ModTagInterface[] */
+    protected $tags;
+
     /**
      * @var null|string
      *
@@ -76,6 +82,11 @@ class ModFormDto extends AbstractFormDto
      * @WindowsDirectoryName(groups={ModSourceEnum::DIRECTORY})
      */
     protected $directory;
+
+    public function __construct()
+    {
+        $this->tags = new ArrayCollection();
+    }
 
     /**
      * {@inheritdoc}
@@ -136,6 +147,37 @@ class ModFormDto extends AbstractFormDto
     public function setStatus(?string $status): void
     {
         $this->status = $status;
+    }
+
+    public function addTag(ModTagInterface $tag): void
+    {
+        if ($this->tags->contains($tag)) {
+            return;
+        }
+
+        $this->tags->add($tag);
+    }
+
+    public function removeTag(ModTagInterface $tag): void
+    {
+        if (!$this->tags->contains($tag)) {
+            return;
+        }
+
+        $this->tags->removeElement($tag);
+    }
+
+    public function getTags(): array
+    {
+        return $this->tags->toArray();
+    }
+
+    public function setTags(array $tags): void
+    {
+        $this->tags->clear();
+        foreach ($tags as $tag) {
+            $this->addTag($tag);
+        }
     }
 
     public function getSource(): ?string

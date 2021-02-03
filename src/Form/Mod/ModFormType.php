@@ -7,8 +7,11 @@ namespace App\Form\Mod;
 use App\Entity\Mod\Enum\ModSourceEnum;
 use App\Entity\Mod\Enum\ModStatusEnum;
 use App\Entity\Mod\Enum\ModTypeEnum;
+use App\Entity\ModTag\ModTag;
 use App\Entity\User\UserInterface;
 use App\Form\Mod\Dto\ModFormDto;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -71,6 +74,20 @@ class ModFormType extends AbstractType
         $this->addChangeStatusType($builder);
 
         $builder
+            ->add('tags', EntityType::class, [
+                'label' => 'Mod tags',
+                'multiple' => true,
+                'expanded' => false,
+                'class' => ModTag::class,
+                'query_builder' => static function (EntityRepository $er) {
+                    return $er->createQueryBuilder('mt')
+                        ->orderBy('mt.name', 'ASC')
+                    ;
+                },
+                'choice_label' => function (ModTag $tag) {
+                    return $tag->getName();
+                },
+            ])
             ->add('name', TextType::class, [
                 'label' => 'Mod name',
                 'help' => 'Optional for mods from Steam Workshop',
