@@ -95,7 +95,7 @@
             <!--/ TeamSpeak -->
 
             <!-- Login -->
-            <li id="navmenu" class="nav-item dropdown dropleft">
+            <li id="navmenu" class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbar-dropdown" role="button" data-toggle="dropdown">
                     <i class="fa fa-user-circle
                         {% if is_granted('ROLE_USER') %}
@@ -103,7 +103,7 @@
                         {% endif %}"
                     ></i>
                 </a>
-                <div class="dropdown-menu">
+                <div class="dropdown-menu dropdown-menu-right">
                     {% if is_granted('ROLE_USER') -%}
                         <a class="dropdown-item" href="{{ path('app_security_logout') }}">{{ 'Logout'|trans }}</a>
                     {% else %}
