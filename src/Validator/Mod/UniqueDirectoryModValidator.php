@@ -6,25 +6,15 @@ namespace App\Validator\Mod;
 
 use App\Entity\Mod\DirectoryMod;
 use App\Form\Mod\Dto\ModFormDto;
-use Doctrine\ORM\AbstractQuery;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Validator\AbstractValidator;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class UniqueDirectoryModValidator extends ConstraintValidator
+class UniqueDirectoryModValidator extends AbstractValidator
 {
-    /** @var EntityManagerInterface */
-    protected $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    public function validate($value, Constraint $constraint): void
     {
-        $this->entityManager = $entityManager;
-    }
-
-    public function validate($modFormDto, Constraint $constraint): void
-    {
-        if (!$modFormDto instanceof ModFormDto) {
+        if (!$value instanceof ModFormDto) {
             throw new UnexpectedTypeException($constraint, ModFormDto::class);
         }
 
@@ -32,42 +22,18 @@ class UniqueDirectoryModValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, UniqueDirectoryMod::class);
         }
 
-        $directory = $modFormDto->getDirectory();
-        if (!$directory) {
+        $directory = $value->getDirectory();
+        $id = $value->getId();
+        if (!$directory || $this->isColumnValueUnique(DirectoryMod::class, $directory, $id, 'directory')) {
             return;
         }
 
-        $qb = $this->entityManager->createQueryBuilder();
-        $expr = $qb->expr();
-        $qb
-            ->addSelect($expr->count('dm'))
-            ->from(DirectoryMod::class, 'dm')
-            ->andWhere($expr->eq('dm.directory', ':directory'))
-            ->setParameter('directory', $directory)
-        ;
-
-        $entityId = $modFormDto->getId();
-        if ($entityId) {
-            $qb
-                ->andWhere($expr->neq('dm.id', ':id'))
-                ->setParameter('id', $entityId)
-            ;
-        }
-
-        $result = (int) $qb->getQuery()->getResult(AbstractQuery::HYDRATE_SINGLE_SCALAR);
-        if (0 === $result) {
-            return;
-        }
-
-        $errorPath = $constraint->errorPath;
-        $violation = $this->context->buildViolation($constraint->message, [
-            '{{ directoryName }}' => $directory,
-        ]);
-
-        if ($errorPath) {
-            $violation->atPath($errorPath);
-        }
-
-        $violation->addViolation();
+        $this->addViolation(
+            $constraint->message,
+            [
+                '{{ directoryName }}' => $directory,
+            ],
+            $constraint->errorPath
+        );
     }
 }

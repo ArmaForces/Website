@@ -8,5 +8,5 @@ interface DirectoryModInterface extends ModInterface
 {
     public function getDirectory(): string;
 
-    public function setDirectory(string $path): void;
+    public function setDirectory(string $directory): void;
 }
