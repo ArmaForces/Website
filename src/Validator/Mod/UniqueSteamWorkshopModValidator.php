@@ -8,25 +8,15 @@ use App\Entity\Mod\SteamWorkshopMod;
 use App\Form\Mod\Dto\ModFormDto;
 use App\Service\SteamWorkshop\Helper\Exception\InvalidItemUrlFormatException;
 use App\Service\SteamWorkshop\Helper\SteamWorkshopHelper;
-use Doctrine\ORM\AbstractQuery;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Validator\AbstractValidator;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class UniqueSteamWorkshopModValidator extends ConstraintValidator
+class UniqueSteamWorkshopModValidator extends AbstractValidator
 {
-    /** @var EntityManagerInterface */
-    protected $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    public function validate($value, Constraint $constraint): void
     {
-        $this->entityManager = $entityManager;
-    }
-
-    public function validate($modFormDto, Constraint $constraint): void
-    {
-        if (!$modFormDto instanceof ModFormDto) {
+        if (!$value instanceof ModFormDto) {
             throw new UnexpectedTypeException($constraint, ModFormDto::class);
         }
 
@@ -34,7 +24,7 @@ class UniqueSteamWorkshopModValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, UniqueSteamWorkshopMod::class);
         }
 
-        $url = $modFormDto->getUrl();
+        $url = $value->getUrl();
         if (!$url) {
             return;
         }
@@ -45,37 +35,17 @@ class UniqueSteamWorkshopModValidator extends ConstraintValidator
             return;
         }
 
-        $qb = $this->entityManager->createQueryBuilder();
-        $expr = $qb->expr();
-        $qb
-            ->addSelect($expr->count('swm'))
-            ->from(SteamWorkshopMod::class, 'swm')
-            ->andWhere($expr->eq('swm.itemId', ':itemId'))
-            ->setParameter('itemId', $itemId)
-        ;
-
-        $entityId = $modFormDto->getId();
-        if ($entityId) {
-            $qb
-                ->andWhere($expr->neq('swm.id', ':id'))
-                ->setParameter('id', $entityId)
-            ;
-        }
-
-        $result = (int) $qb->getQuery()->getResult(AbstractQuery::HYDRATE_SINGLE_SCALAR);
-        if (0 === $result) {
+        $id = $value->getId();
+        if ($this->isColumnValueUnique(SteamWorkshopMod::class, (string) $itemId, $id, 'itemId')) {
             return;
         }
 
-        $errorPath = $constraint->errorPath;
-        $violation = $this->context->buildViolation($constraint->message, [
-            '{{ modUrl }}' => $url,
-        ]);
-
-        if ($errorPath) {
-            $violation->atPath($errorPath);
-        }
-
-        $violation->addViolation();
+        $this->addViolation(
+            $constraint->message,
+            [
+                '{{ modUrl }}' => $url,
+            ],
+            $constraint->errorPath
+        );
     }
 }
