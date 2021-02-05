@@ -10,7 +10,7 @@ use App\Api\Dto\ModListOutput;
 use App\Api\Dto\ModOutput;
 use App\Entity\ModList\ModList;
 use App\Entity\ModList\ModListInterface;
-use App\Repository\ModRepository;
+use App\Repository\Mod\ModRepository;
 
 class ModListDetailsOutputDataTransformer implements DataTransformerInterface
 {

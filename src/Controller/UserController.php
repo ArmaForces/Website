@@ -6,7 +6,7 @@ namespace App\Controller;
 
 use App\Entity\User\User;
 use App\Form\Permissions\PermissionsType;
-use App\Repository\UserRepository;
+use App\Repository\User\UserRepository;
 use App\Security\Enum\PermissionsEnum;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -70,7 +70,7 @@ class UserController extends AbstractController
     {
         $permissions = $user->getPermissions();
         $form = $this->createForm(PermissionsType::class, $permissions, [
-            'relatedUser' => $user,
+            'target' => $user,
         ]);
 
         $form->handleRequest($request);

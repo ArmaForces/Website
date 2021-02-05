@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\DataFixtures\User;
 
-use App\Entity\Permissions\Permissions;
+use App\Entity\Permissions\UserPermissions;
 use App\Entity\User\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -16,7 +16,7 @@ class AdminUserFixture extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $permissions = new Permissions(Uuid::fromString('22dcc83c-8e72-48e4-8b04-debb6fbdd1c8'));
+        $permissions = new UserPermissions(Uuid::fromString('22dcc83c-8e72-48e4-8b04-debb6fbdd1c8'));
         $permissions->grantAll();
 
         $user = new User(

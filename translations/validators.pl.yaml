@@ -14,3 +14,9 @@ Invalid directory name: Błędny format nazwy katalogu
 
 # Unique Mod List Name Validator
 Mod list with the same name "{{ modListName }}" already exist: Lista modów o nazwie "{{ modListName }}" już istnieje
+
+# Unique Mod Group Name Validator
+Mod group with the same name "{{ modGroupName }}" already exist: Grupa modów o nazwie "{{ modGroupName }}" już istnieje
+
+# Unique User Group Name Validator
+User group with the same name "{{ userGroupName }}" already exist: Grupa użytkowników o nazwie "{{ userGroupName }}" już istnieje

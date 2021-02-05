@@ -41,7 +41,7 @@ class ModListFormDtoDataTransformer implements RegisteredDataTransformerInterfac
         $currentUser = $this->security->getUser();
 
         // If user has permissions set selected user as owner. Otherwise assign current user.
-        $owner = $currentUser->getPermissions()->getModListPermissions()->canUpdate() ? $formDto->getOwner() : $currentUser;
+        $owner = $currentUser->getPermissions()->getModListManagementPermissions()->canUpdate() ? $formDto->getOwner() : $currentUser;
 
         $entity->setName($formDto->getName());
         $entity->setDescription($formDto->getDescription());

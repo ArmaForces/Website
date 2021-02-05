@@ -4,7 +4,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="App\Entity\Mod\AbstractMod" table="mods" repository-class="App\Repository\ModRepository" inheritance-type="SINGLE_TABLE">
+    <entity name="App\Entity\Mod\AbstractMod" table="mods" repository-class="App\Repository\Mod\ModRepository" inheritance-type="SINGLE_TABLE">
         <field name="type" type="mod_type_enum" length="255"/>
         <field name="status" type="mod_status_enum" length="255" nullable="true"/>
 

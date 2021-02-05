@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\Security\Voter\ModList;
 
+use App\Entity\Permissions\PermissionsInterface;
 use App\Entity\User\UserInterface;
 use App\Security\Enum\PermissionsEnum;
+use App\Security\Voter\AbstractVoter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class ListModListsVoter extends Voter
+class ListModListsVoter extends AbstractVoter
 {
     /**
      * {@inheritdoc}
@@ -30,6 +31,8 @@ class ListModListsVoter extends Voter
             return false;
         }
 
-        return $currentUser->getPermissions()->getModListPermissions()->canList();
+        return $this->userHasPermissions($currentUser, static function (PermissionsInterface $permissions) {
+            return $permissions->getModListManagementPermissions()->canList();
+        });
     }
 }

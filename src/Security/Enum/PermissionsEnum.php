@@ -10,6 +10,11 @@ class PermissionsEnum
     public const USER_LIST = 'user_list';
     public const USER_DELETE = 'user_delete';
 
+    public const USER_GROUP_LIST = 'user_group_list';
+    public const USER_GROUP_CREATE = 'user_group_create';
+    public const USER_GROUP_UPDATE = 'user_group_update';
+    public const USER_GROUP_DELETE = 'user_group_delete';
+
     public const MOD_LIST = 'mod_list';
     public const MOD_CREATE = 'mod_create';
     public const MOD_UPDATE = 'mod_update';

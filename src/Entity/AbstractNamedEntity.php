@@ -6,7 +6,7 @@ namespace App\Entity;
 
 use Ramsey\Uuid\UuidInterface;
 
-class AbstractNamedEntity extends AbstractEntity implements NamedEntityInterface
+abstract class AbstractNamedEntity extends AbstractEntity implements NamedEntityInterface
 {
     /** @var string */
     protected $name;

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Api\Controller;
 
 use App\Entity\ModList\ModListInterface;
-use App\Repository\ModListRepository;
+use App\Repository\ModList\ModListRepository;
 
 class GetModListByNameAction
 {

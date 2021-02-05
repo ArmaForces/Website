@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace App\Entity\User;
 
 use App\Entity\AbstractEntity;
-use App\Entity\Permissions\Permissions;
+use App\Entity\Permissions\UserPermissions;
 use App\Entity\User\Traits\UserInterfaceTrait;
+use App\Entity\UserGroup\UserGroupInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\UuidInterface;
 
 class User extends AbstractEntity implements UserInterface
@@ -22,8 +25,11 @@ class User extends AbstractEntity implements UserInterface
     /** @var string */
     protected $externalId;
 
-    /** @var Permissions */
+    /** @var UserPermissions */
     protected $permissions;
+
+    /** @var Collection|UserGroupInterface[] */
+    protected $userGroups;
 
     /** @var null|string */
     protected $avatarHash;
@@ -33,7 +39,7 @@ class User extends AbstractEntity implements UserInterface
         string $username,
         string $email,
         string $externalId,
-        Permissions $permissions
+        UserPermissions $permissions
     ) {
         parent::__construct($id);
 
@@ -41,6 +47,8 @@ class User extends AbstractEntity implements UserInterface
         $this->email = $email;
         $this->externalId = $externalId;
         $this->permissions = $permissions;
+
+        $this->userGroups = new ArrayCollection();
     }
 
     public function getUsername(): string
@@ -73,14 +81,45 @@ class User extends AbstractEntity implements UserInterface
         $this->externalId = $externalId;
     }
 
-    public function getPermissions(): Permissions
+    public function getPermissions(): UserPermissions
     {
         return $this->permissions;
     }
 
-    public function setPermissions(Permissions $permissions): void
+    public function setPermissions(UserPermissions $permissions): void
     {
         $this->permissions = $permissions;
+    }
+
+    public function addUserGroup(UserGroupInterface $userGroup): void
+    {
+        if ($this->userGroups->contains($userGroup)) {
+            return;
+        }
+
+        $this->userGroups->add($userGroup);
+    }
+
+    public function removeUserGroup(UserGroupInterface $userGroup): void
+    {
+        if (!$this->userGroups->contains($userGroup)) {
+            return;
+        }
+
+        $this->userGroups->removeElement($userGroup);
+    }
+
+    public function getUserGroups(): array
+    {
+        return $this->userGroups->toArray();
+    }
+
+    public function setUserGroups(array $userGroups): void
+    {
+        $this->userGroups->clear();
+        foreach ($userGroups as $userGroup) {
+            $this->addUserGroup($userGroup);
+        }
     }
 
     public function getAvatarHash(): ?string

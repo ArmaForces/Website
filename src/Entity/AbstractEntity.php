@@ -7,7 +7,7 @@ namespace App\Entity;
 use App\Entity\User\UserInterface;
 use Ramsey\Uuid\UuidInterface;
 
-class AbstractEntity implements EntityInterface
+abstract class AbstractEntity implements EntityInterface
 {
     /** @var UuidInterface */
     protected $id;
