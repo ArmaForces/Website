@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Functional\Controller\HomeController;
 
 use App\Entity\User\User;
+use App\Test\Enum\RouteEnum;
 use App\Test\Traits\DataProvidersTrait;
 use App\Test\Traits\ServicesTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -20,8 +21,6 @@ final class IndexActionTest extends WebTestCase
     use ServicesTrait;
     use DataProvidersTrait;
 
-    public const ROUTE = '/api/mod-lists/by-name/%s';
-
     /**
      * @test
      * @dataProvider allUserTypesDataProvider
@@ -32,7 +31,7 @@ final class IndexActionTest extends WebTestCase
         $user = $this::getEntityById(User::class, $userId);
 
         $client = $this::authenticateClient($user);
-        $client->request(Request::METHOD_GET, $this::ROUTE);
+        $client->request(Request::METHOD_GET, RouteEnum::HOME_INDEX);
 
         $this::assertResponseStatusCodeSame(Response::HTTP_OK);
     }

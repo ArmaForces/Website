@@ -7,7 +7,7 @@ namespace App\Tests\Functional\Controller\ModListController;
 use App\DataFixtures\User\AdminUserFixture;
 use App\DataFixtures\User\RegularUserFixture;
 use App\Entity\User\User;
-use App\Test\Traits\AssertsTrait;
+use App\Test\Enum\RouteEnum;
 use App\Test\Traits\ServicesTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,9 +20,6 @@ use Symfony\Component\HttpFoundation\Response;
 final class ListActionTest extends WebTestCase
 {
     use ServicesTrait;
-    use AssertsTrait;
-
-    public const ROUTE = '/mod-list/list';
 
     /**
      * @test
@@ -30,9 +27,9 @@ final class ListActionTest extends WebTestCase
     public function listAction_anonymousUser_returnsRedirectResponse(): void
     {
         $client = $this::getClient();
-        $client->request(Request::METHOD_GET, $this::ROUTE);
+        $client->request(Request::METHOD_GET, RouteEnum::MOD_LIST_LIST);
 
-        $this::assertResponseRedirectsToLoginPage();
+        $this::assertResponseRedirects(RouteEnum::SECURITY_CONNECT_DISCORD, Response::HTTP_FOUND);
     }
 
     /**
@@ -44,7 +41,7 @@ final class ListActionTest extends WebTestCase
         $user = $this::getEntityById(User::class, RegularUserFixture::ID);
 
         $client = $this::authenticateClient($user);
-        $client->request(Request::METHOD_GET, $this::ROUTE);
+        $client->request(Request::METHOD_GET, RouteEnum::MOD_LIST_LIST);
 
         $this::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
@@ -58,7 +55,7 @@ final class ListActionTest extends WebTestCase
         $user = $this::getEntityById(User::class, AdminUserFixture::ID);
 
         $client = $this::authenticateClient($user);
-        $client->request(Request::METHOD_GET, $this::ROUTE);
+        $client->request(Request::METHOD_GET, RouteEnum::MOD_LIST_LIST);
 
         $this::assertResponseStatusCodeSame(Response::HTTP_OK);
     }

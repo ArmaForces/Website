@@ -6,6 +6,7 @@ namespace App\Tests\Functional\Api\Controller\ModList;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
 use App\Entity\User\User;
+use App\Test\Enum\RouteEnum;
 use App\Test\Traits\DataProvidersTrait;
 use App\Test\Traits\ServicesTrait;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,8 +21,6 @@ final class GetModListsActionTest extends ApiTestCase
     use ServicesTrait;
     use DataProvidersTrait;
 
-    public const ROUTE = '/api/mod-lists';
-
     /**
      * @test
      * @dataProvider allUserTypesDataProvider
@@ -32,7 +31,7 @@ final class GetModListsActionTest extends ApiTestCase
         $user = $this::getEntityById(User::class, $userId);
 
         $client = $this::authenticateClient($user);
-        $client->request(Request::METHOD_GET, $this::ROUTE, [
+        $client->request(Request::METHOD_GET, RouteEnum::API_MOD_LIST, [
             'headers' => [
                 'Accept' => 'application/json',
             ],
