@@ -6,6 +6,7 @@ namespace App\Tests\Functional\Controller\HomeController;
 
 use App\Entity\User\User;
 use App\Test\Enum\RouteEnum;
+use App\Test\Traits\AssertsTrait;
 use App\Test\Traits\DataProvidersTrait;
 use App\Test\Traits\ServicesTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -19,20 +20,34 @@ use Symfony\Component\HttpFoundation\Response;
 final class MissionsActionTest extends WebTestCase
 {
     use ServicesTrait;
+    use AssertsTrait;
     use DataProvidersTrait;
 
     /**
      * @test
-     * @dataProvider allUserTypesDataProvider
      */
-    public function missionsAction_authorizedUser_returnsSuccessfulResponse(string $userId): void
+    public function missionsUsAction_anonymousUser_returnsSuccessfulResponse(): void
+    {
+        $client = $this::createClient();
+        $crawler = $client->request(Request::METHOD_GET, RouteEnum::HOME_MISSIONS);
+
+        $this::assertResponseStatusCodeSame(Response::HTTP_OK);
+        $this::assertTeamSpeakUrlVisible($crawler, false);
+    }
+
+    /**
+     * @test
+     * @dataProvider registeredUsersDataProvider
+     */
+    public function missionsUsAction_authenticatedUser_returnsSuccessfulResponse(string $userId): void
     {
         /** @var User $user */
         $user = $this::getEntityById(User::class, $userId);
 
         $client = $this::authenticateClient($user);
-        $client->request(Request::METHOD_GET, RouteEnum::HOME_MISSIONS);
+        $crawler = $client->request(Request::METHOD_GET, RouteEnum::HOME_MISSIONS);
 
         $this::assertResponseStatusCodeSame(Response::HTTP_OK);
+        $this::assertTeamSpeakUrlVisible($crawler, true);
     }
 }
