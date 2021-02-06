@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Tests\Functional\Controller\HomeController;
 
 use App\Entity\User\User;
+use App\Test\Enum\RouteEnum;
+use App\Test\Traits\AssertsTrait;
 use App\Test\Traits\DataProvidersTrait;
 use App\Test\Traits\ServicesTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -18,22 +20,34 @@ use Symfony\Component\HttpFoundation\Response;
 final class JoinUsActionTest extends WebTestCase
 {
     use ServicesTrait;
+    use AssertsTrait;
     use DataProvidersTrait;
-
-    public const ROUTE = '/join-us';
 
     /**
      * @test
-     * @dataProvider allUserTypesDataProvider
      */
-    public function joinUsAction_authorizedUser_returnsSuccessfulResponse(string $userId): void
+    public function joinUsAction_anonymousUser_returnsSuccessfulResponse(): void
+    {
+        $client = $this::createClient();
+        $crawler = $client->request(Request::METHOD_GET, RouteEnum::HOME_JOIN_US);
+
+        $this::assertResponseStatusCodeSame(Response::HTTP_OK);
+        $this::assertTeamSpeakUrlVisible($crawler, false);
+    }
+
+    /**
+     * @test
+     * @dataProvider registeredUsersDataProvider
+     */
+    public function joinUsAction_authenticatedUser_returnsSuccessfulResponse(string $userId): void
     {
         /** @var User $user */
         $user = $this::getEntityById(User::class, $userId);
 
         $client = $this::authenticateClient($user);
-        $client->request(Request::METHOD_GET, $this::ROUTE);
+        $crawler = $client->request(Request::METHOD_GET, RouteEnum::HOME_JOIN_US);
 
         $this::assertResponseStatusCodeSame(Response::HTTP_OK);
+        $this::assertTeamSpeakUrlVisible($crawler, true);
     }
 }
