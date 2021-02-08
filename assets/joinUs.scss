@@ -20,7 +20,9 @@ $listBlockSize: 30;
     position: relative;
     overflow: hidden;
 
-    background: url("img/landing_rhs.jpg") no-repeat center center fixed;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     background-size: cover;
 }
 

@@ -103,7 +103,7 @@ class ModFormType extends AbstractType
         /** @var UserInterface $currentUser */
         $currentUser = $this->security->getUser();
 
-        if (!$currentUser->getPermissions()->getModPermissions()->canChangeStatus()) {
+        if (!$currentUser->getPermissions()->getModManagementPermissions()->canChangeStatus()) {
             return;
         }
 

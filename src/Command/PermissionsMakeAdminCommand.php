@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Command;
 
 use App\Entity\User\User;
-use App\Repository\UserRepository;
+use App\Repository\User\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -87,7 +87,7 @@ class PermissionsMakeAdminCommand extends Command
 
         $discordUserId = (int) $discordUserId;
 
-        $user = $this->userRepository->findByExternalId($discordUserId);
+        $user = $this->userRepository->findOneByExternalId($discordUserId);
         if (!$user) {
             $io->error(sprintf('User not found by given id: "%s"!', $discordUserId));
 
@@ -95,7 +95,7 @@ class PermissionsMakeAdminCommand extends Command
         }
 
         $permissions = $user->getPermissions();
-        $userPermissions = $permissions->getUserPermissions();
+        $userPermissions = $permissions->getUserManagementPermissions();
         $userPermissions->setList(true);
         $userPermissions->setManagePermissions(true);
         $this->entityManager->flush();

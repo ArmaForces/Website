@@ -1,0 +1,132 @@
+on:
+    push:
+        branches:
+            - master
+            - dev
+    pull_request: ~
+
+name: Test & Deploy
+env:
+    REPO_LOWERCASE: armaforces/website
+    COMPOSE_DOCKER_CLI_BUILD: 1
+
+jobs:
+    qa:
+        name: Code Quality & Tests
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Checkout branch
+                uses: actions/checkout@v2
+
+            -   name: Pull app image
+                run: |
+                    echo ${{ secrets.GITHUB_TOKEN }} | docker login -u ${{ github.actor }} --password-stdin docker.pkg.github.com
+                    docker pull docker.pkg.github.com/${REPO_LOWERCASE}/app_assets:dev
+                    docker pull docker.pkg.github.com/${REPO_LOWERCASE}/app_php:dev
+
+            -   name: Start stack
+                run: |
+                    docker-compose -f docker-compose.test.yml up -d
+                    docker-compose exec -T php composer install
+
+            -   name: Setup database
+                run: |
+                    make db env=test
+
+            -   name: Run lint
+                run: |
+                    docker-compose exec -T php bin/console cache:warmup --env=dev
+                    make cs env=test ci=true
+
+            -   name: Run tests
+                run: |
+                    make test-ci
+
+    docker_release:
+        name: Docker release
+        runs-on: ubuntu-latest
+        needs: qa
+        if: (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev') && github.event_name != 'pull_request'
+        steps:
+            -   uses: actions/checkout@v1
+
+            -   name: Login to registry
+                uses: actions-hub/docker/login@master
+                env:
+                    DOCKER_USERNAME: ${{ github.actor }}
+                    DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+                    DOCKER_REGISTRY_URL: docker.pkg.github.com
+
+            -   name: Create VERSION
+                run: echo $GITHUB_SHA > VERSION
+
+            -   name: Build Assets
+                if: github.ref == 'refs/heads/dev'
+                run: docker build -t docker.pkg.github.com/${REPO_LOWERCASE}/app_assets:${IMAGE_TAG}
+                    --target armaforces_web_assets -f .docker/Dockerfile .
+
+            -   name: Build PHP
+                if: success()
+                run: docker build -t docker.pkg.github.com/${REPO_LOWERCASE}/app_php:${IMAGE_TAG}
+                    --target armaforces_web_php -f .docker/Dockerfile .
+
+            -   name: Build Nginx
+                if: success()
+                run: docker build -t docker.pkg.github.com/${REPO_LOWERCASE}/app_nginx:${IMAGE_TAG}
+                    --target armaforces_web_nginx -f .docker/Dockerfile .
+
+            -   name: Push Assets
+                if: github.ref == 'refs/heads/dev'
+                uses: actions-hub/docker@master
+                with:
+                    args: push docker.pkg.github.com/${REPO_LOWERCASE}/app_assets:${IMAGE_TAG}
+
+            -   name: Push PHP
+                if: success()
+                uses: actions-hub/docker@master
+                with:
+                    args: push docker.pkg.github.com/${REPO_LOWERCASE}/app_php:${IMAGE_TAG}
+
+            -   name: Push Nginx
+                if: success()
+                uses: actions-hub/docker@master
+                with:
+                    args: push docker.pkg.github.com/${REPO_LOWERCASE}/app_nginx:${IMAGE_TAG}
+
+    deploy_dev:
+        name: Deploy development
+        runs-on: ubuntu-latest
+        needs: docker_release
+        environment:
+            name: development
+            url: https://dev.armaforces.com
+        if: github.ref == 'refs/heads/dev' && github.event_name != 'pull_request'
+        steps:
+            -   name: Update Dev Env PHP
+                uses: wei/curl@v1
+                with:
+                    args: -X POST ${{ secrets.WEBHOOK_UPDATE_PHP_DEV }}
+
+            -   name: Update Dev Env Nginx
+                uses: wei/curl@v1
+                with:
+                    args: -X POST ${{ secrets.WEBHOOK_UPDATE_NGINX_DEV }}
+
+    deploy_prod:
+        name: Deploy production
+        runs-on: ubuntu-latest
+        needs: docker_release
+        environment:
+            name: production
+            url: https://armaforces.com
+        if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
+        steps:
+            -   name: Update Prod Env PHP
+                uses: wei/curl@v1
+                with:
+                    args: -X POST ${{ secrets.WEBHOOK_UPDATE_PHP_PROD }}
+
+            -   name: Update Prod Env Nginx
+                uses: wei/curl@v1
+                with:
+                    args: -X POST ${{ secrets.WEBHOOK_UPDATE_NGINX_PROD }}

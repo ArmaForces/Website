@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace App\Security\Voter\ModGroup;
 
 use App\Entity\ModGroup\ModGroupInterface;
+use App\Entity\Permissions\PermissionsInterface;
 use App\Entity\User\UserInterface;
 use App\Security\Enum\PermissionsEnum;
+use App\Security\Voter\AbstractVoter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class DeleteModGroupVoter extends Voter
+class DeleteModGroupVoter extends AbstractVoter
 {
     /**
      * {@inheritdoc}
@@ -31,6 +32,8 @@ class DeleteModGroupVoter extends Voter
             return false;
         }
 
-        return $currentUser->getPermissions()->getModGroupPermissions()->canDelete();
+        return $this->userHasPermissions($currentUser, static function (PermissionsInterface $permissions) {
+            return $permissions->getModGroupManagementPermissions()->canDelete();
+        });
     }
 }

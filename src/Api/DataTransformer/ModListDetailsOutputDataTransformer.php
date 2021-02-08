@@ -10,22 +10,22 @@ use App\Api\Dto\ModListOutput;
 use App\Api\Dto\ModOutput;
 use App\Entity\ModList\ModList;
 use App\Entity\ModList\ModListInterface;
-use App\Repository\ModListRepository;
+use App\Repository\Mod\ModRepository;
 
 class ModListDetailsOutputDataTransformer implements DataTransformerInterface
 {
     /** @var ModOutputDataTransformer */
     protected $modDataTransformer;
 
-    /** @var ModListRepository */
-    protected $modListRepository;
+    /** @var ModRepository */
+    protected $modRepository;
 
     public function __construct(
         ModOutputDataTransformer $modDataTransformer,
-        ModListRepository $modListRepository
+        ModRepository $modRepository
     ) {
         $this->modDataTransformer = $modDataTransformer;
-        $this->modListRepository = $modListRepository;
+        $this->modRepository = $modRepository;
     }
 
     /**
@@ -43,7 +43,7 @@ class ModListDetailsOutputDataTransformer implements DataTransformerInterface
         $output->setLastUpdatedAt($modList->getLastUpdatedAt());
 
         $mods = [];
-        foreach ($this->modListRepository->findIncludedMods($modList) as $mod) {
+        foreach ($this->modRepository->findIncludedMods($modList) as $mod) {
             $mods[] = $this->modDataTransformer->transform($mod, ModOutput::class, $context);
         }
         $output->setMods($mods);

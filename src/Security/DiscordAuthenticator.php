@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace App\Security;
 
-use App\Entity\Permissions\Permissions;
-use App\Entity\User\AbstractUser;
+use App\Entity\Permissions\UserPermissions;
 use App\Entity\User\User;
 use App\Entity\User\UserInterface;
 use App\Security\Exception\MultipleRolesFound;
@@ -145,7 +144,7 @@ class DiscordAuthenticator extends SocialAuthenticator
             $user->setEmail($email);
             $user->setAvatarHash($discordResourceOwner->getAvatarHash());
         } catch (UsernameNotFoundException $ex) {
-            $permissions = new Permissions(Uuid::uuid4());
+            $permissions = new UserPermissions(Uuid::uuid4());
             $user = new User(Uuid::uuid4(), $fullUsername, $email, $externalId, $permissions);
             $user->setAvatarHash($discordResourceOwner->getAvatarHash());
 
@@ -154,8 +153,8 @@ class DiscordAuthenticator extends SocialAuthenticator
              *      Manually persist permissions association because cascade persists
              *      stopped working after adding blameable User association.
              *
-             * @see AbstractUser::setCreatedBy()
-             * @see AbstractUser::setLastUpdatedBy()
+             * @see User::setCreatedBy()
+             * @see User::setLastUpdatedBy()
              */
             $this->em->persist($permissions);
             $this->em->persist($user);

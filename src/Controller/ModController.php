@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Mod\AbstractMod;
-use App\Form\Mod\DataTransformer\ModFormDtoDataTransformer;
+use App\Form\DataTransformerRegistry;
 use App\Form\Mod\Dto\ModFormDto;
 use App\Form\Mod\ModFormType;
-use App\Repository\ModGroupRepository;
-use App\Repository\ModListRepository;
-use App\Repository\ModRepository;
+use App\Repository\Mod\ModRepository;
+use App\Repository\ModGroup\ModGroupRepository;
+use App\Repository\ModList\ModListRepository;
 use App\Security\Enum\PermissionsEnum;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -38,21 +38,21 @@ class ModController extends AbstractController
     /** @var ModListRepository */
     protected $modListRepository;
 
-    /** @var ModFormDtoDataTransformer */
-    protected $modFormDtoDataTransformer;
+    /** @var DataTransformerRegistry */
+    protected $dataTransformerRegistry;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         ModRepository $modRepository,
         ModGroupRepository $modGroupRepository,
         ModListRepository $modListRepository,
-        ModFormDtoDataTransformer $modFormDtoDataTransformer
+        DataTransformerRegistry $dataTransformerRegistry
     ) {
         $this->entityManager = $entityManager;
         $this->modRepository = $modRepository;
         $this->modGroupRepository = $modGroupRepository;
         $this->modListRepository = $modListRepository;
-        $this->modFormDtoDataTransformer = $modFormDtoDataTransformer;
+        $this->dataTransformerRegistry = $dataTransformerRegistry;
     }
 
     /**
@@ -81,7 +81,8 @@ class ModController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $mod = $this->modFormDtoDataTransformer->toEntity($modFormDto);
+            $mod = $this->dataTransformerRegistry->transformToEntity($modFormDto);
+
             $this->entityManager->persist($mod);
             $this->entityManager->flush();
 
@@ -100,12 +101,12 @@ class ModController extends AbstractController
      */
     public function updateAction(Request $request, AbstractMod $mod): Response
     {
-        $modFormDto = $this->modFormDtoDataTransformer->fromEntity($mod);
+        $modFormDto = $this->dataTransformerRegistry->transformFromEntity(new ModFormDto(), $mod);
         $form = $this->createForm(ModFormType::class, $modFormDto);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $updatedMod = $this->modFormDtoDataTransformer->toEntity($modFormDto, $mod);
+            $updatedMod = $this->dataTransformerRegistry->transformToEntity($modFormDto, $mod);
 
             if (!$this->entityManager->contains($updatedMod)) {
                 $this->entityManager->remove($mod);

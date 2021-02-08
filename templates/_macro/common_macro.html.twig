@@ -1,0 +1,4 @@
+{% macro random_background_image_style() %}
+    {% set backgroundImageUrl = asset('img/background/' ~ random(get_background_images())) %}
+    {{ ('style="background-image: url(' ~ backgroundImageUrl ~ '")')|raw }}
+{% endmacro %}

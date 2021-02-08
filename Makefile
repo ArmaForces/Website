@@ -2,7 +2,7 @@
 env = dev
 
 ifeq ($(ci),true)
-    dryrun = --dry-run
+    dryrun = --dry-run --diff
 endif
 
 cs:

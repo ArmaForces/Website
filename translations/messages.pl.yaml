@@ -12,7 +12,10 @@ Mods: Mody
 Mod groups: Grupy modów
 Mod lists: Listy modów
 
+Manage users: Zarządzaj użytkownikami
 Users: Użytkownicy
+User groups: Grupy użytkowników
+Permissions: Uprawnienia
 
 Available after login: Dostępne po zalogowaniu
 Login: Zaloguj
@@ -54,12 +57,26 @@ Discord ID: Discord ID
 Manage user permissions: Uprawnienia
 Delete user: Usuń użytkownika
 
+# User Groups
+Create user group: Utwórz grupę użytkowników
+Edit user group: Edytuj grupę użytkowników
+Delete user group: Usuń grupę użytkowników
+
+User group name: Nazwa
+User group description: Opis
+User group permissions: Uprawnienia grupy użytkowników
+
 # Permissions
 User permissions management: Zarządzanie uprawnieniami użytkownika
 
 Can manage users permissions: Może zarządzać uprawnieniami użytkowników
 Can list users: Może przeglądać listę użytkowników
 Can delete users: Może usuwać użytkowników
+
+Can list user groups: Może przeglądać grupy użytkowników
+Can create user groups: Może tworzyć grupy użytkowników
+Can edit user groups: Może edytować grupy użytkowników
+Can delete user groups: Może usuwać grupy użytkowników
 
 Can list mods: Może przeglądać mody
 Can create mods: Może tworzyć mody
@@ -152,4 +169,4 @@ Last updated by: Ostatnia modyfikacja przez
 Confirm: Potwierdź
 Confirmation: Potwierdzenie
 Are you sure you want to delete %name%?: Czy na pewno chcesz usunąć %name%?
-Include?: Dołączyć?
+Select: Wybierz

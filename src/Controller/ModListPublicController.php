@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\ModList\ModList;
-use App\Repository\ModListRepository;
+use App\Repository\Mod\ModRepository;
+use App\Repository\ModList\ModListRepository;
 use App\Security\Enum\PermissionsEnum;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\HeaderUtils;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -18,11 +19,15 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ModListPublicController extends AbstractController
 {
+    /** @var ModRepository */
+    protected $modRepository;
+
     /** @var ModListRepository */
     protected $modListRepository;
 
-    public function __construct(ModListRepository $modListRepository)
+    public function __construct(ModRepository $modRepository, ModListRepository $modListRepository)
     {
+        $this->modRepository = $modRepository;
         $this->modListRepository = $modListRepository;
     }
 
@@ -48,8 +53,8 @@ class ModListPublicController extends AbstractController
      */
     public function customizeAction(ModList $modList): Response
     {
-        $optionalMods = $this->modListRepository->findIncludedOptionalSteamWorkshopMods($modList);
-        $requiredMods = $this->modListRepository->findIncludedRequiredSteamWorkshopMods($modList);
+        $optionalMods = $this->modRepository->findIncludedOptionalSteamWorkshopMods($modList);
+        $requiredMods = $this->modRepository->findIncludedRequiredSteamWorkshopMods($modList);
 
         return $this->render('mod_list_public/customize.html.twig', [
             'modList' => $modList,
@@ -65,21 +70,18 @@ class ModListPublicController extends AbstractController
      */
     public function downloadAction(ModList $modList, string $optionalModsJson = null): Response
     {
+        $fileName = sprintf('%s %s.html', $modList->getName(), (new \DateTimeImmutable())->format('Y-m-d H-i-s'));
+        $mods = $this->modRepository->findIncludedSteamWorkshopMods($modList);
+        $optionalMods = json_decode($optionalModsJson, true) ?: [];
+
         $template = $this->renderView('mod_list_public/launcher_preset_template.html.twig', [
             'modList' => $modList,
-            'mods' => $this->modListRepository->findIncludedSteamWorkshopMods($modList),
-            'optionalMods' => $optionalModsJson ? json_decode($optionalModsJson, true) : [],
+            'mods' => $mods,
+            'optionalMods' => $optionalMods,
         ]);
 
-        $response = new Response($template);
-
-        $disposition = $response->headers->makeDisposition(
-            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-            $modList->getName().'.html'
-        );
-
-        $response->headers->set('Content-Disposition', $disposition);
-
-        return $response;
+        return new Response($template, Response::HTTP_OK, [
+            'Content-Disposition' => HeaderUtils::makeDisposition(HeaderUtils::DISPOSITION_ATTACHMENT, $fileName),
+        ]);
     }
 }

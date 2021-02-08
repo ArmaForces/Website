@@ -7,7 +7,7 @@ namespace App\Tests\Functional\Controller\ModListPublicController;
 use App\DataFixtures\ModList\DefaultModListFixture;
 use App\Entity\ModList\ModList;
 use App\Entity\User\User;
-use App\Test\Traits\AssertsTrait;
+use App\Test\Enum\RouteEnum;
 use App\Test\Traits\DataProvidersTrait;
 use App\Test\Traits\ServicesTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -21,10 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
 final class CustomizeActionTest extends WebTestCase
 {
     use ServicesTrait;
-    use AssertsTrait;
     use DataProvidersTrait;
-
-    public const ROUTE = '/mod-list/%s';
 
     /**
      * @test
@@ -39,7 +36,7 @@ final class CustomizeActionTest extends WebTestCase
         $subjectModList = $this::getEntityById(ModList::class, DefaultModListFixture::ID);
 
         $client = $this::authenticateClient($user);
-        $client->request(Request::METHOD_GET, sprintf($this::ROUTE, $subjectModList->getName()));
+        $client->request(Request::METHOD_GET, sprintf(RouteEnum::MOD_LIST_PUBLIC_CUSTOMIZE, $subjectModList->getName()));
 
         $this::assertResponseStatusCodeSame(Response::HTTP_OK);
     }
@@ -54,7 +51,7 @@ final class CustomizeActionTest extends WebTestCase
         $user = $this::getEntityById(User::class, $userId);
 
         $client = $this::authenticateClient($user);
-        $client->request(Request::METHOD_GET, sprintf($this::ROUTE, 'non-existing-name'));
+        $client->request(Request::METHOD_GET, sprintf(RouteEnum::MOD_LIST_PUBLIC_CUSTOMIZE, 'non-existing-name'));
 
         $this::assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
     }

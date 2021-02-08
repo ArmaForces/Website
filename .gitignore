@@ -2,6 +2,7 @@
 /VERSION
 
 fos_js_routes.js
+public/img/background
 
 /.php_cs
 /.php_cs.cache
@@ -21,6 +22,7 @@ fos_js_routes.js
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
+
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
 /public/build/

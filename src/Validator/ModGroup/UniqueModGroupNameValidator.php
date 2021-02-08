@@ -6,25 +6,15 @@ namespace App\Validator\ModGroup;
 
 use App\Entity\ModGroup\ModGroup;
 use App\Form\ModGroup\Dto\ModGroupFormDto;
-use Doctrine\ORM\AbstractQuery;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Validator\AbstractValidator;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class UniqueModGroupNameValidator extends ConstraintValidator
+class UniqueModGroupNameValidator extends AbstractValidator
 {
-    /** @var EntityManagerInterface */
-    protected $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    public function validate($value, Constraint $constraint): void
     {
-        $this->entityManager = $entityManager;
-    }
-
-    public function validate($modGroupFormDto, Constraint $constraint): void
-    {
-        if (!$modGroupFormDto instanceof ModGroupFormDto) {
+        if (!$value instanceof ModGroupFormDto) {
             throw new UnexpectedTypeException($constraint, ModGroupFormDto::class);
         }
 
@@ -32,42 +22,18 @@ class UniqueModGroupNameValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, UniqueModGroupName::class);
         }
 
-        $name = $modGroupFormDto->getName();
-        if (!$name) {
+        $name = $value->getName();
+        $id = $value->getId();
+        if (!$name || $this->isColumnValueUnique(ModGroup::class, $name, $id)) {
             return;
         }
 
-        $qb = $this->entityManager->createQueryBuilder();
-        $expr = $qb->expr();
-        $qb
-            ->addSelect($expr->count('mg'))
-            ->from(ModGroup::class, 'mg')
-            ->andWhere($expr->eq('mg.name', ':name'))
-            ->setParameter('name', $name)
-        ;
-
-        $entityId = $modGroupFormDto->getId();
-        if ($entityId) {
-            $qb
-                ->andWhere($expr->neq('mg.id', ':id'))
-                ->setParameter('id', $entityId)
-            ;
-        }
-
-        $result = (int) $qb->getQuery()->getResult(AbstractQuery::HYDRATE_SINGLE_SCALAR);
-        if (0 === $result) {
-            return;
-        }
-
-        $errorPath = $constraint->errorPath;
-        $violation = $this->context->buildViolation($constraint->message, [
-            '{{ modGroupName }}' => $name,
-        ]);
-
-        if ($errorPath) {
-            $violation->atPath($errorPath);
-        }
-
-        $violation->addViolation();
+        $this->addViolation(
+            $constraint->message,
+            [
+                '{{ modGroupName }}' => $name,
+            ],
+            $constraint->errorPath
+        );
     }
 }
