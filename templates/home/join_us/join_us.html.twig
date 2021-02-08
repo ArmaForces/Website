@@ -26,7 +26,10 @@
                             <h4 class="card-title">{{ 'Join ArmaForces'|trans }}</h4>
                             <section class="text-left">
                                 <ul id="join-steps">
-                                    {% include 'home/join_us/_partial/' ~ get_current_locale() ~ '/join_steps.html.twig' %}
+                                    {% include([
+                                        'home/join_us/_partial/' ~ get_current_locale() ~ '/join_steps.html.twig',
+                                        'home/join_us/_partial/pl/join_steps.html.twig'
+                                    ]) %}
                                 </ul>
                             </section>
                             <section class="text-left">
