@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\DataFixtures\Mod\Deprecated;
+namespace App\DataFixtures\Mod\Required\Deprecated;
 
 use App\Entity\Mod\Enum\ModStatusEnum;
 use App\Entity\Mod\Enum\ModTypeEnum;
