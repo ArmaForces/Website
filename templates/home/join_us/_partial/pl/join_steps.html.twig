@@ -9,8 +9,7 @@
     {%- if is_granted('ROLE_USER') %}
     <a href="{{ global.app.url.teamspeak }}">TeamSpeaka</a>
 {%- else %}
-    <a href="#" title="{{ 'Available after login'|trans }}"
-       data-toggle="tooltip" data-placement="bottom">TeamSpeaka</a>
+    <a href="#" title="{{ 'Available after login'|trans }}" data-toggle="tooltip" data-placement="bottom">TeamSpeaka</a>
     {%- endif -%}.
 </li>
 <li>
