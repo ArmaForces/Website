@@ -72,7 +72,7 @@ class ModListPublicController extends AbstractController
     {
         $fileName = sprintf('%s %s.html', $modList->getName(), (new \DateTimeImmutable())->format('Y-m-d H-i-s'));
         $mods = $this->modRepository->findIncludedSteamWorkshopMods($modList);
-        $optionalMods = json_decode($optionalModsJson, true) ?: [];
+        $optionalMods = json_decode($optionalModsJson ?? '', true) ?: [];
 
         $template = $this->renderView('mod_list_public/launcher_preset_template.html.twig', [
             'modList' => $modList,
