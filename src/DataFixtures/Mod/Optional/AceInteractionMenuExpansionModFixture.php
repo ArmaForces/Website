@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\DataFixtures\Mod;
+namespace App\DataFixtures\Mod\Optional;
 
 use App\Entity\Mod\Enum\ModTypeEnum;
 use App\Entity\Mod\SteamWorkshopMod;
@@ -10,17 +10,17 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Ramsey\Uuid\Uuid;
 
-class ArmaForcesModsModFixture extends Fixture
+class AceInteractionMenuExpansionModFixture extends Fixture
 {
-    public const ID = '0e4e059c-eef6-42a9-aec3-abdab344ec21';
+    public const ID = '37f58e30-5194-4594-89af-4a82c7fc02be';
 
     public function load(ObjectManager $manager): void
     {
         $mod = new SteamWorkshopMod(
             Uuid::fromString(self::ID),
-            'ArmaForces - Mods',
-            ModTypeEnum::get(ModTypeEnum::REQUIRED),
-            1934142795
+            'ACE Interaction Menu Expansion',
+            ModTypeEnum::get(ModTypeEnum::OPTIONAL),
+            1376867375
         );
         $mod->setCreatedAt(\DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2020-01-01 00:00:00'));
 

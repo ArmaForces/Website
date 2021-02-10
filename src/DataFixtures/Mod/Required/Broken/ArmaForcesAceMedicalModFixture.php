@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\DataFixtures\Mod\Disabled;
+namespace App\DataFixtures\Mod\Required\Broken;
 
 use App\Entity\Mod\Enum\ModStatusEnum;
 use App\Entity\Mod\Enum\ModTypeEnum;
@@ -11,19 +11,19 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Ramsey\Uuid\Uuid;
 
-class ArmaForcesJbadBuildingFixModFixture extends Fixture
+class ArmaForcesAceMedicalModFixture extends Fixture
 {
-    public const ID = 'b8e88103-69d2-438b-8d89-933ccfdb3a5a';
+    public const ID = '2f1d2dea-a7a6-4509-b478-66a980d724ca';
 
     public function load(ObjectManager $manager): void
     {
         $mod = new SteamWorkshopMod(
             Uuid::fromString(self::ID),
-            '[OBSOLETE] ArmaForces - JBAD Building Fix',
+            'ArmaForces - ACE Medical [OBSOLETE]',
             ModTypeEnum::get(ModTypeEnum::REQUIRED),
-            1781106281
+            1704054308
         );
-        $mod->setStatus(ModStatusEnum::get(ModStatusEnum::DISABLED));
+        $mod->setStatus(ModStatusEnum::get(ModStatusEnum::BROKEN));
         $mod->setCreatedAt(\DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2020-01-01 00:00:00'));
 
         $manager->persist($mod);

@@ -16,7 +16,7 @@ class RouteEnum
 
     public const MOD_LIST_PUBLIC_SELECT = '/mod-list/select';
     public const MOD_LIST_PUBLIC_CUSTOMIZE = '/mod-list/%s';
-    public const MOD_LIST_PUBLIC_DOWNLOAD = '/mod-list/%s/download/%s';
+    public const MOD_LIST_PUBLIC_DOWNLOAD = '/mod-list/%s/download';
 
     public const USER_LIST = '/user/list';
     public const USER_DELETE = '/user/%s/delete';
