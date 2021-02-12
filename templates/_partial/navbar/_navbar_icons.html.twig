@@ -17,20 +17,15 @@
     <!--/ Steam -->
 
     <!-- TeamSpeak -->
-    <li class="nav-item icon-teamspeak"
-        {% if not is_granted('ROLE_USER') -%}
-            title="{{ 'Available after login'|trans }}"
-            data-toggle="tooltip" data-placement="bottom"
-        {% endif %}
-    >
-        {% if not is_granted('ROLE_USER') -%}
+    {% if is_granted('ROLE_USER') %}
+        <li class="nav-item icon-teamspeak">
+            <a href="{{ global.app.url.teamspeak }}" class="nav-link"><i class="fab fa-teamspeak"></i></a>
+        </li>
+    {% else %}
+        <li class="nav-item icon-teamspeak" title="{{ 'Available after login'|trans }}" data-toggle="tooltip" data-placement="bottom">
             <a class="nav-link disabled"><i class="fab fa-teamspeak"></i></a>
-        {%- else -%}
-            <a href="{{ global.app.url.teamspeak }}" class="nav-link">
-                <i class="fab fa-teamspeak"></i>
-            </a>
-        {%- endif %}
-    </li>
+        </li>
+    {% endif %}
     <!--/ TeamSpeak -->
 
     <!-- Login -->

@@ -13,7 +13,7 @@
         is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST'))
         or is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_GROUP_LIST'))
         or is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_LIST'))
-    -%}
+    %}
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                 {{ 'Manage mods'|trans }}
