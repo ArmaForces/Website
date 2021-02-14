@@ -176,6 +176,7 @@ td span[title] {
     text-underline-position: under;
 }
 
+// @see https://stackoverflow.com/a/63507769
 .table-responsive {
     transform: rotateX(180deg);
     > table {
