@@ -8,11 +8,14 @@ use App\Entity\EntityInterface;
 use App\Entity\Mod\ModInterface;
 use App\Entity\ModList\ModList;
 use App\Entity\ModList\ModListInterface;
+use App\Entity\Permissions\PermissionsInterface;
 use App\Entity\User\UserInterface;
 use App\Form\FormDtoInterface;
 use App\Form\ModList\Dto\ModListFormDto;
 use App\Form\RegisteredDataTransformerInterface;
+use App\Security\Voter\AbstractVoter;
 use Ramsey\Uuid\Uuid;
+use RestCord\Interfaces\Permissions;
 use Symfony\Component\Security\Core\Security;
 
 class ModListFormDtoDataTransformer implements RegisteredDataTransformerInterface
@@ -40,8 +43,15 @@ class ModListFormDtoDataTransformer implements RegisteredDataTransformerInterfac
         /** @var UserInterface $currentUser */
         $currentUser = $this->security->getUser();
 
+        $canUpdate = AbstractVoter::userHasPermissions(
+            $currentUser,
+            static function (PermissionsInterface $permissions) {
+                return $permissions->getModListManagementPermissions()->canUpdate();
+            }
+        );
+
         // If user has permissions set selected user as owner. Otherwise assign current user.
-        $owner = $currentUser->getPermissions()->getModListManagementPermissions()->canUpdate() ? $formDto->getOwner() : $currentUser;
+        $owner = $canUpdate ? $formDto->getOwner() : $currentUser;
 
         $entity->setName($formDto->getName());
         $entity->setDescription($formDto->getDescription());
