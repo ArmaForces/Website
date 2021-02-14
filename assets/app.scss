@@ -175,3 +175,10 @@ td span[title] {
     -ms-text-underline-position: below;
     text-underline-position: under;
 }
+
+.table-responsive {
+    transform: rotateX(180deg);
+    > table {
+        transform: rotateX(180deg);
+    }
+}
