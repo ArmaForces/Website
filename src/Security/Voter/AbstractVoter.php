@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 abstract class AbstractVoter extends Voter
 {
-    public function userHasPermissions(UserInterface $user, callable $permissionsCheck): bool
+    public static function userHasPermissions(UserInterface $user, callable $permissionsCheck): bool
     {
         return $permissionsCheck($user->getPermissions())
             || (new ArrayCollection($user->getUserGroups()))->exists(
