@@ -37,9 +37,7 @@ class UpdateModListVoter extends AbstractVoter
         $modList = $subject;
 
         return $modList->getOwner() === $currentUser
-            || $this->userHasPermissions($currentUser, static function (PermissionsInterface $permissions) {
-                return $permissions->getModListManagementPermissions()->canUpdate();
-            })
+            || $this->userHasPermissions($currentUser, static fn (PermissionsInterface $permissions) => $permissions->getModListManagementPermissions()->canUpdate())
         ;
     }
 }

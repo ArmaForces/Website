@@ -103,9 +103,7 @@ class ModListFormType extends AbstractType
 
         $canUpdate = AbstractVoter::userHasPermissions(
             $currentUser,
-            static function (PermissionsInterface $permissions) {
-                return $permissions->getModListManagementPermissions()->canUpdate();
-            }
+            static fn (PermissionsInterface $permissions) => $permissions->getModListManagementPermissions()->canUpdate()
         );
 
         // User cannot change Mod List owner if he doesn't have full update permissions granted
@@ -127,9 +125,7 @@ class ModListFormType extends AbstractType
                     ->orderBy('u.username', 'ASC')
                 ;
             },
-            'choice_label' => static function (UserInterface $user) {
-                return $user->getUsername();
-            },
+            'choice_label' => static fn (UserInterface $user) => $user->getUsername(),
         ];
 
         if (!$modListExists) {
@@ -147,9 +143,7 @@ class ModListFormType extends AbstractType
 
         $canApprove = AbstractVoter::userHasPermissions(
             $currentUser,
-            static function (PermissionsInterface $permissions) {
-                return $permissions->getModListManagementPermissions()->canApprove();
-            }
+            static fn (PermissionsInterface $permissions) => $permissions->getModListManagementPermissions()->canApprove()
         );
 
         if (!$canApprove) {

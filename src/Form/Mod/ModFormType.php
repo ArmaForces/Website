@@ -107,9 +107,7 @@ class ModFormType extends AbstractType
 
         $canChangeStatus = AbstractVoter::userHasPermissions(
             $currentUser,
-            static function (PermissionsInterface $permissions) {
-                return $permissions->getModManagementPermissions()->canChangeStatus();
-            }
+            static fn (PermissionsInterface $permissions) => $permissions->getModManagementPermissions()->canChangeStatus()
         );
 
         if (!$canChangeStatus) {

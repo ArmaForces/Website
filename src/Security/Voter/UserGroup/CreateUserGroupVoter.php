@@ -31,8 +31,6 @@ class CreateUserGroupVoter extends AbstractVoter
             return false;
         }
 
-        return $this->userHasPermissions($currentUser, static function (PermissionsInterface $permissions) {
-            return $permissions->getUserGroupManagementPermissions()->canCreate();
-        });
+        return $this->userHasPermissions($currentUser, static fn (PermissionsInterface $permissions) => $permissions->getUserGroupManagementPermissions()->canCreate());
     }
 }

@@ -35,9 +35,7 @@ class DeleteUserVoter extends AbstractVoter
         $user = $subject;
 
         return $currentUser !== $user
-            && $this->userHasPermissions($currentUser, static function (PermissionsInterface $permissions) {
-                return $permissions->getUserManagementPermissions()->canDelete();
-            })
+            && $this->userHasPermissions($currentUser, static fn (PermissionsInterface $permissions) => $permissions->getUserManagementPermissions()->canDelete())
         ;
     }
 }

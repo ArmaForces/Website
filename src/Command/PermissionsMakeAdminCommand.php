@@ -64,9 +64,7 @@ class PermissionsMakeAdminCommand extends Command
                 return 1;
             }
 
-            $allUsersNames = array_map(static function (User $user) {
-                return sprintf('%d (%s)', $user->getExternalId(), $user->getUsername());
-            }, $allUsers);
+            $allUsersNames = array_map(static fn (User $user) => sprintf('%d (%s)', $user->getExternalId(), $user->getUsername()), $allUsers);
 
             $helper = $this->getHelper('question');
             $question = new ChoiceQuestion('Please select user from the list', $allUsersNames);

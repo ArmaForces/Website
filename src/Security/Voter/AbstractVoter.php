@@ -15,9 +15,7 @@ abstract class AbstractVoter extends Voter
     {
         return $permissionsCheck($user->getPermissions())
             || (new ArrayCollection($user->getUserGroups()))->exists(
-                static function (int $index, UserGroupInterface $userGroup) use ($permissionsCheck) {
-                    return $permissionsCheck($userGroup->getPermissions());
-                }
+                static fn (int $index, UserGroupInterface $userGroup) => $permissionsCheck($userGroup->getPermissions())
             );
     }
 }

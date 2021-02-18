@@ -32,8 +32,6 @@ class DeleteModGroupVoter extends AbstractVoter
             return false;
         }
 
-        return $this->userHasPermissions($currentUser, static function (PermissionsInterface $permissions) {
-            return $permissions->getModGroupManagementPermissions()->canDelete();
-        });
+        return $this->userHasPermissions($currentUser, static fn (PermissionsInterface $permissions) => $permissions->getModGroupManagementPermissions()->canDelete());
     }
 }

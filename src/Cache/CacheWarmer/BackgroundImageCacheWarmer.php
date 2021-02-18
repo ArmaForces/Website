@@ -43,9 +43,7 @@ class BackgroundImageCacheWarmer extends CacheWarmer
     {
         $imagesIterator = (Finder::create())->in($this->backgroundImagesDirectory)->files()->getIterator();
 
-        $images = array_map(static function (\SplFileInfo $imageFile) {
-            return $imageFile->getFilename();
-        }, iterator_to_array($imagesIterator));
+        $images = array_map(static fn (\SplFileInfo $imageFile) => $imageFile->getFilename(), iterator_to_array($imagesIterator));
 
         return array_values($images);
     }

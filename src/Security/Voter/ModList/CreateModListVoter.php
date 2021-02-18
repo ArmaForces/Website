@@ -31,8 +31,6 @@ class CreateModListVoter extends AbstractVoter
             return false;
         }
 
-        return $this->userHasPermissions($currentUser, static function (PermissionsInterface $permissions) {
-            return $permissions->getModListManagementPermissions()->canCreate();
-        });
+        return $this->userHasPermissions($currentUser, static fn (PermissionsInterface $permissions) => $permissions->getModListManagementPermissions()->canCreate());
     }
 }

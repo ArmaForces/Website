@@ -45,9 +45,7 @@ class ModListFormDtoDataTransformer implements RegisteredDataTransformerInterfac
 
         $canUpdate = AbstractVoter::userHasPermissions(
             $currentUser,
-            static function (PermissionsInterface $permissions) {
-                return $permissions->getModListManagementPermissions()->canUpdate();
-            }
+            static fn (PermissionsInterface $permissions) => $permissions->getModListManagementPermissions()->canUpdate()
         );
 
         // If user has permissions set selected user as owner. Otherwise assign current user.

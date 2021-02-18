@@ -60,11 +60,7 @@ class MissionClient
         /** @var MissionDto[] $allMissions */
         $allMissions = iterator_to_array($this->getMissions(true));
 
-        return array_filter($allMissions, static function (MissionDto $mission) {
-            if (MissionStateEnum::ARCHIVED === $mission->getState()) {
-                return $mission;
-            }
-        });
+        return array_filter($allMissions, static fn (MissionDto $mission) => MissionStateEnum::ARCHIVED === $mission->getState());
     }
 
     /**
@@ -75,10 +71,6 @@ class MissionClient
         /** @var MissionDto[] $allMissions */
         $allMissions = iterator_to_array($this->getMissions(true));
 
-        return array_filter($allMissions, static function (MissionDto $mission) {
-            if (MissionStateEnum::ARCHIVED !== $mission->getState()) {
-                return $mission;
-            }
-        });
+        return array_filter($allMissions, static fn (MissionDto $mission) => MissionStateEnum::ARCHIVED !== $mission->getState());
     }
 }

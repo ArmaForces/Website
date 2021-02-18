@@ -31,8 +31,6 @@ class ManageUserPermissionsVoter extends AbstractVoter
             return false;
         }
 
-        return $this->userHasPermissions($currentUser, static function (PermissionsInterface $permissions) {
-            return $permissions->getUserManagementPermissions()->canManagePermissions();
-        });
+        return $this->userHasPermissions($currentUser, static fn (PermissionsInterface $permissions) => $permissions->getUserManagementPermissions()->canManagePermissions());
     }
 }

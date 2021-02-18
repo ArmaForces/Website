@@ -31,8 +31,6 @@ class ListModGroupsVoter extends AbstractVoter
             return false;
         }
 
-        return $this->userHasPermissions($currentUser, static function (PermissionsInterface $permissions) {
-            return $permissions->getModGroupManagementPermissions()->canList();
-        });
+        return $this->userHasPermissions($currentUser, static fn (PermissionsInterface $permissions) => $permissions->getModGroupManagementPermissions()->canList());
     }
 }

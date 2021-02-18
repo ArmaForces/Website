@@ -37,9 +37,7 @@ class DeleteModListVoter extends AbstractVoter
         $modList = $subject;
 
         return $modList->getOwner() === $currentUser
-            || $this->userHasPermissions($currentUser, static function (PermissionsInterface $permissions) {
-                return $permissions->getModListManagementPermissions()->canDelete();
-            })
+            || $this->userHasPermissions($currentUser, static fn (PermissionsInterface $permissions) => $permissions->getModListManagementPermissions()->canDelete())
         ;
     }
 }

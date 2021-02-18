@@ -40,9 +40,7 @@ class DownloadModListVoter extends AbstractVoter
 
         // Otherwise user needs to be logged-in and have "List" permission granted
         return $currentUser instanceof UserInterface
-            && $this->userHasPermissions($currentUser, static function (PermissionsInterface $permissions) {
-                return $permissions->getModListManagementPermissions()->canList();
-            })
+            && $this->userHasPermissions($currentUser, static fn (PermissionsInterface $permissions) => $permissions->getModListManagementPermissions()->canList())
         ;
     }
 }
