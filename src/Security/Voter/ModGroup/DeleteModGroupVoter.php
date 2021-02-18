@@ -16,7 +16,7 @@ class DeleteModGroupVoter extends AbstractVoter
     /**
      * {@inheritdoc}
      */
-    protected function supports($attribute, $subject): bool
+    protected function supports(string $attribute, $subject): bool
     {
         return PermissionsEnum::MOD_GROUP_DELETE === $attribute && $subject instanceof ModGroupInterface;
     }
@@ -24,7 +24,7 @@ class DeleteModGroupVoter extends AbstractVoter
     /**
      * {@inheritdoc}
      */
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         /** @var null|UserInterface $currentUser */
         $currentUser = $token->getUser();

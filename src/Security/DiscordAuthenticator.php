@@ -185,7 +185,7 @@ class DiscordAuthenticator extends SocialAuthenticator
     /**
      * {@inheritdoc}
      */
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey): ?RedirectResponse
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey): ?RedirectResponse
     {
         $targetUrl = $this->router->generate(self::HOME_INDEX_PAGE_ROUTE_NAME);
 

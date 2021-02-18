@@ -8,7 +8,7 @@ use App\Entity\ModGroup\ModGroupInterface;
 use App\Entity\ModList\ModList;
 use App\Entity\ModList\ModListInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method null|ModListInterface find($id, $lockMode = null, $lockVersion = null)

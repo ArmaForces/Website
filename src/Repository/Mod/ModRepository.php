@@ -13,9 +13,9 @@ use App\Entity\ModGroup\ModGroup;
 use App\Entity\ModList\ModList;
 use App\Entity\ModList\ModListInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method null|ModInterface find($id, $lockMode = null, $lockVersion = null)

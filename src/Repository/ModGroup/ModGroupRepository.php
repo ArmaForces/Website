@@ -7,7 +7,7 @@ namespace App\Repository\ModGroup;
 use App\Entity\ModGroup\ModGroup;
 use App\Entity\ModGroup\ModGroupInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method null|ModGroupInterface find($id, $lockMode = null, $lockVersion = null)
