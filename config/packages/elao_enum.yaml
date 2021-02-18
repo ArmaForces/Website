@@ -1,6 +1,9 @@
 elao_enum:
     doctrine:
         types:
-            App\Entity\Mod\Enum\ModTypeEnum: mod_type_enum
-            App\Entity\Mod\Enum\ModStatusEnum: mod_status_enum
-            App\Entity\Mod\Enum\ModSourceEnum: mod_source_enum
+            mod_type_enum:
+                class: App\Entity\Mod\Enum\ModTypeEnum
+            mod_status_enum:
+                class: App\Entity\Mod\Enum\ModStatusEnum
+            mod_source_enum:
+                class: App\Entity\Mod\Enum\ModSourceEnum
