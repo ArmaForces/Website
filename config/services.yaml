@@ -51,8 +51,9 @@ services:
         arguments:
             $discordServerId: '%app.security.oauth.discord.server_id%'
             $botToken: '%app.security.oauth.discord.bot_token%'
-            $recruitRoleName: '%app.security.oauth.discord.recruit_role_name%'
-            $memberRoleName: '%app.security.oauth.discord.member_role_name%'
+            $requiredServerRoleNames:
+                - '%app.security.oauth.discord.recruit_role_name%'
+                - '%app.security.oauth.discord.member_role_name%'
 
     # Register Doctrine subscribers
     App\EventSubscriber\Doctrine\:
