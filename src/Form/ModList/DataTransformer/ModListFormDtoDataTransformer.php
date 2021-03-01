@@ -15,7 +15,6 @@ use App\Form\ModList\Dto\ModListFormDto;
 use App\Form\RegisteredDataTransformerInterface;
 use App\Security\Voter\AbstractVoter;
 use Ramsey\Uuid\Uuid;
-use RestCord\Interfaces\Permissions;
 use Symfony\Component\Security\Core\Security;
 
 class ModListFormDtoDataTransformer implements RegisteredDataTransformerInterface
