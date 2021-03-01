@@ -16,18 +16,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class PermissionsMakeAdminCommand extends Command
 {
-    /** @var string */
-    protected static $defaultName = 'app:permissions:make-admin';
+    protected EntityManagerInterface $entityManager;
+    protected UserRepository $userRepository;
 
-    /** @var EntityManagerInterface */
-    protected $entityManager;
-
-    /** @var UserRepository */
-    protected $userRepository;
-
-    /**
-     * @{@inheritdoc}
-     */
     public function __construct(EntityManagerInterface $entityManager, UserRepository $userRepository)
     {
         parent::__construct();
@@ -37,18 +28,19 @@ class PermissionsMakeAdminCommand extends Command
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     protected function configure(): void
     {
         $this
+            ->setName('app:permissions:make-admin')
             ->setDescription('Grants permissions to manage permissions to given user identified by Discord user id.')
             ->addArgument('discord_user_id', InputArgument::OPTIONAL, 'Discord user id (18-digits integer)')
         ;
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {

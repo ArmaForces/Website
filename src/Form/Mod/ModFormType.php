@@ -21,8 +21,7 @@ use Symfony\Component\Security\Core\Security;
 
 class ModFormType extends AbstractType
 {
-    /** @var Security */
-    protected $security;
+    protected Security $security;
 
     public function __construct(Security $security)
     {

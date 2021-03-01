@@ -6,32 +6,15 @@ namespace App\Service\Mission\Dto;
 
 class MissionDto
 {
-    /** @var null|int */
-    protected $id;
-
-    /** @var string */
-    protected $title;
-
-    /** @var \DateTimeImmutable */
-    protected $date;
-
-    /** @var \DateTimeImmutable */
-    protected $closeDate;
-
-    /** @var string */
-    protected $description;
-
-    /** @var int */
-    protected $freeSlots;
-
-    /** @var int */
-    protected $allSlots;
-
-    /** @var null|string */
-    protected $image;
-
-    /** @var string */
-    protected $state;
+    protected ?int $id;
+    protected string $title;
+    protected \DateTimeImmutable $date;
+    protected \DateTimeImmutable $closeDate;
+    protected string $description;
+    protected int $freeSlots;
+    protected int $allSlots;
+    protected ?string $image;
+    protected string $state;
 
     public function __construct(
         ?int $id,

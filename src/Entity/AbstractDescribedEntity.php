@@ -6,8 +6,7 @@ namespace App\Entity;
 
 abstract class AbstractDescribedEntity extends AbstractNamedEntity implements DescribedEntityInterface
 {
-    /** @var null|string */
-    protected $description;
+    protected ?string $description = null;
 
     public function getDescription(): ?string
     {

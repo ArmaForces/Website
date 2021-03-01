@@ -14,20 +14,11 @@ use Ramsey\Uuid\UuidInterface;
 
 class ModList extends AbstractDescribedEntity implements ModListInterface
 {
-    /** @var Collection|ModInterface[] */
-    protected $mods;
-
-    /** @var Collection|ModGroupInterface[] */
-    protected $modGroups;
-
-    /** @var null|UserInterface */
-    protected $owner;
-
-    /** @var bool */
-    protected $active = true;
-
-    /** @var bool */
-    protected $approved = false;
+    protected Collection$mods;
+    protected Collection $modGroups;
+    protected ?UserInterface $owner = null;
+    protected bool $active = true;
+    protected bool $approved = false;
 
     public function __construct(UuidInterface $id, string $name)
     {

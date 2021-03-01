@@ -11,11 +11,8 @@ use Symfony\Component\Validator\Constraint;
  */
 class UniqueModGroupName extends Constraint
 {
-    /** @var string */
-    public $message = 'Mod group with the same name "{{ modGroupName }}" already exist';
-
-    /** @var null|string */
-    public $errorPath;
+    public string $message = 'Mod group with the same name "{{ modGroupName }}" already exist';
+    public ?string $errorPath;
 
     public function getTargets()
     {

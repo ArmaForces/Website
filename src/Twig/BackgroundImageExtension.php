@@ -10,8 +10,7 @@ use Twig\TwigFunction;
 
 class BackgroundImageExtension extends AbstractExtension
 {
-    /** @var string */
-    protected $cacheDir;
+    protected string $cacheDir;
 
     public function __construct(string $cacheDir)
     {

@@ -11,8 +11,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class SteamWorkshopClient
 {
-    /** @var HttpClientInterface */
-    protected $httpClient;
+    protected HttpClientInterface $httpClient;
 
     public function __construct(HttpClientInterface $httpClient)
     {

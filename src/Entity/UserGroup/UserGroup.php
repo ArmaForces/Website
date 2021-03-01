@@ -13,11 +13,8 @@ use Ramsey\Uuid\UuidInterface;
 
 class UserGroup extends AbstractDescribedEntity implements UserGroupInterface
 {
-    /** @var UserGroupPermissions */
-    protected $permissions;
-
-    /** @var Collection|UserInterface[] */
-    protected $users;
+    protected UserGroupPermissions $permissions;
+    protected Collection $users;
 
     public function __construct(UuidInterface $id, string $name, UserGroupPermissions $permissions)
     {

@@ -12,8 +12,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class MissionClient
 {
-    /** @var HttpClientInterface */
-    protected $client;
+    protected HttpClientInterface $client;
 
     public function __construct(HttpClientInterface $client, MissionStore $store, string $missionApiUrl)
     {

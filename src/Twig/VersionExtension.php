@@ -10,8 +10,7 @@ use Twig\TwigFunction;
 
 class VersionExtension extends AbstractExtension
 {
-    /** @var VersionProvider */
-    protected $version;
+    protected VersionProvider $version;
 
     public function __construct(VersionProvider $version)
     {

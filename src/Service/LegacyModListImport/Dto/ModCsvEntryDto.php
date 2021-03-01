@@ -6,20 +6,11 @@ namespace App\Service\LegacyModListImport\Dto;
 
 class ModCsvEntryDto
 {
-    /** @var string */
-    protected $id;
-
-    /** @var string */
-    protected $name;
-
-    /** @var null|string */
-    protected $isServerSide;
-
-    /** @var null|string */
-    protected $isOptional;
-
-    /** @var null|string */
-    protected $isMap;
+    protected string $id;
+    protected string $name;
+    protected ?string $isServerSide;
+    protected ?string $isOptional;
+    protected ?string $isMap;
 
     public function __construct(string $id, string $name, ?string $isServerSide, ?string $isOptional, ?string $isMap)
     {

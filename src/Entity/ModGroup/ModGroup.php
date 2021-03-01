@@ -12,8 +12,7 @@ use Ramsey\Uuid\UuidInterface;
 
 class ModGroup extends AbstractDescribedEntity implements ModGroupInterface
 {
-    /** @var Collection|ModInterface[] */
-    protected $mods;
+    protected Collection $mods;
 
     public function __construct(UuidInterface $id, string $name)
     {

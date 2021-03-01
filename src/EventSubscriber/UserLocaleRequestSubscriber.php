@@ -20,11 +20,8 @@ class UserLocaleRequestSubscriber implements EventSubscriberInterface
         'pl',
     ];
 
-    /** @var SessionInterface */
-    protected $session;
-
-    /** @var LoggerInterface */
-    protected $logger;
+    protected SessionInterface $session;
+    protected LoggerInterface $logger;
 
     public function __construct(SessionInterface $session, LoggerInterface $logger)
     {

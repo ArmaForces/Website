@@ -8,11 +8,8 @@ use App\Entity\Permissions\AbstractManagementPermissions;
 
 class ModListManagementPermissions extends AbstractManagementPermissions
 {
-    /** @var bool */
-    protected $copy = false;
-
-    /** @var bool */
-    protected $approve = false;
+    protected bool $copy = false;
+    protected bool $approve = false;
 
     public function canCopy(): bool
     {

@@ -14,11 +14,8 @@ use App\Repository\Mod\ModRepository;
 
 class ModListDetailsOutputDataTransformer implements DataTransformerInterface
 {
-    /** @var ModOutputDataTransformer */
-    protected $modDataTransformer;
-
-    /** @var ModRepository */
-    protected $modRepository;
+    protected ModOutputDataTransformer $modDataTransformer;
+    protected ModRepository $modRepository;
 
     public function __construct(
         ModOutputDataTransformer $modDataTransformer,

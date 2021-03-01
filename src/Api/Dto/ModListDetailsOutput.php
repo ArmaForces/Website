@@ -6,10 +6,7 @@ namespace App\Api\Dto;
 
 class ModListDetailsOutput extends ModListOutput
 {
-    /**
-     * @var ModOutput[]
-     */
-    protected $mods = [];
+    protected array $mods = [];
 
     /**
      * @return ModOutput[]

@@ -9,8 +9,7 @@ use Ramsey\Uuid\UuidInterface;
 
 class DirectoryMod extends AbstractMod implements DirectoryModInterface
 {
-    /** @var string */
-    protected $directory;
+    protected string $directory;
 
     public function __construct(UuidInterface $id, string $name, ModTypeEnum $type, string $directory)
     {

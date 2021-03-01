@@ -42,26 +42,15 @@ class DiscordAuthenticator extends SocialAuthenticator
     protected const LOGIN_PAGE_ROUTE_NAME = 'app_security_connect_discord';
     protected const SUPPORTED_ROUTE_NAME = 'app_security_connect_discord_check';
 
-    /** @var ClientRegistry */
-    protected $clientRegistry;
-
-    /** @var EntityManagerInterface */
-    protected $em;
-
-    /** @var RouterInterface */
-    protected $router;
-
-    /** @var DiscordClientFactory */
-    protected $discordClientFactory;
-
-    /** @var int */
-    protected $discordServerId;
-
-    /** @var string */
-    protected $botToken;
+    protected ClientRegistry $clientRegistry;
+    protected EntityManagerInterface $em;
+    protected RouterInterface $router;
+    protected DiscordClientFactory $discordClientFactory;
+    protected int $discordServerId;
+    protected string $botToken;
 
     /** @var string[] */
-    protected $requiredServerRoleNames;
+    protected array $requiredServerRoleNames;
 
     public function __construct(
         ClientRegistry $clientRegistry,

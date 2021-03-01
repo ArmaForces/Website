@@ -20,8 +20,7 @@ use Ramsey\Uuid\Uuid;
 
 class ModFormDtoDataTransformer implements RegisteredDataTransformerInterface
 {
-    /** @var SteamWorkshopClient */
-    protected $steamWorkshopClient;
+    protected SteamWorkshopClient $steamWorkshopClient;
 
     public function __construct(SteamWorkshopClient $steamWorkshopClient)
     {

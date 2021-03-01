@@ -19,63 +19,47 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class ModFormDto extends AbstractFormDto
 {
-    /** @var null|UuidInterface */
-    protected $id;
+    protected ?UuidInterface $id = null;
 
     /**
-     * @var null|string
-     *
      * @Assert\NotBlank(groups={ModSourceEnum::DIRECTORY})
      * @Assert\Length(min=1, max=255)
      */
-    protected $name;
+    protected ?string $name = null;
 
     /**
-     * @var null|string
-     *
      * @Assert\Length(min=1, max=255)
      */
-    protected $description;
+    protected ?string $description = null;
 
     /**
-     * @var null|string
-     *
      * @Assert\Expression(
      *     "!(this.getType() != constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::SERVER_SIDE') && this.getSource() == constant('App\\Entity\\Mod\\Enum\\ModSourceEnum::DIRECTORY'))",
      * )
      */
-    protected $type;
+    protected ?string $type = null;
+
+    protected ?string $status = null;
 
     /**
-     * @var null|string
-     */
-    protected $status;
-
-    /**
-     * @var null|string
-     *
      * @Assert\Expression(
      *     "!(this.getSource() == constant('App\\Entity\\Mod\\Enum\\ModSourceEnum::DIRECTORY') && this.getType() != constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::SERVER_SIDE'))",
      * )
      */
-    protected $source;
+    protected ?string $source = null;
 
     /**
-     * @var null|string
-     *
      * @Assert\NotBlank(groups={ModSourceEnum::STEAM_WORKSHOP})
      * @Assert\Length(min=1, max=255, groups={ModSourceEnum::STEAM_WORKSHOP})
      * @SteamWorkshopArma3ModUrl(groups={ModSourceEnum::STEAM_WORKSHOP}))
      */
-    protected $url;
+    protected ?string $url = null;
 
     /**
-     * @var null|string
-     *
      * @Assert\NotBlank(groups={ModSourceEnum::DIRECTORY})
      * @WindowsDirectoryName(groups={ModSourceEnum::DIRECTORY})
      */
-    protected $directory;
+    protected ?string $directory = null;
 
     /**
      * {@inheritdoc}

@@ -9,7 +9,7 @@ use App\Entity\EntityInterface;
 class DataTransformerRegistry implements DataTransformerInterface
 {
     /** @var RegisteredDataTransformerInterface[] */
-    protected $registeredDataTransformers;
+    protected iterable $registeredDataTransformers;
 
     public function __construct(iterable $registeredDataTransformers)
     {

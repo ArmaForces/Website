@@ -11,11 +11,8 @@ use Ramsey\Uuid\UuidInterface;
 
 abstract class AbstractMod extends AbstractDescribedEntity implements ModInterface
 {
-    /** @var ModTypeEnum */
-    protected $type;
-
-    /** @var ?ModStatusEnum */
-    protected $status;
+    protected ModTypeEnum $type;
+    protected ?ModStatusEnum $status = null;
 
     public function __construct(UuidInterface $id, string $name, ModTypeEnum $type)
     {
