@@ -16,7 +16,7 @@ class DeleteUserGroupVoter extends AbstractVoter
     /**
      * {@inheritdoc}
      */
-    protected function supports($attribute, $subject): bool
+    protected function supports(string $attribute, $subject): bool
     {
         return PermissionsEnum::USER_GROUP_DELETE === $attribute && $subject instanceof UserGroupInterface;
     }
@@ -24,7 +24,7 @@ class DeleteUserGroupVoter extends AbstractVoter
     /**
      * {@inheritdoc}
      */
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         /** @var null|UserInterface $currentUser */
         $currentUser = $token->getUser();
@@ -32,8 +32,6 @@ class DeleteUserGroupVoter extends AbstractVoter
             return false;
         }
 
-        return $this->userHasPermissions($currentUser, static function (PermissionsInterface $permissions) {
-            return $permissions->getUserGroupManagementPermissions()->canDelete();
-        });
+        return $this->userHasPermissions($currentUser, static fn (PermissionsInterface $permissions) => $permissions->getUserGroupManagementPermissions()->canDelete());
     }
 }

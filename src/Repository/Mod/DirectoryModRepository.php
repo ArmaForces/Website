@@ -6,7 +6,7 @@ namespace App\Repository\Mod;
 
 use App\Entity\Mod\DirectoryMod;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method null|DirectoryMod find($id, $lockMode = null, $lockVersion = null)

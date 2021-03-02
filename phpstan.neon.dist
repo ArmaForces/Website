@@ -9,7 +9,7 @@ parameters:
     paths:
         - src
     symfony:
-        container_xml_path: '/project/var/cache/dev/srcApp_KernelDevDebugContainer.xml'
+        container_xml_path: '/project/var/cache/dev/App_KernelDevDebugContainer.xml'
     checkGenericClassInNonGenericObjectType: false
     checkMissingIterableValueType: false
     ignoreErrors:

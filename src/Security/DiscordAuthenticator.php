@@ -185,7 +185,7 @@ class DiscordAuthenticator extends SocialAuthenticator
     /**
      * {@inheritdoc}
      */
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey): ?RedirectResponse
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey): ?RedirectResponse
     {
         $targetUrl = $this->router->generate(self::HOME_INDEX_PAGE_ROUTE_NAME);
 
@@ -215,8 +215,10 @@ class DiscordAuthenticator extends SocialAuthenticator
         switch (\count($rolesFound)) {
             case 0:
                 throw new RoleNotFoundException(sprintf('Role "%s" was not found!', $roleName));
+
             case 1:
                 return $rolesFound[0];
+
             default:
                 throw new MultipleRolesFound(sprintf('Multiple roles found by given name "%s"!', $roleName));
         }

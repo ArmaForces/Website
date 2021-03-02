@@ -7,7 +7,7 @@ namespace App\Repository\Permissions;
 use App\Entity\Permissions\PermissionsInterface;
 use App\Entity\Permissions\UserPermissions;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method null|PermissionsInterface find($id, $lockMode = null, $lockVersion = null)
