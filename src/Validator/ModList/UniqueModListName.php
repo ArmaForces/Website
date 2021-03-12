@@ -11,11 +11,8 @@ use Symfony\Component\Validator\Constraint;
  */
 class UniqueModListName extends Constraint
 {
-    /** @var string */
-    public $message = 'Mod list with the same name "{{ modListName }}" already exist';
-
-    /** @var null|string */
-    public $errorPath;
+    public string $message = 'Mod list with the same name "{{ modListName }}" already exist';
+    public ?string $errorPath = null;
 
     public function getTargets()
     {

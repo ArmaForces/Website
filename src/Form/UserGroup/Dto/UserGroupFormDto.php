@@ -19,33 +19,22 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class UserGroupFormDto extends AbstractFormDto
 {
-    /** @var null|UuidInterface */
-    protected $id;
+    protected ?UuidInterface $id = null;
 
     /**
-     * @var null|string
-     *
      * @Assert\NotBlank
      * @Assert\Length(max=255)
      */
-    protected $name;
+    protected ?string $name = null;
 
     /**
-     * @var null|string
-     *
      * @Assert\Length(min=1, max=255)
      */
-    protected $description;
+    protected ?string $description = null;
 
-    /**
-     * @var null|UserGroupPermissions
-     */
-    protected $permissions;
+    protected ?UserGroupPermissions $permissions = null;
 
-    /**
-     * @var Collection|UserInterface[]
-     */
-    protected $users;
+    protected Collection $users;
 
     public function __construct()
     {

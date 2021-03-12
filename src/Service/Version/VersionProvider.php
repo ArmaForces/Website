@@ -6,11 +6,8 @@ namespace App\Service\Version;
 
 class VersionProvider
 {
-    /** @var string */
-    protected $filePath;
-
-    /** @var string */
-    protected $defaultVersion;
+    protected string $filePath;
+    protected string $defaultVersion;
 
     public function __construct(string $projectDir, string $fileName = 'VERSION', string $defaultVersion = 'dev')
     {

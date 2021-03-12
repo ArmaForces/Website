@@ -14,20 +14,11 @@ use Ramsey\Uuid\UuidInterface;
 
 abstract class AbstractPermissions extends AbstractEntity implements PermissionsInterface
 {
-    /** @var UserManagementPermissions */
-    protected $userManagementPermissions;
-
-    /** @var UserGroupManagementPermissions */
-    protected $userGroupManagementPermissions;
-
-    /** @var ModManagementPermissions */
-    protected $modManagementPermissions;
-
-    /** @var ModGroupManagementPermissions */
-    protected $modGroupManagementPermissions;
-
-    /** @var ModListManagementPermissions */
-    protected $modListManagementPermissions;
+    protected UserManagementPermissions $userManagementPermissions;
+    protected UserGroupManagementPermissions $userGroupManagementPermissions;
+    protected ModManagementPermissions $modManagementPermissions;
+    protected ModGroupManagementPermissions $modGroupManagementPermissions;
+    protected ModListManagementPermissions $modListManagementPermissions;
 
     public function __construct(UuidInterface $id)
     {

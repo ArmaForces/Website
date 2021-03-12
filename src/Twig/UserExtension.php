@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Twig;
 
 use App\Entity\User\User;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Security;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -14,12 +14,11 @@ class UserExtension extends AbstractExtension
     public const AVATAR_CDN = 'https://cdn.discordapp.com';
     public const DEFAULT_AVATAR_URL = '/embed/avatars/3.png';
 
-    /** @var TokenStorageInterface */
-    protected $tokenStorage;
+    protected Security $security;
 
-    public function __construct(TokenStorageInterface $tokenStorage)
+    public function __construct(Security $security)
     {
-        $this->tokenStorage = $tokenStorage;
+        $this->security = $security;
     }
 
     public function getFunctions(): array
@@ -33,13 +32,11 @@ class UserExtension extends AbstractExtension
 
     public function getCurrentUserAvatarUrl(): string
     {
-        $token = $this->tokenStorage->getToken();
-        if (null === $token) {
+        /** @var null|User $user */
+        $user = $this->security->getUser();
+        if (!$user) {
             throw new \LogicException('Can\'t get user avatar url without user token!');
         }
-
-        /** @var User $user */
-        $user = $token->getUser();
 
         return $this->getUserAvatarUrl($user);
     }

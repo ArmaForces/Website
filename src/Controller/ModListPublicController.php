@@ -19,11 +19,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ModListPublicController extends AbstractController
 {
-    /** @var ModRepository */
-    protected $modRepository;
-
-    /** @var ModListRepository */
-    protected $modListRepository;
+    protected ModRepository $modRepository;
+    protected ModListRepository $modListRepository;
 
     public function __construct(ModRepository $modRepository, ModListRepository $modListRepository)
     {

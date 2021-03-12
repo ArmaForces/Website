@@ -14,8 +14,7 @@ use Symfony\Component\Security\Core\Security;
 
 class UserManagementPermissionsType extends AbstractType
 {
-    /** @var Security */
-    protected $security;
+    protected Security $security;
 
     public function __construct(Security $security)
     {

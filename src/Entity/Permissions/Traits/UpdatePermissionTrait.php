@@ -6,8 +6,7 @@ namespace App\Entity\Permissions\Traits;
 
 trait UpdatePermissionTrait
 {
-    /** @var bool */
-    protected $update = false;
+    protected bool $update = false;
 
     public function canUpdate(): bool
     {

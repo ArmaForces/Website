@@ -24,14 +24,9 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ModListController extends AbstractController
 {
-    /** @var EntityManagerInterface */
-    protected $entityManager;
-
-    /** @var ModListRepository */
-    protected $modListRepository;
-
-    /** @var DataTransformerRegistry */
-    protected $dataTransformerRegistry;
+    protected EntityManagerInterface $entityManager;
+    protected ModListRepository $modListRepository;
+    protected DataTransformerRegistry $dataTransformerRegistry;
 
     public function __construct(
         EntityManagerInterface $entityManager,

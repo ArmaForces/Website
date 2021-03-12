@@ -15,20 +15,11 @@ use Symfony\Component\Finder\Finder;
 
 class ModListImport
 {
-    /** @var EntityManagerInterface */
-    protected $entityManager;
-
-    /** @var ModListCsvReader */
-    protected $modListCsvReader;
-
-    /** @var DtoToEntityConverter */
-    protected $dtoToEntityConverter;
-
-    /** @var SteamWorkshopModRepository */
-    protected $steamWorkshopModRepository;
-
-    /** @var DirectoryModRepository */
-    protected $directoryModRepository;
+    protected EntityManagerInterface $entityManager;
+    protected ModListCsvReader $modListCsvReader;
+    protected DtoToEntityConverter $dtoToEntityConverter;
+    protected SteamWorkshopModRepository $steamWorkshopModRepository;
+    protected DirectoryModRepository $directoryModRepository;
 
     public function __construct(
         EntityManagerInterface $entityManager,

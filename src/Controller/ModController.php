@@ -26,20 +26,11 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ModController extends AbstractController
 {
-    /** @var EntityManagerInterface */
-    protected $entityManager;
-
-    /** @var ModRepository */
-    protected $modRepository;
-
-    /** @var ModGroupRepository */
-    protected $modGroupRepository;
-
-    /** @var ModListRepository */
-    protected $modListRepository;
-
-    /** @var DataTransformerRegistry */
-    protected $dataTransformerRegistry;
+    protected EntityManagerInterface $entityManager;
+    protected ModRepository $modRepository;
+    protected ModGroupRepository $modGroupRepository;
+    protected ModListRepository $modListRepository;
+    protected DataTransformerRegistry $dataTransformerRegistry;
 
     public function __construct(
         EntityManagerInterface $entityManager,

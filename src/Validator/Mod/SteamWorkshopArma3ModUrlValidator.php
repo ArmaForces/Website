@@ -17,8 +17,7 @@ class SteamWorkshopArma3ModUrlValidator extends ConstraintValidator
 {
     protected const ARMA_3_GAME_ID = 107410;
 
-    /** @var SteamWorkshopClient */
-    protected $steamWorkshopClient;
+    protected SteamWorkshopClient $steamWorkshopClient;
 
     public function __construct(SteamWorkshopClient $steamWorkshopClient)
     {

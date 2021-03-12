@@ -15,11 +15,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class HomeController extends AbstractController
 {
-    /** @var MissionClient */
-    protected $missionClient;
-
-    /** @var LoggerInterface */
-    protected $logger;
+    protected MissionClient $missionClient;
+    protected LoggerInterface $logger;
 
     public function __construct(MissionClient $missionClient, LoggerInterface $logger)
     {

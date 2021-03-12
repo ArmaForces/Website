@@ -24,14 +24,9 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UserGroupController extends AbstractController
 {
-    /** @var EntityManagerInterface */
-    protected $entityManager;
-
-    /** @var UserGroupRepository */
-    protected $userGroupRepository;
-
-    /** @var DataTransformerRegistry */
-    protected $dataTransformerRegistry;
+    protected EntityManagerInterface $entityManager;
+    protected UserGroupRepository $userGroupRepository;
+    protected DataTransformerRegistry $dataTransformerRegistry;
 
     public function __construct(
         EntityManagerInterface $entityManager,

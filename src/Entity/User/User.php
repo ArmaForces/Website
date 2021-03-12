@@ -16,23 +16,12 @@ class User extends AbstractEntity implements UserInterface
 {
     use UserInterfaceTrait;
 
-    /** @var string */
-    protected $username;
-
-    /** @var string */
-    protected $email;
-
-    /** @var string */
-    protected $externalId;
-
-    /** @var UserPermissions */
-    protected $permissions;
-
-    /** @var Collection|UserGroupInterface[] */
-    protected $userGroups;
-
-    /** @var null|string */
-    protected $avatarHash;
+    protected string $username;
+    protected string $email;
+    protected string $externalId;
+    protected UserPermissions $permissions;
+    protected Collection $userGroups;
+    protected ?string $avatarHash = null;
 
     public function __construct(
         UuidInterface $id,

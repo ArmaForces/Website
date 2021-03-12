@@ -11,8 +11,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 abstract class AbstractValidator extends ConstraintValidator
 {
-    /** @var EntityManagerInterface */
-    protected $entityManager;
+    protected EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
     {

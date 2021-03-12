@@ -6,8 +6,7 @@ namespace App\Entity\Permissions\Traits;
 
 trait DeletePermissionTrait
 {
-    /** @var bool */
-    protected $delete = false;
+    protected bool $delete = false;
 
     public function canDelete(): bool
     {

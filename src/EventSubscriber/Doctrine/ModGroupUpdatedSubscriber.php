@@ -16,11 +16,8 @@ use Symfony\Component\Security\Core\Security;
 
 class ModGroupUpdatedSubscriber implements EventSubscriber
 {
-    /** @var Security */
-    protected $security;
-
-    /** @var null|ModGroupInterface */
-    protected $updatedModGroup;
+    protected Security $security;
+    protected ?ModGroupInterface $updatedModGroup = null;
 
     public function __construct(Security $security)
     {

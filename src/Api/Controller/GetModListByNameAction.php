@@ -9,8 +9,7 @@ use App\Repository\ModList\ModListRepository;
 
 class GetModListByNameAction
 {
-    /** @var ModListRepository */
-    protected $modListRepository;
+    protected ModListRepository $modListRepository;
 
     public function __construct(ModListRepository $modListRepository)
     {

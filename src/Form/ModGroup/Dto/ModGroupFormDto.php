@@ -17,28 +17,23 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class ModGroupFormDto extends AbstractFormDto
 {
-    /** @var null|UuidInterface */
-    protected $id;
+    protected ?UuidInterface $id = null;
 
     /**
-     * @var null|string
-     *
      * @Assert\NotBlank
      * @Assert\Length(max=255)
      */
-    protected $name;
+    protected ?string $name = null;
 
     /**
-     * @var null|string
-     *
      * @Assert\Length(min=1, max=255)
      */
-    protected $description;
+    protected ?string $description = null;
 
     /**
      * @var Collection|ModInterface[]
      */
-    protected $mods;
+    protected Collection $mods;
 
     public function __construct()
     {

@@ -9,8 +9,7 @@ use Symfony\Component\HttpKernel\CacheWarmer\CacheWarmer;
 
 class BackgroundImageCacheWarmer extends CacheWarmer
 {
-    /** @var string */
-    protected $backgroundImagesDirectory;
+    protected string $backgroundImagesDirectory;
 
     public function __construct(string $backgroundImagesDirectory)
     {
