@@ -8,8 +8,7 @@ use App\Entity\Permissions\AbstractManagementPermissions;
 
 class ModManagementPermissions extends AbstractManagementPermissions
 {
-    /** @var bool */
-    protected $changeStatus = false;
+    protected bool $changeStatus = false;
 
     public function canChangeStatus(): bool
     {

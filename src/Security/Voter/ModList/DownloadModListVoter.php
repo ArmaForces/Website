@@ -17,7 +17,7 @@ class DownloadModListVoter extends AbstractVoter
     /**
      * {@inheritdoc}
      */
-    protected function supports($attribute, $subject): bool
+    protected function supports(string $attribute, $subject): bool
     {
         return PermissionsEnum::MOD_LIST_DOWNLOAD === $attribute && $subject instanceof ModListInterface;
     }
@@ -25,7 +25,7 @@ class DownloadModListVoter extends AbstractVoter
     /**
      * {@inheritdoc}
      */
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         /** @var null|UserInterface $currentUser */
         $currentUser = $token->getUser();
@@ -40,9 +40,7 @@ class DownloadModListVoter extends AbstractVoter
 
         // Otherwise user needs to be logged-in and have "List" permission granted
         return $currentUser instanceof UserInterface
-            && $this->userHasPermissions($currentUser, static function (PermissionsInterface $permissions) {
-                return $permissions->getModListManagementPermissions()->canList();
-            })
+            && $this->userHasPermissions($currentUser, static fn (PermissionsInterface $permissions) => $permissions->getModListManagementPermissions()->canList())
         ;
     }
 }

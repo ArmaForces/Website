@@ -12,11 +12,8 @@ use Twig\TwigTest;
 
 class UtilsExtension extends AbstractExtension
 {
-    /** @var ParameterBagInterface */
-    protected $parameterBag;
-
-    /** @var RequestStack */
-    protected $requestStack;
+    protected ParameterBagInterface $parameterBag;
+    protected RequestStack $requestStack;
 
     public function __construct(ParameterBagInterface $parameterBag, RequestStack $requestStack)
     {

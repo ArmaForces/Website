@@ -14,15 +14,8 @@ class ImportModListsCommand extends Command
 {
     public const DEFAULT_IMPORT_DIRECTORY = __DIR__.'/../../var/import';
 
-    /** @var string */
-    protected static $defaultName = 'app:import:modlists';
+    protected ModListImport $modListImport;
 
-    /** @var ModListImport */
-    protected $modListImport;
-
-    /**
-     * @{@inheritdoc}
-     */
     public function __construct(ModListImport $modListImport)
     {
         parent::__construct();
@@ -31,18 +24,25 @@ class ImportModListsCommand extends Command
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     protected function configure(): void
     {
         $this
+            ->setName('app:import:modlists')
             ->setDescription('Imports mods')
-            ->addOption('path', 'p', InputOption::VALUE_OPTIONAL, 'Path to directory with CSV files', self::DEFAULT_IMPORT_DIRECTORY)
+            ->addOption(
+                'path',
+                'p',
+                InputOption::VALUE_OPTIONAL,
+                'Path to directory with CSV files',
+                self::DEFAULT_IMPORT_DIRECTORY
+            )
         ;
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {

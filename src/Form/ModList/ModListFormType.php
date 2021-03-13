@@ -6,9 +6,11 @@ namespace App\Form\ModList;
 
 use App\Entity\Mod\AbstractMod;
 use App\Entity\ModGroup\ModGroup;
+use App\Entity\Permissions\PermissionsInterface;
 use App\Entity\User\User;
 use App\Entity\User\UserInterface;
 use App\Form\ModList\Dto\ModListFormDto;
+use App\Security\Voter\AbstractVoter;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -20,8 +22,7 @@ use Symfony\Component\Security\Core\Security;
 
 class ModListFormType extends AbstractType
 {
-    /** @var Security */
-    protected $security;
+    protected Security $security;
 
     public function __construct(Security $security)
     {
@@ -99,8 +100,13 @@ class ModListFormType extends AbstractType
         /** @var UserInterface $currentUser */
         $currentUser = $this->security->getUser();
 
-        // Add owner list only if user has full permissions to edit Mod Lists
-        if (!$currentUser->getPermissions()->getModListManagementPermissions()->canUpdate()) {
+        $canUpdate = AbstractVoter::userHasPermissions(
+            $currentUser,
+            static fn (PermissionsInterface $permissions) => $permissions->getModListManagementPermissions()->canUpdate()
+        );
+
+        // User cannot change Mod List owner if he doesn't have full update permissions granted
+        if (!$canUpdate) {
             return;
         }
 
@@ -118,9 +124,7 @@ class ModListFormType extends AbstractType
                     ->orderBy('u.username', 'ASC')
                 ;
             },
-            'choice_label' => static function (UserInterface $user) {
-                return $user->getUsername();
-            },
+            'choice_label' => static fn (UserInterface $user) => $user->getUsername(),
         ];
 
         if (!$modListExists) {
@@ -136,7 +140,12 @@ class ModListFormType extends AbstractType
         /** @var UserInterface $currentUser */
         $currentUser = $this->security->getUser();
 
-        if (!$currentUser->getPermissions()->getModListManagementPermissions()->canApprove()) {
+        $canApprove = AbstractVoter::userHasPermissions(
+            $currentUser,
+            static fn (PermissionsInterface $permissions) => $permissions->getModListManagementPermissions()->canApprove()
+        );
+
+        if (!$canApprove) {
             return;
         }
 

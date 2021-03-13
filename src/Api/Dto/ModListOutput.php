@@ -6,25 +6,10 @@ namespace App\Api\Dto;
 
 class ModListOutput
 {
-    /**
-     * @var null|string
-     */
-    protected $id;
-
-    /**
-     * @var null|string
-     */
-    protected $name;
-
-    /**
-     * @var null|\DateTimeInterface
-     */
-    protected $createdAt;
-
-    /**
-     * @var null|\DateTimeInterface
-     */
-    protected $lastUpdatedAt;
+    protected ?string $id = null;
+    protected ?string $name = null;
+    protected ?\DateTimeInterface $createdAt = null;
+    protected ?\DateTimeInterface $lastUpdatedAt = null;
 
     public function getId(): ?string
     {

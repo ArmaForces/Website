@@ -9,20 +9,11 @@ use Ramsey\Uuid\UuidInterface;
 
 abstract class AbstractEntity implements EntityInterface
 {
-    /** @var UuidInterface */
-    protected $id;
-
-    /** @var \DateTimeInterface */
-    protected $createdAt;
-
-    /** @var null|UserInterface */
-    protected $createdBy;
-
-    /** @var null|\DateTimeInterface */
-    protected $lastUpdatedAt;
-
-    /** @var null|UserInterface */
-    protected $lastUpdatedBy;
+    protected UuidInterface $id;
+    protected \DateTimeInterface $createdAt;
+    protected ?UserInterface $createdBy = null;
+    protected ?\DateTimeInterface $lastUpdatedAt = null;
+    protected ?UserInterface $lastUpdatedBy = null;
 
     public function __construct(UuidInterface $id)
     {

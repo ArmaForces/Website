@@ -17,7 +17,7 @@ class DeleteModListVoter extends AbstractVoter
     /**
      * {@inheritdoc}
      */
-    protected function supports($attribute, $subject): bool
+    protected function supports(string $attribute, $subject): bool
     {
         return PermissionsEnum::MOD_LIST_DELETE === $attribute && $subject instanceof ModListInterface;
     }
@@ -25,7 +25,7 @@ class DeleteModListVoter extends AbstractVoter
     /**
      * {@inheritdoc}
      */
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         /** @var null|UserInterface $currentUser */
         $currentUser = $token->getUser();
@@ -37,9 +37,7 @@ class DeleteModListVoter extends AbstractVoter
         $modList = $subject;
 
         return $modList->getOwner() === $currentUser
-            || $this->userHasPermissions($currentUser, static function (PermissionsInterface $permissions) {
-                return $permissions->getModListManagementPermissions()->canDelete();
-            })
+            || $this->userHasPermissions($currentUser, static fn (PermissionsInterface $permissions) => $permissions->getModListManagementPermissions()->canDelete())
         ;
     }
 }

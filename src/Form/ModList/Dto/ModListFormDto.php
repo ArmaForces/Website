@@ -19,48 +19,34 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class ModListFormDto extends AbstractFormDto
 {
-    /** @var null|UuidInterface */
-    protected $id;
+    protected ?UuidInterface $id = null;
 
     /**
-     * @var null|string
-     *
      * @Assert\NotBlank
      * @Assert\Length(max=255)
      */
-    protected $name;
+    protected ?string $name = null;
 
     /**
-     * @var null|string
-     *
      * @Assert\Length(min=1, max=255)
      */
-    protected $description;
+    protected ?string $description = null;
 
     /**
      * @var Collection|ModInterface[]
      */
-    protected $mods;
+    protected Collection $mods;
 
     /**
      * @var Collection|ModGroupInterface[]
      */
-    protected $modGroups;
+    protected Collection $modGroups;
 
-    /**
-     * @var null|UserInterface
-     */
-    protected $owner;
+    protected ?UserInterface $owner = null;
 
-    /**
-     * @var bool
-     */
-    protected $active = true;
+    protected bool $active = true;
 
-    /**
-     * @var bool
-     */
-    protected $approved = false;
+    protected bool $approved = false;
 
     public function __construct()
     {

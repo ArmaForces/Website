@@ -15,7 +15,7 @@ class ListModGroupsVoter extends AbstractVoter
     /**
      * {@inheritdoc}
      */
-    protected function supports($attribute, $subject): bool
+    protected function supports(string $attribute, $subject): bool
     {
         return PermissionsEnum::MOD_GROUP_LIST === $attribute;
     }
@@ -23,7 +23,7 @@ class ListModGroupsVoter extends AbstractVoter
     /**
      * {@inheritdoc}
      */
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         /** @var null|UserInterface $currentUser */
         $currentUser = $token->getUser();
@@ -31,8 +31,6 @@ class ListModGroupsVoter extends AbstractVoter
             return false;
         }
 
-        return $this->userHasPermissions($currentUser, static function (PermissionsInterface $permissions) {
-            return $permissions->getModGroupManagementPermissions()->canList();
-        });
+        return $this->userHasPermissions($currentUser, static fn (PermissionsInterface $permissions) => $permissions->getModGroupManagementPermissions()->canList());
     }
 }

@@ -6,8 +6,7 @@ namespace App\Entity\Permissions\Traits;
 
 trait CreatePermissionTrait
 {
-    /** @var bool */
-    protected $create = false;
+    protected bool $create = false;
 
     public function canCreate(): bool
     {

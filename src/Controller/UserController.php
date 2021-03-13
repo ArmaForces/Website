@@ -22,11 +22,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UserController extends AbstractController
 {
-    /** @var EntityManagerInterface */
-    protected $entityManager;
-
-    /** @var UserRepository */
-    protected $userRepository;
+    protected EntityManagerInterface $entityManager;
+    protected UserRepository $userRepository;
 
     public function __construct(EntityManagerInterface $entityManager, UserRepository $userRepository)
     {

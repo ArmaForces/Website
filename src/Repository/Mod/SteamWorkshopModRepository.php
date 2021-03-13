@@ -6,7 +6,7 @@ namespace App\Repository\Mod;
 
 use App\Entity\Mod\SteamWorkshopMod;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method null|SteamWorkshopMod find($id, $lockMode = null, $lockVersion = null)

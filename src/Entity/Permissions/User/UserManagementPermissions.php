@@ -12,8 +12,7 @@ class UserManagementPermissions
     use ListPermissionTrait;
     use DeletePermissionTrait;
 
-    /** @var bool */
-    protected $managePermissions = false;
+    protected bool $managePermissions = false;
 
     public function canManagePermissions(): bool
     {

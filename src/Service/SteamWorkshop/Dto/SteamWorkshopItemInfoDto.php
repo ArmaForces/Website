@@ -6,14 +6,9 @@ namespace App\Service\SteamWorkshop\Dto;
 
 class SteamWorkshopItemInfoDto
 {
-    /** @var int */
-    protected $id;
-
-    /** @var string */
-    protected $name;
-
-    /** @var int */
-    protected $gameId;
+    protected int $id;
+    protected string $name;
+    protected int $gameId;
 
     public function __construct(int $id, string $name, int $gameId)
     {

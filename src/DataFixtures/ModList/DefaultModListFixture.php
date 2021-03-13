@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace App\DataFixtures\ModList;
 
-use App\DataFixtures\Mod\ArmaForcesModsModFixture;
-use App\DataFixtures\Mod\Broken;
-use App\DataFixtures\Mod\Deprecated;
-use App\DataFixtures\Mod\Disabled;
+use App\DataFixtures\Mod\Optional;
+use App\DataFixtures\Mod\Required;
 use App\Entity\ModList\ModList;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -26,11 +24,11 @@ class DefaultModListFixture extends Fixture
         $modList->setCreatedAt(\DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2020-01-01 00:00:00'));
 
         $mods = [
-            $this->getReference(ArmaForcesModsModFixture::ID),
-
-            $this->getReference(Broken\ArmaForcesAceMedicalModFixture::ID),
-            $this->getReference(Deprecated\LegacyArmaForcesModsModFixture::ID),
-            $this->getReference(Disabled\ArmaForcesJbadBuildingFixModFixture::ID),
+            $this->getReference(Optional\AceInteractionMenuExpansionModFixture::ID),
+            $this->getReference(Required\ArmaForcesModsModFixture::ID),
+            $this->getReference(Required\Broken\ArmaForcesAceMedicalModFixture::ID),
+            $this->getReference(Required\Deprecated\LegacyArmaForcesModsModFixture::ID),
+            $this->getReference(Required\Disabled\ArmaForcesJbadBuildingFixModFixture::ID),
         ];
 
         foreach ($mods as $mod) {

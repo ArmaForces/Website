@@ -7,8 +7,10 @@ namespace App\Form\Mod;
 use App\Entity\Mod\Enum\ModSourceEnum;
 use App\Entity\Mod\Enum\ModStatusEnum;
 use App\Entity\Mod\Enum\ModTypeEnum;
+use App\Entity\Permissions\PermissionsInterface;
 use App\Entity\User\UserInterface;
 use App\Form\Mod\Dto\ModFormDto;
+use App\Security\Voter\AbstractVoter;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -19,8 +21,7 @@ use Symfony\Component\Security\Core\Security;
 
 class ModFormType extends AbstractType
 {
-    /** @var Security */
-    protected $security;
+    protected Security $security;
 
     public function __construct(Security $security)
     {
@@ -103,7 +104,12 @@ class ModFormType extends AbstractType
         /** @var UserInterface $currentUser */
         $currentUser = $this->security->getUser();
 
-        if (!$currentUser->getPermissions()->getModManagementPermissions()->canChangeStatus()) {
+        $canChangeStatus = AbstractVoter::userHasPermissions(
+            $currentUser,
+            static fn (PermissionsInterface $permissions) => $permissions->getModManagementPermissions()->canChangeStatus()
+        );
+
+        if (!$canChangeStatus) {
             return;
         }
 

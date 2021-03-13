@@ -6,8 +6,7 @@ namespace App\Entity\Permissions\Traits;
 
 trait ListPermissionTrait
 {
-    /** @var bool */
-    protected $list = false;
+    protected bool $list = false;
 
     public function canList(): bool
     {

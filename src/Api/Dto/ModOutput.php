@@ -6,50 +6,15 @@ namespace App\Api\Dto;
 
 class ModOutput
 {
-    /**
-     * @var null|string
-     */
-    protected $id;
-
-    /**
-     * @var null|string
-     */
-    protected $name;
-
-    /**
-     * @var null|\DateTimeInterface
-     */
-    protected $createdAt;
-
-    /**
-     * @var null|\DateTimeInterface
-     */
-    protected $lastUpdatedAt;
-
-    /**
-     * @var null|string
-     */
-    protected $source;
-
-    /**
-     * @var null|string
-     */
-    protected $status;
-
-    /**
-     * @var null|string
-     */
-    protected $type;
-
-    /**
-     * @var null|int
-     */
-    protected $itemId;
-
-    /**
-     * @var null|string
-     */
-    protected $directory;
+    protected ?string $id = null;
+    protected ?string $name = null;
+    protected ?\DateTimeInterface $createdAt = null;
+    protected ?\DateTimeInterface $lastUpdatedAt = null;
+    protected ?string $source = null;
+    protected ?string $status = null;
+    protected ?string $type = null;
+    protected ?int $itemId = null;
+    protected ?string $directory = null;
 
     public function getId(): ?string
     {

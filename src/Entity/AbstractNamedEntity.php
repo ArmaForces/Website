@@ -8,8 +8,7 @@ use Ramsey\Uuid\UuidInterface;
 
 abstract class AbstractNamedEntity extends AbstractEntity implements NamedEntityInterface
 {
-    /** @var string */
-    protected $name;
+    protected string $name;
 
     public function __construct(UuidInterface $id, string $name)
     {

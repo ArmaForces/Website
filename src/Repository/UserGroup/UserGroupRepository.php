@@ -7,7 +7,7 @@ namespace App\Repository\UserGroup;
 use App\Entity\UserGroup\UserGroup;
 use App\Entity\UserGroup\UserGroupInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method null|UserGroupInterface find($id, $lockMode = null, $lockVersion = null)

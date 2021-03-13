@@ -7,7 +7,7 @@ namespace App\Repository\User;
 use App\Entity\User\User;
 use App\Entity\User\UserInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method null|UserInterface find($id, $lockMode = null, $lockVersion = null)
