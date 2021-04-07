@@ -16,3 +16,7 @@ framework:
     #fragments: true
     php_errors:
         log: true
+
+    # https://symfony.com/doc/5.2/deployment/proxies.html#solution-settrustedproxies
+    trusted_proxies: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+    trusted_headers: [ 'x-forwarded-for', 'x-forwarded-proto', 'x-forwarded-port', 'x-forwarded-host' ]
