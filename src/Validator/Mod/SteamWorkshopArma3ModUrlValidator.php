@@ -4,23 +4,26 @@ declare(strict_types=1);
 
 namespace App\Validator\Mod;
 
+use App\Form\Mod\Dto\ModFormDto;
 use App\Service\SteamWorkshop\Exception\ItemNotFoundException;
 use App\Service\SteamWorkshop\Helper\Exception\InvalidItemUrlFormatException;
 use App\Service\SteamWorkshop\Helper\SteamWorkshopHelper;
 use App\Service\SteamWorkshop\SteamWorkshopClient;
+use App\Validator\AbstractValidator;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
-use Symfony\Component\Validator\Exception\UnexpectedValueException;
 
-class SteamWorkshopArma3ModUrlValidator extends ConstraintValidator
+class SteamWorkshopArma3ModUrlValidator extends AbstractValidator
 {
     protected const ARMA_3_GAME_ID = 107410;
 
     protected SteamWorkshopClient $steamWorkshopClient;
 
-    public function __construct(SteamWorkshopClient $steamWorkshopClient)
+    public function __construct(EntityManagerInterface $entityManager, SteamWorkshopClient $steamWorkshopClient)
     {
+        parent::__construct($entityManager);
+
         $this->steamWorkshopClient = $steamWorkshopClient;
     }
 
@@ -29,22 +32,19 @@ class SteamWorkshopArma3ModUrlValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint): void
     {
+        if (!$value instanceof ModFormDto) {
+            throw new UnexpectedTypeException($constraint, ModFormDto::class);
+        }
+
         if (!$constraint instanceof SteamWorkshopArma3ModUrl) {
             throw new UnexpectedTypeException($constraint, SteamWorkshopArma3ModUrl::class);
         }
 
-        if (null === $value || '' === $value) {
-            return;
-        }
-
-        if (!is_scalar($value) && !(\is_object($value) && method_exists($value, '__toString'))) {
-            throw new UnexpectedValueException($value, 'string');
-        }
-
-        $value = (string) $value;
+        $name = $value->getName();
+        $url = $value->getUrl();
 
         try {
-            $itemId = SteamWorkshopHelper::itemUrlToItemId($value);
+            $itemId = SteamWorkshopHelper::itemUrlToItemId($url);
             $itemInfo = $this->steamWorkshopClient->getWorkshopItemInfo($itemId);
         } catch (\Exception $ex) {
             $message = null;
@@ -55,17 +55,17 @@ class SteamWorkshopArma3ModUrlValidator extends ConstraintValidator
                 $message = $constraint->modNotFoundMessage;
             }
 
-            $this->context->buildViolation($message)
-                ->addViolation()
-            ;
+            $this->addViolation($message, [], $constraint->errorPath);
 
             return;
         }
 
-        if (self::ARMA_3_GAME_ID !== $itemInfo->getGameId()) {
-            $this->context->buildViolation($constraint->notAnArma3ModMessage)
-                ->addViolation()
-            ;
+        if ($itemInfo->getGameId() && self::ARMA_3_GAME_ID !== $itemInfo->getGameId()) {
+            $this->addViolation($constraint->notAnArma3ModMessage, [], $constraint->errorPath);
+        }
+
+        if (!$name && !$itemInfo->getName()) {
+            $this->addViolation($constraint->modIsPrivateOrMissingDetails, [], $constraint->nameErrorPath);
         }
     }
 }

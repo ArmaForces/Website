@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraint;
 class UniqueDirectoryMod extends Constraint
 {
     public string $message = 'Mod associated with directory "{{ directoryName }}" already exist';
-    public ?string $errorPath;
+    public ?string $errorPath = null;
 
     public function getTargets()
     {
