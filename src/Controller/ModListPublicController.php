@@ -67,18 +67,19 @@ class ModListPublicController extends AbstractController
      */
     public function downloadAction(ModList $modList, string $optionalModsJson = null): Response
     {
-        $fileName = sprintf('%s %s.html', $modList->getName(), (new \DateTimeImmutable())->format('Y-m-d H-i-s'));
+        $name = sprintf('AF %s %s.html', $modList->getName(), (new \DateTimeImmutable())->format('Y-m-d H-i-s'));
         $mods = $this->modRepository->findIncludedSteamWorkshopMods($modList);
         $optionalMods = json_decode($optionalModsJson ?? '', true) ?: [];
 
         $template = $this->renderView('mod_list_public/launcher_preset_template.html.twig', [
+            'name' => $name,
             'modList' => $modList,
             'mods' => $mods,
             'optionalMods' => $optionalMods,
         ]);
 
         return new Response($template, Response::HTTP_OK, [
-            'Content-Disposition' => HeaderUtils::makeDisposition(HeaderUtils::DISPOSITION_ATTACHMENT, $fileName),
+            'Content-Disposition' => HeaderUtils::makeDisposition(HeaderUtils::DISPOSITION_ATTACHMENT, $name),
         ]);
     }
 }

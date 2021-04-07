@@ -22,7 +22,7 @@ trait AssertsTrait
     public static function assertResponseContainsModListAttachmentHeader(Response $response, ModList $modList): void
     {
         $contentDispositionHeader = $response->headers->get('Content-Disposition');
-        $pattern = "/^attachment; filename=\"{$modList->getName()} \\d{4}-\\d{2}-\\d{2} \\d{2}-\\d{2}-\\d{2}.html\"$/";
+        $pattern = "/^attachment; filename=\"AF {$modList->getName()} \\d{4}-\\d{2}-\\d{2} \\d{2}-\\d{2}-\\d{2}.html\"$/";
 
         self::assertTrue(1 === preg_match($pattern, $contentDispositionHeader));
     }
