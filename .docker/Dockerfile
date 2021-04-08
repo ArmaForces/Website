@@ -131,8 +131,6 @@ CMD ["nginx", "-g", "daemon off;"]
 
 FROM armaforces_web_php AS armaforces_web_php_dev
 
-ENV XDEBUG_INI_PATH=/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-
 ARG XDEBUG_VERSION=2.9.6
 RUN set -eux; \
     apk add --no-cache --virtual .build-deps $PHPIZE_DEPS; \
@@ -143,6 +141,9 @@ RUN set -eux; \
 RUN apk add --no-cache \
         nodejs \
         npm
+
+ENV XDEBUG_INI_PATH=/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+COPY .docker/php/conf.d/docker-php-ext-xdebug.ini $XDEBUG_INI_PATH
 
 COPY .docker/php/scripts/xon.sh /usr/bin/xon
 COPY .docker/php/scripts/xoff.sh /usr/bin/xoff
