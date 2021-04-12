@@ -8,6 +8,7 @@ Mod associated with directory "{{ directoryName }}" already exist: Mod znajdują
 Invalid Steam Workshop mod URL: Błędny link do moda
 Mod not found: Nie znaleziono moda
 Mod is not an Arma 3 mod: Mod nie jest modem do Arma 3
+Mod is either private or missing required details: Mod jest prywatny lub nie zawiera niezbędnych do jego dodania informacji
 
 # Windows Directory Name Validator
 Invalid directory name: Błędny format nazwy katalogu

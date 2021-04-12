@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraint;
 class UniqueSteamWorkshopMod extends Constraint
 {
     public string $message = 'Mod associated with url "{{ modUrl }}" already exist';
-    public ?string $errorPath;
+    public ?string $errorPath = null;
 
     public function getTargets()
     {

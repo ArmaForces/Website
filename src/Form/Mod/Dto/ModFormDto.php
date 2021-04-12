@@ -14,8 +14,9 @@ use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @UniqueSteamWorkshopMod(groups={ModSourceEnum::STEAM_WORKSHOP}))
- * @UniqueDirectoryMod(groups={ModSourceEnum::DIRECTORY}))
+ * @UniqueSteamWorkshopMod(groups={ModSourceEnum::STEAM_WORKSHOP})
+ * @SteamWorkshopArma3ModUrl(groups={ModSourceEnum::STEAM_WORKSHOP}, errorPath="url", nameErrorPath="name")
+ * @UniqueDirectoryMod(groups={ModSourceEnum::DIRECTORY})
  */
 class ModFormDto extends AbstractFormDto
 {
@@ -51,7 +52,6 @@ class ModFormDto extends AbstractFormDto
     /**
      * @Assert\NotBlank(groups={ModSourceEnum::STEAM_WORKSHOP})
      * @Assert\Length(min=1, max=255, groups={ModSourceEnum::STEAM_WORKSHOP})
-     * @SteamWorkshopArma3ModUrl(groups={ModSourceEnum::STEAM_WORKSHOP}))
      */
     protected ?string $url = null;
 
