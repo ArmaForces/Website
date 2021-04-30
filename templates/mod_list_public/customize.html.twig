@@ -10,6 +10,11 @@
         {% block page_title %}
             {{ modList.name }}
         {% endblock %}
+
+        {% block page_subtitle %}
+            {{ modList.description }}
+        {% endblock %}
+
         {% block page_actions %}
             <div class="btn-group">
                 <button type="button" class="btn btn-primary" data-download-optional="{{ modList.name }}">

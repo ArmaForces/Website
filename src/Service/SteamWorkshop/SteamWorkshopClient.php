@@ -37,9 +37,9 @@ class SteamWorkshopClient
             throw new ItemNotFoundException(sprintf('No items found by item id "%s"!', $itemId));
         }
 
-        $publishedFileDetails = $responseKey['publishedfiledetails'][0];
-        $itemName = $publishedFileDetails['title'];
-        $gameId = $publishedFileDetails['creator_app_id'];
+        $publishedFileDetails = $responseKey['publishedfiledetails'][0] ?? null;
+        $itemName = $publishedFileDetails['title'] ?? null;
+        $gameId = $publishedFileDetails['creator_app_id'] ?? null;
 
         return new SteamWorkshopItemInfoDto($itemId, $itemName, $gameId);
     }
