@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Permissions;
 
+use App\Entity\Permissions\Dlc\DlcManagementPermissions;
 use App\Entity\Permissions\Mod\ModManagementPermissions;
 use App\Entity\Permissions\ModGroup\ModGroupManagementPermissions;
 use App\Entity\Permissions\ModList\ModListManagementPermissions;
@@ -19,6 +20,8 @@ interface PermissionsInterface
     public function getModManagementPermissions(): ModManagementPermissions;
 
     public function getModGroupManagementPermissions(): ModGroupManagementPermissions;
+
+    public function getDlcManagementPermissions(): DlcManagementPermissions;
 
     public function getModListManagementPermissions(): ModListManagementPermissions;
 

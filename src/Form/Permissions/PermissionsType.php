@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Form\Permissions;
 
 use App\Entity\Permissions\UserPermissions;
+use App\Form\Permissions\Dlc\DlcManagementPermissionsType;
 use App\Form\Permissions\Mod\ModManagementPermissionsType;
 use App\Form\Permissions\ModGroup\ModGroupManagementPermissionsType;
 use App\Form\Permissions\ModList\ModListManagementPermissionsType;
@@ -36,6 +37,9 @@ class PermissionsType extends AbstractType
             ])
             ->add('modGroupManagementPermissions', ModGroupManagementPermissionsType::class, [
                 'label' => 'Mod groups',
+            ])
+            ->add('dlcManagementPermissions', DlcManagementPermissionsType::class, [
+                'label' => 'DLCs',
             ])
             ->add('modListManagementPermissions', ModListManagementPermissionsType::class, [
                 'label' => 'Mod lists',

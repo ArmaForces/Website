@@ -94,6 +94,12 @@ doctrine:
                 dir: '%kernel.project_dir%/config/doctrine/Permissions/ModGroup'
                 prefix: 'App\Entity\Permissions\ModGroup'
                 alias: ModGroupManagementPermissions
+            DlcManagementPermissions:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/config/doctrine/Permissions/Dlc'
+                prefix: 'App\Entity\Permissions\Dlc'
+                alias: DlcManagementPermissions
             ModListManagementPermissions:
                 is_bundle: false
                 type: xml
