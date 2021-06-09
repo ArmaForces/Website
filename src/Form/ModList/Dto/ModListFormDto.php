@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form\ModList\Dto;
 
+use App\Entity\Dlc\DlcInterface;
 use App\Entity\Mod\ModInterface;
 use App\Entity\ModGroup\ModGroupInterface;
 use App\Entity\User\UserInterface;
@@ -42,6 +43,11 @@ class ModListFormDto extends AbstractFormDto
      */
     protected Collection $modGroups;
 
+    /**
+     * @var Collection|DlcInterface[]
+     */
+    protected Collection $dlcs;
+
     protected ?UserInterface $owner = null;
 
     protected bool $active = true;
@@ -52,6 +58,7 @@ class ModListFormDto extends AbstractFormDto
     {
         $this->mods = new ArrayCollection();
         $this->modGroups = new ArrayCollection();
+        $this->dlcs = new ArrayCollection();
     }
 
     public function getId(): ?UuidInterface
@@ -155,6 +162,43 @@ class ModListFormDto extends AbstractFormDto
         $this->modGroups->clear();
         foreach ($modGroups as $modGroup) {
             $this->addModGroup($modGroup);
+        }
+    }
+
+    public function addDlc(DlcInterface $dlc): void
+    {
+        if ($this->dlcs->contains($dlc)) {
+            return;
+        }
+
+        $this->dlcs->add($dlc);
+    }
+
+    public function removeDlc(DlcInterface $dlc): void
+    {
+        if (!$this->dlcs->contains($dlc)) {
+            return;
+        }
+
+        $this->dlcs->removeElement($dlc);
+    }
+
+    /**
+     * @return DlcInterface[]
+     */
+    public function getDlcs(): array
+    {
+        return $this->dlcs->toArray();
+    }
+
+    /**
+     * @param DlcInterface[] $dlcs
+     */
+    public function setDlcs(array $dlcs): void
+    {
+        $this->dlcs->clear();
+        foreach ($dlcs as $dlc) {
+            $this->addDlc($dlc);
         }
     }
 

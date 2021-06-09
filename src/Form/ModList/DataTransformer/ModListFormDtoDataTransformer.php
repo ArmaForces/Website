@@ -53,6 +53,7 @@ class ModListFormDtoDataTransformer implements RegisteredDataTransformerInterfac
         $entity->setDescription($formDto->getDescription());
         $entity->setMods($formDto->getMods());
         $entity->setModGroups($formDto->getModGroups());
+        $entity->setDlcs($formDto->getDlcs());
         $entity->setOwner($owner);
         $entity->setActive($formDto->isActive());
         $entity->setApproved($formDto->isApproved());
@@ -78,6 +79,7 @@ class ModListFormDtoDataTransformer implements RegisteredDataTransformerInterfac
         $formDto->setDescription($entity->getDescription());
         $formDto->setMods($entity->getMods());
         $formDto->setModGroups($entity->getModGroups());
+        $formDto->setDlcs($entity->getDlcs());
         $formDto->setOwner($entity->getOwner());
         $formDto->setActive($entity->isActive());
         $formDto->setApproved($entity->isApproved());
