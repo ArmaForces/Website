@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity\ModList;
 
 use App\Entity\AbstractDescribedEntity;
+use App\Entity\Dlc\DlcInterface;
 use App\Entity\Mod\ModInterface;
 use App\Entity\ModGroup\ModGroupInterface;
 use App\Entity\User\UserInterface;
@@ -14,8 +15,9 @@ use Ramsey\Uuid\UuidInterface;
 
 class ModList extends AbstractDescribedEntity implements ModListInterface
 {
-    protected Collection$mods;
+    protected Collection $mods;
     protected Collection $modGroups;
+    protected Collection $dlcs;
     protected ?UserInterface $owner = null;
     protected bool $active = true;
     protected bool $approved = false;
@@ -87,6 +89,37 @@ class ModList extends AbstractDescribedEntity implements ModListInterface
         $this->modGroups->clear();
         foreach ($modGroups as $modGroup) {
             $this->addModGroup($modGroup);
+        }
+    }
+
+    public function addDlc(DlcInterface $dlc): void
+    {
+        if ($this->dlcs->contains($dlc)) {
+            return;
+        }
+
+        $this->dlcs->add($dlc);
+    }
+
+    public function removeDlc(DlcInterface $dlc): void
+    {
+        if (!$this->dlcs->contains($dlc)) {
+            return;
+        }
+
+        $this->dlcs->removeElement($dlc);
+    }
+
+    public function getDlcs(): array
+    {
+        return $this->dlcs->toArray();
+    }
+
+    public function setDlcs(array $dlcs): void
+    {
+        $this->dlcs->clear();
+        foreach ($dlcs as $dlc) {
+            $this->addDlc($dlc);
         }
     }
 

@@ -33,6 +33,20 @@
             </cascade>
         </many-to-many>
 
+        <many-to-many field="dlcs" target-entity="App\Entity\Dlc\Dlc">
+            <join-table name="mod_lists_to_dlcs">
+                <join-columns>
+                    <join-column name="mod_list_id" referenced-column-name="id"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="dlc_id" referenced-column-name="id" on-delete="CASCADE"/>
+                </inverse-join-columns>
+            </join-table>
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </many-to-many>
+
         <many-to-one field="owner" target-entity="App\Entity\User\User">
             <join-column name="owner_id" referenced-column-name="id" nullable="true"/>
         </many-to-one>

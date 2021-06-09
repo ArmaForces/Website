@@ -40,6 +40,12 @@ doctrine:
                 dir: '%kernel.project_dir%/config/doctrine/ModGroup'
                 prefix: 'App\Entity\ModGroup'
                 alias: ModGroup
+            Dlc:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/config/doctrine/Dlc'
+                prefix: 'App\Entity\Dlc'
+                alias: Dlc
             ModList:
                 is_bundle: false
                 type: xml
