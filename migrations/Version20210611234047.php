@@ -24,7 +24,7 @@ final class Version20210611234047 extends AbstractMigration
         $this->addSql('CREATE TABLE mod_lists_to_dlcs (mod_list_id CHAR(36) NOT NULL COMMENT \'(DC2Type:uuid)\', dlc_id CHAR(36) NOT NULL COMMENT \'(DC2Type:uuid)\', INDEX IDX_73A9D1FEFD60CD19 (mod_list_id), INDEX IDX_73A9D1FECEF6326C (dlc_id), PRIMARY KEY(mod_list_id, dlc_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE dlc ADD CONSTRAINT FK_AD6CAEA7DE12AB56 FOREIGN KEY (created_by) REFERENCES users (id)');
         $this->addSql('ALTER TABLE dlc ADD CONSTRAINT FK_AD6CAEA7FF8A180B FOREIGN KEY (last_updated_by) REFERENCES users (id)');
-        $this->addSql('ALTER TABLE mod_lists_to_dlcs ADD CONSTRAINT FK_73A9D1FEFD60CD19 FOREIGN KEY (mod_list_id) REFERENCES mod_lists (id)');
+        $this->addSql('ALTER TABLE mod_lists_to_dlcs ADD CONSTRAINT FK_73A9D1FEFD60CD19 FOREIGN KEY (mod_list_id) REFERENCES mod_lists (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE mod_lists_to_dlcs ADD CONSTRAINT FK_73A9D1FECEF6326C FOREIGN KEY (dlc_id) REFERENCES dlc (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE permissions ADD dlc_list TINYINT(1) NOT NULL, ADD dlc_create TINYINT(1) NOT NULL, ADD dlc_update TINYINT(1) NOT NULL, ADD dlc_delete TINYINT(1) NOT NULL');
     }

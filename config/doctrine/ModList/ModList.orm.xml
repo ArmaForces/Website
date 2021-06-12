@@ -36,7 +36,7 @@
         <many-to-many field="dlcs" target-entity="App\Entity\Dlc\Dlc">
             <join-table name="mod_lists_to_dlcs">
                 <join-columns>
-                    <join-column name="mod_list_id" referenced-column-name="id"/>
+                    <join-column name="mod_list_id" referenced-column-name="id" on-delete="CASCADE"/>
                 </join-columns>
                 <inverse-join-columns>
                     <join-column name="dlc_id" referenced-column-name="id" on-delete="CASCADE"/>
