@@ -7,6 +7,7 @@ namespace App\Api\Dto;
 class ModListDetailsOutput extends ModListOutput
 {
     protected array $mods = [];
+    protected array $dlcs = [];
 
     /**
      * @return ModOutput[]
@@ -22,5 +23,21 @@ class ModListDetailsOutput extends ModListOutput
     public function setMods(array $mods): void
     {
         $this->mods = $mods;
+    }
+
+    /**
+     * @return DlcOutput[]
+     */
+    public function getDlcs(): array
+    {
+        return $this->dlcs;
+    }
+
+    /**
+     * @param DlcOutput[] $dlcs
+     */
+    public function setDlcs(array $dlcs): void
+    {
+        $this->dlcs = $dlcs;
     }
 }
