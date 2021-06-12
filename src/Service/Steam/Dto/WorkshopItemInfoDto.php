@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Service\SteamWorkshop\Dto;
+namespace App\Service\Steam\Dto;
 
-class SteamWorkshopItemInfoDto
+class WorkshopItemInfoDto
 {
     protected ?int $id;
     protected ?string $name;

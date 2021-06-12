@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Service\SteamWorkshop\Helper;
+namespace App\Tests\Unit\Service\Steam\Helper;
 
-use App\Service\SteamWorkshop\Helper\Exception\InvalidItemUrlFormatException;
-use App\Service\SteamWorkshop\Helper\SteamWorkshopHelper;
+use App\Service\Steam\Helper\Exception\InvalidWorkshopItemUrlFormatException;
+use App\Service\Steam\Helper\SteamHelper;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- * @covers \App\Service\SteamWorkshop\Helper\SteamWorkshopHelper
+ * @covers \App\Service\Steam\Helper\SteamHelper
  */
-final class SteamWorkshopHelperTest extends TestCase
+final class SteamHelperTest extends TestCase
 {
     protected const ITEM_ID = 1934142795;
 
@@ -22,7 +22,7 @@ final class SteamWorkshopHelperTest extends TestCase
      */
     public function isValidItemUrl_validItemUrl_returnsTrue(string $itemUrl): void
     {
-        $result = SteamWorkshopHelper::isValidItemUrl($itemUrl);
+        $result = SteamHelper::isValidItemUrl($itemUrl);
         $this::assertTrue($result);
     }
 
@@ -32,7 +32,7 @@ final class SteamWorkshopHelperTest extends TestCase
      */
     public function isValidItemUrl_invalidItemUrl_returnsFalse(string $itemUrl): void
     {
-        $result = SteamWorkshopHelper::isValidItemUrl($itemUrl);
+        $result = SteamHelper::isValidItemUrl($itemUrl);
         $this::assertFalse($result);
     }
 
@@ -41,7 +41,7 @@ final class SteamWorkshopHelperTest extends TestCase
      */
     public function itemIdToItemUrl_validItemId_returnsUrl(): void
     {
-        $itemUrl = SteamWorkshopHelper::itemIdToItemUrl($this::ITEM_ID);
+        $itemUrl = SteamHelper::itemIdToItemUrl($this::ITEM_ID);
         $this::assertSame('https://steamcommunity.com/sharedfiles/filedetails/?id=1934142795', $itemUrl);
     }
 
@@ -51,7 +51,7 @@ final class SteamWorkshopHelperTest extends TestCase
      */
     public function itemUrlToItemId_validItemUrl_returnsItemId(string $itemUrl): void
     {
-        $itemId = SteamWorkshopHelper::itemUrlToItemId($itemUrl);
+        $itemId = SteamHelper::itemUrlToItemId($itemUrl);
         $this::assertSame($this::ITEM_ID, $itemId);
     }
 
@@ -69,10 +69,10 @@ final class SteamWorkshopHelperTest extends TestCase
      */
     public function itemUrlToItemId_invalidItemUrl_throwsException(string $itemUrl): void
     {
-        $this->expectException(InvalidItemUrlFormatException::class);
+        $this->expectException(InvalidWorkshopItemUrlFormatException::class);
         $this->expectExceptionMessage("Invalid item URL format for: \"{$itemUrl}\"");
 
-        SteamWorkshopHelper::itemUrlToItemId($itemUrl);
+        SteamHelper::itemUrlToItemId($itemUrl);
     }
 
     public function invalidItemUrls(): array

@@ -18,17 +18,17 @@ class DlcFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class, [
-                'label' => 'DLC name',
-            ])
-            ->add('description', TextType::class, [
-                'label' => 'DLC description',
-            ])
             ->add('url', TextType::class, [
                 'label' => 'Steam Store URL',
                 'attr' => [
                     'placeholder' => 'https://store.steampowered.com/app/1227700/Arma_3_Creator_DLC_SOG_Prairie_Fire',
                 ],
+            ])
+            ->add('name', TextType::class, [
+                'label' => 'DLC name',
+            ])
+            ->add('description', TextType::class, [
+                'label' => 'DLC description',
             ])
         ;
     }

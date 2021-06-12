@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Service\SteamWorkshop;
+namespace App\Tests\Unit\Service\Steam;
 
-use App\Service\SteamWorkshop\Exception\ItemNotFoundException;
-use App\Service\SteamWorkshop\SteamWorkshopClient;
+use App\Service\Steam\Exception\WorkshopItemNotFoundException;
+use App\Service\Steam\SteamApiClient;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -13,9 +13,9 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * @internal
- * @covers \App\Service\SteamWorkshop\SteamWorkshopClient
+ * @covers \App\Service\Steam\SteamApiClient
  */
-final class SteamWorkshopClientTest extends TestCase
+final class SteamApiClientTest extends TestCase
 {
     protected const ITEM_ID = 1934142795;
     protected const ITEM_NAME = 'ArmaForces - Mods';
@@ -29,7 +29,7 @@ final class SteamWorkshopClientTest extends TestCase
         $responsePayload = $this->mockResponsePayload(1, $this::ITEM_NAME, $this::ITEM_GAME_ID);
 
         $httpClient = $this->mockHttpClient($responsePayload);
-        $steamWorkshopClient = new SteamWorkshopClient($httpClient);
+        $steamWorkshopClient = new SteamApiClient($httpClient);
         $workshopItemInfoDto = $steamWorkshopClient->getWorkshopItemInfo($this::ITEM_ID);
 
         $this::assertSame($this::ITEM_ID, $workshopItemInfoDto->getId());
@@ -45,9 +45,9 @@ final class SteamWorkshopClientTest extends TestCase
         $responsePayload = $this->mockResponsePayload(0, $this::ITEM_NAME, $this::ITEM_GAME_ID);
 
         $httpClient = $this->mockHttpClient($responsePayload);
-        $steamWorkshopClient = new SteamWorkshopClient($httpClient);
+        $steamWorkshopClient = new SteamApiClient($httpClient);
 
-        $this->expectException(ItemNotFoundException::class);
+        $this->expectException(WorkshopItemNotFoundException::class);
         $this->expectExceptionMessage(sprintf('No items found by item id "%s"!', $this::ITEM_ID));
 
         $steamWorkshopClient->getWorkshopItemInfo($this::ITEM_ID);

@@ -28,6 +28,7 @@ class ModList extends AbstractDescribedEntity implements ModListInterface
 
         $this->mods = new ArrayCollection();
         $this->modGroups = new ArrayCollection();
+        $this->dlcs = new ArrayCollection();
     }
 
     public function addMod(ModInterface $mod): void

@@ -7,14 +7,22 @@ namespace App\Form\Dlc\DataTransformer;
 use App\Entity\Dlc\Dlc;
 use App\Entity\Dlc\DlcInterface;
 use App\Entity\EntityInterface;
-use App\Entity\Mod\ModInterface;
 use App\Form\Dlc\Dto\DlcFormDto;
 use App\Form\FormDtoInterface;
 use App\Form\RegisteredDataTransformerInterface;
+use App\Service\Steam\Helper\SteamHelper;
+use App\Service\Steam\SteamApiClient;
 use Ramsey\Uuid\Uuid;
 
 class DlcFormDtoDataTransformer implements RegisteredDataTransformerInterface
 {
+    protected SteamApiClient $steamApiClient;
+
+    public function __construct(SteamApiClient $steamApiClient)
+    {
+        $this->steamApiClient = $steamApiClient;
+    }
+
     /**
      * @param DlcFormDto        $formDto
      * @param null|DlcInterface $entity
@@ -23,12 +31,14 @@ class DlcFormDtoDataTransformer implements RegisteredDataTransformerInterface
      */
     public function transformToEntity(FormDtoInterface $formDto, EntityInterface $entity = null): EntityInterface
     {
-        $appId = 1227700; // TODO: Convert url to app id
+        $appId = SteamHelper::appUrlToAppId($formDto->getUrl());
+        $name = $formDto->getName() ?? substr($this->steamApiClient->getAppInfo($appId)->getName(), 0, 255);
+
         if (!$entity instanceof DlcInterface) {
-            $entity = new Dlc(Uuid::uuid4(), $formDto->getName(), $appId);
+            $entity = new Dlc(Uuid::uuid4(), $name, $appId);
         }
 
-        $entity->setName($formDto->getName());
+        $entity->setName($name);
         $entity->setDescription($formDto->getDescription());
         $entity->setAppId($appId);
 
@@ -43,7 +53,7 @@ class DlcFormDtoDataTransformer implements RegisteredDataTransformerInterface
      */
     public function transformFromEntity(FormDtoInterface $formDto, EntityInterface $entity = null): FormDtoInterface
     {
-        /** @var ModInterface $entity */
+        /** @var DlcInterface $entity */
         if (!$entity instanceof DlcInterface) {
             return $formDto;
         }
@@ -51,9 +61,8 @@ class DlcFormDtoDataTransformer implements RegisteredDataTransformerInterface
         $formDto->setId($entity->getId());
         $formDto->setName($entity->getName());
         $formDto->setDescription($entity->getDescription());
-
-        // TODO: Convert app id to url
-        $formDto->setUrl('https://store.steampowered.com/app/1227700/Arma_3_Creator_DLC_SOG_Prairie_Fire/');
+        $url = SteamHelper::appIdToAppUrl($entity->getAppId());
+        $formDto->setUrl($url);
 
         return $formDto;
     }

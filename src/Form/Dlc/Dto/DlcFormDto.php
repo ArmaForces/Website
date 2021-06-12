@@ -5,15 +5,20 @@ declare(strict_types=1);
 namespace App\Form\Dlc\Dto;
 
 use App\Form\AbstractFormDto;
+use App\Validator\Dlc\SteamStoreArma3DlcUrl;
+use App\Validator\Dlc\UniqueSteamStoreDlc;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ * @SteamStoreArma3DlcUrl(errorPath="url")
+ * @UniqueSteamStoreDlc
+ */
 class DlcFormDto extends AbstractFormDto
 {
     protected ?UuidInterface $id = null;
 
     /**
-     * @Assert\NotBlank
      * @Assert\Length(max=255)
      */
     protected ?string $name = null;
