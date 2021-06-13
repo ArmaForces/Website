@@ -8,6 +8,7 @@
     {% endembed %}
 
     {% embed '_partial/_table.html.twig' %}
+        {% import '_macro/common_macro.html.twig' as commonMacro %}
         {% import '_macro/table_macro.html.twig' as tableMacro %}
 
         {% block table_head %}
@@ -29,7 +30,14 @@
                             {{ tableMacro.icon('fas fa-check', 'Mod list approved'|trans) }}
                         {% endif %}
                     </td>
-                    <td>{{ modList.name }}</td>
+                    <td>
+                        {{ modList.name }}
+
+                        {# @var dlc \App\Entity\Dlc\Dlc #}
+                        {% for dlc in modList.dlcs %}
+                            {{ commonMacro.dlc_icon(dlc) }}
+                        {% endfor %}
+                    </td>
                     <td>{{ tableMacro.format_date(modList.lastUpdatedAt) }}</td>
                     <td class="text-right">
                         {{ tableMacro.row_action(path('app_mod_list_public_customize', { name: modList.name }), 'fas fa-download', 'Download mod list'|trans) }}
