@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity\Permissions;
 
 use App\Entity\AbstractEntity;
+use App\Entity\Permissions\Dlc\DlcManagementPermissions;
 use App\Entity\Permissions\Mod\ModManagementPermissions;
 use App\Entity\Permissions\ModGroup\ModGroupManagementPermissions;
 use App\Entity\Permissions\ModList\ModListManagementPermissions;
@@ -18,6 +19,7 @@ abstract class AbstractPermissions extends AbstractEntity implements Permissions
     protected UserGroupManagementPermissions $userGroupManagementPermissions;
     protected ModManagementPermissions $modManagementPermissions;
     protected ModGroupManagementPermissions $modGroupManagementPermissions;
+    protected DlcManagementPermissions $dlcManagementPermissions;
     protected ModListManagementPermissions $modListManagementPermissions;
 
     public function __construct(UuidInterface $id)
@@ -28,6 +30,7 @@ abstract class AbstractPermissions extends AbstractEntity implements Permissions
         $this->userGroupManagementPermissions = new UserGroupManagementPermissions();
         $this->modManagementPermissions = new ModManagementPermissions();
         $this->modGroupManagementPermissions = new ModGroupManagementPermissions();
+        $this->dlcManagementPermissions = new DlcManagementPermissions();
         $this->modListManagementPermissions = new ModListManagementPermissions();
     }
 
@@ -49,6 +52,11 @@ abstract class AbstractPermissions extends AbstractEntity implements Permissions
     public function getModGroupManagementPermissions(): ModGroupManagementPermissions
     {
         return $this->modGroupManagementPermissions;
+    }
+
+    public function getDlcManagementPermissions(): DlcManagementPermissions
+    {
+        return $this->dlcManagementPermissions;
     }
 
     public function getModListManagementPermissions(): ModListManagementPermissions
@@ -77,6 +85,11 @@ abstract class AbstractPermissions extends AbstractEntity implements Permissions
         $this->getModGroupManagementPermissions()->setCreate(true);
         $this->getModGroupManagementPermissions()->setUpdate(true);
         $this->getModGroupManagementPermissions()->setDelete(true);
+
+        $this->getDlcManagementPermissions()->setList(true);
+        $this->getDlcManagementPermissions()->setCreate(true);
+        $this->getDlcManagementPermissions()->setUpdate(true);
+        $this->getDlcManagementPermissions()->setDelete(true);
 
         $this->getModListManagementPermissions()->setList(true);
         $this->getModListManagementPermissions()->setCreate(true);

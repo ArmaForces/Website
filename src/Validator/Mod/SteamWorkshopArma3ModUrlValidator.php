@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Validator\Mod;
 
 use App\Form\Mod\Dto\ModFormDto;
-use App\Service\SteamWorkshop\Exception\ItemNotFoundException;
-use App\Service\SteamWorkshop\Helper\Exception\InvalidItemUrlFormatException;
-use App\Service\SteamWorkshop\Helper\SteamWorkshopHelper;
-use App\Service\SteamWorkshop\SteamWorkshopClient;
+use App\Service\Steam\Exception\WorkshopItemNotFoundException;
+use App\Service\Steam\Helper\Exception\InvalidWorkshopItemUrlFormatException;
+use App\Service\Steam\Helper\SteamHelper;
+use App\Service\Steam\SteamApiClient;
 use App\Validator\AbstractValidator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Constraint;
@@ -18,13 +18,13 @@ class SteamWorkshopArma3ModUrlValidator extends AbstractValidator
 {
     protected const ARMA_3_GAME_ID = 107410;
 
-    protected SteamWorkshopClient $steamWorkshopClient;
+    protected SteamApiClient $steamApiClient;
 
-    public function __construct(EntityManagerInterface $entityManager, SteamWorkshopClient $steamWorkshopClient)
+    public function __construct(EntityManagerInterface $entityManager, SteamApiClient $steamApiClient)
     {
         parent::__construct($entityManager);
 
-        $this->steamWorkshopClient = $steamWorkshopClient;
+        $this->steamApiClient = $steamApiClient;
     }
 
     /**
@@ -44,14 +44,14 @@ class SteamWorkshopArma3ModUrlValidator extends AbstractValidator
         $url = $value->getUrl();
 
         try {
-            $itemId = SteamWorkshopHelper::itemUrlToItemId($url);
-            $itemInfo = $this->steamWorkshopClient->getWorkshopItemInfo($itemId);
+            $itemId = SteamHelper::itemUrlToItemId($url);
+            $itemInfo = $this->steamApiClient->getWorkshopItemInfo($itemId);
         } catch (\Exception $ex) {
             $message = null;
 
-            if ($ex instanceof InvalidItemUrlFormatException) {
+            if ($ex instanceof InvalidWorkshopItemUrlFormatException) {
                 $message = $constraint->invalidModUrlMessage;
-            } elseif ($ex instanceof ItemNotFoundException) {
+            } elseif ($ex instanceof WorkshopItemNotFoundException) {
                 $message = $constraint->modNotFoundMessage;
             }
 

@@ -2,3 +2,10 @@
     {% set backgroundImageUrl = asset('img/background/' ~ random(get_background_images())) %}
     {{ ('style="background-image: url(' ~ backgroundImageUrl ~ '")')|raw }}
 {% endmacro %}
+
+{% macro dlc_icon(dlc, size = 16) %}
+    {% set style = "width; #{size}px; height: #{size}px" %}
+    <object data="{{ asset('img/dlc_icon/' ~ dlc.appId ~ '.png') }}" type="image/png" style="{{ style }}" data-toggle="tooltip" data-placement="top" title="{{ dlc.name }}">
+        <img src="{{ asset('img/dlc_icon/default.png') }}" class="align-baseline" style="{{ style }}">
+    </object>
+{% endmacro %}

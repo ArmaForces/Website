@@ -7,8 +7,13 @@
 
 {% block content %}
     {% embed '_partial/_page_header.html.twig' %}
+        {% import '_macro/common_macro.html.twig' as commonMacro %}
+
         {% block page_title %}
             {{ modList.name }}
+            {% for dlc in modList.dlcs %}
+                {{ commonMacro.dlc_icon(dlc, 30) }}
+            {% endfor %}
         {% endblock %}
 
         {% block page_subtitle %}

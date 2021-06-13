@@ -10,6 +10,7 @@ Get mods: Pobierz mody
 Manage mods: Zarządzaj modami
 Mods: Mody
 Mod groups: Grupy modów
+DLCs: DLC
 Mod lists: Listy modów
 
 Manage users: Zarządzaj użytkownikami
@@ -89,6 +90,11 @@ Can create mod groups: Może tworzyć grupy modów
 Can edit mod groups: Może edytować grupy modów
 Can delete mod groups: Może usuwać grupy modów
 
+Can list DLCs: Może przeglądać DLC
+Can create DLCs: Może tworzyć DLC
+Can edit DLCs: Może edytować DLC
+Can delete DLCs: Może usuwać DLC
+
 Can list mod lists: Może przeglądać listy modów
 Can create mod lists: Może tworzyć listy modów
 Can edit other users mod lists: Może edytować listy modów innych użytkowników
@@ -135,6 +141,15 @@ Delete mod group: Usuń grupę modów
 
 Mod group name: Nazwa
 Mod group description: Opis
+
+# DLCs
+Create DLC: Utwórz DLC
+Edit DLC: Edytuj DLC
+Delete DLC: Usuń DLC
+
+DLC name: Nazwa
+DLC description: Opis
+Steam Store URL: Link do DLC
 
 # Mod Lists
 Download mod list: Pobierz listę modów

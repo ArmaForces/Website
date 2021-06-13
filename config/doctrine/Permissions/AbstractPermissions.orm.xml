@@ -9,6 +9,7 @@
         <embedded name="userGroupManagementPermissions" class="App\Entity\Permissions\UserGroup\UserGroupManagementPermissions" column-prefix="user_group_"/>
         <embedded name="modManagementPermissions" class="App\Entity\Permissions\Mod\ModManagementPermissions" column-prefix="mod_"/>
         <embedded name="modGroupManagementPermissions" class="App\Entity\Permissions\ModGroup\ModGroupManagementPermissions" column-prefix="mod_group_"/>
+        <embedded name="dlcManagementPermissions" class="App\Entity\Permissions\Dlc\DlcManagementPermissions" column-prefix="dlc_"/>
         <embedded name="modListManagementPermissions" class="App\Entity\Permissions\ModList\ModListManagementPermissions" column-prefix="mod_list_"/>
 
         <discriminator-column name="type" type="string" length="255"/>

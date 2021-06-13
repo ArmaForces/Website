@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity\ModList;
 
 use App\Entity\DescribedEntityInterface;
+use App\Entity\Dlc\DlcInterface;
 use App\Entity\Mod\ModInterface;
 use App\Entity\ModGroup\ModGroupInterface;
 use App\Entity\User\UserInterface;
@@ -38,6 +39,20 @@ interface ModListInterface extends DescribedEntityInterface
      * @param ModGroupInterface[] $modGroups
      */
     public function setModGroups(array $modGroups): void;
+
+    public function addDlc(DlcInterface $dlc): void;
+
+    public function removeDlc(DlcInterface $dlc): void;
+
+    /**
+     * @return DlcInterface[]
+     */
+    public function getDlcs(): array;
+
+    /**
+     * @param DlcInterface[] $dlcs
+     */
+    public function setDlcs(array $dlcs): void;
 
     public function getOwner(): ?UserInterface;
 
