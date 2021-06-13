@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form\ModList;
 
+use App\Entity\Dlc\Dlc;
 use App\Entity\Mod\AbstractMod;
 use App\Entity\ModGroup\ModGroup;
 use App\Entity\Permissions\PermissionsInterface;
@@ -78,6 +79,19 @@ class ModListFormType extends AbstractType
                 'query_builder' => static function (EntityRepository $er) {
                     return $er->createQueryBuilder('mg')
                         ->orderBy('mg.name', 'ASC')
+                    ;
+                },
+            ])
+            ->add('dlcs', EntityType::class, [
+                'label' => 'DLCs',
+                'label_attr' => ['class' => 'switch-custom'],
+                'choice_label' => false,
+                'multiple' => true,
+                'expanded' => true,
+                'class' => Dlc::class,
+                'query_builder' => static function (EntityRepository $er) {
+                    return $er->createQueryBuilder('d')
+                        ->orderBy('d.name', 'ASC')
                     ;
                 },
             ])

@@ -29,11 +29,13 @@
     {% embed '_partial/mod_tabs/_mod_tabs.html.twig' %}
         {% block nav %}
             {% include '_partial/mod_group_tabs/_mod_group_tabs_nav.html.twig' with { active: 'mod-groups' } %}
+            {% include '_partial/dlc_tabs/_dlc_tabs_nav.html.twig' %}
             {{ parent() }}
         {% endblock %}
 
         {% block tab_content %}
             {{ form_row(form.modGroups) }}
+            {{ form_row(form.dlcs) }}
             {{ form_row(form.mods) }}
         {% endblock %}
     {% endembed %}
@@ -47,6 +49,10 @@
 
 {% block _mod_list_form_modGroups_row %}
     {% include '_partial/mod_group_tabs/_mod_group_tabs_content.html.twig' with { active: 'mod-groups' } %}
+{% endblock %}
+
+{% block _mod_list_form_dlcs_row %}
+    {% include '_partial/dlc_tabs/_dlc_tabs_content.html.twig' %}
 {% endblock %}
 
 {% block _mod_list_form_mods_row %}

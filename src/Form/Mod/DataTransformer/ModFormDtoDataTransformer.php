@@ -14,17 +14,17 @@ use App\Entity\Mod\SteamWorkshopMod;
 use App\Form\FormDtoInterface;
 use App\Form\Mod\Dto\ModFormDto;
 use App\Form\RegisteredDataTransformerInterface;
-use App\Service\SteamWorkshop\Helper\SteamWorkshopHelper;
-use App\Service\SteamWorkshop\SteamWorkshopClient;
+use App\Service\Steam\Helper\SteamHelper;
+use App\Service\Steam\SteamApiClient;
 use Ramsey\Uuid\Uuid;
 
 class ModFormDtoDataTransformer implements RegisteredDataTransformerInterface
 {
-    protected SteamWorkshopClient $steamWorkshopClient;
+    protected SteamApiClient $steamApiClient;
 
-    public function __construct(SteamWorkshopClient $steamWorkshopClient)
+    public function __construct(SteamApiClient $steamApiClient)
     {
-        $this->steamWorkshopClient = $steamWorkshopClient;
+        $this->steamApiClient = $steamApiClient;
     }
 
     /**
@@ -45,8 +45,8 @@ class ModFormDtoDataTransformer implements RegisteredDataTransformerInterface
         $status = $formDto->getStatus() ? ModStatusEnum::get($formDto->getStatus()) : null;
 
         if ($source->is(ModSourceEnum::STEAM_WORKSHOP)) {
-            $itemId = SteamWorkshopHelper::itemUrlToItemId($formDto->getUrl());
-            $name = $formDto->getName() ?: substr($this->steamWorkshopClient->getWorkshopItemInfo($itemId)->getName(), 0, 255);
+            $itemId = SteamHelper::itemUrlToItemId($formDto->getUrl());
+            $name = $formDto->getName() ?? substr($this->steamApiClient->getWorkshopItemInfo($itemId)->getName(), 0, 255);
 
             if (!$entity instanceof SteamWorkshopMod) {
                 $entity = new SteamWorkshopMod(Uuid::uuid4(), $name, $type, $itemId);
@@ -95,7 +95,7 @@ class ModFormDtoDataTransformer implements RegisteredDataTransformerInterface
         if ($entity instanceof SteamWorkshopMod) {
             $formDto->setSource(ModSourceEnum::STEAM_WORKSHOP);
             $itemId = $entity->getItemId();
-            $url = SteamWorkshopHelper::itemIdToItemUrl($itemId);
+            $url = SteamHelper::itemIdToItemUrl($itemId);
             $formDto->setUrl($url);
         } elseif ($entity instanceof DirectoryMod) {
             $formDto->setSource(ModSourceEnum::DIRECTORY);

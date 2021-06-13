@@ -1,14 +1,22 @@
 # Unique Steam Workshop Mod Validator
 Mod associated with url "{{ modUrl }}" already exist: Mod znajdujący się pod adresem "{{ modUrl }}" już istnieje
 
+# Unique Steam Store Dlc Validator
+DLC associated with url "{{ dlcUrl }}" already exist: DLC znajdujący się pod adresem "{{ dlcUrl }}" już istnieje
+
 # Unique Directory Mod Validator
 Mod associated with directory "{{ directoryName }}" already exist: Mod znajdujący się w katalogu "{{ directoryName }}" już istnieje
 
 # Steam Workshop Arma 3 Mod Url Validator
-Invalid Steam Workshop mod URL: Błędny link do moda
+Invalid Steam Workshop mod url: Błędny link do moda
 Mod not found: Nie znaleziono moda
-Mod is not an Arma 3 mod: Mod nie jest modem do Arma 3
+Url is not an Arma 3 mod: Mod nie jest modem do Arma 3
 Mod is either private or missing required details: Mod jest prywatny lub nie zawiera niezbędnych do jego dodania informacji
+
+# Steam Store Arma 3 Dlc Url Validator
+Invalid Steam Workshop DLC url: Błędny link do DLC
+DLC not found: Nie znaleziono DLC
+Url is not an Arma 3 DLC: DLC nie jest dodatkiem do Arma 3
 
 # Windows Directory Name Validator
 Invalid directory name: Błędny format nazwy katalogu

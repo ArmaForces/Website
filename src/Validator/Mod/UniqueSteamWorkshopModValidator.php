@@ -6,8 +6,8 @@ namespace App\Validator\Mod;
 
 use App\Entity\Mod\SteamWorkshopMod;
 use App\Form\Mod\Dto\ModFormDto;
-use App\Service\SteamWorkshop\Helper\Exception\InvalidItemUrlFormatException;
-use App\Service\SteamWorkshop\Helper\SteamWorkshopHelper;
+use App\Service\Steam\Helper\Exception\InvalidWorkshopItemUrlFormatException;
+use App\Service\Steam\Helper\SteamHelper;
 use App\Validator\AbstractValidator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -30,8 +30,8 @@ class UniqueSteamWorkshopModValidator extends AbstractValidator
         }
 
         try {
-            $itemId = SteamWorkshopHelper::itemUrlToItemId($url);
-        } catch (InvalidItemUrlFormatException $ex) {
+            $itemId = SteamHelper::itemUrlToItemId($url);
+        } catch (InvalidWorkshopItemUrlFormatException $ex) {
             return;
         }
 

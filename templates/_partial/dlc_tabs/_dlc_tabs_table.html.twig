@@ -1,0 +1,32 @@
+{% embed '_partial/_table.html.twig' %}
+    {% import '_macro/table_macro.html.twig' as tableMacro %}
+
+    {% block table_head %}
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col" class="w-100">{{ 'DLC name'|trans }}</th>
+            <th scope="col">{{ 'Select'|trans }}</th>
+        </tr>
+    {% endblock %}
+    {% block table_body %}
+        {% set rowNo = 1 %}
+
+        {# @var dlc \App\Entity\Dlc\Dlc #}
+        {% for child in form.children %}
+            {% set dlc = form.vars.choices[loop.index0].data %}
+
+            <tr>
+                <th scope="row">{{ rowNo }}</th>
+                <td>{{ tableMacro.row_name_with_description(dlc.name, dlc.description) }}</td>
+                <td>
+                    {{- form_widget(child, {
+                        parent_label_class: label_attr.class|default(''),
+                        translation_domain: choice_translation_domain,
+                    }) -}}
+                </td>
+            </tr>
+
+            {% set rowNo = rowNo + 1 %}
+        {% endfor %}
+    {% endblock %}
+{% endembed %}

@@ -45,7 +45,7 @@ class ModFormType extends AbstractType
             ->add('url', TextType::class, [
                 'label' => 'Steam Workshop URL',
                 'attr' => [
-                    'placeholder' => 'https://steamcommunity.com/workshop/filedetails/?id=',
+                    'placeholder' => 'https://steamcommunity.com/sharedfiles/filedetails/?id=1934142795',
                 ],
             ])
             ->add('directory', TextType::class, [

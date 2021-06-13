@@ -13,6 +13,7 @@
     {% endembed %}
 
     {% embed '_partial/_table.html.twig' %}
+        {% import '_macro/common_macro.html.twig' as commonMacro %}
         {% import '_macro/table_macro.html.twig' as tableMacro %}
 
         {% block table_head %}
@@ -37,7 +38,13 @@
                             {{ tableMacro.icon('fas fa-check', 'Mod list approved'|trans) }}
                         {% endif %}
                     </td>
-                    <td>{{ tableMacro.row_name_with_description(modList.name, modList.description) }}</td>
+                    <td>
+                        {{ tableMacro.row_name_with_description(modList.name, modList.description) }}
+                        {# @var dlc \App\Entity\Dlc\Dlc #}
+                        {% for dlc in modList.dlcs %}
+                            {{ commonMacro.dlc_icon(dlc) }}
+                        {% endfor %}
+                    </td>
                     <td>{{ modList.owner ? modList.owner.username : '' }}</td>
                     <td class="{{ modList.active ? '' : 'text-danger' }}">
                         {{ modList.active ? 'Yes'|trans : 'No'|trans }}
