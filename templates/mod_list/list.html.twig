@@ -40,6 +40,7 @@
                     </td>
                     <td>
                         {{ tableMacro.row_name_with_description(modList.name, modList.description) }}
+
                         {# @var dlc \App\Entity\Dlc\Dlc #}
                         {% for dlc in modList.dlcs %}
                             {{ commonMacro.dlc_icon(dlc) }}
