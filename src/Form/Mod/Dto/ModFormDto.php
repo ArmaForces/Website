@@ -9,7 +9,7 @@ use App\Form\AbstractFormDto;
 use App\Validator\Mod\SteamWorkshopArma3ModUrl;
 use App\Validator\Mod\UniqueDirectoryMod;
 use App\Validator\Mod\UniqueSteamWorkshopMod;
-use App\Validator\Mod\WindowsDirectoryName;
+use App\Validator\WindowsDirectoryName;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 

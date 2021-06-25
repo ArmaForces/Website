@@ -32,15 +32,17 @@ class DlcFormDtoDataTransformer implements RegisteredDataTransformerInterface
     public function transformToEntity(FormDtoInterface $formDto, EntityInterface $entity = null): EntityInterface
     {
         $appId = SteamHelper::appUrlToAppId($formDto->getUrl());
+        $directory = $formDto->getDirectory();
         $name = $formDto->getName() ?? substr($this->steamApiClient->getAppInfo($appId)->getName(), 0, 255);
 
         if (!$entity instanceof DlcInterface) {
-            $entity = new Dlc(Uuid::uuid4(), $name, $appId);
+            $entity = new Dlc(Uuid::uuid4(), $name, $appId, $directory);
         }
 
         $entity->setName($name);
         $entity->setDescription($formDto->getDescription());
         $entity->setAppId($appId);
+        $entity->setDirectory($directory);
 
         return $entity;
     }
@@ -63,6 +65,7 @@ class DlcFormDtoDataTransformer implements RegisteredDataTransformerInterface
         $formDto->setDescription($entity->getDescription());
         $url = SteamHelper::appIdToAppUrl($entity->getAppId());
         $formDto->setUrl($url);
+        $formDto->setDirectory($entity->getDirectory());
 
         return $formDto;
     }

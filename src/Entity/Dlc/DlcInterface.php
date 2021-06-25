@@ -11,4 +11,8 @@ interface DlcInterface extends DescribedEntityInterface
     public function getAppId(): int;
 
     public function setAppId(int $appId): void;
+
+    public function getDirectory(): string;
+
+    public function setDirectory(string $directory): void;
 }

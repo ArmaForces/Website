@@ -7,6 +7,9 @@ DLC associated with url "{{ dlcUrl }}" already exist: DLC znajdujący się pod a
 # Unique Directory Mod Validator
 Mod associated with directory "{{ directoryName }}" already exist: Mod znajdujący się w katalogu "{{ directoryName }}" już istnieje
 
+# Unique Directory Dlc Validator
+DLC associated with directory "{{ directoryName }}" already exist: DLC znajdujący się w katalogu "{{ directoryName }}" już istnieje
+
 # Steam Workshop Arma 3 Mod Url Validator
 Invalid Steam Workshop mod url: Błędny link do moda
 Mod not found: Nie znaleziono moda

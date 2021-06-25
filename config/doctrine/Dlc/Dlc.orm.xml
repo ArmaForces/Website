@@ -6,6 +6,7 @@
 
     <entity name="App\Entity\Dlc\Dlc" repository-class="App\Repository\Dlc\DlcRepository">
         <field name="appId" type="bigint" unique="true"/>
+        <field name="directory" type="string"  length="255" unique="true"/>
     </entity>
 
 </doctrine-mapping>
