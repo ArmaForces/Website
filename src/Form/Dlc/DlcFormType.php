@@ -24,6 +24,9 @@ class DlcFormType extends AbstractType
                     'placeholder' => 'https://store.steampowered.com/app/1227700/Arma_3_Creator_DLC_SOG_Prairie_Fire',
                 ],
             ])
+            ->add('directory', TextType::class, [
+                'label' => 'DLC directory',
+            ])
             ->add('name', TextType::class, [
                 'label' => 'DLC name',
             ])

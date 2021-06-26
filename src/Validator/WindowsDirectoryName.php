@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Validator\Mod;
+namespace App\Validator;
 
 use Symfony\Component\Validator\Constraints\Regex;
 
