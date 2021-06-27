@@ -15,7 +15,7 @@ cs:
 	docker-compose exec -T php php bin/console doctrine:mapping:info --env=${env}
 
 admin:
-	docker-compose exec php php bin/console app:permissions:make-admin
+	docker-compose exec php php bin/console app:permissions:make-admin --full-permissions
 
 db:
 	docker-compose exec -T php php bin/console doctrine:database:drop --if-exists --force --env=${env}

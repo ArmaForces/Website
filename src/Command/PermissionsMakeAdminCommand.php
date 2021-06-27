@@ -10,12 +10,17 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 class PermissionsMakeAdminCommand extends Command
 {
+    public const NAME = 'app:permissions:make-admin';
+    public const ARGUMENT_DISCORD_USER_ID = 'discord-user-id';
+    public const OPTION_FULL_PERMISSIONS = 'full-permissions';
+
     protected EntityManagerInterface $entityManager;
     protected UserRepository $userRepository;
 
@@ -33,9 +38,10 @@ class PermissionsMakeAdminCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setName('app:permissions:make-admin')
+            ->setName(self::NAME)
             ->setDescription('Grants permissions to manage permissions to given user identified by Discord user id.')
-            ->addArgument('discord_user_id', InputArgument::OPTIONAL, 'Discord user id (18-digits integer)')
+            ->addArgument(self::ARGUMENT_DISCORD_USER_ID, InputArgument::OPTIONAL, 'Discord user id (18-digits integer)')
+            ->addOption(self::OPTION_FULL_PERMISSIONS, 'f', InputOption::VALUE_OPTIONAL, 'Full permissions', false)
         ;
     }
 
@@ -46,7 +52,8 @@ class PermissionsMakeAdminCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $discordUserId = $input->getArgument('discord_user_id');
+        $fullPermissions = $input->getOption(self::OPTION_FULL_PERMISSIONS);
+        $discordUserId = $input->getArgument(self::ARGUMENT_DISCORD_USER_ID);
         if (!$discordUserId) {
             /** @var User[] $allUsers */
             $allUsers = $this->userRepository->findAll();
@@ -85,9 +92,14 @@ class PermissionsMakeAdminCommand extends Command
         }
 
         $permissions = $user->getPermissions();
-        $userPermissions = $permissions->getUserManagementPermissions();
-        $userPermissions->setList(true);
-        $userPermissions->setManagePermissions(true);
+        if (false !== $fullPermissions) {
+            $permissions->grantAll();
+        } else {
+            $userPermissions = $permissions->getUserManagementPermissions();
+            $userPermissions->setList(true);
+            $userPermissions->setManagePermissions(true);
+        }
+
         $this->entityManager->flush();
 
         $io->success(sprintf('Successfully granted admin permissions for user with id: "%s" (%s)!', $discordUserId, $user->getUsername()));
