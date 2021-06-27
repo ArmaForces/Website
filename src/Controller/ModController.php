@@ -121,14 +121,6 @@ class ModController extends AbstractController
      */
     public function deleteAction(AbstractMod $mod): Response
     {
-        foreach ($this->modGroupRepository->findAll() as $modGroup) {
-            $modGroup->removeMod($mod);
-        }
-
-        foreach ($this->modListRepository->findAll() as $modList) {
-            $modList->removeMod($mod);
-        }
-
         $this->entityManager->remove($mod);
         $this->entityManager->flush();
 
