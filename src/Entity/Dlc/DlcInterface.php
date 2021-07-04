@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Entity\Dlc;
 
-use App\Entity\DescribedEntityInterface;
+use App\Entity\BlamableEntityInterface;
+use App\Entity\Traits\DescribedInterface;
+use App\Entity\Traits\NamedInterface;
 
-interface DlcInterface extends DescribedEntityInterface
+interface DlcInterface extends BlamableEntityInterface, NamedInterface, DescribedInterface
 {
     public function getAppId(): int;
 

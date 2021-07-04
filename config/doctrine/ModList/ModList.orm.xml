@@ -5,6 +5,9 @@
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
     <entity name="App\Entity\ModList\ModList" table="mod_lists" repository-class="App\Repository\ModList\ModListRepository">
+        <field name="name" type="string" length="255"/>
+        <field name="description" type="string" length="255" nullable="true"/>
+
         <many-to-many field="mods" target-entity="App\Entity\Mod\AbstractMod">
             <join-table name="mod_lists_to_mods">
                 <join-columns>

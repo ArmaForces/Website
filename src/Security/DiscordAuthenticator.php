@@ -147,7 +147,7 @@ class DiscordAuthenticator extends SocialAuthenticator
             /**
              * FIXME:
              *      Manually persist permissions association because cascade persists
-             *      stopped working after adding blameable User association.
+             *      stopped working after adding blamable User association.
              *
              * @see User::setCreatedBy()
              * @see User::setLastUpdatedBy()

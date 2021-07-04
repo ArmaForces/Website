@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace App\Entity\Traits;
 
-interface DescribedEntityInterface extends NamedEntityInterface
+interface DescribedInterface
 {
     public function getDescription(): ?string;
 

@@ -30,8 +30,8 @@
                 <tr>
                     <th scope="row">{{ loop.index }}</th>
                     <td>{{ tableMacro.row_name_with_description(userGroup.name, userGroup.description) }}</td>
-                    <td>{{ tableMacro.row_blameable(userGroup.createdAt, userGroup.createdBy) }}</td>
-                    <td>{{ tableMacro.row_blameable(userGroup.lastUpdatedAt, userGroup.lastUpdatedBy) }}</td>
+                    <td>{{ tableMacro.row_blamable(userGroup.createdAt, userGroup.createdBy) }}</td>
+                    <td>{{ tableMacro.row_blamable(userGroup.lastUpdatedAt, userGroup.lastUpdatedBy) }}</td>
                     <td class="text-right">
                         {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USER_GROUP_UPDATE'), userGroup) %}
                             {{ tableMacro.row_action_edit(path('app_user_group_update', { name: userGroup.name }), 'Edit user group'|trans) }}

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Entity\User\Traits;
+namespace App\Entity\Traits;
 
 use App\Security\Enum\RoleEnum;
 

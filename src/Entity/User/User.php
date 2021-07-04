@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Entity\User;
 
-use App\Entity\AbstractEntity;
+use App\Entity\AbstractBlamableEntity;
 use App\Entity\Permissions\UserPermissions;
-use App\Entity\User\Traits\UserInterfaceTrait;
+use App\Entity\Traits\UserInterfaceTrait;
 use App\Entity\UserGroup\UserGroupInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\UuidInterface;
 
-class User extends AbstractEntity implements UserInterface
+class User extends AbstractBlamableEntity implements UserInterface
 {
     use UserInterfaceTrait;
 
