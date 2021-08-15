@@ -30,8 +30,13 @@ Fun: Dobra zabawa
 Gaming: Rozgrywki
 Community: Społeczność
 
+# Errors
+An error occured: Wystąpił błąd
+Page not found: Strona nie została znaleziona
+Access denied: Odmowa dostępu
+
 # Join us
-Join ArmaForces: Dołacz do ArmaForces
+Join ArmaForces: Dołącz do ArmaForces
 What do we require to from recruits: Czego wymagamy od rekrutów
 Base Arma 3 game: Podstawowej wersji Arma 3
 At least 16 years old: Co najmniej 16 lat
@@ -150,6 +155,7 @@ Delete DLC: Usuń DLC
 DLC name: Nazwa
 DLC description: Opis
 Steam Store URL: Link do DLC
+DLC directory: Katalog DLC
 
 # Mod Lists
 Download mod list: Pobierz listę modów

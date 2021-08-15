@@ -112,10 +112,6 @@ class ModGroupController extends AbstractController
      */
     public function deleteAction(ModGroup $modGroup): Response
     {
-        foreach ($this->modListRepository->findAll() as $modList) {
-            $modList->removeModGroup($modGroup);
-        }
-
         $this->entityManager->remove($modGroup);
         $this->entityManager->flush();
 

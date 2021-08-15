@@ -8,10 +8,10 @@
         <many-to-many field="mods" target-entity="App\Entity\Mod\AbstractMod">
             <join-table name="mod_lists_to_mods">
                 <join-columns>
-                    <join-column name="mod_list_id" referenced-column-name="id"/>
+                    <join-column name="mod_list_id" referenced-column-name="id" on-delete="CASCADE"/>
                 </join-columns>
                 <inverse-join-columns>
-                    <join-column name="mod_id" referenced-column-name="id"/>
+                    <join-column name="mod_id" referenced-column-name="id" on-delete="CASCADE"/>
                 </inverse-join-columns>
             </join-table>
             <cascade>
@@ -22,10 +22,10 @@
         <many-to-many field="modGroups" target-entity="App\Entity\ModGroup\ModGroup">
             <join-table name="mod_lists_to_mod_groups">
                 <join-columns>
-                    <join-column name="mod_list_id" referenced-column-name="id"/>
+                    <join-column name="mod_list_id" referenced-column-name="id" on-delete="CASCADE"/>
                 </join-columns>
                 <inverse-join-columns>
-                    <join-column name="mod_group_id" referenced-column-name="id"/>
+                    <join-column name="mod_group_id" referenced-column-name="id" on-delete="CASCADE"/>
                 </inverse-join-columns>
             </join-table>
             <cascade>

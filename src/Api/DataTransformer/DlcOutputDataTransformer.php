@@ -24,6 +24,7 @@ class DlcOutputDataTransformer implements DataTransformerInterface
         $output->setCreatedAt($dlc->getCreatedAt());
         $output->setLastUpdatedAt($dlc->getLastUpdatedAt());
         $output->setAppId($dlc->getAppId());
+        $output->setDirectory($dlc->getDirectory());
 
         return $output;
     }

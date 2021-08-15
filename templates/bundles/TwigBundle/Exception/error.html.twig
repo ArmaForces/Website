@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid d-flex align-items-center justify-content-center h-100">
+        <div class="row d-flex justify-content-center text-center">
+            <!-- Grid column -->
+            <div class="col-md-12">
+                <img src="{{ asset(errorImage ?? 'img/error/500.webp') }}" class="img-fluid">
+
+                <!-- Heading -->
+                <h2 class="text-logo font-good-brush m-0">{{ errorCode ?? 500 }}</h2>
+
+                <!-- Title -->
+                <h4>{{ (errorMessage ?? 'An error occured')|trans }}</h4>
+
+                <a href="{{ path('app_home_index') }}">{{ 'Homepage'|trans }}</a>
+            </div>
+            <!--/ Grid column -->
+        </div>
+    </div>
+{% endblock %}

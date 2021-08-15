@@ -11,6 +11,7 @@ class DlcOutput
     protected ?\DateTimeInterface $createdAt = null;
     protected ?\DateTimeInterface $lastUpdatedAt = null;
     protected ?int $appId = null;
+    protected ?string $directory = null;
 
     public function getId(): ?string
     {
@@ -60,5 +61,15 @@ class DlcOutput
     public function setAppId(?int $appId): void
     {
         $this->appId = $appId;
+    }
+
+    public function getDirectory(): ?string
+    {
+        return $this->directory;
+    }
+
+    public function setDirectory(?string $directory): void
+    {
+        $this->directory = $directory;
     }
 }

@@ -6,13 +6,16 @@ namespace App\Form\Dlc\Dto;
 
 use App\Form\AbstractFormDto;
 use App\Validator\Dlc\SteamStoreArma3DlcUrl;
+use App\Validator\Dlc\UniqueDirectoryDlc;
 use App\Validator\Dlc\UniqueSteamStoreDlc;
+use App\Validator\WindowsDirectoryName;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @SteamStoreArma3DlcUrl(errorPath="url")
  * @UniqueSteamStoreDlc
+ * @UniqueDirectoryDlc
  */
 class DlcFormDto extends AbstractFormDto
 {
@@ -29,6 +32,12 @@ class DlcFormDto extends AbstractFormDto
     protected ?string $description = null;
 
     protected ?string $url = null;
+
+    /**
+     * @Assert\NotBlank
+     * @WindowsDirectoryName
+     */
+    protected ?string $directory = null;
 
     public function getId(): ?UuidInterface
     {
@@ -68,5 +77,15 @@ class DlcFormDto extends AbstractFormDto
     public function setUrl(?string $url): void
     {
         $this->url = $url;
+    }
+
+    public function getDirectory(): ?string
+    {
+        return $this->directory;
+    }
+
+    public function setDirectory(?string $directory): void
+    {
+        $this->directory = $directory;
     }
 }
