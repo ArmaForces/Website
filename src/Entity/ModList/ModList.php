@@ -4,17 +4,22 @@ declare(strict_types=1);
 
 namespace App\Entity\ModList;
 
-use App\Entity\AbstractDescribedEntity;
+use App\Entity\AbstractBlamableEntity;
 use App\Entity\Dlc\DlcInterface;
 use App\Entity\Mod\ModInterface;
 use App\Entity\ModGroup\ModGroupInterface;
+use App\Entity\Traits\DescribedTrait;
+use App\Entity\Traits\NamedTrait;
 use App\Entity\User\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\UuidInterface;
 
-class ModList extends AbstractDescribedEntity implements ModListInterface
+class ModList extends AbstractBlamableEntity implements ModListInterface
 {
+    use NamedTrait;
+    use DescribedTrait;
+
     protected Collection $mods;
     protected Collection $modGroups;
     protected Collection $dlcs;
@@ -24,8 +29,9 @@ class ModList extends AbstractDescribedEntity implements ModListInterface
 
     public function __construct(UuidInterface $id, string $name)
     {
-        parent::__construct($id, $name);
+        parent::__construct($id);
 
+        $this->name = $name;
         $this->mods = new ArrayCollection();
         $this->modGroups = new ArrayCollection();
         $this->dlcs = new ArrayCollection();

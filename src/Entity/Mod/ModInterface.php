@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Entity\Mod;
 
-use App\Entity\DescribedEntityInterface;
+use App\Entity\BlamableEntityInterface;
 use App\Entity\Mod\Enum\ModStatusEnum;
 use App\Entity\Mod\Enum\ModTypeEnum;
+use App\Entity\Traits\DescribedInterface;
+use App\Entity\Traits\NamedInterface;
 
-interface ModInterface extends DescribedEntityInterface
+interface ModInterface extends BlamableEntityInterface, NamedInterface, DescribedInterface
 {
     public function isSteamWorkshopMod(): bool;
 

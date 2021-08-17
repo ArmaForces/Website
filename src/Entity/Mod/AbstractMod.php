@@ -4,20 +4,26 @@ declare(strict_types=1);
 
 namespace App\Entity\Mod;
 
-use App\Entity\AbstractDescribedEntity;
+use App\Entity\AbstractBlamableEntity;
 use App\Entity\Mod\Enum\ModStatusEnum;
 use App\Entity\Mod\Enum\ModTypeEnum;
+use App\Entity\Traits\DescribedTrait;
+use App\Entity\Traits\NamedTrait;
 use Ramsey\Uuid\UuidInterface;
 
-abstract class AbstractMod extends AbstractDescribedEntity implements ModInterface
+abstract class AbstractMod extends AbstractBlamableEntity implements ModInterface
 {
+    use NamedTrait;
+    use DescribedTrait;
+
     protected ModTypeEnum $type;
     protected ?ModStatusEnum $status = null;
 
     public function __construct(UuidInterface $id, string $name, ModTypeEnum $type)
     {
-        parent::__construct($id, $name);
+        parent::__construct($id);
 
+        $this->name = $name;
         $this->type = $type;
     }
 

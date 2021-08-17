@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace App\Entity\Traits;
 
-abstract class AbstractDescribedEntity extends AbstractNamedEntity implements DescribedEntityInterface
+trait DescribedTrait
 {
     protected ?string $description = null;
 

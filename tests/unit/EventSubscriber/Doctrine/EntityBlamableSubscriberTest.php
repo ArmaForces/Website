@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\EventSubscriber\Doctrine;
 
-use App\Entity\EntityInterface;
+use App\Entity\BlamableEntityInterface;
 use App\Entity\User\UserInterface;
-use App\EventSubscriber\Doctrine\EntityBlameableSubscriber;
+use App\EventSubscriber\Doctrine\EntityBlamableSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
 use PHPUnit\Framework\TestCase;
@@ -14,9 +14,9 @@ use Symfony\Component\Security\Core\Security;
 
 /**
  * @internal
- * @covers \App\EventSubscriber\Doctrine\EntityBlameableSubscriber
+ * @covers \App\EventSubscriber\Doctrine\EntityBlamableSubscriber
  */
-final class EntityBlameableSubscriberTest extends TestCase
+final class EntityBlamableSubscriberTest extends TestCase
 {
     /**
      * @test
@@ -24,14 +24,14 @@ final class EntityBlameableSubscriberTest extends TestCase
     public function getSubscribedEvents(): void
     {
         $security = $this->createMock(Security::class);
-        $entityBlameableSubscriberTest = new EntityBlameableSubscriber($security);
+        $entityBlamableSubscriberTest = new EntityBlamableSubscriber($security);
 
         $expectedEvents = [
             Events::prePersist,
             Events::preUpdate,
         ];
 
-        $subscribedEvents = $entityBlameableSubscriberTest->getSubscribedEvents();
+        $subscribedEvents = $entityBlamableSubscriberTest->getSubscribedEvents();
         $this::assertSame($expectedEvents, $subscribedEvents);
     }
 
@@ -42,7 +42,7 @@ final class EntityBlameableSubscriberTest extends TestCase
     {
         $user = $this->createMock(UserInterface::class);
 
-        $entity = $this->createMock(EntityInterface::class);
+        $entity = $this->createMock(BlamableEntityInterface::class);
         $entity
             ->expects($this::once())
             ->method('setCreatedBy')
@@ -55,8 +55,8 @@ final class EntityBlameableSubscriberTest extends TestCase
         $lifecycleEventArgs = $this->createMock(LifecycleEventArgs::class);
         $lifecycleEventArgs->method('getEntity')->willReturn($entity);
 
-        $entityBlameableSubscriberTest = new EntityBlameableSubscriber($security);
-        $entityBlameableSubscriberTest->prePersist($lifecycleEventArgs);
+        $entityBlamableSubscriberTest = new EntityBlamableSubscriber($security);
+        $entityBlamableSubscriberTest->prePersist($lifecycleEventArgs);
     }
 
     /**
@@ -74,8 +74,8 @@ final class EntityBlameableSubscriberTest extends TestCase
         $lifecycleEventArgs = $this->createMock(LifecycleEventArgs::class);
         $lifecycleEventArgs->method('getEntity')->willReturn($entity);
 
-        $entityBlameableSubscriberTest = new EntityBlameableSubscriber($security);
-        $entityBlameableSubscriberTest->prePersist($lifecycleEventArgs);
+        $entityBlamableSubscriberTest = new EntityBlamableSubscriber($security);
+        $entityBlamableSubscriberTest->prePersist($lifecycleEventArgs);
     }
 
     /**
@@ -85,7 +85,7 @@ final class EntityBlameableSubscriberTest extends TestCase
     {
         $user = $this->createMock(UserInterface::class);
 
-        $entity = $this->createMock(EntityInterface::class);
+        $entity = $this->createMock(BlamableEntityInterface::class);
         $entity
             ->expects($this::once())
             ->method('setLastUpdatedBy')
@@ -103,8 +103,8 @@ final class EntityBlameableSubscriberTest extends TestCase
         $lifecycleEventArgs = $this->createMock(LifecycleEventArgs::class);
         $lifecycleEventArgs->method('getEntity')->willReturn($entity);
 
-        $entityBlameableSubscriberTest = new EntityBlameableSubscriber($security);
-        $entityBlameableSubscriberTest->preUpdate($lifecycleEventArgs);
+        $entityBlamableSubscriberTest = new EntityBlamableSubscriber($security);
+        $entityBlamableSubscriberTest->preUpdate($lifecycleEventArgs);
     }
 
     /**
@@ -122,8 +122,8 @@ final class EntityBlameableSubscriberTest extends TestCase
         $lifecycleEventArgs = $this->createMock(LifecycleEventArgs::class);
         $lifecycleEventArgs->method('getEntity')->willReturn($entity);
 
-        $entityBlameableSubscriberTest = new EntityBlameableSubscriber($security);
-        $entityBlameableSubscriberTest->preUpdate($lifecycleEventArgs);
+        $entityBlamableSubscriberTest = new EntityBlamableSubscriber($security);
+        $entityBlamableSubscriberTest->preUpdate($lifecycleEventArgs);
     }
 
     public function invalidEventArgs(): array
@@ -131,7 +131,7 @@ final class EntityBlameableSubscriberTest extends TestCase
         $validUser = $this->createMock(UserInterface::class);
         $invalidUser = null;
 
-        $validEntity = $this->createMock(EntityInterface::class);
+        $validEntity = $this->createMock(BlamableEntityInterface::class);
         $validEntity->expects($this::never())->method('setCreatedBy');
         $validEntity->expects($this::never())->method('setLastUpdatedBy');
         $validEntity->expects($this::never())->method('setLastUpdatedAt');

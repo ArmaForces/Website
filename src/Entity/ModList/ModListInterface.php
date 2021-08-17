@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace App\Entity\ModList;
 
-use App\Entity\DescribedEntityInterface;
+use App\Entity\BlamableEntityInterface;
 use App\Entity\Dlc\DlcInterface;
 use App\Entity\Mod\ModInterface;
 use App\Entity\ModGroup\ModGroupInterface;
+use App\Entity\Traits\DescribedInterface;
+use App\Entity\Traits\NamedInterface;
 use App\Entity\User\UserInterface;
 
-interface ModListInterface extends DescribedEntityInterface
+interface ModListInterface extends BlamableEntityInterface, NamedInterface, DescribedInterface
 {
     public function addMod(ModInterface $mod): void;
 
