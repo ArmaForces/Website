@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Security\DiscordAuthenticator;
+use App\Security\Authenticator\DiscordAuthenticator;
 use App\Security\Enum\ScopeEnum;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use RuntimeException;
@@ -34,6 +34,7 @@ class SecurityController extends AbstractController
                 ScopeEnum::IDENTIFY,
                 ScopeEnum::EMAIL,
                 ScopeEnum::GUILDS,
+                ScopeEnum::CONNECTIONS,
             ], [])
         ;
     }

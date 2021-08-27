@@ -31,7 +31,7 @@ security:
                 always_remember_me: true
             guard:
                 authenticators:
-                    - App\Security\DiscordAuthenticator
+                    - App\Security\Authenticator\DiscordAuthenticator
             logout:
                 path: app_security_logout
 
