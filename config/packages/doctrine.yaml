@@ -18,6 +18,12 @@ doctrine:
                 dir: '%kernel.project_dir%/config/doctrine'
                 prefix: 'App\Entity'
                 alias: App
+            Attendance:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/config/doctrine/Attendance'
+                prefix: 'App\Entity\Attendance'
+                alias: Attendance
             User:
                 is_bundle: false
                 type: xml
