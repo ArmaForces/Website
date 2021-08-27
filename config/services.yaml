@@ -14,6 +14,8 @@ parameters:
     app.security.oauth.discord.client_id: '%env(APP_SECURITY_OAUTH_DISCORD_CLIENT_ID)%'
     app.security.oauth.discord.client_secret: '%env(APP_SECURITY_OAUTH_DISCORD_CLIENT_SECRET)%'
     app.security.oauth.discord.bot_token: '%env(APP_SECURITY_OAUTH_DISCORD_BOT_TOKEN)%'
+    app.security.api.key_header_name: '%env(APP_SECURITY_API_KEY_HEADER_NAME)%'
+    app.security.api.allowed_keys: '%env(APP_SECURITY_API_ALLOWED_KEYS)%'
 
 services:
     # default configuration for services in *this* file
@@ -54,6 +56,11 @@ services:
             $requiredServerRoleNames:
                 - '%app.security.oauth.discord.recruit_role_name%'
                 - '%app.security.oauth.discord.member_role_name%'
+
+    App\Security\Authenticator\ApiKeyAuthenticator:
+        arguments:
+            $apiKeyHeaderName: '%app.security.api.key_header_name%'
+            $apiAllowedKeys: '%app.security.api.allowed_keys%'
 
     # Register Doctrine subscribers
     App\EventSubscriber\Doctrine\:

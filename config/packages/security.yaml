@@ -12,6 +12,16 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+
+        api:
+            pattern: ^/api/attendances
+            methods: ['POST']
+            anonymous: true
+            stateless: true
+            guard:
+                authenticators:
+                    - App\Security\Authenticator\ApiKeyAuthenticator
+
         main:
             anonymous: true
             lazy: true
