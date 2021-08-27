@@ -24,7 +24,7 @@ class UniqueModListNameValidator extends AbstractValidator
 
         $name = $value->getName();
         $id = $value->getId();
-        if (!$name || $this->isColumnValueUnique(ModList::class, $name, $id)) {
+        if (!$name || $this->isColumnValueUnique(ModList::class, ['name' => $name], $id)) {
             return;
         }
 

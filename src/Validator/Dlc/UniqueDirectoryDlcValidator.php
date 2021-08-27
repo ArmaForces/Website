@@ -24,7 +24,7 @@ class UniqueDirectoryDlcValidator extends AbstractValidator
 
         $directory = $value->getDirectory();
         $id = $value->getId();
-        if (!$directory || $this->isColumnValueUnique(Dlc::class, $directory, $id, 'directory')) {
+        if (!$directory || $this->isColumnValueUnique(Dlc::class, ['directory' => $directory], $id)) {
             return;
         }
 

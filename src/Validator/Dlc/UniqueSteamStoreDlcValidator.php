@@ -36,7 +36,7 @@ class UniqueSteamStoreDlcValidator extends AbstractValidator
         }
 
         $id = $value->getId();
-        if ($this->isColumnValueUnique(Dlc::class, (string) $appId, $id, 'appId')) {
+        if ($this->isColumnValueUnique(Dlc::class, ['appId' => (string) $appId], $id)) {
             return;
         }
 
