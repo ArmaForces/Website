@@ -9,7 +9,6 @@ use App\Form\DataTransformerRegistry;
 use App\Form\ModGroup\Dto\ModGroupFormDto;
 use App\Form\ModGroup\ModGroupFormType;
 use App\Repository\ModGroup\ModGroupRepository;
-use App\Repository\ModList\ModListRepository;
 use App\Security\Enum\PermissionsEnum;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -27,18 +26,15 @@ class ModGroupController extends AbstractController
 {
     protected EntityManagerInterface $entityManager;
     protected ModGroupRepository $modGroupRepository;
-    protected ModListRepository $modListRepository;
     protected DataTransformerRegistry $dataTransformerRegistry;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         ModGroupRepository $modGroupRepository,
-        ModListRepository $modListRepository,
         DataTransformerRegistry $dataTransformerRegistry
     ) {
         $this->entityManager = $entityManager;
         $this->modGroupRepository = $modGroupRepository;
-        $this->modListRepository = $modListRepository;
         $this->dataTransformerRegistry = $dataTransformerRegistry;
     }
 

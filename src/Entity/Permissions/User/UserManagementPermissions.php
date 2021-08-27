@@ -6,21 +6,11 @@ namespace App\Entity\Permissions\User;
 
 use App\Entity\Permissions\Traits\DeletePermissionTrait;
 use App\Entity\Permissions\Traits\ListPermissionTrait;
+use App\Entity\Permissions\Traits\UpdatePermissionTrait;
 
 class UserManagementPermissions
 {
     use ListPermissionTrait;
+    use UpdatePermissionTrait;
     use DeletePermissionTrait;
-
-    protected bool $managePermissions = false;
-
-    public function canManagePermissions(): bool
-    {
-        return $this->managePermissions;
-    }
-
-    public function setManagePermissions(bool $managePermissions): void
-    {
-        $this->managePermissions = $managePermissions;
-    }
 }

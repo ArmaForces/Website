@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
  * @internal
  * @covers \App\Controller\UserController
  */
-final class PermissionsActionTest extends WebTestCase
+final class UpdateActionTest extends WebTestCase
 {
     use ServicesTrait;
     use DataProvidersTrait;
@@ -27,13 +27,13 @@ final class PermissionsActionTest extends WebTestCase
      * @test
      * @dataProvider registeredUsersDataProvider
      */
-    public function permissionsAction_anonymousUser_returnsRedirectResponse(string $userId): void
+    public function updateAction_anonymousUser_returnsRedirectResponse(string $userId): void
     {
         /** @var User $subjectUser */
         $subjectUser = $this::getEntityById(User::class, $userId);
 
         $client = $this::getClient();
-        $client->request(Request::METHOD_GET, sprintf(RouteEnum::USER_PERMISSIONS, $subjectUser->getId()));
+        $client->request(Request::METHOD_GET, sprintf(RouteEnum::USER_UPDATE, $subjectUser->getId()));
 
         $this::assertResponseRedirects(RouteEnum::SECURITY_CONNECT_DISCORD, Response::HTTP_FOUND);
     }
@@ -42,7 +42,7 @@ final class PermissionsActionTest extends WebTestCase
      * @test
      * @dataProvider registeredUsersDataProvider
      */
-    public function permissionsAction_unauthorizedUser_returnsForbiddenResponse(string $userId): void
+    public function updateAction_unauthorizedUser_returnsForbiddenResponse(string $userId): void
     {
         /** @var User $user */
         $user = $this::getEntityById(User::class, RegularUserFixture::ID);
@@ -51,7 +51,7 @@ final class PermissionsActionTest extends WebTestCase
         $subjectUser = $this::getEntityById(User::class, $userId);
 
         $client = $this::authenticateClient($user);
-        $client->request(Request::METHOD_GET, sprintf(RouteEnum::USER_PERMISSIONS, $subjectUser->getId()));
+        $client->request(Request::METHOD_GET, sprintf(RouteEnum::USER_UPDATE, $subjectUser->getId()));
 
         $this::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
@@ -60,7 +60,7 @@ final class PermissionsActionTest extends WebTestCase
      * @test
      * @dataProvider registeredUsersDataProvider
      */
-    public function permissionsAction_authorizedUser_returnsSuccessfulResponse(string $userId): void
+    public function updateAction_authorizedUser_returnsSuccessfulResponse(string $userId): void
     {
         /** @var User $user */
         $user = $this::getEntityById(User::class, AdminUserFixture::ID);
@@ -69,7 +69,7 @@ final class PermissionsActionTest extends WebTestCase
         $subjectUser = $this::getEntityById(User::class, $userId);
 
         $client = $this::authenticateClient($user);
-        $client->request(Request::METHOD_GET, sprintf(RouteEnum::USER_PERMISSIONS, $subjectUser->getId()));
+        $client->request(Request::METHOD_GET, sprintf(RouteEnum::USER_UPDATE, $subjectUser->getId()));
 
         $this::assertResponseStatusCodeSame(Response::HTTP_OK);
     }
@@ -77,13 +77,13 @@ final class PermissionsActionTest extends WebTestCase
     /**
      * @test
      */
-    public function permissionsAction_authorizedUser_returnsNotFoundResponse(): void
+    public function updateAction_authorizedUser_returnsNotFoundResponse(): void
     {
         /** @var User $user */
         $user = $this::getEntityById(User::class, AdminUserFixture::ID);
 
         $client = $this::authenticateClient($user);
-        $client->request(Request::METHOD_GET, sprintf(RouteEnum::USER_PERMISSIONS, 'non-existing-id'));
+        $client->request(Request::METHOD_GET, sprintf(RouteEnum::USER_UPDATE, 'non-existing-id'));
 
         $this::assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
     }

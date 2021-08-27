@@ -19,8 +19,8 @@ class RouteEnum
     public const MOD_LIST_PUBLIC_DOWNLOAD = '/mod-list/%s/download';
 
     public const USER_LIST = '/user/list';
+    public const USER_UPDATE = '/user/%s/update';
     public const USER_DELETE = '/user/%s/delete';
-    public const USER_PERMISSIONS = '/user/%s/permissions';
 
     public const USER_GROUP_LIST = '/user-group/list';
     public const USER_GROUP_CREATE = '/user-group/create';

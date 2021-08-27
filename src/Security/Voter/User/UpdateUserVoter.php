@@ -10,14 +10,14 @@ use App\Security\Enum\PermissionsEnum;
 use App\Security\Voter\AbstractVoter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
-class ManageUserPermissionsVoter extends AbstractVoter
+class UpdateUserVoter extends AbstractVoter
 {
     /**
      * {@inheritdoc}
      */
     protected function supports(string $attribute, $subject): bool
     {
-        return PermissionsEnum::USER_PERMISSIONS_MANAGE === $attribute && $subject instanceof UserInterface;
+        return PermissionsEnum::USER_UPDATE === $attribute && $subject instanceof UserInterface;
     }
 
     /**
@@ -31,6 +31,6 @@ class ManageUserPermissionsVoter extends AbstractVoter
             return false;
         }
 
-        return $this->userHasPermissions($currentUser, static fn (PermissionsInterface $permissions) => $permissions->getUserManagementPermissions()->canManagePermissions());
+        return $this->userHasPermissions($currentUser, static fn (PermissionsInterface $permissions) => $permissions->getUserManagementPermissions()->canUpdate());
     }
 }

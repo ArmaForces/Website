@@ -15,6 +15,7 @@
                 <th scope="col">#</th>
                 <th scope="col" class="w-100">{{ 'Username'|trans }}</th>
                 <th scope="col">{{ 'Discord ID'|trans }}</th>
+                <th scope="col">{{ 'Steam ID'|trans }}</th>
                 <th scope="col">{{ 'Created at'|trans }}</th>
                 <th scope="col">{{ 'Last updated at'|trans }}</th>
                 <th></th>
@@ -27,11 +28,18 @@
                     <th scope="row">{{ loop.index }}</th>
                     <td>{{ user.username }}</td>
                     <td>{{ user.externalId }}</td>
+                    <td>
+                        {% if user.steamId %}
+                            <a href="{{ steam_profile_id_url(user.steamId) }}">{{ user.steamId }}</a>
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
                     <td>{{ tableMacro.row_blamable(user.createdAt, user.createdBy) }}</td>
                     <td>{{ tableMacro.row_blamable(user.lastUpdatedAt, user.lastUpdatedBy) }}</td>
                     <td class="text-right">
-                        {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USER_PERMISSIONS_MANAGE'), user) %}
-                            {{ tableMacro.row_action(path('app_user_permissions', { id: user.id }), 'fas fa-user-shield', 'Manage user permissions'|trans) }}
+                        {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USER_UPDATE'), user) %}
+                            {{ tableMacro.row_action_edit(path('app_user_update', { id: user.id }), 'Edit user'|trans) }}
                         {% endif %}
 
                         {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USER_DELETE'), user) %}
