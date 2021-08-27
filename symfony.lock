@@ -1,7 +1,4 @@
 {
-    "api-platform/api-pack": {
-        "version": "v1.3.0"
-    },
     "api-platform/core": {
         "version": "2.5",
         "recipe": {
@@ -60,6 +57,9 @@
     },
     "doctrine/dbal": {
         "version": "2.12.1"
+    },
+    "doctrine/deprecations": {
+        "version": "v0.5.3"
     },
     "doctrine/doctrine-bundle": {
         "version": "2.0",
@@ -190,12 +190,6 @@
     },
     "laminas/laminas-code": {
         "version": "4.0.0"
-    },
-    "laminas/laminas-eventmanager": {
-        "version": "3.3.0"
-    },
-    "laminas/laminas-zendframework-bridge": {
-        "version": "1.1.1"
     },
     "league/csv": {
         "version": "9.6.2"
@@ -484,8 +478,8 @@
     "symfony/options-resolver": {
         "version": "v5.2.3"
     },
-    "symfony/orm-pack": {
-        "version": "v2.1.0"
+    "symfony/password-hasher": {
+        "version": "v5.3.4"
     },
     "symfony/phpunit-bridge": {
         "version": "5.1",
@@ -522,6 +516,9 @@
     },
     "symfony/polyfill-php80": {
         "version": "v1.22.1"
+    },
+    "symfony/polyfill-php81": {
+        "version": "v1.23.0"
     },
     "symfony/process": {
         "version": "v5.2.3"
@@ -575,9 +572,6 @@
     },
     "symfony/serializer": {
         "version": "v5.2.3"
-    },
-    "symfony/serializer-pack": {
-        "version": "v1.0.4"
     },
     "symfony/service-contracts": {
         "version": "v2.2.0"
