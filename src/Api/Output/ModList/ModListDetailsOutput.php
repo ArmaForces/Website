@@ -2,7 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Api\Dto;
+namespace App\Api\Output\ModList;
+
+use App\Api\Output\Dlc\DlcOutput;
+use App\Api\Output\Mod\ModOutput;
 
 class ModListDetailsOutput extends ModListOutput
 {

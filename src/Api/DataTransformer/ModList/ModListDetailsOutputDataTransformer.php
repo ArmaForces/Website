@@ -2,13 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Api\DataTransformer;
+namespace App\Api\DataTransformer\ModList;
 
 use ApiPlatform\Core\DataTransformer\DataTransformerInterface;
-use App\Api\Dto\DlcOutput;
-use App\Api\Dto\ModListDetailsOutput;
-use App\Api\Dto\ModListOutput;
-use App\Api\Dto\ModOutput;
+use App\Api\DataTransformer\Dlc\DlcOutputDataTransformer;
+use App\Api\DataTransformer\Mod\ModOutputDataTransformer;
+use App\Api\Output\Dlc\DlcOutput;
+use App\Api\Output\Mod\ModOutput;
+use App\Api\Output\ModList\ModListDetailsOutput;
+use App\Api\Output\ModList\ModListOutput;
 use App\Entity\Dlc\DlcInterface;
 use App\Entity\ModList\ModList;
 use App\Entity\ModList\ModListInterface;

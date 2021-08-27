@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Api\DataTransformer;
+namespace App\Api\DataTransformer\Mod;
 
 use ApiPlatform\Core\DataTransformer\DataTransformerInterface;
-use App\Api\Dto\ModOutput;
+use App\Api\Output\Mod\ModOutput;
 use App\Entity\Mod\DirectoryMod;
 use App\Entity\Mod\Enum\ModSourceEnum;
 use App\Entity\Mod\ModInterface;
@@ -13,13 +13,11 @@ use App\Entity\Mod\SteamWorkshopMod;
 
 class ModOutputDataTransformer implements DataTransformerInterface
 {
-    /**
-     * {@inheritdoc}
-     *
-     * @param ModInterface $mod
-     */
-    public function transform($mod, string $to, array $context = []): ModOutput
+    public function transform($object, string $to, array $context = []): ModOutput
     {
+        /** @var ModInterface $mod */
+        $mod = $object;
+
         $output = new ModOutput();
 
         $output->setId($mod->getId()->toString());

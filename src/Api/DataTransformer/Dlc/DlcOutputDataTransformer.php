@@ -2,21 +2,19 @@
 
 declare(strict_types=1);
 
-namespace App\Api\DataTransformer;
+namespace App\Api\DataTransformer\Dlc;
 
 use ApiPlatform\Core\DataTransformer\DataTransformerInterface;
-use App\Api\Dto\DlcOutput;
+use App\Api\Output\Dlc\DlcOutput;
 use App\Entity\Dlc\DlcInterface;
 
 class DlcOutputDataTransformer implements DataTransformerInterface
 {
-    /**
-     * {@inheritdoc}
-     *
-     * @param DlcInterface $dlc
-     */
-    public function transform($dlc, string $to, array $context = []): DlcOutput
+    public function transform($object, string $to, array $context = []): DlcOutput
     {
+        /** @var DlcInterface $dlc */
+        $dlc = $object;
+
         $output = new DlcOutput();
 
         $output->setId($dlc->getId()->toString());
