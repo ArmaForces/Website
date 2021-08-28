@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraint;
  */
 class UniqueAttendance extends Constraint
 {
-    public string $message = 'Attendance of player "{{ playerId }}" in mission "{{ missionId }}" already exist';
+    public string $message = 'Attendance of player "{{ playerId }}" in mission "{{ missionId }}" already exists';
     public ?string $errorPath = null;
 
     public function getTargets()
