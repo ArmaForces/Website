@@ -27,8 +27,8 @@ final class DiscordClientFactoryTest extends TestCase
         $optionsProperty->setAccessible(true);
         $optionsPropertyValue = $optionsProperty->getValue($discordClient);
 
-        $this::assertSame($token, $optionsPropertyValue['token']);
-        $this::assertSame('Bot', $optionsPropertyValue['tokenType']);
+        static::assertSame($token, $optionsPropertyValue['token']);
+        static::assertSame('Bot', $optionsPropertyValue['tokenType']);
     }
 
     /**
@@ -45,7 +45,7 @@ final class DiscordClientFactoryTest extends TestCase
         $optionsProperty->setAccessible(true);
         $optionsPropertyValue = $optionsProperty->getValue($discordClient);
 
-        $this::assertSame($token, $optionsPropertyValue['token']);
-        $this::assertSame('OAuth', $optionsPropertyValue['tokenType']);
+        static::assertSame($token, $optionsPropertyValue['token']);
+        static::assertSame('OAuth', $optionsPropertyValue['tokenType']);
     }
 }
