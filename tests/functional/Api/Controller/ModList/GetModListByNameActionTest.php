@@ -118,7 +118,7 @@ final class GetModListByNameActionTest extends ApiTestCase
         $user = $this::getEntityById(User::class, $userId);
 
         $client = $this::authenticateClient($user);
-        $client->request(Request::METHOD_GET, sprintf(RouteEnum::API_MOD_LIST_BY_NAME, 'some_name'), [
+        $client->request(Request::METHOD_GET, sprintf(RouteEnum::API_MOD_LIST_GET_BY_NAME, 'some_name'), [
             'headers' => [
                 'Accept' => 'application/json',
             ],

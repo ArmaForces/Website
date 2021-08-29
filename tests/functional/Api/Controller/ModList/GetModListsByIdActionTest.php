@@ -11,6 +11,7 @@ use App\Entity\User\User;
 use App\Test\Enum\RouteEnum;
 use App\Test\Traits\DataProvidersTrait;
 use App\Test\Traits\ServicesTrait;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -27,7 +28,7 @@ final class GetModListsByIdActionTest extends ApiTestCase
      * @test
      * @dataProvider allUserTypesDataProvider
      */
-    public function getModListByNameAction_authorizedUser_returnsSuccessfulResponse(string $userId): void
+    public function getModListByIdAction_authorizedUser_returnsSuccessfulResponse(string $userId): void
     {
         /** @var User $user */
         $user = $this::getEntityById(User::class, $userId);
@@ -105,6 +106,28 @@ final class GetModListsByIdActionTest extends ApiTestCase
                     'directory' => null,
                 ],
             ],
+        ]);
+    }
+
+    /**
+     * @test
+     * @dataProvider allUserTypesDataProvider
+     */
+    public function getModListByIdAction_nonExistingModList_returnsNotFoundResponse(string $userId): void
+    {
+        /** @var User $user */
+        $user = $this::getEntityById(User::class, $userId);
+
+        $client = $this::authenticateClient($user);
+        $client->request(Request::METHOD_GET, sprintf(RouteEnum::API_MOD_LIST_GET_BY_ID, Uuid::uuid4()->toString()), [
+            'headers' => [
+                'Accept' => 'application/json',
+            ],
+        ]);
+
+        $this::assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
+        $this::assertJsonContains([
+            'detail' => 'Not Found',
         ]);
     }
 }
