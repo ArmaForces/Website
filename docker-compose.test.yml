@@ -18,6 +18,7 @@ services:
             - './.env.test:/www/app/.env.test:ro'
             - './tests:/www/app/tests:ro'
             - './phpunit.xml.dist:/www/app/phpunit.xml.dist:ro'
+            - './.php-cs-fixer.dist.php:/www/app/.php-cs-fixer.dist.php:ro'
 
         depends_on:
             - mysql

@@ -9,7 +9,7 @@ $finder = PhpCsFixer\Finder::create()
     ->in(__DIR__)
 ;
 
-return PhpCsFixer\Config::create()
+return (new PhpCsFixer\Config())
     ->setLineEnding("\n") // Linux LF line ending
     ->setRiskyAllowed(true)
     ->setRules([
@@ -62,7 +62,7 @@ return PhpCsFixer\Config::create()
 
                 'phpunit', // PHPUnit
             ],
-            'sortAlgorithm' => 'none',
+            'sort_algorithm' => 'none',
         ],
     ])
     ->setFinder($finder)
