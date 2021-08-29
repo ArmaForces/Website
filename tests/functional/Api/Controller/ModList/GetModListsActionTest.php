@@ -32,7 +32,7 @@ final class GetModListsActionTest extends ApiTestCase
         $user = $this::getEntityById(User::class, $userId);
 
         $client = $this::authenticateClient($user);
-        $client->request(Request::METHOD_GET, RouteEnum::API_MOD_LIST, [
+        $client->request(Request::METHOD_GET, RouteEnum::API_MOD_LIST_LIST, [
             'headers' => [
                 'Accept' => 'application/json',
             ],

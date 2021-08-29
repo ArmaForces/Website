@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Api\Dto;
+namespace App\Api\Output\ModList;
 
 class ModListOutput
 {

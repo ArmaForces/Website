@@ -36,7 +36,7 @@ final class GetModListsByIdActionTest extends ApiTestCase
         $mod = $this::getEntityById(ModList::class, DefaultModListFixture::ID);
 
         $client = $this::authenticateClient($user);
-        $client->request(Request::METHOD_GET, sprintf(RouteEnum::API_MOD_LIST_BY_ID, $mod->getId()), [
+        $client->request(Request::METHOD_GET, sprintf(RouteEnum::API_MOD_LIST_GET_BY_ID, $mod->getId()), [
             'headers' => [
                 'Accept' => 'application/json',
             ],

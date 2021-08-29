@@ -2,18 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Api\Dto;
+namespace App\Api\Output\Dlc;
 
-class ModOutput
+class DlcOutput
 {
     protected ?string $id = null;
     protected ?string $name = null;
     protected ?\DateTimeInterface $createdAt = null;
     protected ?\DateTimeInterface $lastUpdatedAt = null;
-    protected ?string $source = null;
-    protected ?string $status = null;
-    protected ?string $type = null;
-    protected ?int $itemId = null;
+    protected ?int $appId = null;
     protected ?string $directory = null;
 
     public function getId(): ?string
@@ -56,44 +53,14 @@ class ModOutput
         $this->lastUpdatedAt = $lastUpdatedAt;
     }
 
-    public function getSource(): ?string
+    public function getAppId(): ?int
     {
-        return $this->source;
+        return $this->appId;
     }
 
-    public function setSource(?string $source): void
+    public function setAppId(?int $appId): void
     {
-        $this->source = $source;
-    }
-
-    public function getStatus(): ?string
-    {
-        return $this->status;
-    }
-
-    public function setStatus(?string $status): void
-    {
-        $this->status = $status;
-    }
-
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(?string $type): void
-    {
-        $this->type = $type;
-    }
-
-    public function getItemId(): ?int
-    {
-        return $this->itemId;
-    }
-
-    public function setItemId(?int $itemId): void
-    {
-        $this->itemId = $itemId;
+        $this->appId = $appId;
     }
 
     public function getDirectory(): ?string

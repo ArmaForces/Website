@@ -42,7 +42,11 @@ class RouteEnum
     public const MOD_LIST_UPDATE = '/mod-list/%s/edit';
     public const MOD_LIST_DELETE = '/mod-list/%s/delete';
 
-    public const API_MOD_LIST = '/api/mod-lists';
-    public const API_MOD_LIST_BY_ID = '/api/mod-lists/%s';
-    public const API_MOD_LIST_BY_NAME = '/api/mod-lists/by-name/%s';
+    public const API_MOD_LIST_LIST = '/api/mod-lists';
+    public const API_MOD_LIST_GET_BY_ID = '/api/mod-lists/%s';
+    public const API_MOD_LIST_GET_BY_NAME = '/api/mod-lists/by-name/%s';
+
+    public const API_ATTENDANCE_LIST = '/api/attendances';
+    public const API_ATTENDANCE_GET_BY_ID = '/api/attendances/%s';
+    public const API_ATTENDANCE_CREATE = '/api/attendances';
 }

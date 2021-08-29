@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Api\DataTransformer;
+namespace App\Api\DataTransformer\ModList;
 
 use ApiPlatform\Core\DataTransformer\DataTransformerInterface;
-use App\Api\Dto\ModListOutput;
+use App\Api\Output\ModList\ModListOutput;
 use App\Entity\ModList\ModList;
 
 class ModListOutputDataTransformer implements DataTransformerInterface

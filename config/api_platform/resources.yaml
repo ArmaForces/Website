@@ -1,15 +1,29 @@
+App\Entity\Attendance\Attendance:
+    attributes:
+        input: 'App\Api\Input\Attendance\AttendanceInput'
+        output: 'App\Api\Output\Attendance\AttendanceOutput'
+
+    itemOperations:
+        get: ~
+
+    collectionOperations:
+        get: ~
+        post:
+            input: 'App\Api\Input\Attendance\AttendanceInput'
+
+
 App\Entity\ModList\ModList:
     attributes:
-        output: 'App\Api\Dto\ModListOutput'
+        output: 'App\Api\Output\ModList\ModListOutput'
 
     itemOperations:
         get:
-            output: 'App\Api\Dto\ModListDetailsOutput'
+            output: 'App\Api\Output\ModList\ModListDetailsOutput'
         get_by_name:
             method: 'GET'
             path: '/mod-lists/by-name/{name}'
             controller: 'App\Api\Controller\GetModListByNameAction'
-            output: 'App\Api\Dto\ModListDetailsOutput'
+            output: 'App\Api\Output\ModList\ModListDetailsOutput'
             read: false
 
     collectionOperations:

@@ -2,17 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Entity\Traits;
+namespace App\Security\Traits;
 
 use App\Security\Enum\RoleEnum;
 
 trait UserInterfaceTrait
 {
-    public function getRoles(): array
-    {
-        return [RoleEnum::ROLE_USER];
-    }
-
     public function getPassword(): ?string
     {
         return null;
@@ -25,5 +20,10 @@ trait UserInterfaceTrait
 
     public function eraseCredentials(): void
     {
+    }
+
+    public function getRoles(): array
+    {
+        return [RoleEnum::ROLE_USER];
     }
 }

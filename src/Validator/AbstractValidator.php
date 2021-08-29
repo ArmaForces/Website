@@ -20,19 +20,24 @@ abstract class AbstractValidator extends ConstraintValidator
 
     public function isColumnValueUnique(
         string $className,
-        string $value,
+        array $columnToValueMappings,
         ?UuidInterface $id = null,
-        ?string $valueColumn = 'name',
         ?string $idColumn = 'id'
     ): bool {
+        $connection = $this->entityManager->getConnection();
         $qb = $this->entityManager->createQueryBuilder();
         $expr = $qb->expr();
         $qb
             ->addSelect($expr->count('e'))
             ->from($className, 'e')
-            ->andWhere($expr->eq("e.{$valueColumn}", ':value'))
-            ->setParameter('value', $value)
         ;
+
+        $andExpr = $expr->andX();
+        foreach ($columnToValueMappings as $column => $value) {
+            $andExpr->add($expr->eq("e.{$column}", $connection->quote($value)));
+        }
+
+        $qb->andWhere($andExpr);
 
         if ($id) {
             $qb

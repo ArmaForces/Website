@@ -1,3 +1,6 @@
+# Steam Profile Id Validator
+Invalid Steam profile ID: Błędne ID profilu Steam
+
 # Unique Steam Workshop Mod Validator
 Mod associated with url "{{ modUrl }}" already exist: Mod znajdujący się pod adresem "{{ modUrl }}" już istnieje
 
