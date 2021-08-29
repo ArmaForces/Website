@@ -60,6 +60,11 @@
     },
     "require-dev": {
         "dama/doctrine-test-bundle": "^6.5",
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "phpstan/phpstan": "^0.12.96",
+        "phpstan/phpstan-doctrine": "^0.12.43",
+        "phpstan/phpstan-phpunit": "^0.12.22",
+        "phpstan/phpstan-symfony": "^0.12.42",
         "roave/security-advisories": "dev-master",
         "symfony/browser-kit": "^5.2",
         "symfony/css-selector": "^5.2",

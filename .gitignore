@@ -4,9 +4,6 @@
 fos_js_routes.js
 public/img/background
 
-/.php_cs
-/.php_cs.cache
-
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
@@ -29,3 +26,8 @@ public/img/background
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
+
+###> friendsofphp/php-cs-fixer ###
+/.php-cs-fixer.php
+/.php-cs-fixer.cache
+###< friendsofphp/php-cs-fixer ###

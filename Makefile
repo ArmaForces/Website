@@ -6,8 +6,8 @@ ifeq ($(ci),true)
 endif
 
 cs:
-	docker run --rm -v $(CURDIR):/project -w /project jakzal/phpqa:1.50.1-php7.4-alpine php-cs-fixer fix ${dryrun}
-	docker run --rm -v $(CURDIR):/project -w /project jakzal/phpqa:1.50.1-php7.4-alpine phpstan analyse
+	docker-compose exec -T php php vendor/bin/php-cs-fixer fix ${dryrun}
+	docker-compose exec -T php php vendor/bin/phpstan analyse src --memory-limit 512M
 
 	docker-compose exec -T php php bin/console lint:twig templates/
 	docker-compose exec -T php php bin/console lint:yaml --parse-tags config/
