@@ -1,11 +1,12 @@
-{% extends 'container.html.twig' %}
-
-{# @var user \App\Entity\User\User #}
+{% extends 'card.html.twig' %}
 
 {% block content %}
+    {# @var userFormDto \App\Form\User\Dto\UserFormDto #}
+    {% set userFormDto = form.vars.data %}
+
     {% embed '_partial/_page_header.html.twig' %}
         {% block page_title %}
-            {{ user.username }} - {{ 'User permissions management'|trans }}
+            {{ 'Edit user'|trans }} - {{ user.username }}
         {% endblock %}
     {% endembed %}
 

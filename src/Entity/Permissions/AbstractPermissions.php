@@ -67,7 +67,7 @@ abstract class AbstractPermissions extends AbstractBlamableEntity implements Per
     public function grantAll(): void
     {
         $this->getUserManagementPermissions()->setList(true);
-        $this->getUserManagementPermissions()->setManagePermissions(true);
+        $this->getUserManagementPermissions()->setUpdate(true);
         $this->getUserManagementPermissions()->setDelete(true);
 
         $this->getUserGroupManagementPermissions()->setList(true);

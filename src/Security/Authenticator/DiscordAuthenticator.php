@@ -2,17 +2,18 @@
 
 declare(strict_types=1);
 
-namespace App\Security;
+namespace App\Security\Authenticator;
 
 use App\Entity\Permissions\UserPermissions;
 use App\Entity\User\User;
 use App\Entity\User\UserInterface;
+use App\Security\Enum\ConnectionsEnum;
 use App\Security\Exception\MultipleRolesFound;
 use App\Security\Exception\RequiredRolesNotAssignedException;
 use App\Security\Exception\RoleNotFoundException;
 use App\Security\Exception\UserNotADiscordMemberException;
 use App\Service\RestCord\DiscordClientFactory;
-use App\Service\RestCord\Enum\TokenTypeEnum;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Command\Exception\CommandException;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
@@ -21,6 +22,7 @@ use KnpU\OAuth2ClientBundle\Security\Authenticator\SocialAuthenticator;
 use League\OAuth2\Client\Token\AccessToken;
 use Ramsey\Uuid\Uuid;
 use RestCord\Model\Permissions\Role;
+use RestCord\Model\User\Connection;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
@@ -73,6 +75,16 @@ class DiscordAuthenticator extends SocialAuthenticator
     /**
      * {@inheritdoc}
      */
+    public function start(Request $request, AuthenticationException $authException = null): RedirectResponse
+    {
+        $targetUrl = $this->router->generate(self::LOGIN_PAGE_ROUTE_NAME);
+
+        return new RedirectResponse($targetUrl);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function supports(Request $request): bool
     {
         return self::SUPPORTED_ROUTE_NAME === $request->attributes->get('_route');
@@ -100,10 +112,8 @@ class DiscordAuthenticator extends SocialAuthenticator
         $email = $discordResourceOwner->getEmail();
         $externalId = $discordResourceOwner->getId();
 
-        $discordClientAsBot = $this->discordClientFactory->createFromToken(
-            $this->botToken,
-            TokenTypeEnum::get(TokenTypeEnum::TOKEN_TYPE_BOT)
-        );
+        $discordClientAsBot = $this->discordClientFactory->createBotClient($this->botToken);
+        $discordClientAsUser = $this->discordClientFactory->createUserClient($credentials->getToken());
 
         $server = $discordClientAsBot->guild->getGuild(['guild.id' => $this->discordServerId]);
 
@@ -133,28 +143,29 @@ class DiscordAuthenticator extends SocialAuthenticator
             );
         }
 
+        $userConnections = $discordClientAsUser->user->getUserConnections([]);
+        $steamConnection = (new ArrayCollection($userConnections))
+            ->filter(static fn (Connection $connection) => ConnectionsEnum::STEAM === $connection->type)
+            ->first()
+        ;
+
+        $steamId = $steamConnection ? (int) $steamConnection->id : null;
+
         try {
             /** @var User $user */
             $user = $userProvider->loadUserByUsername($externalId);
             $user->setUsername($fullUsername);
             $user->setEmail($email);
-            $user->setAvatarHash($discordResourceOwner->getAvatarHash());
         } catch (UsernameNotFoundException $ex) {
             $permissions = new UserPermissions(Uuid::uuid4());
             $user = new User(Uuid::uuid4(), $fullUsername, $email, $externalId, $permissions);
-            $user->setAvatarHash($discordResourceOwner->getAvatarHash());
 
-            /**
-             * FIXME:
-             *      Manually persist permissions association because cascade persists
-             *      stopped working after adding blamable User association.
-             *
-             * @see User::setCreatedBy()
-             * @see User::setLastUpdatedBy()
-             */
             $this->em->persist($permissions);
             $this->em->persist($user);
         }
+
+        $user->setAvatarHash($discordResourceOwner->getAvatarHash());
+        $user->setSteamId($steamId);
 
         $this->em->flush();
 
@@ -181,32 +192,16 @@ class DiscordAuthenticator extends SocialAuthenticator
         return new RedirectResponse($targetUrl);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function start(Request $request, AuthenticationException $authException = null): RedirectResponse
-    {
-        $targetUrl = $this->router->generate(self::LOGIN_PAGE_ROUTE_NAME);
-
-        return new RedirectResponse($targetUrl);
-    }
-
     protected function getRoleByName(array $roles, string $roleName): Role
     {
-        $rolesFound = [];
+        $rolesFound = (new ArrayCollection($roles))->filter(static fn (Role $role) => $role->name === $roleName);
 
-        foreach ($roles as $role) {
-            if ($role->name === $roleName) {
-                $rolesFound[] = $role;
-            }
-        }
-
-        switch (\count($rolesFound)) {
+        switch ($rolesFound->count()) {
             case 0:
                 throw new RoleNotFoundException(sprintf('Role "%s" was not found!', $roleName));
 
             case 1:
-                return $rolesFound[0];
+                return $rolesFound->first();
 
             default:
                 throw new MultipleRolesFound(sprintf('Multiple roles found by given name "%s"!', $roleName));

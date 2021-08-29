@@ -12,6 +12,11 @@ class SteamHelper
     public const ITEM_URL_REGEX = '~^https:\/\/steamcommunity\.com\/(?:sharedfiles|workshop)\/filedetails\/\?id=(\d+)$~';
     public const APP_URL_REGEX = '~^https:\/\/store\.steampowered\.com\/app/(\d+)~';
 
+    public static function profileIdToProfileUrl(int $profileId): string
+    {
+        return "https://steamcommunity.com/profiles/{$profileId}";
+    }
+
     public static function isValidItemUrl(string $itemUrl): bool
     {
         return 1 === preg_match(self::ITEM_URL_REGEX, $itemUrl);

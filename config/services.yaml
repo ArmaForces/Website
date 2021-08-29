@@ -49,7 +49,7 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-    App\Security\DiscordAuthenticator:
+    App\Security\Authenticator\DiscordAuthenticator:
         arguments:
             $discordServerId: '%app.security.oauth.discord.server_id%'
             $botToken: '%app.security.oauth.discord.bot_token%'

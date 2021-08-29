@@ -13,9 +13,15 @@ class SteamExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
+            new TwigFunction('steam_profile_id_url', [$this, 'getSteamProfileUrl']),
             new TwigFunction('steam_workshop_item_url', [$this, 'getSteamWorkshopItemUrl']),
             new TwigFunction('steam_store_app_url', [$this, 'getSteamStoreAppUrl']),
         ];
+    }
+
+    public function getSteamProfileUrl(int $profileId): string
+    {
+        return SteamHelper::profileIdToProfileUrl($profileId);
     }
 
     public function getSteamWorkshopItemUrl(int $itemId): string

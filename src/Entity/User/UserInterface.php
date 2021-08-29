@@ -41,4 +41,8 @@ interface UserInterface extends BlamableEntityInterface, SymfonyUserInterface
     public function getAvatarHash(): ?string;
 
     public function setAvatarHash(?string $avatarHash): void;
+
+    public function getSteamId(): ?int;
+
+    public function setSteamId(?int $steamId): void;
 }

@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\User\User;
-use App\Form\Permissions\PermissionsType;
+use App\Form\DataTransformerRegistry;
+use App\Form\User\Dto\UserFormDto;
+use App\Form\User\UserFormType;
 use App\Repository\User\UserRepository;
 use App\Security\Enum\PermissionsEnum;
 use Doctrine\ORM\EntityManagerInterface;
@@ -24,11 +26,16 @@ class UserController extends AbstractController
 {
     protected EntityManagerInterface $entityManager;
     protected UserRepository $userRepository;
+    protected DataTransformerRegistry $dataTransformerRegistry;
 
-    public function __construct(EntityManagerInterface $entityManager, UserRepository $userRepository)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        UserRepository $userRepository,
+        DataTransformerRegistry $dataTransformerRegistry
+    ) {
         $this->entityManager = $entityManager;
         $this->userRepository = $userRepository;
+        $this->dataTransformerRegistry = $dataTransformerRegistry;
     }
 
     /**
@@ -46,6 +53,33 @@ class UserController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/update", name="_update")
+     *
+     * @IsGranted(PermissionsEnum::USER_UPDATE, subject="user")
+     */
+    public function updateAction(Request $request, User $user): Response
+    {
+        $userFormDto = $this->dataTransformerRegistry->transformFromEntity(new UserFormDto(), $user);
+        $form = $this->createForm(UserFormType::class, $userFormDto, [
+            'target' => $user,
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->dataTransformerRegistry->transformToEntity($userFormDto, $user);
+
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('app_user_list');
+        }
+
+        return $this->render('user/form.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
      * @Route("/{id}/delete", name="_delete")
      *
      * @IsGranted(PermissionsEnum::USER_DELETE, subject="user")
@@ -56,33 +90,5 @@ class UserController extends AbstractController
         $this->entityManager->flush();
 
         return $this->redirectToRoute('app_user_list');
-    }
-
-    /**
-     * @Route("/{id}/permissions", name="_permissions")
-     *
-     * @IsGranted(PermissionsEnum::USER_PERMISSIONS_MANAGE, subject="user")
-     */
-    public function permissionsAction(Request $request, User $user): Response
-    {
-        $permissions = $user->getPermissions();
-        $form = $this->createForm(PermissionsType::class, $permissions, [
-            'target' => $user,
-        ]);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Manually mark User entity as changed
-            $this->entityManager->getUnitOfWork()->scheduleForUpdate($user);
-
-            $this->entityManager->flush();
-
-            return $this->redirectToRoute('app_user_list');
-        }
-
-        return $this->render('user/permissions.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
-        ]);
     }
 }

@@ -22,6 +22,7 @@ class User extends AbstractBlamableEntity implements UserInterface
     protected UserPermissions $permissions;
     protected Collection $userGroups;
     protected ?string $avatarHash = null;
+    protected ?int $steamId = null;
 
     public function __construct(
         UuidInterface $id,
@@ -119,5 +120,15 @@ class User extends AbstractBlamableEntity implements UserInterface
     public function setAvatarHash(?string $avatarHash): void
     {
         $this->avatarHash = $avatarHash;
+    }
+
+    public function getSteamId(): ?int
+    {
+        return $this->steamId;
+    }
+
+    public function setSteamId(?int $steamId): void
+    {
+        $this->steamId = $steamId;
     }
 }
