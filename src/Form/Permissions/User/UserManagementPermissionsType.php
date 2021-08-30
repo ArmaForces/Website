@@ -33,14 +33,14 @@ class UserManagementPermissionsType extends AbstractType
         $target = $options['target'];
 
         $builder
-            ->add('managePermissions', CheckboxType::class, [
-                'label' => 'Can manage users permissions',
+            ->add('list', CheckboxType::class, [
+                'label' => 'Can list users',
                 'label_attr' => ['class' => 'switch-custom'],
                 // User cannot change his own base permissions
                 'disabled' => $currentUser === $target,
             ])
-            ->add('list', CheckboxType::class, [
-                'label' => 'Can list users',
+            ->add('update', CheckboxType::class, [
+                'label' => 'Can edit users',
                 'label_attr' => ['class' => 'switch-custom'],
                 // User cannot change his own base permissions
                 'disabled' => $currentUser === $target,

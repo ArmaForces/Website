@@ -24,7 +24,7 @@ class UniqueUserGroupNameValidator extends AbstractValidator
 
         $name = $value->getName();
         $id = $value->getId();
-        if (!$name || $this->isColumnValueUnique(UserGroup::class, $name, $id)) {
+        if (!$name || $this->isColumnValueUnique(UserGroup::class, ['name' => $name], $id)) {
             return;
         }
 

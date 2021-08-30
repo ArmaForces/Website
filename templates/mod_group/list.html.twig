@@ -30,8 +30,8 @@
                 <tr>
                     <th scope="row">{{ loop.index }}</th>
                     <td>{{ tableMacro.row_name_with_description(modGroup.name, modGroup.description) }}</td>
-                    <td>{{ tableMacro.row_blameable(modGroup.createdAt, modGroup.createdBy) }}</td>
-                    <td>{{ tableMacro.row_blameable(modGroup.lastUpdatedAt, modGroup.lastUpdatedBy) }}</td>
+                    <td>{{ tableMacro.row_blamable(modGroup.createdAt, modGroup.createdBy) }}</td>
+                    <td>{{ tableMacro.row_blamable(modGroup.lastUpdatedAt, modGroup.lastUpdatedBy) }}</td>
                     <td class="text-right">
                         {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_GROUP_UPDATE'), modGroup) %}
                             {{ tableMacro.row_action_edit(path('app_mod_group_update', { name: modGroup.name }), 'Edit mod group'|trans) }}

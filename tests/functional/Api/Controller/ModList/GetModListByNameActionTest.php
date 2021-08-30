@@ -36,7 +36,7 @@ final class GetModListByNameActionTest extends ApiTestCase
         $modList = $this::getEntityById(ModList::class, DefaultModListFixture::ID);
 
         $client = $this::authenticateClient($user);
-        $client->request(Request::METHOD_GET, sprintf(RouteEnum::API_MOD_LIST_BY_NAME, $modList->getName()), [
+        $client->request(Request::METHOD_GET, sprintf(RouteEnum::API_MOD_LIST_GET_BY_NAME, $modList->getName()), [
             'headers' => [
                 'Accept' => 'application/json',
             ],
@@ -105,6 +105,28 @@ final class GetModListByNameActionTest extends ApiTestCase
                     'directory' => null,
                 ],
             ],
+        ]);
+    }
+
+    /**
+     * @test
+     * @dataProvider allUserTypesDataProvider
+     */
+    public function getModListByNameAction_nonExistingModList_returnsNotFoundResponse(string $userId): void
+    {
+        /** @var User $user */
+        $user = $this::getEntityById(User::class, $userId);
+
+        $client = $this::authenticateClient($user);
+        $client->request(Request::METHOD_GET, sprintf(RouteEnum::API_MOD_LIST_GET_BY_NAME, 'some_name'), [
+            'headers' => [
+                'Accept' => 'application/json',
+            ],
+        ]);
+
+        $this::assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
+        $this::assertJsonContains([
+            'detail' => 'Not Found',
         ]);
     }
 }

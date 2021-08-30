@@ -14,7 +14,7 @@ final class Version20200620141223 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return 'Add blameable behavior';
+        return 'Add blamable behavior';
     }
 
     public function up(Schema $schema): void

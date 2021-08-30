@@ -29,7 +29,7 @@
     }) }}
 {% endmacro %}
 
-{% macro row_blameable(date, user) %}
+{% macro row_blamable(date, user) %}
     {{ _self.format_date(date) }}
     {% if user %}
         {{ _self.icon('fas fa-user', user.username) }}

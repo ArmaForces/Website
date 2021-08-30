@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Permissions;
 
-use App\Entity\AbstractEntity;
+use App\Entity\AbstractBlamableEntity;
 use App\Entity\Permissions\Dlc\DlcManagementPermissions;
 use App\Entity\Permissions\Mod\ModManagementPermissions;
 use App\Entity\Permissions\ModGroup\ModGroupManagementPermissions;
@@ -13,7 +13,7 @@ use App\Entity\Permissions\User\UserManagementPermissions;
 use App\Entity\Permissions\UserGroup\UserGroupManagementPermissions;
 use Ramsey\Uuid\UuidInterface;
 
-abstract class AbstractPermissions extends AbstractEntity implements PermissionsInterface
+abstract class AbstractPermissions extends AbstractBlamableEntity implements PermissionsInterface
 {
     protected UserManagementPermissions $userManagementPermissions;
     protected UserGroupManagementPermissions $userGroupManagementPermissions;
@@ -67,7 +67,7 @@ abstract class AbstractPermissions extends AbstractEntity implements Permissions
     public function grantAll(): void
     {
         $this->getUserManagementPermissions()->setList(true);
-        $this->getUserManagementPermissions()->setManagePermissions(true);
+        $this->getUserManagementPermissions()->setUpdate(true);
         $this->getUserManagementPermissions()->setDelete(true);
 
         $this->getUserGroupManagementPermissions()->setList(true);

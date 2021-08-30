@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Service\RestCord;
 
 use App\Service\RestCord\DiscordClientFactory;
-use App\Service\RestCord\Enum\TokenTypeEnum;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -16,28 +15,37 @@ final class DiscordClientFactoryTest extends TestCase
 {
     /**
      * @test
-     * @dataProvider tokenTypes
      */
-    public function createDiscordClient_validTokenType_returnsValidClient(TokenTypeEnum $tokenType): void
+    public function createBotClient_validTokenType_returnsValidClient(): void
     {
         $token = 'some_token';
         $discordClientFactory = new DiscordClientFactory();
-        $discordClient = $discordClientFactory->createFromToken($token, $tokenType);
+        $discordClient = $discordClientFactory->createBotClient($token);
 
         $reflection = new \ReflectionClass($discordClient);
         $optionsProperty = $reflection->getProperty('options');
         $optionsProperty->setAccessible(true);
         $optionsPropertyValue = $optionsProperty->getValue($discordClient);
 
-        $this::assertSame($token, $optionsPropertyValue['token']);
-        $this::assertSame($tokenType->getValue(), $optionsPropertyValue['tokenType']);
+        static::assertSame($token, $optionsPropertyValue['token']);
+        static::assertSame('Bot', $optionsPropertyValue['tokenType']);
     }
 
-    public function tokenTypes(): array
+    /**
+     * @test
+     */
+    public function createUserClient_validTokenType_returnsValidClient(): void
     {
-        return [
-            TokenTypeEnum::TOKEN_TYPE_OAUTH => [TokenTypeEnum::get(TokenTypeEnum::TOKEN_TYPE_OAUTH)],
-            TokenTypeEnum::TOKEN_TYPE_BOT => [TokenTypeEnum::get(TokenTypeEnum::TOKEN_TYPE_BOT)],
-        ];
+        $token = 'some_token';
+        $discordClientFactory = new DiscordClientFactory();
+        $discordClient = $discordClientFactory->createUserClient($token);
+
+        $reflection = new \ReflectionClass($discordClient);
+        $optionsProperty = $reflection->getProperty('options');
+        $optionsProperty->setAccessible(true);
+        $optionsPropertyValue = $optionsProperty->getValue($discordClient);
+
+        static::assertSame($token, $optionsPropertyValue['token']);
+        static::assertSame('OAuth', $optionsPropertyValue['tokenType']);
     }
 }

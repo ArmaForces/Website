@@ -4,20 +4,26 @@ declare(strict_types=1);
 
 namespace App\Entity\ModGroup;
 
-use App\Entity\AbstractDescribedEntity;
+use App\Entity\AbstractBlamableEntity;
 use App\Entity\Mod\ModInterface;
+use App\Entity\Traits\DescribedTrait;
+use App\Entity\Traits\NamedTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\UuidInterface;
 
-class ModGroup extends AbstractDescribedEntity implements ModGroupInterface
+class ModGroup extends AbstractBlamableEntity implements ModGroupInterface
 {
+    use NamedTrait;
+    use DescribedTrait;
+
     protected Collection $mods;
 
     public function __construct(UuidInterface $id, string $name)
     {
-        parent::__construct($id, $name);
+        parent::__construct($id);
 
+        $this->name = $name;
         $this->mods = new ArrayCollection();
     }
 

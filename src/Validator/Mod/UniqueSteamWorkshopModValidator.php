@@ -36,7 +36,7 @@ class UniqueSteamWorkshopModValidator extends AbstractValidator
         }
 
         $id = $value->getId();
-        if ($this->isColumnValueUnique(SteamWorkshopMod::class, (string) $itemId, $id, 'itemId')) {
+        if ($this->isColumnValueUnique(SteamWorkshopMod::class, ['itemId' => (string) $itemId], $id)) {
             return;
         }
 

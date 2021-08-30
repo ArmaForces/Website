@@ -97,7 +97,7 @@ class PermissionsMakeAdminCommand extends Command
         } else {
             $userPermissions = $permissions->getUserManagementPermissions();
             $userPermissions->setList(true);
-            $userPermissions->setManagePermissions(true);
+            $userPermissions->setUpdate(true);
         }
 
         $this->entityManager->flush();

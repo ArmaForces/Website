@@ -6,8 +6,8 @@ namespace App\Security\Enum;
 
 class PermissionsEnum
 {
-    public const USER_PERMISSIONS_MANAGE = 'user_permissions_manage';
     public const USER_LIST = 'user_list';
+    public const USER_UPDATE = 'user_update';
     public const USER_DELETE = 'user_delete';
 
     public const USER_GROUP_LIST = 'user_group_list';

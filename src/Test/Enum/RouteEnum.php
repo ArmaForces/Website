@@ -19,8 +19,8 @@ class RouteEnum
     public const MOD_LIST_PUBLIC_DOWNLOAD = '/mod-list/%s/download';
 
     public const USER_LIST = '/user/list';
+    public const USER_UPDATE = '/user/%s/update';
     public const USER_DELETE = '/user/%s/delete';
-    public const USER_PERMISSIONS = '/user/%s/permissions';
 
     public const USER_GROUP_LIST = '/user-group/list';
     public const USER_GROUP_CREATE = '/user-group/create';
@@ -42,7 +42,11 @@ class RouteEnum
     public const MOD_LIST_UPDATE = '/mod-list/%s/edit';
     public const MOD_LIST_DELETE = '/mod-list/%s/delete';
 
-    public const API_MOD_LIST = '/api/mod-lists';
-    public const API_MOD_LIST_BY_ID = '/api/mod-lists/%s';
-    public const API_MOD_LIST_BY_NAME = '/api/mod-lists/by-name/%s';
+    public const API_MOD_LIST_LIST = '/api/mod-lists';
+    public const API_MOD_LIST_GET_BY_ID = '/api/mod-lists/%s';
+    public const API_MOD_LIST_GET_BY_NAME = '/api/mod-lists/by-name/%s';
+
+    public const API_ATTENDANCE_LIST = '/api/attendances';
+    public const API_ATTENDANCE_GET_BY_ID = '/api/attendances/%s';
+    public const API_ATTENDANCE_CREATE = '/api/attendances';
 }

@@ -57,11 +57,14 @@ Wiki: Wiki
 Calendar: Kalendarz
 
 # Users
+Edit user: Edytuj użytkownika
+Delete user: Usuń użytkownika
+
 Username: Nazwa użytkownika
 Discord ID: Discord ID
+Steam ID: Steam ID
 
-Manage user permissions: Uprawnienia
-Delete user: Usuń użytkownika
+User permissions: Uprawnienia użytkownika
 
 # User Groups
 Create user group: Utwórz grupę użytkowników
@@ -73,10 +76,8 @@ User group description: Opis
 User group permissions: Uprawnienia grupy użytkowników
 
 # Permissions
-User permissions management: Zarządzanie uprawnieniami użytkownika
-
-Can manage users permissions: Może zarządzać uprawnieniami użytkowników
 Can list users: Może przeglądać listę użytkowników
+Can edit users: Może edytować użytkowników
 Can delete users: Może usuwać użytkowników
 
 Can list user groups: Może przeglądać grupy użytkowników

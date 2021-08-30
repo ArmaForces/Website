@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Entity\User;
 
-use App\Entity\AbstractEntity;
+use App\Entity\AbstractBlamableEntity;
 use App\Entity\Permissions\UserPermissions;
-use App\Entity\User\Traits\UserInterfaceTrait;
 use App\Entity\UserGroup\UserGroupInterface;
+use App\Security\Traits\UserInterfaceTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\UuidInterface;
 
-class User extends AbstractEntity implements UserInterface
+class User extends AbstractBlamableEntity implements UserInterface
 {
     use UserInterfaceTrait;
 
@@ -22,6 +22,7 @@ class User extends AbstractEntity implements UserInterface
     protected UserPermissions $permissions;
     protected Collection $userGroups;
     protected ?string $avatarHash = null;
+    protected ?int $steamId = null;
 
     public function __construct(
         UuidInterface $id,
@@ -119,5 +120,15 @@ class User extends AbstractEntity implements UserInterface
     public function setAvatarHash(?string $avatarHash): void
     {
         $this->avatarHash = $avatarHash;
+    }
+
+    public function getSteamId(): ?int
+    {
+        return $this->steamId;
+    }
+
+    public function setSteamId(?int $steamId): void
+    {
+        $this->steamId = $steamId;
     }
 }
