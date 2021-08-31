@@ -4,6 +4,10 @@ api_platform:
     show_webby: false
     swagger:
         versions: [3]
+        api_keys:
+            apiKey:
+                name: '%env(APP_SECURITY_API_KEY_HEADER_NAME)%'
+                type: header
 
     path_segment_name_generator: api_platform.path_segment_name_generator.dash
     mapping:
@@ -13,4 +17,3 @@ api_platform:
     formats:
         json: ['application/json']
         html: ['text/html']
-
