@@ -8,10 +8,10 @@ use App\Entity\Permissions\PermissionsInterface;
 use App\Entity\User\UserInterface;
 use App\Entity\UserGroup\UserGroupInterface;
 use App\Security\Enum\PermissionsEnum;
-use App\Security\Voter\AbstractVoter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class DeleteUserGroupVoter extends AbstractVoter
+class DeleteUserGroupVoter extends Voter
 {
     /**
      * {@inheritdoc}
@@ -32,6 +32,6 @@ class DeleteUserGroupVoter extends AbstractVoter
             return false;
         }
 
-        return $this->userHasPermissions($currentUser, static fn (PermissionsInterface $permissions) => $permissions->getUserGroupManagementPermissions()->canDelete());
+        return $currentUser->hasPermissions(static fn (PermissionsInterface $permissions) => $permissions->getUserGroupManagementPermissions()->canDelete());
     }
 }

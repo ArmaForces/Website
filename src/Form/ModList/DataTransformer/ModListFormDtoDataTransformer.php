@@ -13,7 +13,6 @@ use App\Entity\User\UserInterface;
 use App\Form\FormDtoInterface;
 use App\Form\ModList\Dto\ModListFormDto;
 use App\Form\RegisteredDataTransformerInterface;
-use App\Security\Voter\AbstractVoter;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Security\Core\Security;
 
@@ -41,8 +40,7 @@ class ModListFormDtoDataTransformer implements RegisteredDataTransformerInterfac
         /** @var UserInterface $currentUser */
         $currentUser = $this->security->getUser();
 
-        $canUpdate = AbstractVoter::userHasPermissions(
-            $currentUser,
+        $canUpdate = $currentUser->hasPermissions(
             static fn (PermissionsInterface $permissions) => $permissions->getModListManagementPermissions()->canUpdate()
         );
 

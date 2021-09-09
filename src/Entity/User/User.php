@@ -131,4 +131,12 @@ class User extends AbstractBlamableEntity implements UserInterface
     {
         $this->steamId = $steamId;
     }
+
+    public function hasPermissions(callable $permissionsCheck): bool
+    {
+        return $permissionsCheck($this->getPermissions())
+            || (new ArrayCollection($this->getUserGroups()))->exists(
+                static fn (int $index, UserGroupInterface $userGroup) => $permissionsCheck($userGroup->getPermissions())
+            );
+    }
 }

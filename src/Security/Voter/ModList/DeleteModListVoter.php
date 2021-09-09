@@ -9,10 +9,10 @@ use App\Entity\ModList\ModListInterface;
 use App\Entity\Permissions\PermissionsInterface;
 use App\Entity\User\UserInterface;
 use App\Security\Enum\PermissionsEnum;
-use App\Security\Voter\AbstractVoter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class DeleteModListVoter extends AbstractVoter
+class DeleteModListVoter extends Voter
 {
     /**
      * {@inheritdoc}
@@ -37,7 +37,7 @@ class DeleteModListVoter extends AbstractVoter
         $modList = $subject;
 
         return $modList->getOwner() === $currentUser
-            || $this->userHasPermissions($currentUser, static fn (PermissionsInterface $permissions) => $permissions->getModListManagementPermissions()->canDelete())
+            || $currentUser->hasPermissions(static fn (PermissionsInterface $permissions) => $permissions->getModListManagementPermissions()->canDelete())
         ;
     }
 }
