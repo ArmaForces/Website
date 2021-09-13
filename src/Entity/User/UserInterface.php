@@ -45,4 +45,6 @@ interface UserInterface extends BlamableEntityInterface, SymfonyUserInterface
     public function getSteamId(): ?int;
 
     public function setSteamId(?int $steamId): void;
+
+    public function hasPermissions(callable $permissionsCheck): bool;
 }

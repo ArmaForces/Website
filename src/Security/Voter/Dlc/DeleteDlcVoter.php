@@ -8,10 +8,10 @@ use App\Entity\Dlc\DlcInterface;
 use App\Entity\Permissions\PermissionsInterface;
 use App\Entity\User\UserInterface;
 use App\Security\Enum\PermissionsEnum;
-use App\Security\Voter\AbstractVoter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class DeleteDlcVoter extends AbstractVoter
+class DeleteDlcVoter extends Voter
 {
     /**
      * {@inheritdoc}
@@ -32,6 +32,6 @@ class DeleteDlcVoter extends AbstractVoter
             return false;
         }
 
-        return $this->userHasPermissions($currentUser, static fn (PermissionsInterface $permissions) => $permissions->getDlcManagementPermissions()->canDelete());
+        return $currentUser->hasPermissions(static fn (PermissionsInterface $permissions) => $permissions->getDlcManagementPermissions()->canDelete());
     }
 }

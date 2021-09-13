@@ -11,7 +11,6 @@ use App\Entity\Permissions\PermissionsInterface;
 use App\Entity\User\User;
 use App\Entity\User\UserInterface;
 use App\Form\ModList\Dto\ModListFormDto;
-use App\Security\Voter\AbstractVoter;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -114,8 +113,7 @@ class ModListFormType extends AbstractType
         /** @var UserInterface $currentUser */
         $currentUser = $this->security->getUser();
 
-        $canUpdate = AbstractVoter::userHasPermissions(
-            $currentUser,
+        $canUpdate = $currentUser->hasPermissions(
             static fn (PermissionsInterface $permissions) => $permissions->getModListManagementPermissions()->canUpdate()
         );
 
@@ -154,8 +152,7 @@ class ModListFormType extends AbstractType
         /** @var UserInterface $currentUser */
         $currentUser = $this->security->getUser();
 
-        $canApprove = AbstractVoter::userHasPermissions(
-            $currentUser,
+        $canApprove = $currentUser->hasPermissions(
             static fn (PermissionsInterface $permissions) => $permissions->getModListManagementPermissions()->canApprove()
         );
 

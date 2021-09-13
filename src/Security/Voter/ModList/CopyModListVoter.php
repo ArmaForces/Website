@@ -8,10 +8,10 @@ use App\Entity\ModList\ModListInterface;
 use App\Entity\Permissions\PermissionsInterface;
 use App\Entity\User\UserInterface;
 use App\Security\Enum\PermissionsEnum;
-use App\Security\Voter\AbstractVoter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class CopyModListVoter extends AbstractVoter
+class CopyModListVoter extends Voter
 {
     /**
      * {@inheritdoc}
@@ -32,6 +32,6 @@ class CopyModListVoter extends AbstractVoter
             return false;
         }
 
-        return $this->userHasPermissions($currentUser, static fn (PermissionsInterface $permissions) => $permissions->getModListManagementPermissions()->canCopy());
+        return $currentUser->hasPermissions(static fn (PermissionsInterface $permissions) => $permissions->getModListManagementPermissions()->canCopy());
     }
 }

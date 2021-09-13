@@ -7,10 +7,10 @@ namespace App\Security\Voter\ModGroup;
 use App\Entity\Permissions\PermissionsInterface;
 use App\Entity\User\UserInterface;
 use App\Security\Enum\PermissionsEnum;
-use App\Security\Voter\AbstractVoter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class CreateModGroupVoter extends AbstractVoter
+class CreateModGroupVoter extends Voter
 {
     /**
      * {@inheritdoc}
@@ -31,6 +31,6 @@ class CreateModGroupVoter extends AbstractVoter
             return false;
         }
 
-        return $this->userHasPermissions($currentUser, static fn (PermissionsInterface $permissions) => $permissions->getModGroupManagementPermissions()->canCreate());
+        return $currentUser->hasPermissions(static fn (PermissionsInterface $permissions) => $permissions->getModGroupManagementPermissions()->canCreate());
     }
 }

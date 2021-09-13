@@ -9,10 +9,10 @@ use App\Entity\ModList\ModListInterface;
 use App\Entity\Permissions\PermissionsInterface;
 use App\Entity\User\UserInterface;
 use App\Security\Enum\PermissionsEnum;
-use App\Security\Voter\AbstractVoter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class UpdateModListVoter extends AbstractVoter
+class UpdateModListVoter extends Voter
 {
     /**
      * {@inheritdoc}
@@ -37,7 +37,7 @@ class UpdateModListVoter extends AbstractVoter
         $modList = $subject;
 
         return $modList->getOwner() === $currentUser
-            || $this->userHasPermissions($currentUser, static fn (PermissionsInterface $permissions) => $permissions->getModListManagementPermissions()->canUpdate())
+            || $currentUser->hasPermissions(static fn (PermissionsInterface $permissions) => $permissions->getModListManagementPermissions()->canUpdate())
         ;
     }
 }
