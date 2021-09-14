@@ -168,6 +168,10 @@ html, body {
     cursor: pointer;
 }
 
+[data-row-action-url], [data-row-action-checkbox] {
+    cursor: pointer;
+}
+
 td span[title] {
     text-decoration-line: underline;
     text-decoration-style: dotted;

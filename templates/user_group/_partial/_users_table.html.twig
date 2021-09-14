@@ -19,7 +19,7 @@
         {% for child in form.children %}
             {% set user = form.vars.choices[loop.index0].data %}
 
-            <tr>
+            <tr data-row-action-checkbox>
                 <th scope="row">{{ loop.index }}</th>
                 <td>{{ user.username }}</td>
                 <td>{{ user.externalId }}</td>
