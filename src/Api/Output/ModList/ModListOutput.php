@@ -8,6 +8,8 @@ class ModListOutput
 {
     protected ?string $id = null;
     protected ?string $name = null;
+    protected bool $active;
+    protected bool $approved;
     protected ?\DateTimeInterface $createdAt = null;
     protected ?\DateTimeInterface $lastUpdatedAt = null;
 
@@ -29,6 +31,26 @@ class ModListOutput
     public function setName(?string $name): void
     {
         $this->name = $name;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): void
+    {
+        $this->active = $active;
+    }
+
+    public function isApproved(): bool
+    {
+        return $this->approved;
+    }
+
+    public function setApproved(bool $approved): void
+    {
+        $this->approved = $approved;
     }
 
     public function getCreatedAt(): ?\DateTimeInterface
