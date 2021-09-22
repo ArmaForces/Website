@@ -8,10 +8,10 @@ use App\Entity\Permissions\PermissionsInterface;
 use App\Entity\User\UserInterface;
 use App\Entity\UserGroup\UserGroupInterface;
 use App\Security\Enum\PermissionsEnum;
-use App\Security\Voter\AbstractVoter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class UpdateUserGroupVoter extends AbstractVoter
+class UpdateUserGroupVoter extends Voter
 {
     /**
      * {@inheritdoc}
@@ -32,6 +32,6 @@ class UpdateUserGroupVoter extends AbstractVoter
             return false;
         }
 
-        return $this->userHasPermissions($currentUser, static fn (PermissionsInterface $permissions) => $permissions->getUserGroupManagementPermissions()->canUpdate());
+        return $currentUser->hasPermissions(static fn (PermissionsInterface $permissions) => $permissions->getUserGroupManagementPermissions()->canUpdate());
     }
 }

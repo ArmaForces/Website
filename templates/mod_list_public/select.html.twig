@@ -23,7 +23,7 @@
         {% block table_body %}
             {# @var modList \App\Entity\ModList\ModList #}
             {% for modList in modLists %}
-                <tr>
+                <tr data-row-action-url="{{ path('app_mod_list_public_customize', { name: modList.name }) }}">
                     <th scope="row">{{ loop.index }}</th>
                     <td>
                         {% if modList.approved %}
