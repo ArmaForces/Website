@@ -13,11 +13,9 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class SteamApiClient
 {
-    protected HttpClientInterface $httpClient;
-
-    public function __construct(HttpClientInterface $httpClient)
-    {
-        $this->httpClient = $httpClient;
+    public function __construct(
+        private HttpClientInterface $httpClient
+    ) {
     }
 
     public function getWorkshopItemInfo(int $itemId): WorkshopItemInfoDto

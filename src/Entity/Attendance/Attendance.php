@@ -9,15 +9,12 @@ use Ramsey\Uuid\UuidInterface;
 
 class Attendance extends AbstractEntity implements AttendanceInterface
 {
-    protected string $missionId;
-    protected int $playerId;
-
-    public function __construct(UuidInterface $id, string $missionId, int $playerId)
-    {
+    public function __construct(
+        UuidInterface $id,
+        private string $missionId,
+        private int $playerId
+    ) {
         parent::__construct($id);
-
-        $this->missionId = $missionId;
-        $this->playerId = $playerId;
     }
 
     public function getMissionId(): string

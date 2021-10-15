@@ -8,12 +8,12 @@ use App\Entity\EntityInterface;
 
 class DataTransformerRegistry implements DataTransformerInterface
 {
-    /** @var RegisteredDataTransformerInterface[] */
-    protected iterable $registeredDataTransformers;
-
-    public function __construct(iterable $registeredDataTransformers)
-    {
-        $this->registeredDataTransformers = $registeredDataTransformers;
+    /**
+     * @param RegisteredDataTransformerInterface[] $registeredDataTransformers
+     */
+    public function __construct(
+        private iterable $registeredDataTransformers
+    ) {
     }
 
     public function transformToEntity(FormDtoInterface $formDto, EntityInterface $entity = null): EntityInterface

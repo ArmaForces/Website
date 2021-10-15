@@ -12,10 +12,11 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class MissionClient
 {
-    protected HttpClientInterface $client;
-
-    public function __construct(HttpClientInterface $client, MissionStore $store, string $missionApiUrl)
-    {
+    public function __construct(
+        private HttpClientInterface $client,
+        MissionStore $store,
+        string $missionApiUrl
+    ) {
         $cachingClient = new CachingHttpClient($client, $store, [
             // allow 12h of stale response
             'stale_if_error' => 43200,
@@ -24,9 +25,6 @@ class MissionClient
         $this->client = ScopingHttpClient::forBaseUri($cachingClient, $missionApiUrl);
     }
 
-    /**
-     * @return \Generator|MissionDto[]
-     */
     public function getMissions(bool $includeArchive = true, int $ttl = 600): \Generator
     {
         $response = $this->client->request('GET', '/api/missions', [
@@ -41,9 +39,6 @@ class MissionClient
         }
     }
 
-    /**
-     * Get nearest open or archived mission.
-     */
     public function getNearestMission(): ?MissionDto
     {
         $upcomingMissions = $this->getUpcomingMissions();
@@ -51,9 +46,6 @@ class MissionClient
         return $upcomingMissions ? array_pop($upcomingMissions) : null;
     }
 
-    /**
-     * @return MissionDto[]
-     */
     public function getArchivedMissions(): array
     {
         /** @var MissionDto[] $allMissions */
@@ -62,9 +54,6 @@ class MissionClient
         return array_filter($allMissions, static fn (MissionDto $mission) => MissionStateEnum::ARCHIVED === $mission->getState());
     }
 
-    /**
-     * @return MissionDto[]
-     */
     public function getUpcomingMissions(): array
     {
         /** @var MissionDto[] $allMissions */

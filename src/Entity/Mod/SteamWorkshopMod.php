@@ -9,13 +9,13 @@ use Ramsey\Uuid\UuidInterface;
 
 class SteamWorkshopMod extends AbstractMod implements SteamWorkshopModInterface
 {
-    protected int $itemId;
-
-    public function __construct(UuidInterface $id, string $name, ModTypeEnum $type, int $itemId)
-    {
+    public function __construct(
+        UuidInterface $id,
+        string $name,
+        ModTypeEnum $type,
+        private int $itemId
+    ) {
         parent::__construct($id, $name, $type);
-
-        $this->itemId = $itemId;
     }
 
     public function getItemId(): int

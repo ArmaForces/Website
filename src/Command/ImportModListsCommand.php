@@ -14,13 +14,10 @@ class ImportModListsCommand extends Command
 {
     public const DEFAULT_IMPORT_DIRECTORY = __DIR__.'/../../var/import';
 
-    protected ModListImport $modListImport;
-
-    public function __construct(ModListImport $modListImport)
-    {
+    public function __construct(
+        private ModListImport $modListImport
+    ) {
         parent::__construct();
-
-        $this->modListImport = $modListImport;
     }
 
     /**

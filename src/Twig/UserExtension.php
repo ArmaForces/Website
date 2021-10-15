@@ -14,11 +14,9 @@ class UserExtension extends AbstractExtension
     public const AVATAR_CDN = 'https://cdn.discordapp.com';
     public const DEFAULT_AVATAR_URL = '/embed/avatars/3.png';
 
-    protected Security $security;
-
-    public function __construct(Security $security)
-    {
-        $this->security = $security;
+    public function __construct(
+        private Security $security
+    ) {
     }
 
     public function getFunctions(): array

@@ -18,13 +18,11 @@ class SteamStoreArma3DlcUrlValidator extends AbstractValidator
 {
     protected const ARMA_3_GAME_ID = 107410;
 
-    protected SteamApiClient $steamApiClient;
-
-    public function __construct(EntityManagerInterface $entityManager, SteamApiClient $steamApiClient)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        private SteamApiClient $steamApiClient
+    ) {
         parent::__construct($entityManager);
-
-        $this->steamApiClient = $steamApiClient;
     }
 
     /**

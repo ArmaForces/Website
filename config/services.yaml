@@ -86,6 +86,14 @@ services:
             $proxyKey: '%env(APP_IMGPROXY_KEY)%'
             $proxySalt: '%env(APP_IMGPROXY_SALT)%'
 
+    App\Twig\BackgroundImageExtension:
+        arguments:
+            $cacheDir: '%kernel.cache_dir%'
+
+    App\Twig\UtilsExtension:
+        arguments:
+            $defaultLocale: '%kernel.default_locale%'
+
     App\Form\DataTransformerRegistry:
         arguments:
             $registeredDataTransformers: !tagged_iterator app.form.registered_data_transformer
@@ -93,7 +101,3 @@ services:
     App\Cache\CacheWarmer\BackgroundImageCacheWarmer:
         arguments:
             $backgroundImagesDirectory: '%kernel.project_dir%/public/img/background'
-
-    App\Twig\BackgroundImageExtension:
-        arguments:
-            $cacheDir: '%kernel.cache_dir%'

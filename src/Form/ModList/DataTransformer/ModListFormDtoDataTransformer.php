@@ -18,11 +18,9 @@ use Symfony\Component\Security\Core\Security;
 
 class ModListFormDtoDataTransformer implements RegisteredDataTransformerInterface
 {
-    protected Security $security;
-
-    public function __construct(Security $security)
-    {
-        $this->security = $security;
+    public function __construct(
+        private Security $security
+    ) {
     }
 
     /**
