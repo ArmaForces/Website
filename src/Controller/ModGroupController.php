@@ -24,18 +24,11 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ModGroupController extends AbstractController
 {
-    protected EntityManagerInterface $entityManager;
-    protected ModGroupRepository $modGroupRepository;
-    protected DataTransformerRegistry $dataTransformerRegistry;
-
     public function __construct(
-        EntityManagerInterface $entityManager,
-        ModGroupRepository $modGroupRepository,
-        DataTransformerRegistry $dataTransformerRegistry
+        private EntityManagerInterface $entityManager,
+        private ModGroupRepository $modGroupRepository,
+        private DataTransformerRegistry $dataTransformerRegistry
     ) {
-        $this->entityManager = $entityManager;
-        $this->modGroupRepository = $modGroupRepository;
-        $this->dataTransformerRegistry = $dataTransformerRegistry;
     }
 
     /**

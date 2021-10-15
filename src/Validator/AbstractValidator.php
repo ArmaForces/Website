@@ -11,11 +11,9 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 abstract class AbstractValidator extends ConstraintValidator
 {
-    protected EntityManagerInterface $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
-    {
-        $this->entityManager = $entityManager;
+    public function __construct(
+        protected EntityManagerInterface $entityManager
+    ) {
     }
 
     public function isColumnValueUnique(

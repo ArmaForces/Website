@@ -10,11 +10,9 @@ use Twig\TwigFunction;
 
 class VersionExtension extends AbstractExtension
 {
-    protected VersionProvider $version;
-
-    public function __construct(VersionProvider $version)
-    {
-        $this->version = $version;
+    public function __construct(
+        private VersionProvider $version
+    ) {
     }
 
     public function getFunctions(): array

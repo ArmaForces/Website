@@ -24,18 +24,11 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class DlcController extends AbstractController
 {
-    protected EntityManagerInterface $entityManager;
-    protected DlcRepository $dlcRepository;
-    protected DataTransformerRegistry $dataTransformerRegistry;
-
     public function __construct(
-        EntityManagerInterface $entityManager,
-        DlcRepository $dlcRepository,
-        DataTransformerRegistry $dataTransformerRegistry
+        private EntityManagerInterface $entityManager,
+        private DlcRepository $dlcRepository,
+        private DataTransformerRegistry $dataTransformerRegistry
     ) {
-        $this->entityManager = $entityManager;
-        $this->dlcRepository = $dlcRepository;
-        $this->dataTransformerRegistry = $dataTransformerRegistry;
     }
 
     /**

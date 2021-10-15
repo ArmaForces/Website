@@ -21,15 +21,11 @@ class PermissionsMakeAdminCommand extends Command
     public const ARGUMENT_DISCORD_USER_ID = 'discord-user-id';
     public const OPTION_FULL_PERMISSIONS = 'full-permissions';
 
-    protected EntityManagerInterface $entityManager;
-    protected UserRepository $userRepository;
-
-    public function __construct(EntityManagerInterface $entityManager, UserRepository $userRepository)
-    {
+    public function __construct(
+        private EntityManagerInterface $entityManager,
+        private UserRepository $userRepository
+    ) {
         parent::__construct();
-
-        $this->entityManager = $entityManager;
-        $this->userRepository = $userRepository;
     }
 
     /**

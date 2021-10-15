@@ -18,15 +18,14 @@ class UserGroup extends AbstractBlamableEntity implements UserGroupInterface
     use NamedTrait;
     use DescribedTrait;
 
-    protected UserGroupPermissions $permissions;
     protected Collection $users;
 
-    public function __construct(UuidInterface $id, string $name, UserGroupPermissions $permissions)
-    {
+    public function __construct(
+        UuidInterface $id,
+        private string $name,
+        private UserGroupPermissions $permissions
+    ) {
         parent::__construct($id);
-
-        $this->name = $name;
-        $this->permissions = $permissions;
 
         $this->users = new ArrayCollection();
     }

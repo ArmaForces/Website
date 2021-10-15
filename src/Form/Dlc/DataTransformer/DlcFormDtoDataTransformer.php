@@ -16,11 +16,9 @@ use Ramsey\Uuid\Uuid;
 
 class DlcFormDtoDataTransformer implements RegisteredDataTransformerInterface
 {
-    protected SteamApiClient $steamApiClient;
-
-    public function __construct(SteamApiClient $steamApiClient)
-    {
-        $this->steamApiClient = $steamApiClient;
+    public function __construct(
+        private SteamApiClient $steamApiClient
+    ) {
     }
 
     /**

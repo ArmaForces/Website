@@ -10,11 +10,9 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class GetModListByNameAction
 {
-    protected ModListRepository $modListRepository;
-
-    public function __construct(ModListRepository $modListRepository)
-    {
-        $this->modListRepository = $modListRepository;
+    public function __construct(
+        private ModListRepository $modListRepository
+    ) {
     }
 
     public function __invoke(string $name): ?ModListInterface

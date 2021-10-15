@@ -6,15 +6,11 @@ namespace App\Service\Steam\Dto;
 
 class WorkshopItemInfoDto
 {
-    protected ?int $id;
-    protected ?string $name;
-    protected ?int $gameId;
-
-    public function __construct(?int $id, ?string $name, ?int $gameId)
-    {
-        $this->id = $id;
-        $this->name = $name;
-        $this->gameId = $gameId;
+    public function __construct(
+        private ?int $id,
+        private ?string $name,
+        private ?int $gameId
+    ) {
     }
 
     public function getId(): ?int

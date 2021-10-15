@@ -16,27 +16,18 @@ class User extends AbstractBlamableEntity implements UserInterface
 {
     use UserInterfaceTrait;
 
-    protected string $username;
-    protected string $email;
-    protected string $externalId;
-    protected UserPermissions $permissions;
-    protected Collection $userGroups;
-    protected ?string $avatarHash = null;
-    protected ?int $steamId = null;
+    private Collection $userGroups;
+    private ?string $avatarHash = null;
+    private ?int $steamId = null;
 
     public function __construct(
         UuidInterface $id,
-        string $username,
-        string $email,
-        string $externalId,
-        UserPermissions $permissions
+        private string $username,
+        private string $email,
+        private string $externalId,
+        private UserPermissions $permissions,
     ) {
         parent::__construct($id);
-
-        $this->username = $username;
-        $this->email = $email;
-        $this->externalId = $externalId;
-        $this->permissions = $permissions;
 
         $this->userGroups = new ArrayCollection();
     }

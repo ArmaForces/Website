@@ -15,24 +15,13 @@ use Symfony\Component\Finder\Finder;
 
 class ModListImport
 {
-    protected EntityManagerInterface $entityManager;
-    protected ModListCsvReader $modListCsvReader;
-    protected DtoToEntityConverter $dtoToEntityConverter;
-    protected SteamWorkshopModRepository $steamWorkshopModRepository;
-    protected DirectoryModRepository $directoryModRepository;
-
     public function __construct(
-        EntityManagerInterface $entityManager,
-        ModListCsvReader $modListCsvReader,
-        DtoToEntityConverter $dtoToEntityConverter,
-        SteamWorkshopModRepository $steamWorkshopModRepository,
-        DirectoryModRepository $directoryModRepository
+        private EntityManagerInterface $entityManager,
+        private ModListCsvReader $modListCsvReader,
+        private DtoToEntityConverter $dtoToEntityConverter,
+        private SteamWorkshopModRepository $steamWorkshopModRepository,
+        private DirectoryModRepository $directoryModRepository
     ) {
-        $this->entityManager = $entityManager;
-        $this->modListCsvReader = $modListCsvReader;
-        $this->dtoToEntityConverter = $dtoToEntityConverter;
-        $this->steamWorkshopModRepository = $steamWorkshopModRepository;
-        $this->directoryModRepository = $directoryModRepository;
     }
 
     public function importFromDirectory(string $path, string $extension = '.csv'): void

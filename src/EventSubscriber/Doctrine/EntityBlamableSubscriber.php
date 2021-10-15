@@ -13,11 +13,9 @@ use Symfony\Component\Security\Core\Security;
 
 class EntityBlamableSubscriber implements EventSubscriber
 {
-    protected Security $security;
-
-    public function __construct(Security $security)
-    {
-        $this->security = $security;
+    public function __construct(
+        private Security $security
+    ) {
     }
 
     public function getSubscribedEvents(): array
