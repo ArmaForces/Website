@@ -10,11 +10,8 @@ services:
             - './var/import:/www/app/var/import:ro'
             - './var/cache:/www/app/var/cache:rw'
             - './var/log:/www/app/var/log:rw'
-        environment:
-            # This should correspond to the server declared in PHPStorm `Preferences | Languages & Frameworks | PHP | Servers`
-            # Then PHPStorm will use the corresponding path mappings
-            PHP_IDE_CONFIG: serverName=armaforces-web
-
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
     nginx:
         volumes:
             - './public:/www/app/public:ro'
