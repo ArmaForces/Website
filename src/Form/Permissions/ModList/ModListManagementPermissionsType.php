@@ -12,9 +12,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ModListManagementPermissionsType extends AbstractType
 {
-    /**
-     * @param mixed[] $options
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -47,9 +44,6 @@ class ModListManagementPermissionsType extends AbstractType
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

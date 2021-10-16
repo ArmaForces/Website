@@ -24,7 +24,7 @@ trait AssertsTrait
         $contentDispositionHeader = $response->headers->get('Content-Disposition');
         $pattern = "/^attachment; filename=\"ArmaForces {$modList->getName()} \\d{4}_\\d{2}_\\d{2} \\d{2}_\\d{2}.html\"$/";
 
-        self::assertTrue(1 === preg_match($pattern, $contentDispositionHeader));
+        self::assertRegExp($pattern, $contentDispositionHeader);
     }
 
     public static function assertLauncherPresetContainsMods(Crawler $crawler, array $expectedMods): void

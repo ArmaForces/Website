@@ -14,17 +14,11 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class UpdateModListVoter extends Voter
 {
-    /**
-     * {@inheritdoc}
-     */
     protected function supports(string $attribute, $subject): bool
     {
         return PermissionsEnum::MOD_LIST_UPDATE === $attribute && $subject instanceof ModListInterface;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         /** @var null|UserInterface $currentUser */

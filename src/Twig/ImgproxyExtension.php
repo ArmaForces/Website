@@ -27,7 +27,7 @@ class ImgproxyExtension extends AbstractExtension
      * @param string $url     Image url
      * @param int    $width   Target width, set to 0 to automatically calculate from height
      * @param int    $height  Target height, set to 0 to automatically calculate from width
-     * @param bool   $enlarge Should resized image be enrlaged if it's smaller than target size
+     * @param bool   $enlarge Should resized image be enlarged if it's smaller than target size
      *
      * @throws \Exception
      */

@@ -16,10 +16,9 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 trait ServicesTrait
 {
-    /** @var HttpClientInterface|KernelBrowser */
-    private static $client;
+    private static HttpClientInterface|KernelBrowser $client;
 
-    public static function getClient()
+    public static function getClient(): KernelBrowser|\ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Client|HttpClientInterface
     {
         if (!self::$booted) {
             self::$client = self::createClient();
@@ -63,11 +62,11 @@ trait ServicesTrait
 
     public static function getContainer(): ContainerInterface
     {
-        if (!self::$container) {
+        if (!self::getContainer()) {
             self::getClient();
         }
 
-        return self::$container;
+        return self::getContainer();
     }
 
     public static function getSession(): SessionInterface

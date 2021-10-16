@@ -16,7 +16,7 @@ class SteamStoreArma3DlcUrl extends Constraint
     public string $notAnArma3DlcMessage = 'Url is not an Arma 3 DLC';
     public ?string $errorPath = null;
 
-    public function getTargets()
+    public function getTargets(): array|string
     {
         return parent::CLASS_CONSTRAINT;
     }
