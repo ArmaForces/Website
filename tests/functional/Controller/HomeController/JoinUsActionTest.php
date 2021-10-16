@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Controller\HomeController;
 
-use App\Entity\User\User;
+use App\Repository\User\UserRepository;
 use App\Test\Enum\RouteEnum;
 use App\Test\Traits\AssertsTrait;
 use App\Test\Traits\DataProvidersTrait;
-use App\Test\Traits\ServicesTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,7 +18,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class JoinUsActionTest extends WebTestCase
 {
-    use ServicesTrait;
     use AssertsTrait;
     use DataProvidersTrait;
 
@@ -41,10 +39,11 @@ final class JoinUsActionTest extends WebTestCase
      */
     public function joinUsAction_authenticatedUser_returnsSuccessfulResponse(string $userId): void
     {
-        /** @var User $user */
-        $user = $this::getEntityById(User::class, $userId);
+        $client = self::createClient();
 
-        $client = $this::authenticateClient($user);
+        $user = self::getContainer()->get(UserRepository::class)->find($userId);
+
+        $client->loginUser($user);
         $crawler = $client->request(Request::METHOD_GET, RouteEnum::HOME_JOIN_US);
 
         $this::assertResponseStatusCodeSame(Response::HTTP_OK);

@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Controller\ModListPublicController;
 
-use App\Entity\User\User;
+use App\Repository\User\UserRepository;
 use App\Test\Enum\RouteEnum;
 use App\Test\Traits\DataProvidersTrait;
-use App\Test\Traits\ServicesTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +17,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class SelectActionTest extends WebTestCase
 {
-    use ServicesTrait;
     use DataProvidersTrait;
 
     /**
@@ -27,10 +25,11 @@ final class SelectActionTest extends WebTestCase
      */
     public function selectAction_authorizedUser_returnsSuccessfulResponse(string $userId): void
     {
-        /** @var User $user */
-        $user = $this::getEntityById(User::class, $userId);
+        $client = self::createClient();
 
-        $client = $this::authenticateClient($user);
+        $user = self::getContainer()->get(UserRepository::class)->find($userId);
+
+        !$user ?: $client->loginUser($user);
         $client->request(Request::METHOD_GET, RouteEnum::MOD_LIST_PUBLIC_SELECT);
 
         $this::assertResponseStatusCodeSame(Response::HTTP_OK);

@@ -6,10 +6,9 @@ namespace App\Tests\Functional\Controller\UserController;
 
 use App\DataFixtures\User\AdminUserFixture;
 use App\DataFixtures\User\RegularUserFixture;
-use App\Entity\User\User;
+use App\Repository\User\UserRepository;
 use App\Test\Enum\RouteEnum;
 use App\Test\Traits\DataProvidersTrait;
-use App\Test\Traits\ServicesTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +19,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class UpdateActionTest extends WebTestCase
 {
-    use ServicesTrait;
     use DataProvidersTrait;
 
     /**
@@ -29,10 +27,10 @@ final class UpdateActionTest extends WebTestCase
      */
     public function updateAction_anonymousUser_returnsRedirectResponse(string $userId): void
     {
-        /** @var User $subjectUser */
-        $subjectUser = $this::getEntityById(User::class, $userId);
+        $client = self::createClient();
 
-        $client = $this::getClient();
+        $subjectUser = self::getContainer()->get(UserRepository::class)->find($userId);
+
         $client->request(Request::METHOD_GET, sprintf(RouteEnum::USER_UPDATE, $subjectUser->getId()));
 
         $this::assertResponseRedirects(RouteEnum::SECURITY_CONNECT_DISCORD, Response::HTTP_FOUND);
@@ -44,13 +42,12 @@ final class UpdateActionTest extends WebTestCase
      */
     public function updateAction_unauthorizedUser_returnsForbiddenResponse(string $userId): void
     {
-        /** @var User $user */
-        $user = $this::getEntityById(User::class, RegularUserFixture::ID);
+        $client = self::createClient();
 
-        /** @var User $subjectUser */
-        $subjectUser = $this::getEntityById(User::class, $userId);
+        $user = self::getContainer()->get(UserRepository::class)->find(RegularUserFixture::ID);
+        $subjectUser = self::getContainer()->get(UserRepository::class)->find($userId);
 
-        $client = $this::authenticateClient($user);
+        $client->loginUser($user);
         $client->request(Request::METHOD_GET, sprintf(RouteEnum::USER_UPDATE, $subjectUser->getId()));
 
         $this::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
@@ -62,13 +59,12 @@ final class UpdateActionTest extends WebTestCase
      */
     public function updateAction_authorizedUser_returnsSuccessfulResponse(string $userId): void
     {
-        /** @var User $user */
-        $user = $this::getEntityById(User::class, AdminUserFixture::ID);
+        $client = self::createClient();
 
-        /** @var User $subjectUser */
-        $subjectUser = $this::getEntityById(User::class, $userId);
+        $user = self::getContainer()->get(UserRepository::class)->find(AdminUserFixture::ID);
+        $subjectUser = self::getContainer()->get(UserRepository::class)->find($userId);
 
-        $client = $this::authenticateClient($user);
+        $client->loginUser($user);
         $client->request(Request::METHOD_GET, sprintf(RouteEnum::USER_UPDATE, $subjectUser->getId()));
 
         $this::assertResponseStatusCodeSame(Response::HTTP_OK);
@@ -79,10 +75,11 @@ final class UpdateActionTest extends WebTestCase
      */
     public function updateAction_authorizedUser_returnsNotFoundResponse(): void
     {
-        /** @var User $user */
-        $user = $this::getEntityById(User::class, AdminUserFixture::ID);
+        $client = self::createClient();
 
-        $client = $this::authenticateClient($user);
+        $user = self::getContainer()->get(UserRepository::class)->find(AdminUserFixture::ID);
+
+        $client->loginUser($user);
         $client->request(Request::METHOD_GET, sprintf(RouteEnum::USER_UPDATE, 'non-existing-id'));
 
         $this::assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);

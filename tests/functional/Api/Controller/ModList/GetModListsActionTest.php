@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace App\Tests\Functional\Api\Controller\ModList;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
-use App\Entity\User\User;
+use App\Repository\User\UserRepository;
 use App\Test\Enum\RouteEnum;
 use App\Test\Traits\DataProvidersTrait;
-use App\Test\Traits\ServicesTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -18,7 +17,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class GetModListsActionTest extends ApiTestCase
 {
-    use ServicesTrait;
     use DataProvidersTrait;
 
     /**
@@ -27,10 +25,10 @@ final class GetModListsActionTest extends ApiTestCase
      */
     public function getModListsAction_authorizedUser_returnsSuccessfulResponse(string $userId): void
     {
-        /** @var User $user */
-        $user = $this::getEntityById(User::class, $userId);
+        $client = self::createClient();
+        $user = self::getContainer()->get(UserRepository::class)->find($userId);
 
-        $client = $this::authenticateClient($user);
+        !$user ?: $client->getKernelBrowser()->loginUser($user);
         $client->request(Request::METHOD_GET, RouteEnum::API_MOD_LIST_LIST, [
             'headers' => [
                 'Accept' => 'application/json',

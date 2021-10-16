@@ -6,9 +6,8 @@ namespace App\Tests\Functional\Controller\ModGroupController;
 
 use App\DataFixtures\User\AdminUserFixture;
 use App\DataFixtures\User\RegularUserFixture;
-use App\Entity\User\User;
+use App\Repository\User\UserRepository;
 use App\Test\Enum\RouteEnum;
-use App\Test\Traits\ServicesTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,14 +18,12 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class CreateActionTest extends WebTestCase
 {
-    use ServicesTrait;
-
     /**
      * @test
      */
     public function createAction_anonymousUser_returnsRedirectResponse(): void
     {
-        $client = $this::getClient();
+        $client = self::createClient();
         $client->request(Request::METHOD_GET, RouteEnum::MOD_GROUP_CREATE);
 
         $this::assertResponseRedirects(RouteEnum::SECURITY_CONNECT_DISCORD, Response::HTTP_FOUND);
@@ -37,10 +34,11 @@ final class CreateActionTest extends WebTestCase
      */
     public function createAction_unauthorizedUser_returnsForbiddenResponse(): void
     {
-        /** @var User $user */
-        $user = $this::getEntityById(User::class, RegularUserFixture::ID);
+        $client = self::createClient();
 
-        $client = $this::authenticateClient($user);
+        $user = self::getContainer()->get(UserRepository::class)->find(RegularUserFixture::ID);
+
+        $client->loginUser($user);
         $client->request(Request::METHOD_GET, RouteEnum::MOD_GROUP_CREATE);
 
         $this::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
@@ -51,10 +49,11 @@ final class CreateActionTest extends WebTestCase
      */
     public function createAction_authorizedUser_returnsSuccessfulResponse(): void
     {
-        /** @var User $user */
-        $user = $this::getEntityById(User::class, AdminUserFixture::ID);
+        $client = self::createClient();
 
-        $client = $this::authenticateClient($user);
+        $user = self::getContainer()->get(UserRepository::class)->find(AdminUserFixture::ID);
+
+        $client->loginUser($user);
         $client->request(Request::METHOD_GET, RouteEnum::MOD_GROUP_CREATE);
 
         $this::assertResponseStatusCodeSame(Response::HTTP_OK);

@@ -7,7 +7,6 @@ namespace App\Tests\Functional\Api\Controller\Attendance;
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
 use App\Test\Enum\RouteEnum;
 use App\Test\Traits\DataProvidersTrait;
-use App\Test\Traits\ServicesTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -17,7 +16,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class CreateAttendanceActionTest extends ApiTestCase
 {
-    use ServicesTrait;
     use DataProvidersTrait;
 
     /**
@@ -26,7 +24,7 @@ final class CreateAttendanceActionTest extends ApiTestCase
      */
     public function createAttendanceAction_validApiKey_returnsSuccessfulResponse(): void
     {
-        $client = $this::getClient();
+        $client = self::createClient();
         $client->request(Request::METHOD_POST, RouteEnum::API_ATTENDANCE_CREATE, [
             'headers' => [
                 'X-API-KEY' => 'test_key',
@@ -47,7 +45,7 @@ final class CreateAttendanceActionTest extends ApiTestCase
      */
     public function createAttendanceAction_invalidApiKey_returnsForbiddenResponse(): void
     {
-        $client = $this::getClient();
+        $client = self::createClient();
         $client->request(Request::METHOD_POST, RouteEnum::API_ATTENDANCE_CREATE, [
             'headers' => [
                 'X-API-KEY' => '',
@@ -71,7 +69,7 @@ final class CreateAttendanceActionTest extends ApiTestCase
      */
     public function createAttendanceAction_duplicatedEntry_returnsUnprocessableEntityResponse(): void
     {
-        $client = $this::getClient();
+        $client = self::createClient();
         $client->request(Request::METHOD_POST, RouteEnum::API_ATTENDANCE_CREATE, [
             'headers' => [
                 'X-API-KEY' => 'test_key',

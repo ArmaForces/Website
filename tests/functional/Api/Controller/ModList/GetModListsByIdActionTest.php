@@ -6,11 +6,10 @@ namespace App\Tests\Functional\Api\Controller\ModList;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
 use App\DataFixtures\ModList\DefaultModListFixture;
-use App\Entity\ModList\ModList;
-use App\Entity\User\User;
+use App\Repository\ModList\ModListRepository;
+use App\Repository\User\UserRepository;
 use App\Test\Enum\RouteEnum;
 use App\Test\Traits\DataProvidersTrait;
-use App\Test\Traits\ServicesTrait;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +20,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class GetModListsByIdActionTest extends ApiTestCase
 {
-    use ServicesTrait;
     use DataProvidersTrait;
 
     /**
@@ -30,13 +28,12 @@ final class GetModListsByIdActionTest extends ApiTestCase
      */
     public function getModListByIdAction_authorizedUser_returnsSuccessfulResponse(string $userId): void
     {
-        /** @var User $user */
-        $user = $this::getEntityById(User::class, $userId);
+        $client = self::createClient();
 
-        /** @var ModList $mod */
-        $mod = $this::getEntityById(ModList::class, DefaultModListFixture::ID);
+        $user = self::getContainer()->get(UserRepository::class)->find($userId);
+        $mod = self::getContainer()->get(ModListRepository::class)->find(DefaultModListFixture::ID);
 
-        $client = $this::authenticateClient($user);
+        !$user ?: $client->getKernelBrowser()->loginUser($user);
         $client->request(Request::METHOD_GET, sprintf(RouteEnum::API_MOD_LIST_GET_BY_ID, $mod->getId()), [
             'headers' => [
                 'Accept' => 'application/json',
@@ -117,10 +114,11 @@ final class GetModListsByIdActionTest extends ApiTestCase
      */
     public function getModListByIdAction_nonExistingModList_returnsNotFoundResponse(string $userId): void
     {
-        /** @var User $user */
-        $user = $this::getEntityById(User::class, $userId);
+        $client = self::createClient();
 
-        $client = $this::authenticateClient($user);
+        $user = self::getContainer()->get(UserRepository::class)->find($userId);
+
+        !$user ?: $client->getKernelBrowser()->loginUser($user);
         $client->request(Request::METHOD_GET, sprintf(RouteEnum::API_MOD_LIST_GET_BY_ID, Uuid::uuid4()->toString()), [
             'headers' => [
                 'Accept' => 'application/json',
