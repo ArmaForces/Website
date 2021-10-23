@@ -18,13 +18,8 @@ return (new PhpCsFixer\Config())
         '@DoctrineAnnotation' => true,
         '@PhpCsFixer' => true,
         '@PhpCsFixer:risky' => true,
-        '@PHP70Migration' => true,
-        '@PHP70Migration:risky' => true,
-        '@PHP71Migration' => true,
-        '@PHP71Migration:risky' => true,
-        '@PHP73Migration' => true,
-        '@PHP74Migration:risky' => true,
-        '@PHP74Migration' => true,
+        '@PHP80Migration' => true,
+        '@PHP80Migration:risky' => true,
 
         'php_unit_test_annotation' => [
             'style' => 'annotation',
