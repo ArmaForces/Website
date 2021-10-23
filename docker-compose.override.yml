@@ -10,8 +10,11 @@ services:
             - './var/import:/www/app/var/import:ro'
             - './var/cache:/www/app/var/cache:rw'
             - './var/log:/www/app/var/log:rw'
+        environment:
+            PHP_IDE_CONFIG: serverName=armaforces-web
         extra_hosts:
             - "host.docker.internal:host-gateway"
+
     nginx:
         volumes:
             - './public:/www/app/public:ro'
