@@ -5,7 +5,11 @@ declare(strict_types=1);
 $finder = PhpCsFixer\Finder::create()
     ->exclude('var')
     ->exclude('node_modules')
+    ->notPath('config/bootstrap.php')
     ->notPath('config/bundles.php')
+    ->notPath('config/preload.php')
+    ->notPath('src/Kernel.php')
+    ->notPath('tests/bootstrap.php')
     ->in(__DIR__)
 ;
 
