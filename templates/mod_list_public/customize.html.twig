@@ -1,3 +1,6 @@
+{% set title = modList.name %}
+{%- set description = description ?? include('mod_list_public/_partial/_description.html.twig')|striptags -%}
+
 {% extends 'card.html.twig' %}
 
 {% block javascripts %}
