@@ -3,9 +3,9 @@
     {{ ('style="background-image: url(' ~ backgroundImageUrl ~ '")')|raw }}
 {% endmacro %}
 
-{% macro dlc_icon(dlc, size = 16) %}
+{% macro dlc_icon(dlc, size = 18) %}
     {% set style = "width; #{size}px; height: #{size}px" %}
-    <object data="{{ asset('img/dlc_icon/' ~ dlc.appId ~ '.png') }}" type="image/png" style="{{ style }}" data-toggle="tooltip" data-placement="top" title="{{ dlc.name }}">
-        <img src="{{ asset('img/dlc_icon/default.png') }}" class="align-baseline" style="{{ style }}">
+    <object class="dlc-icon" data="{{ asset('img/dlc_icon/' ~ dlc.appId ~ '.png') }}" type="image/png" style="{{ style }}" data-toggle="tooltip" data-placement="top" title="{{ dlc.name }}">
+        <img src="{{ asset('img/dlc_icon/default.png') }}" style="{{ style }}">
     </object>
 {% endmacro %}
