@@ -1,0 +1,27 @@
+services:
+    _defaults:
+        autowire: false
+        autoconfigure: false
+        public: false
+
+    attendance.search_filter:
+        parent: 'api_platform.doctrine.orm.search_filter'
+        tags: [ 'api_platform.filter' ]
+        arguments:
+            -   id: 'exact'
+                missionId: 'exact'
+                playerId: 'exact'
+
+    attendance.date_filter:
+        parent: 'api_platform.doctrine.orm.date_filter'
+        tags: [ 'api_platform.filter' ]
+        arguments:
+            -   createdAt: ~
+
+    attendance.order_filter:
+        parent: 'api_platform.doctrine.orm.order_filter'
+        tags: [ 'api_platform.filter' ]
+        arguments:
+            -   createdAt: ~
+                missionId: ~
+                playerId: ~

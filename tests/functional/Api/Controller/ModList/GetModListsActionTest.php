@@ -47,7 +47,7 @@ final class GetModListsActionTest extends ApiTestCase
                     'approved' => false,
                     'createdAt' => '2020-01-01T00:00:00+01:00',
                     'lastUpdatedAt' => null,
-                ]
+                ],
             ],
         ]);
     }
