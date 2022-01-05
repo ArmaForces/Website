@@ -3,8 +3,4 @@ doctrine_migrations:
         # namespace is arbitrary but should be different from App\Migrations
         # as migrations classes should NOT be autoloaded
         'DoctrineMigrations': '%kernel.project_dir%/migrations'
-
-    # https://github.com/doctrine/migrations/blob/3.0.x/UPGRADE.md
-    storage:
-        table_storage:
-            table_name: migration_versions
+    enable_profiler: '%kernel.debug%'

@@ -50,7 +50,7 @@ trait ServicesTrait
         }
 
         $token = new PostAuthenticationGuardToken($user, $firewallName, $user->getRoles());
-        $firewallContext = $firewallContext ?? $firewallName;
+        $firewallContext ??= $firewallName;
         $session->set('_security_'.$firewallContext, serialize($token));
         $session->save();
 
