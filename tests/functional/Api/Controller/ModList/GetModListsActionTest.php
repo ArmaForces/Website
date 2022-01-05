@@ -39,13 +39,15 @@ final class GetModListsActionTest extends ApiTestCase
 
         $this::assertResponseStatusCodeSame(Response::HTTP_OK);
         $this::assertJsonContains([
-            [
-                'id' => 'f3e04dae-18a8-4533-99ea-d6d763ebabcf',
-                'name' => 'Default',
-                'active' => true,
-                'approved' => false,
-                'createdAt' => '2020-01-01T00:00:00+01:00',
-                'lastUpdatedAt' => null,
+            'data' => [
+                [
+                    'id' => 'f3e04dae-18a8-4533-99ea-d6d763ebabcf',
+                    'name' => 'Default',
+                    'active' => true,
+                    'approved' => false,
+                    'createdAt' => '2020-01-01T00:00:00+01:00',
+                    'lastUpdatedAt' => null,
+                ]
             ],
         ]);
     }
