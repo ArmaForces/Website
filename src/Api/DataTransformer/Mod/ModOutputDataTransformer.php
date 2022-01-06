@@ -15,28 +15,26 @@ class ModOutputDataTransformer implements DataTransformerInterface
 {
     public function transform($object, string $to, array $context = []): ModOutput
     {
-        /** @var ModInterface $mod */
-        $mod = $object;
-
+        /** @var ModInterface $object */
         $output = new ModOutput();
 
-        $output->setId($mod->getId()->toString());
-        $output->setName($mod->getName());
-        $output->setCreatedAt($mod->getCreatedAt());
-        $output->setLastUpdatedAt($mod->getLastUpdatedAt());
+        $output->setId($object->getId()->toString());
+        $output->setName($object->getName());
+        $output->setCreatedAt($object->getCreatedAt());
+        $output->setLastUpdatedAt($object->getLastUpdatedAt());
 
-        $output->setType($mod->getType()->getValue());
+        $output->setType($object->getType()->getValue());
 
         /** @var null|string $status */
-        $status = $mod->getStatus() ? $mod->getStatus()->getValue() : null;
+        $status = $object->getStatus() ? $object->getStatus()->getValue() : null;
         $output->setStatus($status);
 
-        if ($mod instanceof SteamWorkshopMod) {
+        if ($object instanceof SteamWorkshopMod) {
             $output->setSource(ModSourceEnum::STEAM_WORKSHOP);
-            $output->setItemId($mod->getItemId());
-        } elseif ($mod instanceof DirectoryMod) {
+            $output->setItemId($object->getItemId());
+        } elseif ($object instanceof DirectoryMod) {
             $output->setSource(ModSourceEnum::DIRECTORY);
-            $output->setDirectory($mod->getDirectory());
+            $output->setDirectory($object->getDirectory());
         }
 
         return $output;

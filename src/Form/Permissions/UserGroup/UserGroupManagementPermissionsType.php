@@ -12,9 +12,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserGroupManagementPermissionsType extends AbstractType
 {
-    /**
-     * @param mixed[] $options
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -37,9 +34,6 @@ class UserGroupManagementPermissionsType extends AbstractType
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

@@ -61,9 +61,6 @@ class ModFormDto extends AbstractFormDto
      */
     protected ?string $directory = null;
 
-    /**
-     * {@inheritdoc}
-     */
     public function resolveValidationGroups(): array
     {
         $validationGroups = parent::resolveValidationGroups();

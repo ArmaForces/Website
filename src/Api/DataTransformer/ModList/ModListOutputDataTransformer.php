@@ -10,28 +10,21 @@ use App\Entity\ModList\ModList;
 
 class ModListOutputDataTransformer implements DataTransformerInterface
 {
-    /**
-     * {@inheritdoc}
-     *
-     * @param ModList $modList
-     */
-    public function transform($modList, string $to, array $context = []): ModListOutput
+    public function transform($object, string $to, array $context = []): ModListOutput
     {
+        /** @var ModList $object */
         $output = new ModListOutput();
 
-        $output->setId($modList->getId()->toString());
-        $output->setName($modList->getName());
-        $output->setActive($modList->isActive());
-        $output->setApproved($modList->isApproved());
-        $output->setCreatedAt($modList->getCreatedAt());
-        $output->setLastUpdatedAt($modList->getLastUpdatedAt());
+        $output->setId($object->getId()->toString());
+        $output->setName($object->getName());
+        $output->setActive($object->isActive());
+        $output->setApproved($object->isApproved());
+        $output->setCreatedAt($object->getCreatedAt());
+        $output->setLastUpdatedAt($object->getLastUpdatedAt());
 
         return $output;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function supportsTransformation($data, string $to, array $context = []): bool
     {
         return ModListOutput::class === $to && $data instanceof ModList;

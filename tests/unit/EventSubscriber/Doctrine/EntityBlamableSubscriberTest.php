@@ -62,11 +62,8 @@ final class EntityBlamableSubscriberTest extends TestCase
     /**
      * @test
      * @dataProvider invalidEventArgs
-     *
-     * @param mixed $user
-     * @param mixed $entity
      */
-    public function prePersist_invalidEventArgs_entityNotUpdated($user, $entity): void
+    public function prePersist_invalidEventArgs_entityNotUpdated(mixed $user, mixed $entity): void
     {
         $security = $this->createMock(Security::class);
         $security->method('getUser')->willReturn($user);
@@ -110,11 +107,8 @@ final class EntityBlamableSubscriberTest extends TestCase
     /**
      * @test
      * @dataProvider invalidEventArgs
-     *
-     * @param mixed $user
-     * @param mixed $entity
      */
-    public function preUpdate_invalidEventArgs_entityNotUpdated($user, $entity): void
+    public function preUpdate_invalidEventArgs_entityNotUpdated(mixed $user, mixed $entity): void
     {
         $security = $this->createMock(Security::class);
         $security->method('getUser')->willReturn($user);

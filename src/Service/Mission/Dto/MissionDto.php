@@ -19,9 +19,6 @@ class MissionDto
     ) {
     }
 
-    /**
-     * @param array<mixed> $array
-     */
     public static function fromArray(array $array): self
     {
         $timezone = new \DateTimeZone('Europe/Warsaw');

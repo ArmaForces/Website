@@ -17,9 +17,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PermissionsType extends AbstractType
 {
-    /**
-     * @param mixed[] $options
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $target = $options['target'];
@@ -47,9 +44,6 @@ class PermissionsType extends AbstractType
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
