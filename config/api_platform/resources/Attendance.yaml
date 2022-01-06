@@ -1,0 +1,17 @@
+App\Entity\Attendance\Attendance:
+    attributes:
+        input: 'App\Api\Input\Attendance\AttendanceInput'
+        output: 'App\Api\Output\Attendance\AttendanceOutput'
+
+    itemOperations:
+        get: ~
+
+    collectionOperations:
+        get:
+            filters:
+                - 'attendance.search_filter'
+                - 'attendance.date_filter'
+                - 'attendance.order_filter'
+
+        post:
+            input: 'App\Api\Input\Attendance\AttendanceInput'

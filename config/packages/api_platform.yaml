@@ -1,3 +1,6 @@
+imports:
+    - { resource: ../api_platform/filters/ }
+
 api_platform:
     title: "%app.api.name%"
     version: "%app.api.version%"
@@ -11,9 +14,18 @@ api_platform:
 
     path_segment_name_generator: api_platform.path_segment_name_generator.dash
     mapping:
-        paths: ['%kernel.project_dir%/config/api_platform']
+        paths: ['%kernel.project_dir%/config/api_platform/resources']
     patch_formats:
         json: ['application/merge-patch+json']
     formats:
         json: ['application/json']
         html: ['text/html']
+
+    defaults:
+        pagination_enabled: true
+        pagination_maximum_items_per_page: 50
+        pagination_client_items_per_page: true
+    collection:
+        pagination:
+            items_per_page_parameter_name: limit
+            page_parameter_name: page

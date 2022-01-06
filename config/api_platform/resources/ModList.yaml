@@ -1,17 +1,3 @@
-App\Entity\Attendance\Attendance:
-    attributes:
-        input: 'App\Api\Input\Attendance\AttendanceInput'
-        output: 'App\Api\Output\Attendance\AttendanceOutput'
-
-    itemOperations:
-        get: ~
-
-    collectionOperations:
-        get: ~
-        post:
-            input: 'App\Api\Input\Attendance\AttendanceInput'
-
-
 App\Entity\ModList\ModList:
     attributes:
         output: 'App\Api\Output\ModList\ModListOutput'
@@ -19,6 +5,7 @@ App\Entity\ModList\ModList:
     itemOperations:
         get:
             output: 'App\Api\Output\ModList\ModListDetailsOutput'
+
         get_by_name:
             method: 'GET'
             path: '/mod-lists/by-name/{name}'
@@ -27,4 +14,8 @@ App\Entity\ModList\ModList:
             read: false
 
     collectionOperations:
-        get: ~
+        get:
+            filters:
+                - 'mod_list.search_filter'
+                - 'mod_list.date_filter'
+                - 'mod_list.order_filter'

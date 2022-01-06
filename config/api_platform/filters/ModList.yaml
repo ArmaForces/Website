@@ -1,0 +1,30 @@
+services:
+    _defaults:
+        autowire: false
+        autoconfigure: false
+        public: false
+
+    mod_list.search_filter:
+        parent: 'api_platform.doctrine.orm.search_filter'
+        tags: [ 'api_platform.filter' ]
+        arguments:
+            -   id: 'exact'
+                createdBy.id: 'exact'
+                lastUpdatedBy.id: 'exact'
+                name: 'partial'
+                description: 'partial'
+
+    mod_list.date_filter:
+        parent: 'api_platform.doctrine.orm.date_filter'
+        tags: [ 'api_platform.filter' ]
+        arguments:
+            -   createdAt: ~
+                lastUpdatedAt: ~
+
+    mod_list.order_filter:
+        parent: 'api_platform.doctrine.orm.order_filter'
+        tags: [ 'api_platform.filter' ]
+        arguments:
+            -   createdAt: ~
+                lastUpdatedAt: ~
+                name: ~
