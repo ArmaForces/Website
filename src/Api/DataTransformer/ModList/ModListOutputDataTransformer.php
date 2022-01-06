@@ -13,7 +13,7 @@ class ModListOutputDataTransformer implements DataTransformerInterface
     /**
      * {@inheritdoc}
      *
-     * @var ModList
+     * @param ModList $modList
      */
     public function transform($modList, string $to, array $context = []): ModListOutput
     {
