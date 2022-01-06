@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Tests\Functional\Api\Controller\ModList;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
+use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Client;
 use App\DataFixtures\ModList\DefaultModListFixture;
-use App\Entity\ModList\ModList;
-use App\Entity\User\User;
+use App\Repository\ModList\ModListRepository;
+use App\Repository\User\UserRepository;
 use App\Test\Enum\RouteEnum;
 use App\Test\Traits\DataProvidersTrait;
-use App\Test\Traits\ServicesTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -20,8 +20,20 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class GetModListByNameActionTest extends ApiTestCase
 {
-    use ServicesTrait;
     use DataProvidersTrait;
+
+    private Client $client;
+    private UserRepository $userRepository;
+    private ModListRepository $modListRepository;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->client = self::createClient([], ['headers' => ['Accept' => 'application/json']]);
+        $this->userRepository = self::getContainer()->get(UserRepository::class);
+        $this->modListRepository = self::getContainer()->get(ModListRepository::class);
+    }
 
     /**
      * @test
@@ -29,18 +41,11 @@ final class GetModListByNameActionTest extends ApiTestCase
      */
     public function getModListByNameAction_authorizedUser_returnsSuccessfulResponse(string $userId): void
     {
-        /** @var User $user */
-        $user = $this::getEntityById(User::class, $userId);
+        $user = $this->userRepository->find($userId);
+        $modList = $this->modListRepository->find(DefaultModListFixture::ID);
 
-        /** @var ModList $modList */
-        $modList = $this::getEntityById(ModList::class, DefaultModListFixture::ID);
-
-        $client = $this::authenticateClient($user);
-        $client->request(Request::METHOD_GET, sprintf(RouteEnum::API_MOD_LIST_GET_BY_NAME, $modList->getName()), [
-            'headers' => [
-                'Accept' => 'application/json',
-            ],
-        ]);
+        !$user ?: $this->client->getKernelBrowser()->loginUser($user);
+        $this->client->request(Request::METHOD_GET, sprintf(RouteEnum::API_MOD_LIST_GET_BY_NAME, $modList->getName()));
 
         $this::assertResponseStatusCodeSame(Response::HTTP_OK);
         $this::assertJsonContains([
@@ -116,15 +121,10 @@ final class GetModListByNameActionTest extends ApiTestCase
      */
     public function getModListByNameAction_nonExistingModList_returnsNotFoundResponse(string $userId): void
     {
-        /** @var User $user */
-        $user = $this::getEntityById(User::class, $userId);
+        $user = $this->userRepository->find($userId);
 
-        $client = $this::authenticateClient($user);
-        $client->request(Request::METHOD_GET, sprintf(RouteEnum::API_MOD_LIST_GET_BY_NAME, 'some_name'), [
-            'headers' => [
-                'Accept' => 'application/json',
-            ],
-        ]);
+        !$user ?: $this->client->getKernelBrowser()->loginUser($user);
+        $this->client->request(Request::METHOD_GET, sprintf(RouteEnum::API_MOD_LIST_GET_BY_NAME, 'some_name'));
 
         $this::assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
         $this::assertJsonContains([
