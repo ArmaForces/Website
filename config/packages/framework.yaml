@@ -19,12 +19,14 @@ framework:
     php_errors:
         log: true
 
+    # Required for Discord authenticator to work
     # https://symfony.com/doc/5.2/deployment/proxies.html#solution-settrustedproxies
     trusted_proxies: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
     trusted_headers: [ 'x-forwarded-for', 'x-forwarded-proto', 'x-forwarded-port', 'x-forwarded-host' ]
 
-when@test:
-    framework:
-        test: true
-        session:
-            storage_factory_id: session.storage.factory.mock_file
+# This needs to be disabled so tests use regular session storage and to user data providers to work
+#when@test:
+#    framework:
+#        test: true
+#        session:
+#            storage_factory_id: session.storage.factory.mock_file

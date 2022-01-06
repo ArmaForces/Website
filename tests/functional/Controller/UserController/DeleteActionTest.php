@@ -6,10 +6,10 @@ namespace App\Tests\Functional\Controller\UserController;
 
 use App\DataFixtures\User\AdminUserFixture;
 use App\DataFixtures\User\RegularUserFixture;
-use App\Entity\User\User;
+use App\Repository\User\UserRepository;
 use App\Test\Enum\RouteEnum;
 use App\Test\Traits\DataProvidersTrait;
-use App\Test\Traits\ServicesTrait;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,8 +20,18 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class DeleteActionTest extends WebTestCase
 {
-    use ServicesTrait;
     use DataProvidersTrait;
+
+    private KernelBrowser $client;
+    private UserRepository $userRepository;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->client = self::createClient();
+        $this->userRepository = self::getContainer()->get(UserRepository::class);
+    }
 
     /**
      * @test
@@ -29,11 +39,9 @@ final class DeleteActionTest extends WebTestCase
      */
     public function deleteAction_anonymousUser_returnsRedirectResponse(string $userId): void
     {
-        /** @var User $subjectUser */
-        $subjectUser = $this::getEntityById(User::class, $userId);
+        $subjectUser = $this->userRepository->find($userId);
 
-        $client = $this::getClient();
-        $client->request(Request::METHOD_GET, sprintf(RouteEnum::USER_DELETE, $subjectUser->getId()));
+        $this->client->request(Request::METHOD_GET, sprintf(RouteEnum::USER_DELETE, $subjectUser->getId()));
 
         $this::assertResponseRedirects(RouteEnum::SECURITY_CONNECT_DISCORD, Response::HTTP_FOUND);
     }
@@ -44,14 +52,11 @@ final class DeleteActionTest extends WebTestCase
      */
     public function deleteAction_unauthorizedUser_returnsForbiddenResponse(string $userId): void
     {
-        /** @var User $user */
-        $user = $this::getEntityById(User::class, RegularUserFixture::ID);
+        $user = $this->userRepository->find(RegularUserFixture::ID);
+        $subjectUser = $this->userRepository->find($userId);
 
-        /** @var User $subjectUser */
-        $subjectUser = $this::getEntityById(User::class, $userId);
-
-        $client = $this::authenticateClient($user);
-        $client->request(Request::METHOD_GET, sprintf(RouteEnum::USER_DELETE, $subjectUser->getId()));
+        $this->client->loginUser($user);
+        $this->client->request(Request::METHOD_GET, sprintf(RouteEnum::USER_DELETE, $subjectUser->getId()));
 
         $this::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
@@ -61,18 +66,15 @@ final class DeleteActionTest extends WebTestCase
      */
     public function deleteAction_authorizedUser_returnsRedirectResponse(): void
     {
-        /** @var User $user */
-        $user = $this::getEntityById(User::class, AdminUserFixture::ID);
+        $user = $this->userRepository->find(AdminUserFixture::ID);
+        $subjectUser = $this->userRepository->find(RegularUserFixture::ID);
 
-        /** @var User $subjectUser */
-        $subjectUser = $this::getEntityById(User::class, RegularUserFixture::ID);
-
-        $client = $this::authenticateClient($user);
-        $client->request(Request::METHOD_GET, sprintf(RouteEnum::USER_DELETE, $subjectUser->getId()));
+        $this->client->loginUser($user);
+        $this->client->request(Request::METHOD_GET, sprintf(RouteEnum::USER_DELETE, $subjectUser->getId()));
 
         $this::assertResponseRedirects(RouteEnum::USER_LIST);
 
-        $client->request(Request::METHOD_GET, sprintf(RouteEnum::USER_DELETE, $subjectUser->getId()));
+        $this->client->request(Request::METHOD_GET, sprintf(RouteEnum::USER_DELETE, $subjectUser->getId()));
 
         $this::assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
     }
@@ -82,12 +84,11 @@ final class DeleteActionTest extends WebTestCase
      */
     public function deleteAction_authorizedCurrentUser_returnsForbiddenResponse(): void
     {
-        /** @var User $user */
-        $user = $this::getEntityById(User::class, AdminUserFixture::ID);
+        $user = $this->userRepository->find(AdminUserFixture::ID);
         $subjectUser = $user;
 
-        $client = $this::authenticateClient($user);
-        $client->request(Request::METHOD_GET, sprintf(RouteEnum::USER_DELETE, $subjectUser->getId()));
+        $this->client->loginUser($user);
+        $this->client->request(Request::METHOD_GET, sprintf(RouteEnum::USER_DELETE, $subjectUser->getId()));
 
         $this::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
@@ -97,11 +98,10 @@ final class DeleteActionTest extends WebTestCase
      */
     public function deleteAction_authorizedUser_returnsNotFoundResponse(): void
     {
-        /** @var User $user */
-        $user = $this::getEntityById(User::class, AdminUserFixture::ID);
+        $user = $this->userRepository->find(AdminUserFixture::ID);
 
-        $client = $this::authenticateClient($user);
-        $client->request(Request::METHOD_GET, sprintf(RouteEnum::USER_DELETE, 'non-existing-id'));
+        $this->client->loginUser($user);
+        $this->client->request(Request::METHOD_GET, sprintf(RouteEnum::USER_DELETE, 'non-existing-id'));
 
         $this::assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
     }

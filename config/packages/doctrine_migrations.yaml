@@ -5,6 +5,7 @@ doctrine_migrations:
         'DoctrineMigrations': '%kernel.project_dir%/migrations'
     enable_profiler: '%kernel.debug%'
 
+    # This is required to ensure BC with previous table name
     # https://github.com/doctrine/migrations/blob/3.0.x/UPGRADE.md
     storage:
         table_storage:

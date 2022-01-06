@@ -6,9 +6,9 @@ namespace App\Tests\Functional\Controller\ModController;
 
 use App\DataFixtures\User\AdminUserFixture;
 use App\DataFixtures\User\RegularUserFixture;
-use App\Entity\User\User;
+use App\Repository\User\UserRepository;
 use App\Test\Enum\RouteEnum;
-use App\Test\Traits\ServicesTrait;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,15 +19,23 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class CreateActionTest extends WebTestCase
 {
-    use ServicesTrait;
+    private KernelBrowser $client;
+    private UserRepository $userRepository;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->client = self::createClient();
+        $this->userRepository = self::getContainer()->get(UserRepository::class);
+    }
 
     /**
      * @test
      */
     public function createAction_anonymousUser_returnsRedirectResponse(): void
     {
-        $client = $this::getClient();
-        $client->request(Request::METHOD_GET, RouteEnum::MOD_CREATE);
+        $this->client->request(Request::METHOD_GET, RouteEnum::MOD_CREATE);
 
         $this::assertResponseRedirects(RouteEnum::SECURITY_CONNECT_DISCORD, Response::HTTP_FOUND);
     }
@@ -37,11 +45,10 @@ final class CreateActionTest extends WebTestCase
      */
     public function createAction_unauthorizedUser_returnsForbiddenResponse(): void
     {
-        /** @var User $user */
-        $user = $this::getEntityById(User::class, RegularUserFixture::ID);
+        $user = $this->userRepository->find(RegularUserFixture::ID);
 
-        $client = $this::authenticateClient($user);
-        $client->request(Request::METHOD_GET, RouteEnum::MOD_CREATE);
+        $this->client->loginUser($user);
+        $this->client->request(Request::METHOD_GET, RouteEnum::MOD_CREATE);
 
         $this::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
@@ -51,11 +58,10 @@ final class CreateActionTest extends WebTestCase
      */
     public function createAction_authorizedUser_returnsSuccessfulResponse(): void
     {
-        /** @var User $user */
-        $user = $this::getEntityById(User::class, AdminUserFixture::ID);
+        $user = $this->userRepository->find(AdminUserFixture::ID);
 
-        $client = $this::authenticateClient($user);
-        $client->request(Request::METHOD_GET, RouteEnum::MOD_CREATE);
+        $this->client->loginUser($user);
+        $this->client->request(Request::METHOD_GET, RouteEnum::MOD_CREATE);
 
         $this::assertResponseStatusCodeSame(Response::HTTP_OK);
     }
