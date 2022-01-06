@@ -6,8 +6,6 @@ namespace App\Entity\Traits;
 
 trait NamedTrait
 {
-    protected string $name;
-
     public function getName(): string
     {
         return $this->name;

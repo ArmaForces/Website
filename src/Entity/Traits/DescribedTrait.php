@@ -6,7 +6,7 @@ namespace App\Entity\Traits;
 
 trait DescribedTrait
 {
-    protected ?string $description = null;
+    private ?string $description = null;
 
     public function getDescription(): ?string
     {

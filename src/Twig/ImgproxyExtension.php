@@ -9,15 +9,11 @@ use Twig\TwigFunction;
 
 class ImgproxyExtension extends AbstractExtension
 {
-    protected string $baseProxyUrl;
-    protected string $proxyKey;
-    protected string $proxySalt;
-
-    public function __construct(string $baseProxyUrl, string $proxyKey, string $proxySalt)
-    {
-        $this->baseProxyUrl = $baseProxyUrl;
-        $this->proxyKey = $proxyKey;
-        $this->proxySalt = $proxySalt;
+    public function __construct(
+        private string $baseProxyUrl,
+        private string $proxyKey,
+        private string $proxySalt
+    ) {
     }
 
     public function getFunctions(): array

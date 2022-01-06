@@ -9,13 +9,13 @@ use Ramsey\Uuid\UuidInterface;
 
 class DirectoryMod extends AbstractMod implements DirectoryModInterface
 {
-    protected string $directory;
-
-    public function __construct(UuidInterface $id, string $name, ModTypeEnum $type, string $directory)
-    {
+    public function __construct(
+        UuidInterface $id,
+        string $name,
+        ModTypeEnum $type,
+        private string $directory
+    ) {
         parent::__construct($id, $name, $type);
-
-        $this->directory = $directory;
     }
 
     public function getDirectory(): string

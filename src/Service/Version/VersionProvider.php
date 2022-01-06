@@ -6,21 +6,17 @@ namespace App\Service\Version;
 
 class VersionProvider
 {
-    protected string $filePath;
-    protected string $defaultVersion;
-
-    public function __construct(string $projectDir, string $fileName = 'VERSION', string $defaultVersion = 'dev')
-    {
-        $this->filePath = "{$projectDir}/{$fileName}";
-        $this->defaultVersion = $defaultVersion;
+    public function __construct(
+        private string $projectDir,
+        private string $fileName = 'VERSION',
+        private string $defaultVersion = 'dev'
+    ) {
     }
 
     public function getVersion(): string
     {
-        if (!file_exists($this->filePath)) {
-            return $this->defaultVersion;
-        }
+        $filePath = "{$this->projectDir}/{$this->fileName}";
 
-        return file_get_contents($this->filePath);
+        return file_exists($filePath) ? file_get_contents($filePath) : $this->defaultVersion;
     }
 }

@@ -24,18 +24,11 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UserController extends AbstractController
 {
-    protected EntityManagerInterface $entityManager;
-    protected UserRepository $userRepository;
-    protected DataTransformerRegistry $dataTransformerRegistry;
-
     public function __construct(
-        EntityManagerInterface $entityManager,
-        UserRepository $userRepository,
-        DataTransformerRegistry $dataTransformerRegistry
+        private EntityManagerInterface $entityManager,
+        private UserRepository $userRepository,
+        private DataTransformerRegistry $dataTransformerRegistry
     ) {
-        $this->entityManager = $entityManager;
-        $this->userRepository = $userRepository;
-        $this->dataTransformerRegistry = $dataTransformerRegistry;
     }
 
     /**

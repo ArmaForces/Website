@@ -14,16 +14,13 @@ class Dlc extends AbstractBlamableEntity implements DlcInterface
     use NamedTrait;
     use DescribedTrait;
 
-    protected int $appId;
-    protected string $directory;
-
-    public function __construct(UuidInterface $id, string $name, int $appId, string $directory)
-    {
+    public function __construct(
+        UuidInterface $id,
+        private string $name,
+        private int $appId,
+        private string $directory
+    ) {
         parent::__construct($id);
-
-        $this->name = $name;
-        $this->appId = $appId;
-        $this->directory = $directory;
     }
 
     public function getAppId(): int

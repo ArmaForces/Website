@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\HttpCache\StoreInterface;
 
 class MissionStore implements StoreInterface
 {
-    protected Store $store;
+    private Store $store;
 
     public function __construct(string $storagePath)
     {

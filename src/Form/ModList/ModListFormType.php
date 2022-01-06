@@ -22,11 +22,9 @@ use Symfony\Component\Security\Core\Security;
 
 class ModListFormType extends AbstractType
 {
-    protected Security $security;
-
-    public function __construct(Security $security)
-    {
-        $this->security = $security;
+    public function __construct(
+        private Security $security
+    ) {
     }
 
     /**

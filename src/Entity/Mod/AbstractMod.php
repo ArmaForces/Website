@@ -16,15 +16,14 @@ abstract class AbstractMod extends AbstractBlamableEntity implements ModInterfac
     use NamedTrait;
     use DescribedTrait;
 
-    protected ModTypeEnum $type;
     protected ?ModStatusEnum $status = null;
 
-    public function __construct(UuidInterface $id, string $name, ModTypeEnum $type)
-    {
+    public function __construct(
+        UuidInterface $id,
+        protected string $name,
+        protected ModTypeEnum $type
+    ) {
         parent::__construct($id);
-
-        $this->name = $name;
-        $this->type = $type;
     }
 
     public function isSteamWorkshopMod(): bool

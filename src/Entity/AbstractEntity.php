@@ -8,13 +8,11 @@ use Ramsey\Uuid\UuidInterface;
 
 abstract class AbstractEntity implements EntityInterface
 {
-    protected UuidInterface $id;
     protected \DateTimeInterface $createdAt;
 
-    public function __construct(UuidInterface $id)
-    {
-        $this->id = $id;
-
+    public function __construct(
+        protected UuidInterface $id,
+    ) {
         $this->createdAt = new \DateTimeImmutable();
     }
 
