@@ -6,8 +6,8 @@ namespace App\Tests\Functional\Api\Controller\Attendance;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Client;
-use App\Test\Enum\RouteEnum;
-use App\Test\Traits\DataProvidersTrait;
+use App\SharedKernel\Infrastructure\Test\Enum\RouteEnum;
+use App\SharedKernel\Infrastructure\Test\Traits\DataProvidersTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

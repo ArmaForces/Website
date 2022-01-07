@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Form\UserGroup\DataTransformer;
 
-use App\Entity\EntityInterface;
 use App\Entity\UserGroup\UserGroup;
 use App\Entity\UserGroup\UserGroupInterface;
-use App\Form\FormDtoInterface;
-use App\Form\RegisteredDataTransformerInterface;
 use App\Form\UserGroup\Dto\UserGroupFormDto;
+use App\SharedKernel\Domain\Model\EntityInterface;
+use App\SharedKernel\UserInterface\Http\Form\FormDtoInterface;
+use App\SharedKernel\UserInterface\Http\Form\RegisteredDataTransformerInterface;
 use Ramsey\Uuid\Uuid;
 
 class UserGroupFormDtoDataTransformer implements RegisteredDataTransformerInterface

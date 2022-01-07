@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Entity\ModList;
 
-use App\Entity\AbstractBlamableEntity;
 use App\Entity\Dlc\DlcInterface;
 use App\Entity\Mod\ModInterface;
 use App\Entity\ModGroup\ModGroupInterface;
-use App\Entity\Traits\DescribedTrait;
-use App\Entity\Traits\NamedTrait;
 use App\Entity\User\UserInterface;
+use App\SharedKernel\Domain\Model\AbstractBlamableEntity;
+use App\SharedKernel\Domain\Model\Traits\DescribedTrait;
+use App\SharedKernel\Domain\Model\Traits\NamedTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\UuidInterface;

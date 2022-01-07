@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Service\Steam;
 
-use App\Service\Steam\Exception\WorkshopItemNotFoundException;
-use App\Service\Steam\SteamApiClient;
+use App\SharedKernel\Infrastructure\Service\Steam\Exception\WorkshopItemNotFoundException;
+use App\SharedKernel\Infrastructure\Service\Steam\SteamApiClient;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -13,7 +13,7 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * @internal
- * @covers \App\Service\Steam\SteamApiClient
+ * @covers \App\SharedKernel\Infrastructure\Service\Steam\SteamApiClient
  */
 final class SteamApiClientTest extends TestCase
 {

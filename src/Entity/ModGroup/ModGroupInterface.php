@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Entity\ModGroup;
 
-use App\Entity\BlamableEntityInterface;
 use App\Entity\Mod\ModInterface;
-use App\Entity\Traits\DescribedInterface;
-use App\Entity\Traits\NamedInterface;
+use App\SharedKernel\Domain\Model\BlamableEntityInterface;
+use App\SharedKernel\Domain\Model\Traits\DescribedInterface;
+use App\SharedKernel\Domain\Model\Traits\NamedInterface;
 
 interface ModGroupInterface extends BlamableEntityInterface, NamedInterface, DescribedInterface
 {

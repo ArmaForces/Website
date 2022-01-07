@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\EventSubscriber\Doctrine;
 
-use App\Entity\BlamableEntityInterface;
 use App\Entity\User\UserInterface;
-use App\EventSubscriber\Doctrine\EntityBlamableSubscriber;
+use App\SharedKernel\Domain\Model\BlamableEntityInterface;
+use App\SharedKernel\Infrastructure\EventSubscriber\Doctrine\EntityBlamableSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
 use PHPUnit\Framework\TestCase;
@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\Security;
 
 /**
  * @internal
- * @covers \App\EventSubscriber\Doctrine\EntityBlamableSubscriber
+ * @covers \App\SharedKernel\Infrastructure\EventSubscriber\Doctrine\EntityBlamableSubscriber
  */
 final class EntityBlamableSubscriberTest extends TestCase
 {

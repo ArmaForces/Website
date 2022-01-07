@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Entity\ModGroup;
 
-use App\Entity\AbstractBlamableEntity;
 use App\Entity\Mod\ModInterface;
-use App\Entity\Traits\DescribedTrait;
-use App\Entity\Traits\NamedTrait;
+use App\SharedKernel\Domain\Model\AbstractBlamableEntity;
+use App\SharedKernel\Domain\Model\Traits\DescribedTrait;
+use App\SharedKernel\Domain\Model\Traits\NamedTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\UuidInterface;

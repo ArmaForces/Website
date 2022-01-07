@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Form\ModList\DataTransformer;
 
-use App\Entity\EntityInterface;
 use App\Entity\Mod\ModInterface;
 use App\Entity\ModList\ModList;
 use App\Entity\ModList\ModListInterface;
 use App\Entity\Permissions\PermissionsInterface;
 use App\Entity\User\UserInterface;
-use App\Form\FormDtoInterface;
 use App\Form\ModList\Dto\ModListFormDto;
-use App\Form\RegisteredDataTransformerInterface;
+use App\SharedKernel\Domain\Model\EntityInterface;
+use App\SharedKernel\UserInterface\Http\Form\FormDtoInterface;
+use App\SharedKernel\UserInterface\Http\Form\RegisteredDataTransformerInterface;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Security\Core\Security;
 

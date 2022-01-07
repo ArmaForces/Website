@@ -6,12 +6,12 @@ namespace App\Form\Dlc\DataTransformer;
 
 use App\Entity\Dlc\Dlc;
 use App\Entity\Dlc\DlcInterface;
-use App\Entity\EntityInterface;
 use App\Form\Dlc\Dto\DlcFormDto;
-use App\Form\FormDtoInterface;
-use App\Form\RegisteredDataTransformerInterface;
-use App\Service\Steam\Helper\SteamHelper;
-use App\Service\Steam\SteamApiClient;
+use App\SharedKernel\Domain\Model\EntityInterface;
+use App\SharedKernel\Infrastructure\Service\Steam\Helper\SteamHelper;
+use App\SharedKernel\Infrastructure\Service\Steam\SteamApiClient;
+use App\SharedKernel\UserInterface\Http\Form\FormDtoInterface;
+use App\SharedKernel\UserInterface\Http\Form\RegisteredDataTransformerInterface;
 use Ramsey\Uuid\Uuid;
 
 class DlcFormDtoDataTransformer implements RegisteredDataTransformerInterface

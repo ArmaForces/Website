@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Service\RestCord;
 
-use App\Service\RestCord\DiscordClientFactory;
+use App\SharedKernel\Infrastructure\Service\RestCord\DiscordClientFactory;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- * @covers \App\Service\RestCord\DiscordClientFactory
+ * @covers \App\SharedKernel\Infrastructure\Service\RestCord\DiscordClientFactory
  */
 final class DiscordClientFactoryTest extends TestCase
 {

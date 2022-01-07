@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Attendance;
 
-use App\Entity\AbstractEntity;
+use App\SharedKernel\Domain\Model\AbstractEntity;
 use Ramsey\Uuid\UuidInterface;
 
 class Attendance extends AbstractEntity implements AttendanceInterface

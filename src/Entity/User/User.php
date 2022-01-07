@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Entity\User;
 
-use App\Entity\AbstractBlamableEntity;
 use App\Entity\Permissions\UserPermissions;
 use App\Entity\UserGroup\UserGroupInterface;
-use App\Security\Traits\UserInterfaceTrait;
+use App\SharedKernel\Domain\Model\AbstractBlamableEntity;
+use App\SharedKernel\Infrastructure\Security\Traits\UserInterfaceTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\UuidInterface;

@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Dlc\Dlc;
-use App\Form\DataTransformerRegistry;
 use App\Form\Dlc\DlcFormType;
 use App\Form\Dlc\Dto\DlcFormDto;
 use App\Repository\Dlc\DlcRepository;
-use App\Security\Enum\PermissionsEnum;
+use App\SharedKernel\Infrastructure\Security\Enum\PermissionsEnum;
+use App\SharedKernel\UserInterface\Http\Form\DataTransformerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

@@ -6,7 +6,7 @@
             {{ 'Mod groups'|trans }}
         {% endblock %}
         {% block page_actions %}
-            {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_GROUP_CREATE')) %}
+            {% if is_granted(constant('App\\SharedKernel\\Infrastructure\\Security\\Enum\\PermissionsEnum::MOD_GROUP_CREATE')) %}
                 <a href="{{ path('app_mod_group_create') }}" class="btn btn-primary">{{ 'Create mod group'|trans }}</a>
             {% endif %}
         {% endblock %}
@@ -33,11 +33,11 @@
                     <td>{{ tableMacro.row_blamable(modGroup.createdAt, modGroup.createdBy) }}</td>
                     <td>{{ tableMacro.row_blamable(modGroup.lastUpdatedAt, modGroup.lastUpdatedBy) }}</td>
                     <td class="text-right">
-                        {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_GROUP_UPDATE'), modGroup) %}
+                        {% if is_granted(constant('App\\SharedKernel\\Infrastructure\\Security\\Enum\\PermissionsEnum::MOD_GROUP_UPDATE'), modGroup) %}
                             {{ tableMacro.row_action_edit(path('app_mod_group_update', { name: modGroup.name }), 'Edit mod group'|trans) }}
                         {% endif %}
 
-                        {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_GROUP_DELETE'), modGroup) %}
+                        {% if is_granted(constant('App\\SharedKernel\\Infrastructure\\Security\\Enum\\PermissionsEnum::MOD_GROUP_DELETE'), modGroup) %}
                             {{ tableMacro.row_action_delete(path('app_mod_group_delete', { name: modGroup.name }), 'Are you sure you want to delete %name%?'|trans({ '%name%': modGroup.name }), 'Delete mod group'|trans) }}
                         {% endif %}
                     </td>

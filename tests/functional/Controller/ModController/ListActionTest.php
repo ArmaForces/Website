@@ -7,7 +7,7 @@ namespace App\Tests\Functional\Controller\ModController;
 use App\DataFixtures\User\AdminUserFixture;
 use App\DataFixtures\User\RegularUserFixture;
 use App\Repository\User\UserRepository;
-use App\Test\Enum\RouteEnum;
+use App\SharedKernel\Infrastructure\Test\Enum\RouteEnum;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;

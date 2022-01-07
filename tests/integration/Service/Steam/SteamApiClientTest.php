@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Tests\Integration\Service\Steam;
 
-use App\Service\Steam\SteamApiClient;
+use App\SharedKernel\Infrastructure\Service\Steam\SteamApiClient;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\HttpClient;
 
 /**
  * @internal
- * @covers \App\Service\Steam\SteamApiClient
+ * @covers \App\SharedKernel\Infrastructure\Service\Steam\SteamApiClient
  */
 final class SteamApiClientTest extends TestCase
 {

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Entity\UserGroup;
 
-use App\Entity\BlamableEntityInterface;
 use App\Entity\Permissions\UserGroupPermissions;
-use App\Entity\Traits\DescribedInterface;
-use App\Entity\Traits\NamedInterface;
 use App\Entity\User\UserInterface;
+use App\SharedKernel\Domain\Model\BlamableEntityInterface;
+use App\SharedKernel\Domain\Model\Traits\DescribedInterface;
+use App\SharedKernel\Domain\Model\Traits\NamedInterface;
 
 interface UserGroupInterface extends BlamableEntityInterface, NamedInterface, DescribedInterface
 {

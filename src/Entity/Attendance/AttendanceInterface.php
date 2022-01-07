@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Attendance;
 
-use App\Entity\EntityInterface;
+use App\SharedKernel\Domain\Model\EntityInterface;
 
 interface AttendanceInterface extends EntityInterface
 {

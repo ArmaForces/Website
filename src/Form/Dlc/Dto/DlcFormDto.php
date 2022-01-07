@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Form\Dlc\Dto;
 
-use App\Form\AbstractFormDto;
-use App\Validator\Dlc\SteamStoreArma3DlcUrl;
-use App\Validator\Dlc\UniqueDirectoryDlc;
-use App\Validator\Dlc\UniqueSteamStoreDlc;
-use App\Validator\WindowsDirectoryName;
+use App\SharedKernel\Infrastructure\Validator\Dlc\SteamStoreArma3DlcUrl;
+use App\SharedKernel\Infrastructure\Validator\Dlc\UniqueDirectoryDlc;
+use App\SharedKernel\Infrastructure\Validator\Dlc\UniqueSteamStoreDlc;
+use App\SharedKernel\Infrastructure\Validator\WindowsDirectoryName;
+use App\SharedKernel\UserInterface\Http\Form\AbstractFormDto;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 

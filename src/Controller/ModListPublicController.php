@@ -7,7 +7,7 @@ namespace App\Controller;
 use App\Entity\ModList\ModList;
 use App\Repository\Mod\ModRepository;
 use App\Repository\ModList\ModListRepository;
-use App\Security\Enum\PermissionsEnum;
+use App\SharedKernel\Infrastructure\Security\Enum\PermissionsEnum;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\HeaderUtils;

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Form\User\DataTransformer;
 
-use App\Entity\EntityInterface;
 use App\Entity\User\UserInterface;
-use App\Form\FormDtoInterface;
-use App\Form\RegisteredDataTransformerInterface;
 use App\Form\User\Dto\UserFormDto;
+use App\SharedKernel\Domain\Model\EntityInterface;
+use App\SharedKernel\UserInterface\Http\Form\FormDtoInterface;
+use App\SharedKernel\UserInterface\Http\Form\RegisteredDataTransformerInterface;
 
 class UserFormDtoDataTransformer implements RegisteredDataTransformerInterface
 {

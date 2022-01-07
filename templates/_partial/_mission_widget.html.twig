@@ -17,7 +17,7 @@
         <span class="font-weight-bold">{{ mission.title }}</span>
     </h4>
     <div class="d-flex justify-content-between">
-        {% if mission.state == constant('App\\Service\\Mission\\Enum\\MissionStateEnum::ARCHIVED') %}
+        {% if mission.state == constant('App\\SharedKernel\\Infrastructure\\Service\\Mission\\Enum\\MissionStateEnum::ARCHIVED') %}
             <div>{{ mission.date|date('Y-m-d H:i') }}</div>
         {% else %}
             <div class="dropdown dropdown-no-arrow">

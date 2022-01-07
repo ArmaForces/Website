@@ -20,7 +20,7 @@ security:
             stateless: true
             guard:
                 authenticators:
-                    - App\Security\Authenticator\ApiKeyAuthenticator
+                    - App\SharedKernel\Infrastructure\Security\Authenticator\ApiKeyAuthenticator
 
         main:
             anonymous: true
@@ -31,7 +31,7 @@ security:
                 always_remember_me: true
             guard:
                 authenticators:
-                    - App\Security\Authenticator\DiscordAuthenticator
+                    - App\SharedKernel\Infrastructure\Security\Authenticator\DiscordAuthenticator
             logout:
                 path: app_security_logout
 

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Entity\Dlc;
 
-use App\Entity\AbstractBlamableEntity;
-use App\Entity\Traits\DescribedTrait;
-use App\Entity\Traits\NamedTrait;
+use App\SharedKernel\Domain\Model\AbstractBlamableEntity;
+use App\SharedKernel\Domain\Model\Traits\DescribedTrait;
+use App\SharedKernel\Domain\Model\Traits\NamedTrait;
 use Ramsey\Uuid\UuidInterface;
 
 class Dlc extends AbstractBlamableEntity implements DlcInterface

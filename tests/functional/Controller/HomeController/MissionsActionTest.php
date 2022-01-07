@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Tests\Functional\Controller\HomeController;
 
 use App\Repository\User\UserRepository;
-use App\Test\Enum\RouteEnum;
-use App\Test\Traits\AssertsTrait;
-use App\Test\Traits\DataProvidersTrait;
+use App\SharedKernel\Infrastructure\Test\Enum\RouteEnum;
+use App\SharedKernel\Infrastructure\Test\Traits\AssertsTrait;
+use App\SharedKernel\Infrastructure\Test\Traits\DataProvidersTrait;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @internal
- * @covers \App\Controller\HomeController
+ * @covers \App\SharedKernel\UserInterface\Http\Controller\HomeController
  */
 final class MissionsActionTest extends WebTestCase
 {

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Entity\User;
 
-use App\Entity\BlamableEntityInterface;
 use App\Entity\Permissions\UserPermissions;
 use App\Entity\UserGroup\UserGroupInterface;
+use App\SharedKernel\Domain\Model\BlamableEntityInterface;
 use Symfony\Component\Security\Core\User\UserInterface as SymfonyUserInterface;
 
 interface UserInterface extends BlamableEntityInterface, SymfonyUserInterface

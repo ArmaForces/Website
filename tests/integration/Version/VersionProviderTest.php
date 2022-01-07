@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Tests\Integration\Version;
 
-use App\Service\Version\VersionProvider;
+use App\SharedKernel\Infrastructure\Service\Version\VersionProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- * @covers \App\Service\Version\VersionProvider
+ * @covers \App\SharedKernel\Infrastructure\Service\Version\VersionProvider
  */
 final class VersionProviderTest extends TestCase
 {

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Service\Steam\Helper;
 
-use App\Service\Steam\Helper\Exception\InvalidWorkshopItemUrlFormatException;
-use App\Service\Steam\Helper\SteamHelper;
+use App\SharedKernel\Infrastructure\Service\Steam\Helper\Exception\InvalidWorkshopItemUrlFormatException;
+use App\SharedKernel\Infrastructure\Service\Steam\Helper\SteamHelper;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- * @covers \App\Service\Steam\Helper\SteamHelper
+ * @covers \App\SharedKernel\Infrastructure\Service\Steam\Helper\SteamHelper
  */
 final class SteamHelperTest extends TestCase
 {

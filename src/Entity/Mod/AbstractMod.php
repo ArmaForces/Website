@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Entity\Mod;
 
-use App\Entity\AbstractBlamableEntity;
 use App\Entity\Mod\Enum\ModStatusEnum;
 use App\Entity\Mod\Enum\ModTypeEnum;
-use App\Entity\Traits\DescribedTrait;
-use App\Entity\Traits\NamedTrait;
+use App\SharedKernel\Domain\Model\AbstractBlamableEntity;
+use App\SharedKernel\Domain\Model\Traits\DescribedTrait;
+use App\SharedKernel\Domain\Model\Traits\NamedTrait;
 use Ramsey\Uuid\UuidInterface;
 
 abstract class AbstractMod extends AbstractBlamableEntity implements ModInterface

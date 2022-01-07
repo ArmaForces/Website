@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Form\ModGroup\Dto;
 
 use App\Entity\Mod\ModInterface;
-use App\Form\AbstractFormDto;
-use App\Validator\ModGroup\UniqueModGroupName;
+use App\SharedKernel\Infrastructure\Validator\ModGroup\UniqueModGroupName;
+use App\SharedKernel\UserInterface\Http\Form\AbstractFormDto;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\UuidInterface;

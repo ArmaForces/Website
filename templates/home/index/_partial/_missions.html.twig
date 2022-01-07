@@ -15,12 +15,12 @@
         </div>
         <!--/ Grid column -->
 
-        {# @var nearestMission \App\Service\Mission\Dto\MissionDto #}
+        {# @var nearestMission \App\SharedKernel\Infrastructure\Service\Mission\Dto\MissionDto #}
         {% if nearestMission is not null %}
             <!-- Grid column -->
             <div class="col-lg-4 col-md-6 mission">
                 <h4 class="my-4 font-weight-bold">
-                    {{ nearestMission.state == constant('App\\Service\\Mission\\Enum\\MissionStateEnum::ARCHIVED') ? 'Last mission'|trans : 'Nearest mission'|trans }}
+                    {{ nearestMission.state == constant('App\\SharedKernel\\Infrastructure\\Service\\Mission\\Enum\\MissionStateEnum::ARCHIVED') ? 'Last mission'|trans : 'Nearest mission'|trans }}
                 </h4>
 
                 {% include '_partial/_mission_widget.html.twig' with { 'mission': nearestMission } %}

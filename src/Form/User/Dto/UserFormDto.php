@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Form\User\Dto;
 
 use App\Entity\Permissions\UserPermissions;
-use App\Form\AbstractFormDto;
-use App\Validator\SteamProfileId;
-use App\Validator\User\UniqueUserSteamId;
+use App\SharedKernel\Infrastructure\Validator\SteamProfileId;
+use App\SharedKernel\Infrastructure\Validator\User\UniqueUserSteamId;
+use App\SharedKernel\UserInterface\Http\Form\AbstractFormDto;
 use Ramsey\Uuid\UuidInterface;
 
 /**

@@ -6,8 +6,8 @@ namespace App\Form\UserGroup\Dto;
 
 use App\Entity\Permissions\UserGroupPermissions;
 use App\Entity\User\UserInterface;
-use App\Form\AbstractFormDto;
-use App\Validator\UserGroup\UniqueUserGroupName;
+use App\SharedKernel\Infrastructure\Validator\UserGroup\UniqueUserGroupName;
+use App\SharedKernel\UserInterface\Http\Form\AbstractFormDto;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;

@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Form\Mod\Dto;
 
 use App\Entity\Mod\Enum\ModSourceEnum;
-use App\Form\AbstractFormDto;
-use App\Validator\Mod\SteamWorkshopArma3ModUrl;
-use App\Validator\Mod\UniqueDirectoryMod;
-use App\Validator\Mod\UniqueSteamWorkshopMod;
-use App\Validator\WindowsDirectoryName;
+use App\SharedKernel\Infrastructure\Validator\Mod\SteamWorkshopArma3ModUrl;
+use App\SharedKernel\Infrastructure\Validator\Mod\UniqueDirectoryMod;
+use App\SharedKernel\Infrastructure\Validator\Mod\UniqueSteamWorkshopMod;
+use App\SharedKernel\Infrastructure\Validator\WindowsDirectoryName;
+use App\SharedKernel\UserInterface\Http\Form\AbstractFormDto;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 

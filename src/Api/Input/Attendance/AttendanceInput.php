@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Api\Input\Attendance;
 
-use App\Validator\Attendance\UniqueAttendance;
-use App\Validator\SteamProfileId;
+use App\SharedKernel\Infrastructure\Validator\Attendance\UniqueAttendance;
+use App\SharedKernel\Infrastructure\Validator\SteamProfileId;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**

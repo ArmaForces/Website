@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Entity\ModList;
 
-use App\Entity\BlamableEntityInterface;
 use App\Entity\Dlc\DlcInterface;
 use App\Entity\Mod\ModInterface;
 use App\Entity\ModGroup\ModGroupInterface;
-use App\Entity\Traits\DescribedInterface;
-use App\Entity\Traits\NamedInterface;
 use App\Entity\User\UserInterface;
+use App\SharedKernel\Domain\Model\BlamableEntityInterface;
+use App\SharedKernel\Domain\Model\Traits\DescribedInterface;
+use App\SharedKernel\Domain\Model\Traits\NamedInterface;
 
 interface ModListInterface extends BlamableEntityInterface, NamedInterface, DescribedInterface
 {

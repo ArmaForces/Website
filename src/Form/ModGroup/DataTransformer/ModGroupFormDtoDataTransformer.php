@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Form\ModGroup\DataTransformer;
 
-use App\Entity\EntityInterface;
 use App\Entity\Mod\ModInterface;
 use App\Entity\ModGroup\ModGroup;
 use App\Entity\ModGroup\ModGroupInterface;
-use App\Form\FormDtoInterface;
 use App\Form\ModGroup\Dto\ModGroupFormDto;
-use App\Form\RegisteredDataTransformerInterface;
+use App\SharedKernel\Domain\Model\EntityInterface;
+use App\SharedKernel\UserInterface\Http\Form\FormDtoInterface;
+use App\SharedKernel\UserInterface\Http\Form\RegisteredDataTransformerInterface;
 use Ramsey\Uuid\Uuid;
 
 class ModGroupFormDtoDataTransformer implements RegisteredDataTransformerInterface

@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace App\Form\Mod\DataTransformer;
 
-use App\Entity\EntityInterface;
 use App\Entity\Mod\DirectoryMod;
 use App\Entity\Mod\Enum\ModSourceEnum;
 use App\Entity\Mod\Enum\ModStatusEnum;
 use App\Entity\Mod\Enum\ModTypeEnum;
 use App\Entity\Mod\ModInterface;
 use App\Entity\Mod\SteamWorkshopMod;
-use App\Form\FormDtoInterface;
 use App\Form\Mod\Dto\ModFormDto;
-use App\Form\RegisteredDataTransformerInterface;
-use App\Service\Steam\Helper\SteamHelper;
-use App\Service\Steam\SteamApiClient;
+use App\SharedKernel\Domain\Model\EntityInterface;
+use App\SharedKernel\Infrastructure\Service\Steam\Helper\SteamHelper;
+use App\SharedKernel\Infrastructure\Service\Steam\SteamApiClient;
+use App\SharedKernel\UserInterface\Http\Form\FormDtoInterface;
+use App\SharedKernel\UserInterface\Http\Form\RegisteredDataTransformerInterface;
 use Ramsey\Uuid\Uuid;
 
 class ModFormDtoDataTransformer implements RegisteredDataTransformerInterface
