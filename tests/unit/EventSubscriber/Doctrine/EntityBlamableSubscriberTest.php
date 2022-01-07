@@ -53,7 +53,7 @@ final class EntityBlamableSubscriberTest extends TestCase
         $security->method('getUser')->willReturn($user);
 
         $lifecycleEventArgs = $this->createMock(LifecycleEventArgs::class);
-        $lifecycleEventArgs->method('getEntity')->willReturn($entity);
+        $lifecycleEventArgs->method('getObject')->willReturn($entity);
 
         $entityBlamableSubscriberTest = new EntityBlamableSubscriber($security);
         $entityBlamableSubscriberTest->prePersist($lifecycleEventArgs);
@@ -69,7 +69,7 @@ final class EntityBlamableSubscriberTest extends TestCase
         $security->method('getUser')->willReturn($user);
 
         $lifecycleEventArgs = $this->createMock(LifecycleEventArgs::class);
-        $lifecycleEventArgs->method('getEntity')->willReturn($entity);
+        $lifecycleEventArgs->method('getObject')->willReturn($entity);
 
         $entityBlamableSubscriberTest = new EntityBlamableSubscriber($security);
         $entityBlamableSubscriberTest->prePersist($lifecycleEventArgs);
@@ -98,7 +98,7 @@ final class EntityBlamableSubscriberTest extends TestCase
         $security->method('getUser')->willReturn($user);
 
         $lifecycleEventArgs = $this->createMock(LifecycleEventArgs::class);
-        $lifecycleEventArgs->method('getEntity')->willReturn($entity);
+        $lifecycleEventArgs->method('getObject')->willReturn($entity);
 
         $entityBlamableSubscriberTest = new EntityBlamableSubscriber($security);
         $entityBlamableSubscriberTest->preUpdate($lifecycleEventArgs);
@@ -114,7 +114,7 @@ final class EntityBlamableSubscriberTest extends TestCase
         $security->method('getUser')->willReturn($user);
 
         $lifecycleEventArgs = $this->createMock(LifecycleEventArgs::class);
-        $lifecycleEventArgs->method('getEntity')->willReturn($entity);
+        $lifecycleEventArgs->method('getObject')->willReturn($entity);
 
         $entityBlamableSubscriberTest = new EntityBlamableSubscriber($security);
         $entityBlamableSubscriberTest->preUpdate($lifecycleEventArgs);

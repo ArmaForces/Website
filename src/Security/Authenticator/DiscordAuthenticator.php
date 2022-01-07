@@ -28,7 +28,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Wohali\OAuth2\Client\Provider\DiscordResourceOwner;
 
@@ -127,10 +127,10 @@ class DiscordAuthenticator extends SocialAuthenticator
 
         try {
             /** @var User $user */
-            $user = $userProvider->loadUserByUsername($externalId);
+            $user = $userProvider->loadUserByIdentifier($externalId);
             $user->setUsername($fullUsername);
             $user->setEmail($email);
-        } catch (UsernameNotFoundException $ex) {
+        } catch (UserNotFoundException $ex) {
             $permissions = new UserPermissions(Uuid::uuid4());
             $user = new User(Uuid::uuid4(), $fullUsername, $email, $externalId, $permissions);
 
@@ -164,16 +164,11 @@ class DiscordAuthenticator extends SocialAuthenticator
     {
         $rolesFound = (new ArrayCollection($roles))->filter(static fn (Role $role) => $role->name === $roleName);
 
-        switch ($rolesFound->count()) {
-            case 0:
-                throw new RoleNotFoundException(sprintf('Role "%s" was not found!', $roleName));
-
-            case 1:
-                return $rolesFound->first();
-
-            default:
-                throw new MultipleRolesFound(sprintf('Multiple roles found by given name "%s"!', $roleName));
-        }
+        return match ($rolesFound->count()) {
+            0 => throw new RoleNotFoundException(sprintf('Role "%s" was not found!', $roleName)),
+            1 => $rolesFound->first(),
+            default => throw new MultipleRolesFound(sprintf('Multiple roles found by given name "%s"!', $roleName))
+        };
     }
 
     protected function getDiscordClient(): OAuth2ClientInterface
