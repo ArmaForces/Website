@@ -11,6 +11,8 @@ use Symfony\Component\Security\Core\User\UserInterface as SymfonyUserInterface;
 
 interface UserInterface extends BlamableEntityInterface, SymfonyUserInterface
 {
+    public function getUserIdentifier(): string;
+
     public function getUsername(): string;
 
     public function setUsername(string $username): void;

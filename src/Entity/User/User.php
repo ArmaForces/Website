@@ -32,6 +32,11 @@ class User extends AbstractBlamableEntity implements UserInterface
         $this->userGroups = new ArrayCollection();
     }
 
+    public function getUserIdentifier(): string
+    {
+        return $this->getUsername();
+    }
+
     public function getUsername(): string
     {
         return $this->username;

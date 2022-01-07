@@ -29,7 +29,7 @@ class EntityBlamableSubscriber implements EventSubscriber
     public function prePersist(LifecycleEventArgs $args): void
     {
         $currentUser = $this->security->getUser();
-        $entity = $args->getEntity();
+        $entity = $args->getObject();
 
         if ($currentUser instanceof UserInterface && $entity instanceof BlamableEntityInterface) {
             $entity->setCreatedBy($currentUser);
@@ -39,7 +39,7 @@ class EntityBlamableSubscriber implements EventSubscriber
     public function preUpdate(LifecycleEventArgs $args): void
     {
         $currentUser = $this->security->getUser();
-        $entity = $args->getEntity();
+        $entity = $args->getObject();
 
         if ($currentUser instanceof UserInterface && $entity instanceof BlamableEntityInterface) {
             $entity->setLastUpdatedAt(new \DateTimeImmutable());

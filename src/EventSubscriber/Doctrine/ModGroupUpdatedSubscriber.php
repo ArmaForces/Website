@@ -34,7 +34,7 @@ class ModGroupUpdatedSubscriber implements EventSubscriber
     public function preUpdate(LifecycleEventArgs $args): void
     {
         $entityManager = $args->getEntityManager();
-        $modGroup = $args->getEntity();
+        $modGroup = $args->getObject();
 
         // Do nothing if updated entity is not a Mod Group or no changes were made to the entity
         if (!$modGroup instanceof ModGroupInterface || !$entityManager->getUnitOfWork()->getEntityChangeSet($modGroup)) {
