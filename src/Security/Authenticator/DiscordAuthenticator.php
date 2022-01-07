@@ -55,9 +55,6 @@ class DiscordAuthenticator extends SocialAuthenticator
     ) {
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function start(Request $request, AuthenticationException $authException = null): RedirectResponse
     {
         $targetUrl = $this->router->generate(self::LOGIN_PAGE_ROUTE_NAME);
@@ -65,17 +62,11 @@ class DiscordAuthenticator extends SocialAuthenticator
         return new RedirectResponse($targetUrl);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function supports(Request $request): bool
     {
         return self::SUPPORTED_ROUTE_NAME === $request->attributes->get('_route');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getCredentials(Request $request): AccessToken
     {
         return $this->fetchAccessToken($this->getDiscordClient());
@@ -155,9 +146,6 @@ class DiscordAuthenticator extends SocialAuthenticator
         return $user;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?RedirectResponse
     {
         $targetUrl = $this->router->generate(self::HOME_JOIN_US_PAGE_ROUTE_NAME);
@@ -165,9 +153,6 @@ class DiscordAuthenticator extends SocialAuthenticator
         return new RedirectResponse($targetUrl);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey): ?RedirectResponse
     {
         $targetUrl = $this->router->generate(self::HOME_INDEX_PAGE_ROUTE_NAME);

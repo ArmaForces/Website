@@ -49,7 +49,7 @@ class MissionClient
     public function getArchivedMissions(): array
     {
         /** @var MissionDto[] $allMissions */
-        $allMissions = iterator_to_array($this->getMissions(true));
+        $allMissions = iterator_to_array($this->getMissions());
 
         return array_filter($allMissions, static fn (MissionDto $mission) => MissionStateEnum::ARCHIVED === $mission->getState());
     }
@@ -57,7 +57,7 @@ class MissionClient
     public function getUpcomingMissions(): array
     {
         /** @var MissionDto[] $allMissions */
-        $allMissions = iterator_to_array($this->getMissions(true));
+        $allMissions = iterator_to_array($this->getMissions());
 
         return array_filter($allMissions, static fn (MissionDto $mission) => MissionStateEnum::ARCHIVED !== $mission->getState());
     }

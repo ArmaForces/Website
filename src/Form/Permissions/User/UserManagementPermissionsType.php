@@ -19,9 +19,6 @@ class UserManagementPermissionsType extends AbstractType
     ) {
     }
 
-    /**
-     * @param mixed[] $options
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         /** @var User $currentUser */
@@ -50,9 +47,6 @@ class UserManagementPermissionsType extends AbstractType
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver

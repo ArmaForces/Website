@@ -20,12 +20,10 @@ class AttendanceInputDataTransformer implements DataTransformerInterface
 
     public function transform($object, string $to, array $context = []): Attendance
     {
-        /** @var AttendanceInput $attendanceInput */
-        $attendanceInput = $object;
+        /** @var AttendanceInput $object */
+        $this->validator->validate($object);
 
-        $this->validator->validate($attendanceInput);
-
-        return new Attendance(Uuid::uuid4(), $attendanceInput->getMissionId(), $attendanceInput->getPlayerId());
+        return new Attendance(Uuid::uuid4(), $object->getMissionId(), $object->getPlayerId());
     }
 
     public function supportsTransformation($data, string $to, array $context = []): bool

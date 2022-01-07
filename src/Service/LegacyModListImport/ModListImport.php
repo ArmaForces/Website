@@ -49,9 +49,9 @@ class ModListImport
             if (\count($modList->getMods()) > 0) {
                 $this->entityManager->persist($modList);
             }
-
-            $this->entityManager->flush();
         }
+
+        $this->entityManager->flush();
     }
 
     /**

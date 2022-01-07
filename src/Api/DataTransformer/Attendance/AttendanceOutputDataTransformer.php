@@ -12,15 +12,13 @@ class AttendanceOutputDataTransformer implements DataTransformerInterface
 {
     public function transform($object, string $to, array $context = []): AttendanceOutput
     {
-        /** @var AttendanceInterface $attendance */
-        $attendance = $object;
-
+        /** @var AttendanceInterface $object */
         $output = new AttendanceOutput();
 
-        $output->setId($attendance->getId()->toString());
-        $output->setCreatedAt($attendance->getCreatedAt());
-        $output->setMissionId($attendance->getMissionId());
-        $output->setPlayerId($attendance->getPlayerId());
+        $output->setId($object->getId()->toString());
+        $output->setCreatedAt($object->getCreatedAt());
+        $output->setMissionId($object->getMissionId());
+        $output->setPlayerId($object->getPlayerId());
 
         return $output;
     }
