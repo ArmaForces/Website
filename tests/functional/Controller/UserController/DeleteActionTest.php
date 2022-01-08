@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Controller\UserController;
 
-use App\DataFixtures\User\AdminUserFixture;
-use App\DataFixtures\User\RegularUserFixture;
-use App\Repository\User\UserRepository;
 use App\SharedKernel\Infrastructure\Test\Enum\RouteEnum;
 use App\SharedKernel\Infrastructure\Test\Traits\DataProvidersTrait;
+use App\UserManagement\Infrastructure\DataFixtures\User\AdminUserFixture;
+use App\UserManagement\Infrastructure\DataFixtures\User\RegularUserFixture;
+use App\UserManagement\Infrastructure\Persistence\User\UserRepository;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @internal
- * @covers \App\Controller\UserController
+ * @covers \App\UserManagement\UserInterface\Http\Controller\UserController
  */
 final class DeleteActionTest extends WebTestCase
 {

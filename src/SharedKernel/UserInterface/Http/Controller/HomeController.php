@@ -12,7 +12,7 @@ use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[AsController]
-#[Route(path: '/', name: 'app_home')]
+#[Route('/', name: 'app_home')]
 class HomeController extends AbstractController
 {
     public function __construct(
@@ -21,7 +21,7 @@ class HomeController extends AbstractController
     ) {
     }
 
-    #[Route(path: '', name: '_index')]
+    #[Route('', name: '_index')]
     public function indexAction(): Response
     {
         try {
@@ -36,13 +36,13 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/join-us', name: '_join_us')]
+    #[Route('/join-us', name: '_join_us')]
     public function joinUsAction(): Response
     {
         return $this->render('home/join_us/join_us.html.twig');
     }
 
-    #[Route(path: '/missions', name: '_missions')]
+    #[Route('/missions', name: '_missions')]
     public function missionsAction(): Response
     {
         try {

@@ -22,7 +22,7 @@
             </tr>
         {% endblock %}
         {% block table_body %}
-            {# @var user \App\Entity\User\User #}
+            {# @var user \App\UserManagement\Domain\Model\User\User #}
             {% for user in users %}
                 <tr>
                     <th scope="row">{{ loop.index }}</th>

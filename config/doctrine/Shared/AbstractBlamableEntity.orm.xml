@@ -5,7 +5,7 @@
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
     <mapped-superclass name="App\SharedKernel\Domain\Model\AbstractBlamableEntity">
-        <many-to-one field="createdBy" target-entity="App\Entity\User\User">
+        <many-to-one field="createdBy" target-entity="App\UserManagement\Domain\Model\User\User">
             <join-column name="created_by" referenced-column-name="id"/>
             <cascade>
                 <cascade-persist/>
@@ -13,7 +13,7 @@
         </many-to-one>
 
         <field name="lastUpdatedAt" type="datetime_immutable" nullable="true"/>
-        <many-to-one field="lastUpdatedBy" target-entity="App\Entity\User\User">
+        <many-to-one field="lastUpdatedBy" target-entity="App\UserManagement\Domain\Model\User\User">
             <join-column name="last_updated_by" referenced-column-name="id"/>
             <cascade>
                 <cascade-persist/>

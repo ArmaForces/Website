@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\SharedKernel\Infrastructure\EventSubscriber\Doctrine;
 
-use App\Entity\User\UserInterface;
 use App\SharedKernel\Domain\Model\BlamableEntityInterface;
+use App\UserManagement\Domain\Model\User\UserInterface;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;

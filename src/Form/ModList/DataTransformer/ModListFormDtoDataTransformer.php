@@ -7,12 +7,12 @@ namespace App\Form\ModList\DataTransformer;
 use App\Entity\Mod\ModInterface;
 use App\Entity\ModList\ModList;
 use App\Entity\ModList\ModListInterface;
-use App\Entity\Permissions\PermissionsInterface;
-use App\Entity\User\UserInterface;
 use App\Form\ModList\Dto\ModListFormDto;
 use App\SharedKernel\Domain\Model\EntityInterface;
 use App\SharedKernel\UserInterface\Http\Form\FormDtoInterface;
 use App\SharedKernel\UserInterface\Http\Form\RegisteredDataTransformerInterface;
+use App\UserManagement\Domain\Model\Permissions\PermissionsInterface;
+use App\UserManagement\Domain\Model\User\UserInterface;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Security\Core\Security;
 

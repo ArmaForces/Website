@@ -4,7 +4,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <embeddable name="App\Entity\Permissions\Mod\ModManagementPermissions">
+    <embeddable name="App\UserManagement\Domain\Model\Permissions\Mod\ModManagementPermissions">
         <field name="changeStatus" type="boolean"/>
     </embeddable>
 

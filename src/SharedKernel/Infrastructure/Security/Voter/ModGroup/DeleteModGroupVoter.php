@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\SharedKernel\Infrastructure\Security\Voter\ModGroup;
 
 use App\Entity\ModGroup\ModGroupInterface;
-use App\Entity\Permissions\PermissionsInterface;
-use App\Entity\User\UserInterface;
 use App\SharedKernel\Infrastructure\Security\Enum\PermissionsEnum;
+use App\UserManagement\Domain\Model\Permissions\PermissionsInterface;
+use App\UserManagement\Domain\Model\User\UserInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 

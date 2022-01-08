@@ -25,7 +25,7 @@
             </tr>
         {% endblock %}
         {% block table_body %}
-            {# @var userGroup \App\Entity\UserGroup\UserGroup #}
+            {# @var userGroup \App\UserManagement\Domain\Model\UserGroup\UserGroup #}
             {% for userGroup in userGroups %}
                 <tr>
                     <th scope="row">{{ loop.index }}</th>

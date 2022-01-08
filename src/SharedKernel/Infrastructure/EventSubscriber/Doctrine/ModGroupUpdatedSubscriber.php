@@ -6,8 +6,8 @@ namespace App\SharedKernel\Infrastructure\EventSubscriber\Doctrine;
 
 use App\Entity\ModGroup\ModGroupInterface;
 use App\Entity\ModList\ModList;
-use App\Entity\User\User;
 use App\Repository\ModList\ModListRepository;
+use App\UserManagement\Domain\Model\User\User;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PostFlushEventArgs;

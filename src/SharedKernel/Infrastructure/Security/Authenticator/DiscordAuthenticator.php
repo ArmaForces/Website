@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\SharedKernel\Infrastructure\Security\Authenticator;
 
-use App\Entity\Permissions\UserPermissions;
-use App\Entity\User\User;
-use App\Entity\User\UserInterface;
 use App\SharedKernel\Infrastructure\Security\Enum\ConnectionsEnum;
 use App\SharedKernel\Infrastructure\Security\Exception\MultipleRolesFound;
 use App\SharedKernel\Infrastructure\Security\Exception\RequiredRolesNotAssignedException;
 use App\SharedKernel\Infrastructure\Security\Exception\RoleNotFoundException;
 use App\SharedKernel\Infrastructure\Security\Exception\UserNotADiscordMemberException;
 use App\SharedKernel\Infrastructure\Service\RestCord\DiscordClientFactory;
+use App\UserManagement\Domain\Model\Permissions\UserPermissions;
+use App\UserManagement\Domain\Model\User\User;
+use App\UserManagement\Domain\Model\User\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Command\Exception\CommandException;

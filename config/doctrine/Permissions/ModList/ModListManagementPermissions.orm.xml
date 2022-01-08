@@ -4,7 +4,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <embeddable name="App\Entity\Permissions\ModList\ModListManagementPermissions">
+    <embeddable name="App\UserManagement\Domain\Model\Permissions\ModList\ModListManagementPermissions">
         <field name="copy" type="boolean"/>
         <field name="approve" type="boolean"/>
     </embeddable>

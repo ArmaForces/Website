@@ -28,13 +28,13 @@ doctrine:
                 is_bundle: false
                 type: xml
                 dir: '%kernel.project_dir%/config/doctrine/User'
-                prefix: 'App\Entity\User'
+                prefix: 'App\UserManagement\Domain\Model\User'
                 alias: User
             UserGroup:
                 is_bundle: false
                 type: xml
                 dir: '%kernel.project_dir%/config/doctrine/UserGroup'
-                prefix: 'App\Entity\UserGroup'
+                prefix: 'App\UserManagement\Domain\Model\UserGroup'
                 alias: UserGroup
             Mod:
                 is_bundle: false
@@ -64,53 +64,53 @@ doctrine:
                 is_bundle: false
                 type: xml
                 dir: '%kernel.project_dir%/config/doctrine/Permissions'
-                prefix: 'App\Entity\Permissions'
+                prefix: 'App\UserManagement\Domain\Model\Permissions'
                 alias: Permissions
             UserPermissions:
                 is_bundle: false
                 type: xml
                 dir: '%kernel.project_dir%/config/doctrine/Permissions'
-                prefix: 'App\Entity\Permissions'
+                prefix: 'App\UserManagement\Domain\Model\Permissions'
                 alias: UserPermissions
             UserGroupPermissions:
                 is_bundle: false
                 type: xml
                 dir: '%kernel.project_dir%/config/doctrine/Permissions'
-                prefix: 'App\Entity\Permissions'
+                prefix: 'App\UserManagement\Domain\Model\Permissions'
                 alias: UserGroupPermissions
             UserManagementPermissions:
                 is_bundle: false
                 type: xml
                 dir: '%kernel.project_dir%/config/doctrine/Permissions/User'
-                prefix: 'App\Entity\Permissions\User'
+                prefix: 'App\UserManagement\Domain\Model\Permissions\User'
                 alias: UserManagementPermissions
             UserGroupManagementPermissions:
                 is_bundle: false
                 type: xml
                 dir: '%kernel.project_dir%/config/doctrine/Permissions/UserGroup'
-                prefix: 'App\Entity\Permissions\UserGroup'
+                prefix: 'App\UserManagement\Domain\Model\Permissions\UserGroup'
                 alias: UserGroupManagementPermissions
             ModManagementPermissions:
                 is_bundle: false
                 type: xml
                 dir: '%kernel.project_dir%/config/doctrine/Permissions/Mod'
-                prefix: 'App\Entity\Permissions\Mod'
+                prefix: 'App\UserManagement\Domain\Model\Permissions\Mod'
                 alias: ModManagementPermissions
             ModGroupManagementPermissions:
                 is_bundle: false
                 type: xml
                 dir: '%kernel.project_dir%/config/doctrine/Permissions/ModGroup'
-                prefix: 'App\Entity\Permissions\ModGroup'
+                prefix: 'App\UserManagement\Domain\Model\Permissions\ModGroup'
                 alias: ModGroupManagementPermissions
             DlcManagementPermissions:
                 is_bundle: false
                 type: xml
                 dir: '%kernel.project_dir%/config/doctrine/Permissions/Dlc'
-                prefix: 'App\Entity\Permissions\Dlc'
+                prefix: 'App\UserManagement\Domain\Model\Permissions\Dlc'
                 alias: DlcManagementPermissions
             ModListManagementPermissions:
                 is_bundle: false
                 type: xml
                 dir: '%kernel.project_dir%/config/doctrine/Permissions/ModList'
-                prefix: 'App\Entity\Permissions\ModList'
+                prefix: 'App\UserManagement\Domain\Model\Permissions\ModList'
                 alias: ModListManagementPermissions

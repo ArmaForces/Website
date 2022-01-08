@@ -14,10 +14,10 @@ use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[AsController]
-#[Route(path: '/security', name: 'app_security')]
+#[Route('/security', name: 'app_security')]
 class SecurityController extends AbstractController
 {
-    #[Route(path: '/connect/discord', name: '_connect_discord')]
+    #[Route('/connect/discord', name: '_connect_discord')]
     public function connectAction(ClientRegistry $clientRegistry): RedirectResponse
     {
         // Prevent access for logged-in users
@@ -36,13 +36,13 @@ class SecurityController extends AbstractController
         ;
     }
 
-    #[Route(path: '/connect/discord/check', name: '_connect_discord_check')]
+    #[Route('/connect/discord/check', name: '_connect_discord_check')]
     public function connectCheckAction(): Response
     {
         throw new RuntimeException('This should never be executed!');
     }
 
-    #[Route(path: '/logout', name: '_logout')]
+    #[Route('/logout', name: '_logout')]
     public function logoutAction(): Response
     {
         throw new RuntimeException('This should never be executed!');

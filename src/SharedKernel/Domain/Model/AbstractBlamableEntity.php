@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\SharedKernel\Domain\Model;
 
-use App\Entity\User\UserInterface;
+use App\UserManagement\Domain\Model\User\UserInterface;
 
 abstract class AbstractBlamableEntity extends AbstractEntity implements BlamableEntityInterface
 {

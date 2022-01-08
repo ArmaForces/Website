@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\SharedKernel\Infrastructure\Twig;
 
-use App\Entity\User\User;
+use App\UserManagement\Domain\Model\User\User;
 use Symfony\Component\Security\Core\Security;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;

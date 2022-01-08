@@ -8,9 +8,9 @@ use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Client;
 use App\DataFixtures\ModList\DefaultModListFixture;
 use App\Repository\ModList\ModListRepository;
-use App\Repository\User\UserRepository;
 use App\SharedKernel\Infrastructure\Test\Enum\RouteEnum;
 use App\SharedKernel\Infrastructure\Test\Traits\DataProvidersTrait;
+use App\UserManagement\Infrastructure\Persistence\User\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

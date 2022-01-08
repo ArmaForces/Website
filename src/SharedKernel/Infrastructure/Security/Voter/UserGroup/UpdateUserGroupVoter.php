@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\SharedKernel\Infrastructure\Security\Voter\UserGroup;
 
-use App\Entity\Permissions\PermissionsInterface;
-use App\Entity\User\UserInterface;
-use App\Entity\UserGroup\UserGroupInterface;
 use App\SharedKernel\Infrastructure\Security\Enum\PermissionsEnum;
+use App\UserManagement\Domain\Model\Permissions\PermissionsInterface;
+use App\UserManagement\Domain\Model\User\UserInterface;
+use App\UserManagement\Domain\Model\UserGroup\UserGroupInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 

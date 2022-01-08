@@ -6,9 +6,9 @@ namespace App\Tests\Functional\Controller\ModListPublicController;
 
 use App\DataFixtures\ModList\DefaultModListFixture;
 use App\Repository\ModList\ModListRepository;
-use App\Repository\User\UserRepository;
 use App\SharedKernel\Infrastructure\Test\Enum\RouteEnum;
 use App\SharedKernel\Infrastructure\Test\Traits\DataProvidersTrait;
+use App\UserManagement\Infrastructure\Persistence\User\UserRepository;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\EventSubscriber\Doctrine;
 
-use App\Entity\User\UserInterface;
 use App\SharedKernel\Domain\Model\BlamableEntityInterface;
 use App\SharedKernel\Infrastructure\EventSubscriber\Doctrine\EntityBlamableSubscriber;
+use App\UserManagement\Domain\Model\User\UserInterface;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
 use PHPUnit\Framework\TestCase;

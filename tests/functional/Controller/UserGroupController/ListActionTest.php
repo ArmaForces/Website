@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Controller\UserGroupController;
 
-use App\DataFixtures\User\AdminUserFixture;
-use App\DataFixtures\User\RegularUserFixture;
-use App\Repository\User\UserRepository;
 use App\SharedKernel\Infrastructure\Test\Enum\RouteEnum;
+use App\UserManagement\Infrastructure\DataFixtures\User\AdminUserFixture;
+use App\UserManagement\Infrastructure\DataFixtures\User\RegularUserFixture;
+use App\UserManagement\Infrastructure\Persistence\User\UserRepository;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @internal
- * @covers \App\Controller\UserGroupController
+ * @covers \App\UserManagement\UserInterface\Http\Controller\UserGroupController
  */
 final class ListActionTest extends WebTestCase
 {

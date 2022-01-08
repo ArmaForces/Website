@@ -7,10 +7,10 @@ namespace App\Entity\ModList;
 use App\Entity\Dlc\DlcInterface;
 use App\Entity\Mod\ModInterface;
 use App\Entity\ModGroup\ModGroupInterface;
-use App\Entity\User\UserInterface;
 use App\SharedKernel\Domain\Model\BlamableEntityInterface;
 use App\SharedKernel\Domain\Model\Traits\DescribedInterface;
 use App\SharedKernel\Domain\Model\Traits\NamedInterface;
+use App\UserManagement\Domain\Model\User\UserInterface;
 
 interface ModListInterface extends BlamableEntityInterface, NamedInterface, DescribedInterface
 {

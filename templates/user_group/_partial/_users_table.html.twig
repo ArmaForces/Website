@@ -15,7 +15,7 @@
     {% block table_body %}
         {% set rowNo = 1 %}
 
-        {# @var user \App\Entity\User\UserInterface #}
+        {# @var user \App\UserManagement\Domain\Model\User\UserInterface #}
         {% for child in form.children %}
             {% set user = form.vars.choices[loop.index0].data %}
 

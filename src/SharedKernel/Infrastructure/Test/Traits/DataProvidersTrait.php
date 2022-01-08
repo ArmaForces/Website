@@ -7,8 +7,8 @@ namespace App\SharedKernel\Infrastructure\Test\Traits;
 use App\DataFixtures\Mod\Required\ArmaForcesModsModFixture;
 use App\DataFixtures\ModGroup\RhsModGroupFixture;
 use App\DataFixtures\ModList\DefaultModListFixture;
-use App\DataFixtures\User\AdminUserFixture;
-use App\DataFixtures\User\RegularUserFixture;
+use App\UserManagement\Infrastructure\DataFixtures\User\AdminUserFixture;
+use App\UserManagement\Infrastructure\DataFixtures\User\RegularUserFixture;
 
 trait DataProvidersTrait
 {

@@ -1,7 +1,7 @@
 {% extends 'card.html.twig' %}
 
 {% block content %}
-    {# @var userFormDto \App\Form\User\Dto\UserFormDto #}
+    {# @var userFormDto \App\UserManagement\UserInterface\Http\Form\User\Dto\UserFormDto #}
     {% set userFormDto = form.vars.data %}
 
     {% embed '_partial/_page_header.html.twig' %}

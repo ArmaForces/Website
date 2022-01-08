@@ -50,7 +50,7 @@
             </cascade>
         </many-to-many>
 
-        <many-to-one field="owner" target-entity="App\Entity\User\User">
+        <many-to-one field="owner" target-entity="App\UserManagement\Domain\Model\User\User">
             <join-column name="owner_id" referenced-column-name="id" nullable="true"/>
         </many-to-one>
 
