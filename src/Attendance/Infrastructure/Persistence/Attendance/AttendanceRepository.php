@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Repository\Attendance;
+namespace App\Attendance\Infrastructure\Persistence\Attendance;
 
-use App\Entity\Attendance\Attendance;
-use App\Entity\Attendance\AttendanceInterface;
+use App\Attendance\Domain\Model\Attendance\Attendance;
+use App\Attendance\Domain\Model\Attendance\AttendanceInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

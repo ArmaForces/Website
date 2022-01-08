@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Api\DataTransformer\Attendance;
+namespace App\Attendance\UserInterface\Http\Api\DataTransformer\Attendance;
 
 use ApiPlatform\Core\DataTransformer\DataTransformerInterface;
-use App\Api\Output\Attendance\AttendanceOutput;
-use App\Entity\Attendance\AttendanceInterface;
+use App\Attendance\Domain\Model\Attendance\AttendanceInterface;
+use App\Attendance\UserInterface\Http\Api\Output\Attendance\AttendanceOutput;
 
 class AttendanceOutputDataTransformer implements DataTransformerInterface
 {

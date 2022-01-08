@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\SharedKernel\Infrastructure\Validator\Attendance;
+namespace App\Attendance\Infrastructure\Validator\Attendance;
 
-use App\Api\Input\Attendance\AttendanceInput;
-use App\Entity\Attendance\Attendance;
+use App\Attendance\Domain\Model\Attendance\Attendance;
+use App\Attendance\UserInterface\Http\Api\Input\Attendance\AttendanceInput;
 use App\SharedKernel\Infrastructure\Validator\AbstractValidator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;

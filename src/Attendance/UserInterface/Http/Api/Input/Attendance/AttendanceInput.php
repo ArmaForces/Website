@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Api\Input\Attendance;
+namespace App\Attendance\UserInterface\Http\Api\Input\Attendance;
 
-use App\SharedKernel\Infrastructure\Validator\Attendance\UniqueAttendance;
+use App\Attendance\Infrastructure\Validator\Attendance\UniqueAttendance;
 use App\SharedKernel\Infrastructure\Validator\SteamProfileId;
 use Symfony\Component\Validator\Constraints as Assert;
 

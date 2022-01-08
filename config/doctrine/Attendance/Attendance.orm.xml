@@ -4,7 +4,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="App\Entity\Attendance\Attendance" table="attendances" repository-class="App\Repository\Attendance\AttendanceRepository">
+    <entity name="App\Attendance\Domain\Model\Attendance\Attendance" table="attendances" repository-class="App\Attendance\Infrastructure\Persistence\Attendance\AttendanceRepository">
         <field name="missionId" type="string" length="255"/>
         <field name="playerId" type="bigint"/>
 

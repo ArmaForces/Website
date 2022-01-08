@@ -1,7 +1,7 @@
-App\Entity\Attendance\Attendance:
+App\Attendance\Domain\Model\Attendance\Attendance:
     attributes:
-        input: 'App\Api\Input\Attendance\AttendanceInput'
-        output: 'App\Api\Output\Attendance\AttendanceOutput'
+        input: 'App\Attendance\UserInterface\Http\Api\Input\Attendance\AttendanceInput'
+        output: 'App\Attendance\UserInterface\Http\Api\Output\Attendance\AttendanceOutput'
 
     itemOperations:
         get: ~
@@ -14,4 +14,4 @@ App\Entity\Attendance\Attendance:
                 - 'attendance.order_filter'
 
         post:
-            input: 'App\Api\Input\Attendance\AttendanceInput'
+            input: 'App\Attendance\UserInterface\Http\Api\Input\Attendance\AttendanceInput'

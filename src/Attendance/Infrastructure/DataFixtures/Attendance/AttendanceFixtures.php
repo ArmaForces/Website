@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\DataFixtures\Attendance;
+namespace App\Attendance\Infrastructure\DataFixtures\Attendance;
 
-use App\Entity\Attendance\Attendance;
+use App\Attendance\Domain\Model\Attendance\Attendance;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Ramsey\Uuid\Uuid;

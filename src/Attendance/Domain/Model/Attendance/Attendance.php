@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Entity\Attendance;
+namespace App\Attendance\Domain\Model\Attendance;
 
 use App\SharedKernel\Domain\Model\AbstractEntity;
 use Ramsey\Uuid\UuidInterface;

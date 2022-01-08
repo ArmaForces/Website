@@ -22,7 +22,7 @@ doctrine:
                 is_bundle: false
                 type: xml
                 dir: '%kernel.project_dir%/config/doctrine/Attendance'
-                prefix: 'App\Entity\Attendance'
+                prefix: 'App\Attendance\Domain\Model\Attendance'
                 alias: Attendance
             User:
                 is_bundle: false

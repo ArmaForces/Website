@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Api\Output\Attendance;
+namespace App\Attendance\UserInterface\Http\Api\Output\Attendance;
 
 class AttendanceOutput
 {
