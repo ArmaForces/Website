@@ -6,8 +6,8 @@ namespace App\Tests\Functional\Api\Controller\ModList;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Client;
-use App\DataFixtures\ModList\DefaultModListFixture;
-use App\Repository\ModList\ModListRepository;
+use App\ModManagement\Infrastructure\DataFixtures\ModList\DefaultModListFixture;
+use App\ModManagement\Infrastructure\Persistence\ModList\ModListRepository;
 use App\SharedKernel\Infrastructure\Test\Enum\RouteEnum;
 use App\SharedKernel\Infrastructure\Test\Traits\DataProvidersTrait;
 use App\UserManagement\Infrastructure\Persistence\User\UserRepository;
@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @internal
- * @covers \App\Api\Controller\GetModListByNameAction
+ * @covers \App\ModManagement\UserInterface\Http\Api\Controller\GetModListByNameAction
  */
 final class GetModListByNameActionTest extends ApiTestCase
 {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Controller\ModListController;
 
-use App\Repository\ModList\ModListRepository;
+use App\ModManagement\Infrastructure\Persistence\ModList\ModListRepository;
 use App\SharedKernel\Infrastructure\Test\Enum\RouteEnum;
 use App\SharedKernel\Infrastructure\Test\Traits\DataProvidersTrait;
 use App\UserManagement\Infrastructure\DataFixtures\User\AdminUserFixture;

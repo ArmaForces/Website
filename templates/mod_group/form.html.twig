@@ -3,7 +3,7 @@
 {% form_theme form _self %}
 
 {% block content %}
-    {# @var modGroupFormDto \App\Form\Mod\Dto\ModGroupFormDto #}
+    {# @var modGroupFormDto \App\ModManagement\UserInterface\Http\Form\Mod\Dto\ModGroupFormDto #}
     {% set modGroupFormDto = form.vars.data %}
 
     {% embed '_partial/_page_header.html.twig' %}

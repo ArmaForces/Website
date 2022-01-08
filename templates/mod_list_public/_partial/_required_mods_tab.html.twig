@@ -13,7 +13,7 @@
         {% block table_body %}
             {% set rowNo = 1 %}
 
-            {# @var mod \App\Entity\Mod\SteamWorkshopMod #}
+            {# @var mod \App\ModManagement\Domain\Model\Mod\SteamWorkshopMod #}
             {% for mod in requiredMods %}
                 {% if not mod.statusDisabled %}
                     <tr>

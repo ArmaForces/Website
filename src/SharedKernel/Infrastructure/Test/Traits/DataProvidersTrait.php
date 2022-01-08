@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\SharedKernel\Infrastructure\Test\Traits;
 
-use App\DataFixtures\Mod\Required\ArmaForcesModsModFixture;
-use App\DataFixtures\ModGroup\RhsModGroupFixture;
-use App\DataFixtures\ModList\DefaultModListFixture;
+use App\ModManagement\Infrastructure\DataFixtures\Mod\Required\ArmaForcesModsModFixture;
+use App\ModManagement\Infrastructure\DataFixtures\ModGroup\RhsModGroupFixture;
+use App\ModManagement\Infrastructure\DataFixtures\ModList\DefaultModListFixture;
 use App\UserManagement\Infrastructure\DataFixtures\User\AdminUserFixture;
 use App\UserManagement\Infrastructure\DataFixtures\User\RegularUserFixture;
 

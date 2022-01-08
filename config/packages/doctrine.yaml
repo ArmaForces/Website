@@ -40,25 +40,25 @@ doctrine:
                 is_bundle: false
                 type: xml
                 dir: '%kernel.project_dir%/config/doctrine/Mod'
-                prefix: 'App\Entity\Mod'
+                prefix: 'App\ModManagement\Domain\Model\Mod'
                 alias: Mod
             ModGroup:
                 is_bundle: false
                 type: xml
                 dir: '%kernel.project_dir%/config/doctrine/ModGroup'
-                prefix: 'App\Entity\ModGroup'
+                prefix: 'App\ModManagement\Domain\Model\ModGroup'
                 alias: ModGroup
             Dlc:
                 is_bundle: false
                 type: xml
                 dir: '%kernel.project_dir%/config/doctrine/Dlc'
-                prefix: 'App\Entity\Dlc'
+                prefix: 'App\ModManagement\Domain\Model\Dlc'
                 alias: Dlc
             ModList:
                 is_bundle: false
                 type: xml
                 dir: '%kernel.project_dir%/config/doctrine/ModList'
-                prefix: 'App\Entity\ModList'
+                prefix: 'App\ModManagement\Domain\Model\ModList'
                 alias: Mod
             Permissions:
                 is_bundle: false

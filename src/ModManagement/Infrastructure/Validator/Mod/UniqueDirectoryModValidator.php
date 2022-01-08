@@ -1,0 +1,39 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\ModManagement\Infrastructure\Validator\Mod;
+
+use App\ModManagement\Domain\Model\Mod\DirectoryMod;
+use App\ModManagement\UserInterface\Http\Form\Mod\Dto\ModFormDto;
+use App\SharedKernel\Infrastructure\Validator\AbstractValidator;
+use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
+
+class UniqueDirectoryModValidator extends AbstractValidator
+{
+    public function validate($value, Constraint $constraint): void
+    {
+        if (!$value instanceof ModFormDto) {
+            throw new UnexpectedTypeException($constraint, ModFormDto::class);
+        }
+
+        if (!$constraint instanceof UniqueDirectoryMod) {
+            throw new UnexpectedTypeException($constraint, UniqueDirectoryMod::class);
+        }
+
+        $directory = $value->getDirectory();
+        $id = $value->getId();
+        if (!$directory || $this->isColumnValueUnique(DirectoryMod::class, ['directory' => $directory], $id)) {
+            return;
+        }
+
+        $this->addViolation(
+            $constraint->message,
+            [
+                '{{ directoryName }}' => $directory,
+            ],
+            $constraint->errorPath
+        );
+    }
+}

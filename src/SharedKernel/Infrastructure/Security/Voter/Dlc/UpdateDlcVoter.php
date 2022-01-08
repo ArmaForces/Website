@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\SharedKernel\Infrastructure\Security\Voter\Dlc;
 
-use App\Entity\Dlc\DlcInterface;
+use App\ModManagement\Domain\Model\Dlc\DlcInterface;
 use App\SharedKernel\Infrastructure\Security\Enum\PermissionsEnum;
 use App\UserManagement\Domain\Model\Permissions\PermissionsInterface;
 use App\UserManagement\Domain\Model\User\UserInterface;

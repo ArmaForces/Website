@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-    {# @var modFormDto \App\Form\Mod\Dto\ModFormDto #}
+    {# @var modFormDto \App\ModManagement\UserInterface\Http\Form\Mod\Dto\ModFormDto #}
     {% set modFormDto = form.vars.data %}
 
     {% embed '_partial/_page_header.html.twig' %}

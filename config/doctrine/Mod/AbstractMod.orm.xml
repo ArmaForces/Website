@@ -4,7 +4,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="App\Entity\Mod\AbstractMod" table="mods" repository-class="App\Repository\Mod\ModRepository" inheritance-type="SINGLE_TABLE">
+    <entity name="App\ModManagement\Domain\Model\Mod\AbstractMod" table="mods" repository-class="App\ModManagement\Infrastructure\Persistence\Mod\ModRepository" inheritance-type="SINGLE_TABLE">
         <field name="name" type="string" length="255"/>
         <field name="description" type="string" length="255" nullable="true"/>
 
@@ -13,8 +13,8 @@
 
         <discriminator-column name="source" type="string" length="255"/>
         <discriminator-map>
-            <discriminator-mapping value="steam_workshop" class="App\Entity\Mod\SteamWorkshopMod"/>
-            <discriminator-mapping value="directory" class="App\Entity\Mod\DirectoryMod"/>
+            <discriminator-mapping value="steam_workshop" class="App\ModManagement\Domain\Model\Mod\SteamWorkshopMod"/>
+            <discriminator-mapping value="directory" class="App\ModManagement\Domain\Model\Mod\DirectoryMod"/>
         </discriminator-map>
     </entity>
 

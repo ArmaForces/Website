@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\SharedKernel\Infrastructure\Test\Traits;
 
-use App\Entity\Mod\SteamWorkshopMod;
-use App\Entity\ModList\ModListInterface;
+use App\ModManagement\Domain\Model\Mod\SteamWorkshopMod;
+use App\ModManagement\Domain\Model\ModList\ModListInterface;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Response;
 

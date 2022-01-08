@@ -3,7 +3,7 @@
 {% form_theme form _self %}
 
 {% block content %}
-    {# @var dlcFormDto \App\Form\Mod\Dto\DlcFormDto #}
+    {# @var dlcFormDto \App\ModManagement\UserInterface\Http\Form\Mod\Dto\DlcFormDto #}
     {% set dlcFormDto = form.vars.data %}
 
     {% embed '_partial/_page_header.html.twig' %}

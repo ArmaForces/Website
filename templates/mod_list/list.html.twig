@@ -29,7 +29,7 @@
             </tr>
         {% endblock %}
         {% block table_body %}
-            {# @var modList \App\Entity\ModList\ModList #}
+            {# @var modList \App\ModManagement\Domain\Model\ModList\ModList #}
             {% for modList in modLists %}
                 <tr>
                     <th scope="row">{{ loop.index }}</th>
@@ -41,7 +41,7 @@
                     <td>
                         {{ tableMacro.row_name_with_description(modList.name, modList.description) }}
 
-                        {# @var dlc \App\Entity\Dlc\Dlc #}
+                        {# @var dlc \App\ModManagement\Domain\Model\Dlc\Dlc #}
                         {% for dlc in modList.dlcs %}
                             {{ commonMacro.dlc_icon(dlc) }}
                         {% endfor %}

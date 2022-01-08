@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\SharedKernel\Infrastructure\Security\Voter\ModList;
 
-use App\Entity\ModList\ModList;
-use App\Entity\ModList\ModListInterface;
+use App\ModManagement\Domain\Model\ModList\ModList;
+use App\ModManagement\Domain\Model\ModList\ModListInterface;
 use App\SharedKernel\Infrastructure\Security\Enum\PermissionsEnum;
 use App\UserManagement\Domain\Model\Permissions\PermissionsInterface;
 use App\UserManagement\Domain\Model\User\UserInterface;

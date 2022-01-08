@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Controller\ModListPublicController;
 
-use App\DataFixtures\Mod\Optional;
-use App\DataFixtures\Mod\Optional\AceInteractionMenuExpansionModFixture;
-use App\DataFixtures\Mod\Required;
-use App\DataFixtures\ModList\DefaultModListFixture;
-use App\Repository\Mod\SteamWorkshopModRepository;
-use App\Repository\ModList\ModListRepository;
+use App\ModManagement\Infrastructure\DataFixtures\Mod\Optional;
+use App\ModManagement\Infrastructure\DataFixtures\Mod\Optional\AceInteractionMenuExpansionModFixture;
+use App\ModManagement\Infrastructure\DataFixtures\Mod\Required;
+use App\ModManagement\Infrastructure\DataFixtures\ModList\DefaultModListFixture;
+use App\ModManagement\Infrastructure\Persistence\Mod\SteamWorkshopModRepository;
+use App\ModManagement\Infrastructure\Persistence\ModList\ModListRepository;
 use App\SharedKernel\Infrastructure\Test\Enum\RouteEnum;
 use App\SharedKernel\Infrastructure\Test\Traits\AssertsTrait;
 use App\SharedKernel\Infrastructure\Test\Traits\DataProvidersTrait;

@@ -27,7 +27,7 @@
             </tr>
         {% endblock %}
         {% block table_body %}
-            {# @var mod \App\Entity\Mod\ModInterface #}
+            {# @var mod \App\ModManagement\Domain\Model\Mod\ModInterface #}
             {% for mod in mods %}
                 <tr>
                     <th scope="row">{{ loop.index }}</th>

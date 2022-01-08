@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Controller\ModController;
 
-use App\Entity\Mod\AbstractMod;
-use App\Repository\Mod\ModRepository;
+use App\ModManagement\Domain\Model\Mod\AbstractMod;
+use App\ModManagement\Infrastructure\Persistence\Mod\ModRepository;
 use App\SharedKernel\Infrastructure\Test\Enum\RouteEnum;
 use App\SharedKernel\Infrastructure\Test\Traits\DataProvidersTrait;
 use App\UserManagement\Infrastructure\DataFixtures\User\AdminUserFixture;

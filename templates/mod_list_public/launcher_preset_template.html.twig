@@ -85,7 +85,7 @@
         </p>
         <div class="dlc-list">
             <table>
-                {# @var dlc \App\Entity\Dlc\Dlc #}
+                {# @var dlc \App\ModManagement\Domain\Model\Dlc\Dlc #}
                 {% for dlc in modList.dlcs %}
                     <tr data-type="DlcContainer">
                         <td data-type="DisplayName">{{ dlc.name }}</td>
@@ -98,7 +98,7 @@
         </div>
         <div class="mod-list">
             <table>
-                {# @var mod \App\Entity\Mod\SteamWorkshopMod #}
+                {# @var mod \App\ModManagement\Domain\Model\Mod\SteamWorkshopMod #}
                 {% for mod in mods %}
                     {% set isSelected = (mod.id.toString in optionalMods|keys and optionalMods[mod.id.toString] == true) %}
 

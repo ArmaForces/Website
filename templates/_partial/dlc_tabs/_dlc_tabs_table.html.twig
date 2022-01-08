@@ -11,7 +11,7 @@
     {% block table_body %}
         {% set rowNo = 1 %}
 
-        {# @var dlc \App\Entity\Dlc\Dlc #}
+        {# @var dlc \App\ModManagement\Domain\Model\Dlc\Dlc #}
         {% for child in form.children %}
             {% set dlc = form.vars.choices[loop.index0].data %}
 

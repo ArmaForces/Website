@@ -25,7 +25,7 @@
             </tr>
         {% endblock %}
         {% block table_body %}
-            {# @var modGroup \App\Entity\ModGroup\ModGroup #}
+            {# @var modGroup \App\ModManagement\Domain\Model\ModGroup\ModGroup #}
             {% for modGroup in modGroups %}
                 <tr>
                     <th scope="row">{{ loop.index }}</th>

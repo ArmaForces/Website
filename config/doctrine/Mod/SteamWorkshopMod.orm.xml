@@ -4,7 +4,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="App\Entity\Mod\SteamWorkshopMod" repository-class="App\Repository\Mod\SteamWorkshopModRepository">
+    <entity name="App\ModManagement\Domain\Model\Mod\SteamWorkshopMod" repository-class="App\ModManagement\Infrastructure\Persistence\Mod\SteamWorkshopModRepository">
         <field name="itemId" type="bigint" unique="true"/>
     </entity>
 

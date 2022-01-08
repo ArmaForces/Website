@@ -21,7 +21,7 @@
             </tr>
         {% endblock %}
         {% block table_body %}
-            {# @var modList \App\Entity\ModList\ModList #}
+            {# @var modList \App\ModManagement\Domain\Model\ModList\ModList #}
             {% for modList in modLists %}
                 <tr data-row-action-url="{{ path('app_mod_list_public_customize', { name: modList.name }) }}">
                     <th scope="row">{{ loop.index }}</th>
@@ -33,7 +33,7 @@
                     <td>
                         {{ modList.name }}
 
-                        {# @var dlc \App\Entity\Dlc\Dlc #}
+                        {# @var dlc \App\ModManagement\Domain\Model\Dlc\Dlc #}
                         {% for dlc in modList.dlcs %}
                             {{ commonMacro.dlc_icon(dlc) }}
                         {% endfor %}

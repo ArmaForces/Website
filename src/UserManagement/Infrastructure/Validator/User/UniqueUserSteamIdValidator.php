@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\UserManagement\Infrastructure\Validator\User;
 
-use App\Form\ModList\Dto\ModListFormDto;
+use App\ModManagement\UserInterface\Http\Form\ModList\Dto\ModListFormDto;
 use App\SharedKernel\Infrastructure\Validator\AbstractValidator;
 use App\UserManagement\Domain\Model\User\User;
 use App\UserManagement\UserInterface\Http\Form\User\Dto\UserFormDto;

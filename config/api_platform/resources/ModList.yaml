@@ -1,16 +1,16 @@
-App\Entity\ModList\ModList:
+App\ModManagement\Domain\Model\ModList\ModList:
     attributes:
-        output: 'App\Api\Output\ModList\ModListOutput'
+        output: 'App\ModManagement\UserInterface\Http\Api\Output\ModList\ModListOutput'
 
     itemOperations:
         get:
-            output: 'App\Api\Output\ModList\ModListDetailsOutput'
+            output: 'App\ModManagement\UserInterface\Http\Api\Output\ModList\ModListDetailsOutput'
 
         get_by_name:
             method: 'GET'
             path: '/mod-lists/by-name/{name}'
-            controller: 'App\Api\Controller\GetModListByNameAction'
-            output: 'App\Api\Output\ModList\ModListDetailsOutput'
+            controller: 'App\ModManagement\UserInterface\Http\Api\Controller\GetModListByNameAction'
+            output: 'App\ModManagement\UserInterface\Http\Api\Output\ModList\ModListDetailsOutput'
             read: false
 
     collectionOperations:

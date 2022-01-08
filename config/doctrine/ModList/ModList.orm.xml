@@ -4,11 +4,11 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="App\Entity\ModList\ModList" table="mod_lists" repository-class="App\Repository\ModList\ModListRepository">
+    <entity name="App\ModManagement\Domain\Model\ModList\ModList" table="mod_lists" repository-class="App\ModManagement\Infrastructure\Persistence\ModList\ModListRepository">
         <field name="name" type="string" length="255"/>
         <field name="description" type="string" length="255" nullable="true"/>
 
-        <many-to-many field="mods" target-entity="App\Entity\Mod\AbstractMod">
+        <many-to-many field="mods" target-entity="App\ModManagement\Domain\Model\Mod\AbstractMod">
             <join-table name="mod_lists_to_mods">
                 <join-columns>
                     <join-column name="mod_list_id" referenced-column-name="id" on-delete="CASCADE"/>
@@ -22,7 +22,7 @@
             </cascade>
         </many-to-many>
 
-        <many-to-many field="modGroups" target-entity="App\Entity\ModGroup\ModGroup">
+        <many-to-many field="modGroups" target-entity="App\ModManagement\Domain\Model\ModGroup\ModGroup">
             <join-table name="mod_lists_to_mod_groups">
                 <join-columns>
                     <join-column name="mod_list_id" referenced-column-name="id" on-delete="CASCADE"/>
@@ -36,7 +36,7 @@
             </cascade>
         </many-to-many>
 
-        <many-to-many field="dlcs" target-entity="App\Entity\Dlc\Dlc">
+        <many-to-many field="dlcs" target-entity="App\ModManagement\Domain\Model\Dlc\Dlc">
             <join-table name="mod_lists_to_dlcs">
                 <join-columns>
                     <join-column name="mod_list_id" referenced-column-name="id" on-delete="CASCADE"/>

@@ -25,7 +25,7 @@
             </tr>
         {% endblock %}
         {% block table_body %}
-            {# @var dlc \App\Entity\Dlc\Dlc #}
+            {# @var dlc \App\ModManagement\Domain\Model\Dlc\Dlc #}
             {% for dlc in dlcs %}
                 <tr>
                     <th scope="row">{{ loop.index }}</th>

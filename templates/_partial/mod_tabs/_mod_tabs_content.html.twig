@@ -3,14 +3,14 @@
 {% set active = active|default('') %}
 
 <div class="tab-pane fade{{ tabMacro.tab_show(active, 'server-side-mods') }}" id="server-side-mods" role="tabpanel">
-    {% include '_partial/mod_tabs/_mod_tabs_table.html.twig' with { form: form, modType: constant('\\App\\Entity\\Mod\\Enum\\ModTypeEnum::SERVER_SIDE') } %}
+    {% include '_partial/mod_tabs/_mod_tabs_table.html.twig' with { form: form, modType: constant('\\App\\ModManagement\\Domain\\Model\\Mod\\Enum\\ModTypeEnum::SERVER_SIDE') } %}
 </div>
 <div class="tab-pane fade{{ tabMacro.tab_show(active, 'required-mods') }}" id="required-mods" role="tabpanel">
-    {% include '_partial/mod_tabs/_mod_tabs_table.html.twig' with { form: form, modType: constant('\\App\\Entity\\Mod\\Enum\\ModTypeEnum::REQUIRED') } %}
+    {% include '_partial/mod_tabs/_mod_tabs_table.html.twig' with { form: form, modType: constant('\\App\\ModManagement\\Domain\\Model\\Mod\\Enum\\ModTypeEnum::REQUIRED') } %}
 </div>
 <div class="tab-pane fade{{ tabMacro.tab_show(active, 'optional-mods') }}" id="optional-mods" role="tabpanel">
-    {% include '_partial/mod_tabs/_mod_tabs_table.html.twig' with { form: form, modType: constant('\\App\\Entity\\Mod\\Enum\\ModTypeEnum::OPTIONAL') } %}
+    {% include '_partial/mod_tabs/_mod_tabs_table.html.twig' with { form: form, modType: constant('\\App\\ModManagement\\Domain\\Model\\Mod\\Enum\\ModTypeEnum::OPTIONAL') } %}
 </div>
 <div class="tab-pane fade{{ tabMacro.tab_show(active, 'client-side-mods') }}" id="client-side-mods" role="tabpanel">
-    {% include '_partial/mod_tabs/_mod_tabs_table.html.twig' with { form: form, modType: constant('\\App\\Entity\\Mod\\Enum\\ModTypeEnum::CLIENT_SIDE') } %}
+    {% include '_partial/mod_tabs/_mod_tabs_table.html.twig' with { form: form, modType: constant('\\App\\ModManagement\\Domain\\Model\\Mod\\Enum\\ModTypeEnum::CLIENT_SIDE') } %}
 </div>

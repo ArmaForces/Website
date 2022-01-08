@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\SharedKernel\Infrastructure\Security\Voter\ModGroup;
 
-use App\Entity\ModGroup\ModGroupInterface;
+use App\ModManagement\Domain\Model\ModGroup\ModGroupInterface;
 use App\SharedKernel\Infrastructure\Security\Enum\PermissionsEnum;
 use App\UserManagement\Domain\Model\Permissions\PermissionsInterface;
 use App\UserManagement\Domain\Model\User\UserInterface;

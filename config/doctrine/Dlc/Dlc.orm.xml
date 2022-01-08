@@ -4,7 +4,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="App\Entity\Dlc\Dlc" repository-class="App\Repository\Dlc\DlcRepository">
+    <entity name="App\ModManagement\Domain\Model\Dlc\Dlc" repository-class="App\ModManagement\Infrastructure\Persistence\Dlc\DlcRepository">
         <field name="name" type="string" length="255"/>
         <field name="description" type="string" length="255" nullable="true"/>
 

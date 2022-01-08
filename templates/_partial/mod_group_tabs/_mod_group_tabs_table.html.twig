@@ -11,7 +11,7 @@
     {% block table_body %}
         {% set rowNo = 1 %}
 
-        {# @var modGroup \App\Entity\ModGroup\ModGroup #}
+        {# @var modGroup \App\ModManagement\Domain\Model\ModGroup\ModGroup #}
         {% for child in form.children %}
             {% set modGroup = form.vars.choices[loop.index0].data %}
 
