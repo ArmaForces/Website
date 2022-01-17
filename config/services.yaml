@@ -62,6 +62,11 @@ services:
             $apiKeyHeaderName: '%app.security.api.key_header_name%'
             $apiAllowedKeys: '%app.security.api.allowed_keys%'
 
+    session.handler.pdo:
+        class: Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler
+        arguments:
+            - '%env(DATABASE_URL)%'
+
     # Register Doctrine subscribers
     App\EventSubscriber\Doctrine\:
         resource: '../src/EventSubscriber/Doctrine'
