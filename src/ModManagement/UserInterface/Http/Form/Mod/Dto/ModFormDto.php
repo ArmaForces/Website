@@ -35,7 +35,7 @@ class ModFormDto extends AbstractFormDto
 
     /**
      * @Assert\Expression(
-     *     "!(this.getType() != constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::SERVER_SIDE') && this.getSource() == constant('App\\Entity\\Mod\\Enum\\ModSourceEnum::DIRECTORY'))",
+     *     "!(this.getType() != constant('App\\ModManagement\\Domain\\Model\\Mod\\Enum\\ModTypeEnum::SERVER_SIDE') && this.getSource() == constant('App\\ModManagement\\Domain\\Model\\Mod\\Enum\\ModSourceEnum::DIRECTORY'))",
      * )
      */
     protected ?string $type = null;
@@ -44,7 +44,7 @@ class ModFormDto extends AbstractFormDto
 
     /**
      * @Assert\Expression(
-     *     "!(this.getSource() == constant('App\\Entity\\Mod\\Enum\\ModSourceEnum::DIRECTORY') && this.getType() != constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::SERVER_SIDE'))",
+     *     "!(this.getSource() == constant('App\\ModManagement\\Domain\\Model\\Mod\\Enum\\ModSourceEnum::DIRECTORY') && this.getType() != constant('App\\ModManagement\\Domain\\Model\\Mod\\Enum\\ModTypeEnum::SERVER_SIDE'))",
      * )
      */
     protected ?string $source = null;
