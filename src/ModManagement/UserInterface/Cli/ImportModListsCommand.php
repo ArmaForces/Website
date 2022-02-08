@@ -12,8 +12,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ImportModListsCommand extends Command
 {
-    public const DEFAULT_IMPORT_DIRECTORY = __DIR__.'/../../var/import';
-
     public function __construct(
         private ModListImport $modListImport
     ) {
@@ -28,9 +26,8 @@ class ImportModListsCommand extends Command
             ->addOption(
                 'path',
                 'p',
-                InputOption::VALUE_OPTIONAL,
+                InputOption::VALUE_REQUIRED,
                 'Path to directory with CSV files',
-                self::DEFAULT_IMPORT_DIRECTORY
             )
         ;
     }
