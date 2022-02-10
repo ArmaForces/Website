@@ -22,12 +22,13 @@ db:
 	docker-compose exec -T php php bin/console doctrine:database:create --if-not-exists --env=${env}
 	docker-compose exec -T php php bin/console doctrine:migration:migrate --no-interaction --env=${env}
 
-setup: db
-	docker-compose exec -T php php bin/console app:import:modlists
+setup:
+	@make db
+	docker-compose exec -T php php bin/console app:import:modlists var/import
 
 test:
-	make db env=test
-	make test-ci
+	@make db env=test
+	@make test-ci
 
 test-ci:
 	docker-compose exec -T php php bin/console doctrine:fixtures:load --no-interaction --env=test

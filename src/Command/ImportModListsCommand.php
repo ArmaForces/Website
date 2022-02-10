@@ -6,14 +6,12 @@ namespace App\Command;
 
 use App\Service\LegacyModListImport\ModListImport;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class ImportModListsCommand extends Command
 {
-    public const DEFAULT_IMPORT_DIRECTORY = __DIR__.'/../../var/import';
-
     public function __construct(
         private ModListImport $modListImport
     ) {
@@ -25,19 +23,17 @@ class ImportModListsCommand extends Command
         $this
             ->setName('app:import:modlists')
             ->setDescription('Imports mods')
-            ->addOption(
+            ->addArgument(
                 'path',
-                'p',
-                InputOption::VALUE_OPTIONAL,
+                InputArgument::REQUIRED,
                 'Path to directory with CSV files',
-                self::DEFAULT_IMPORT_DIRECTORY
             )
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $path = $input->getOption('path');
+        $path = $input->getArgument('path');
 
         $this->modListImport->importFromDirectory($path);
 
