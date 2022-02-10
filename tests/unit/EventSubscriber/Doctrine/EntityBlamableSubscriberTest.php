@@ -130,14 +130,8 @@ final class EntityBlamableSubscriberTest extends TestCase
         $validEntity->expects(static::never())->method('setLastUpdatedBy');
         $validEntity->expects(static::never())->method('setLastUpdatedAt');
 
-        $invalidEntity = $this->getMockBuilder(\stdClass::class)->setMethods([
-            'setCreatedBy',
-            'setLastUpdatedBy',
-            'setLastUpdatedAt',
-        ])->getMock();
-        $invalidEntity->expects(static::never())->method('setCreatedBy');
-        $invalidEntity->expects(static::never())->method('setLastUpdatedBy');
-        $invalidEntity->expects(static::never())->method('setLastUpdatedAt');
+        $invalidEntity = $this->getMockBuilder(\stdClass::class)->getMock();
+        $invalidEntity->expects(static::never())->method(static::anything());
 
         return [
             'valid user, invalid entity' => [
