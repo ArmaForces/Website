@@ -18,7 +18,7 @@ class SteamWorkshopArma3ModUrl extends Constraint
     public ?string $errorPath = null;
     public ?string $nameErrorPath = null;
 
-    public function getTargets()
+    public function getTargets(): array|string
     {
         return parent::CLASS_CONSTRAINT;
     }

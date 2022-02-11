@@ -28,7 +28,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Wohali\OAuth2\Client\Provider\DiscordResourceOwner;
 
@@ -44,37 +44,17 @@ class DiscordAuthenticator extends SocialAuthenticator
     protected const LOGIN_PAGE_ROUTE_NAME = 'app_security_connect_discord';
     protected const SUPPORTED_ROUTE_NAME = 'app_security_connect_discord_check';
 
-    protected ClientRegistry $clientRegistry;
-    protected EntityManagerInterface $em;
-    protected RouterInterface $router;
-    protected DiscordClientFactory $discordClientFactory;
-    protected int $discordServerId;
-    protected string $botToken;
-
-    /** @var string[] */
-    protected array $requiredServerRoleNames;
-
     public function __construct(
-        ClientRegistry $clientRegistry,
-        EntityManagerInterface $em,
-        RouterInterface $router,
-        DiscordClientFactory $discordClientFactory,
-        int $discordServerId,
-        string $botToken,
-        array $requiredServerRoleNames
+        private ClientRegistry $clientRegistry,
+        private EntityManagerInterface $em,
+        private RouterInterface $router,
+        private DiscordClientFactory $discordClientFactory,
+        private int $discordServerId,
+        private string $botToken,
+        private array $requiredServerRoleNames
     ) {
-        $this->clientRegistry = $clientRegistry;
-        $this->em = $em;
-        $this->router = $router;
-        $this->discordClientFactory = $discordClientFactory;
-        $this->discordServerId = $discordServerId;
-        $this->botToken = $botToken;
-        $this->requiredServerRoleNames = $requiredServerRoleNames;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function start(Request $request, AuthenticationException $authException = null): RedirectResponse
     {
         $targetUrl = $this->router->generate(self::LOGIN_PAGE_ROUTE_NAME);
@@ -82,17 +62,11 @@ class DiscordAuthenticator extends SocialAuthenticator
         return new RedirectResponse($targetUrl);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function supports(Request $request): bool
     {
         return self::SUPPORTED_ROUTE_NAME === $request->attributes->get('_route');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getCredentials(Request $request): AccessToken
     {
         return $this->fetchAccessToken($this->getDiscordClient());
@@ -153,10 +127,10 @@ class DiscordAuthenticator extends SocialAuthenticator
 
         try {
             /** @var User $user */
-            $user = $userProvider->loadUserByUsername($externalId);
+            $user = $userProvider->loadUserByIdentifier($externalId);
             $user->setUsername($fullUsername);
             $user->setEmail($email);
-        } catch (UsernameNotFoundException $ex) {
+        } catch (UserNotFoundException $ex) {
             $permissions = new UserPermissions(Uuid::uuid4());
             $user = new User(Uuid::uuid4(), $fullUsername, $email, $externalId, $permissions);
 
@@ -172,9 +146,6 @@ class DiscordAuthenticator extends SocialAuthenticator
         return $user;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?RedirectResponse
     {
         $targetUrl = $this->router->generate(self::HOME_JOIN_US_PAGE_ROUTE_NAME);
@@ -182,9 +153,6 @@ class DiscordAuthenticator extends SocialAuthenticator
         return new RedirectResponse($targetUrl);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey): ?RedirectResponse
     {
         $targetUrl = $this->router->generate(self::HOME_INDEX_PAGE_ROUTE_NAME);
@@ -196,16 +164,11 @@ class DiscordAuthenticator extends SocialAuthenticator
     {
         $rolesFound = (new ArrayCollection($roles))->filter(static fn (Role $role) => $role->name === $roleName);
 
-        switch ($rolesFound->count()) {
-            case 0:
-                throw new RoleNotFoundException(sprintf('Role "%s" was not found!', $roleName));
-
-            case 1:
-                return $rolesFound->first();
-
-            default:
-                throw new MultipleRolesFound(sprintf('Multiple roles found by given name "%s"!', $roleName));
-        }
+        return match ($rolesFound->count()) {
+            0 => throw new RoleNotFoundException(sprintf('Role "%s" was not found!', $roleName)),
+            1 => $rolesFound->first(),
+            default => throw new MultipleRolesFound(sprintf('Multiple roles found by given name "%s"!', $roleName))
+        };
     }
 
     protected function getDiscordClient(): OAuth2ClientInterface

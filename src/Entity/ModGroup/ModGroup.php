@@ -17,13 +17,14 @@ class ModGroup extends AbstractBlamableEntity implements ModGroupInterface
     use NamedTrait;
     use DescribedTrait;
 
-    protected Collection $mods;
+    private Collection $mods;
 
-    public function __construct(UuidInterface $id, string $name)
-    {
+    public function __construct(
+        UuidInterface $id,
+        private string $name
+    ) {
         parent::__construct($id);
 
-        $this->name = $name;
         $this->mods = new ArrayCollection();
     }
 

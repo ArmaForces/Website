@@ -19,6 +19,7 @@ services:
             - './tests:/www/app/tests:ro'
             - './phpunit.xml.dist:/www/app/phpunit.xml.dist:ro'
             - './.php-cs-fixer.dist.php:/www/app/.php-cs-fixer.dist.php:ro'
+            - './phpstan.neon.dist:/www/app/phpstan.neon.dist:ro'
 
         depends_on:
             - mysql

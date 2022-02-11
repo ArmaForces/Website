@@ -13,11 +13,9 @@ use Symfony\Component\Security\Core\Security;
 
 class EntityBlamableSubscriber implements EventSubscriber
 {
-    protected Security $security;
-
-    public function __construct(Security $security)
-    {
-        $this->security = $security;
+    public function __construct(
+        private Security $security
+    ) {
     }
 
     public function getSubscribedEvents(): array
@@ -31,7 +29,7 @@ class EntityBlamableSubscriber implements EventSubscriber
     public function prePersist(LifecycleEventArgs $args): void
     {
         $currentUser = $this->security->getUser();
-        $entity = $args->getEntity();
+        $entity = $args->getObject();
 
         if ($currentUser instanceof UserInterface && $entity instanceof BlamableEntityInterface) {
             $entity->setCreatedBy($currentUser);
@@ -41,7 +39,7 @@ class EntityBlamableSubscriber implements EventSubscriber
     public function preUpdate(LifecycleEventArgs $args): void
     {
         $currentUser = $this->security->getUser();
-        $entity = $args->getEntity();
+        $entity = $args->getObject();
 
         if ($currentUser instanceof UserInterface && $entity instanceof BlamableEntityInterface) {
             $entity->setLastUpdatedAt(new \DateTimeImmutable());

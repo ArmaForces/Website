@@ -20,8 +20,8 @@ class UserFormDtoDataTransformer implements RegisteredDataTransformerInterface
      */
     public function transformToEntity(FormDtoInterface $formDto, EntityInterface $entity = null): EntityInterface
     {
-        $entity->setSteamId((int) $formDto->getSteamId());
-        $entity->setPermissions($formDto->getPermissions());
+        $entity?->setSteamId((int) $formDto->getSteamId());
+        $entity?->setPermissions($formDto->getPermissions());
 
         return $entity;
     }
@@ -34,10 +34,11 @@ class UserFormDtoDataTransformer implements RegisteredDataTransformerInterface
      */
     public function transformFromEntity(FormDtoInterface $formDto, EntityInterface $entity = null): FormDtoInterface
     {
-        $formDto->setId($entity->getId());
-        $steamId = $entity->getSteamId() ? (string) $entity->getSteamId() : null;
+        $formDto->setId($entity?->getId());
+        $steamId = $entity?->getSteamId();
+        $steamId = $steamId ? (string) $steamId : null;
         $formDto->setSteamId($steamId);
-        $formDto->setPermissions($entity->getPermissions());
+        $formDto->setPermissions($entity?->getPermissions());
 
         return $formDto;
     }

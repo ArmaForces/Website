@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Test\Traits;
 
 use App\Entity\Mod\SteamWorkshopMod;
-use App\Entity\ModList\ModList;
+use App\Entity\ModList\ModListInterface;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -19,12 +19,12 @@ trait AssertsTrait
         self::assertSame($expectedUrl, $url);
     }
 
-    public static function assertResponseContainsModListAttachmentHeader(Response $response, ModList $modList): void
+    public static function assertResponseContainsModListAttachmentHeader(Response $response, ModListInterface $modList): void
     {
         $contentDispositionHeader = $response->headers->get('Content-Disposition');
         $pattern = "/^attachment; filename=\"ArmaForces {$modList->getName()} \\d{4}_\\d{2}_\\d{2} \\d{2}_\\d{2}.html\"$/";
 
-        self::assertTrue(1 === preg_match($pattern, $contentDispositionHeader));
+        self::assertMatchesRegularExpression($pattern, $contentDispositionHeader);
     }
 
     public static function assertLauncherPresetContainsMods(Crawler $crawler, array $expectedMods): void

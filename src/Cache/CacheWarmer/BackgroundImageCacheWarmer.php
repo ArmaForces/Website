@@ -9,11 +9,9 @@ use Symfony\Component\HttpKernel\CacheWarmer\CacheWarmer;
 
 class BackgroundImageCacheWarmer extends CacheWarmer
 {
-    protected string $backgroundImagesDirectory;
-
-    public function __construct(string $backgroundImagesDirectory)
-    {
-        $this->backgroundImagesDirectory = $backgroundImagesDirectory;
+    public function __construct(
+        private string $backgroundImagesDirectory
+    ) {
     }
 
     public static function getCacheFileName(): string
@@ -21,10 +19,7 @@ class BackgroundImageCacheWarmer extends CacheWarmer
         return 'background_images.php';
     }
 
-    /**
-     * @param string $cacheDir
-     */
-    public function warmUp($cacheDir): void
+    public function warmUp(string $cacheDir): void
     {
         $fileTemplate = '<?php return %s;';
         $this->writeCacheFile(

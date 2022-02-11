@@ -7,7 +7,7 @@ endif
 
 cs:
 	docker-compose exec -T php php vendor/bin/php-cs-fixer fix ${dryrun}
-	docker-compose exec -T php php vendor/bin/phpstan analyse src --memory-limit 512M
+	docker-compose exec -T php php vendor/bin/phpstan analyse --memory-limit 512M
 
 	docker-compose exec -T php php bin/console lint:twig templates/
 	docker-compose exec -T php php bin/console lint:yaml --parse-tags config/
@@ -22,12 +22,13 @@ db:
 	docker-compose exec -T php php bin/console doctrine:database:create --if-not-exists --env=${env}
 	docker-compose exec -T php php bin/console doctrine:migration:migrate --no-interaction --env=${env}
 
-setup: db
-	docker-compose exec -T php php bin/console app:import:modlists
+setup:
+	@make db
+	docker-compose exec -T php php bin/console app:import:modlists var/import
 
 test:
-	make db env=test
-	make test-ci
+	@make db env=test
+	@make test-ci
 
 test-ci:
 	docker-compose exec -T php php bin/console doctrine:fixtures:load --no-interaction --env=test

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Tests\Functional\Api\Controller\Attendance;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
+use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Client;
 use App\Test\Enum\RouteEnum;
 use App\Test\Traits\DataProvidersTrait;
-use App\Test\Traits\ServicesTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -17,8 +17,16 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class CreateAttendanceActionTest extends ApiTestCase
 {
-    use ServicesTrait;
     use DataProvidersTrait;
+
+    private Client $client;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->client = self::createClient([], ['headers' => ['Accept' => 'application/json']]);
+    }
 
     /**
      * @test
@@ -26,11 +34,9 @@ final class CreateAttendanceActionTest extends ApiTestCase
      */
     public function createAttendanceAction_validApiKey_returnsSuccessfulResponse(): void
     {
-        $client = $this::getClient();
-        $client->request(Request::METHOD_POST, RouteEnum::API_ATTENDANCE_CREATE, [
+        $this->client->request(Request::METHOD_POST, RouteEnum::API_ATTENDANCE_CREATE, [
             'headers' => [
                 'X-API-KEY' => 'test_key',
-                'Accept' => 'application/json',
             ],
             'json' => [
                 'missionId' => 'mission_99',
@@ -47,11 +53,9 @@ final class CreateAttendanceActionTest extends ApiTestCase
      */
     public function createAttendanceAction_invalidApiKey_returnsForbiddenResponse(): void
     {
-        $client = $this::getClient();
-        $client->request(Request::METHOD_POST, RouteEnum::API_ATTENDANCE_CREATE, [
+        $this->client->request(Request::METHOD_POST, RouteEnum::API_ATTENDANCE_CREATE, [
             'headers' => [
                 'X-API-KEY' => '',
-                'Accept' => 'application/json',
             ],
             'json' => [
                 'missionId' => 'mission_99',
@@ -71,11 +75,9 @@ final class CreateAttendanceActionTest extends ApiTestCase
      */
     public function createAttendanceAction_duplicatedEntry_returnsUnprocessableEntityResponse(): void
     {
-        $client = $this::getClient();
-        $client->request(Request::METHOD_POST, RouteEnum::API_ATTENDANCE_CREATE, [
+        $this->client->request(Request::METHOD_POST, RouteEnum::API_ATTENDANCE_CREATE, [
             'headers' => [
                 'X-API-KEY' => 'test_key',
-                'Accept' => 'application/json',
             ],
             'json' => [
                 'missionId' => 'mission_1',

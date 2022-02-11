@@ -11,74 +11,48 @@ use Symfony\Component\HttpKernel\HttpCache\StoreInterface;
 
 class MissionStore implements StoreInterface
 {
-    protected Store $store;
+    private Store $store;
 
     public function __construct(string $storagePath)
     {
         $this->store = new Store($storagePath);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function lookup(Request $request): ?Response
     {
         return $this->store->lookup($request);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function write(Request $request, Response $response): string
     {
         return $this->store->write($request, $response);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function invalidate(Request $request): void
     {
         $this->store->invalidate($request);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function lock(Request $request)
+    public function lock(Request $request): bool
     {
         return $this->store->lock($request);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function unlock(Request $request): bool
     {
         return $this->store->unlock($request);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function isLocked(Request $request)
+    public function isLocked(Request $request): bool
     {
         return $this->store->isLocked($request);
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @param string $url
-     */
-    public function purge($url): bool
+    public function purge(string $url): bool
     {
         return $this->store->purge($url);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function cleanup(): void
     {
         $this->store->cleanup();

@@ -14,7 +14,7 @@ class UniqueModListName extends Constraint
     public string $message = 'Mod list with the same name "{{ modListName }}" already exist';
     public ?string $errorPath = null;
 
-    public function getTargets()
+    public function getTargets(): array|string
     {
         return parent::CLASS_CONSTRAINT;
     }

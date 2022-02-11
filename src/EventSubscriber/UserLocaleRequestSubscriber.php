@@ -20,13 +20,10 @@ class UserLocaleRequestSubscriber implements EventSubscriberInterface
         'pl',
     ];
 
-    protected SessionInterface $session;
-    protected LoggerInterface $logger;
-
-    public function __construct(SessionInterface $session, LoggerInterface $logger)
-    {
-        $this->session = $session;
-        $this->logger = $logger;
+    public function __construct(
+        private SessionInterface $session,
+        private LoggerInterface $logger
+    ) {
     }
 
     /**
@@ -44,7 +41,7 @@ class UserLocaleRequestSubscriber implements EventSubscriberInterface
 
     public function onKernelRequest(RequestEvent $event): void
     {
-        if (!$event->isMasterRequest()) {
+        if (!$event->isMainRequest()) {
             return;
         }
 

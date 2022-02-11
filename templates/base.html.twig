@@ -1,4 +1,6 @@
-{%- set app_community_description = include([
+{%- set title = global.app.organization ~ ' - ' ~ title ?? 'Polish Arma 3 group'|trans -%}
+
+{%- set description = description ?? include([
     'home/index/_partial/' ~ get_current_locale() ~ '/_about_us.html.twig',
     'home/index/_partial/pl/_about_us.html.twig'
 ])|striptags -%}
@@ -9,13 +11,13 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="description" content="{{ app_community_description }}">
+        <meta name="description" content="{{ description }}">
         <meta name="author" content="{{ global.app.organization }}">
 
         <!-- OpenGraph -->
         <meta property="og:site_name" content="{{ global.app.organization }}">
-        <meta property="og:title" content="{{ title ?? (global.app.organization ~ ' - ' ~ 'Polish Arma 3 group'|trans) }}">
-        <meta property="og:description" content="{{ app_community_description }}">
+        <meta property="og:title" content="{{ title }}">
+        <meta property="og:description" content="{{ description }}">
         <meta property="og:image" content="{{ asset('img/favicon-192x192.png') }}">
         <!--/ OpenGraph -->
 
@@ -29,7 +31,7 @@
         <!-- Theme -->
         <meta name="theme-color" content="#343a40 ">
 
-        <title>{{ title ?? (global.app.organization ~ ' - ' ~ 'Polish Arma 3 group'|trans) }}</title>
+        <title>{{ title }}</title>
 
         <!-- FontAwesome -->
         <link

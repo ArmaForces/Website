@@ -53,7 +53,7 @@ final class EntityBlamableSubscriberTest extends TestCase
         $security->method('getUser')->willReturn($user);
 
         $lifecycleEventArgs = $this->createMock(LifecycleEventArgs::class);
-        $lifecycleEventArgs->method('getEntity')->willReturn($entity);
+        $lifecycleEventArgs->method('getObject')->willReturn($entity);
 
         $entityBlamableSubscriberTest = new EntityBlamableSubscriber($security);
         $entityBlamableSubscriberTest->prePersist($lifecycleEventArgs);
@@ -62,17 +62,14 @@ final class EntityBlamableSubscriberTest extends TestCase
     /**
      * @test
      * @dataProvider invalidEventArgs
-     *
-     * @param mixed $user
-     * @param mixed $entity
      */
-    public function prePersist_invalidEventArgs_entityNotUpdated($user, $entity): void
+    public function prePersist_invalidEventArgs_entityNotUpdated(mixed $user, mixed $entity): void
     {
         $security = $this->createMock(Security::class);
         $security->method('getUser')->willReturn($user);
 
         $lifecycleEventArgs = $this->createMock(LifecycleEventArgs::class);
-        $lifecycleEventArgs->method('getEntity')->willReturn($entity);
+        $lifecycleEventArgs->method('getObject')->willReturn($entity);
 
         $entityBlamableSubscriberTest = new EntityBlamableSubscriber($security);
         $entityBlamableSubscriberTest->prePersist($lifecycleEventArgs);
@@ -101,7 +98,7 @@ final class EntityBlamableSubscriberTest extends TestCase
         $security->method('getUser')->willReturn($user);
 
         $lifecycleEventArgs = $this->createMock(LifecycleEventArgs::class);
-        $lifecycleEventArgs->method('getEntity')->willReturn($entity);
+        $lifecycleEventArgs->method('getObject')->willReturn($entity);
 
         $entityBlamableSubscriberTest = new EntityBlamableSubscriber($security);
         $entityBlamableSubscriberTest->preUpdate($lifecycleEventArgs);
@@ -110,17 +107,14 @@ final class EntityBlamableSubscriberTest extends TestCase
     /**
      * @test
      * @dataProvider invalidEventArgs
-     *
-     * @param mixed $user
-     * @param mixed $entity
      */
-    public function preUpdate_invalidEventArgs_entityNotUpdated($user, $entity): void
+    public function preUpdate_invalidEventArgs_entityNotUpdated(mixed $user, mixed $entity): void
     {
         $security = $this->createMock(Security::class);
         $security->method('getUser')->willReturn($user);
 
         $lifecycleEventArgs = $this->createMock(LifecycleEventArgs::class);
-        $lifecycleEventArgs->method('getEntity')->willReturn($entity);
+        $lifecycleEventArgs->method('getObject')->willReturn($entity);
 
         $entityBlamableSubscriberTest = new EntityBlamableSubscriber($security);
         $entityBlamableSubscriberTest->preUpdate($lifecycleEventArgs);
@@ -136,14 +130,8 @@ final class EntityBlamableSubscriberTest extends TestCase
         $validEntity->expects(static::never())->method('setLastUpdatedBy');
         $validEntity->expects(static::never())->method('setLastUpdatedAt');
 
-        $invalidEntity = $this->getMockBuilder(\stdClass::class)->setMethods([
-            'setCreatedBy',
-            'setLastUpdatedBy',
-            'setLastUpdatedAt',
-        ])->getMock();
-        $invalidEntity->expects(static::never())->method('setCreatedBy');
-        $invalidEntity->expects(static::never())->method('setLastUpdatedBy');
-        $invalidEntity->expects(static::never())->method('setLastUpdatedAt');
+        $invalidEntity = $this->getMockBuilder(\stdClass::class)->getMock();
+        $invalidEntity->expects(static::never())->method(static::anything());
 
         return [
             'valid user, invalid entity' => [

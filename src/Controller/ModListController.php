@@ -24,18 +24,11 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ModListController extends AbstractController
 {
-    protected EntityManagerInterface $entityManager;
-    protected ModListRepository $modListRepository;
-    protected DataTransformerRegistry $dataTransformerRegistry;
-
     public function __construct(
-        EntityManagerInterface $entityManager,
-        ModListRepository $modListRepository,
-        DataTransformerRegistry $dataTransformerRegistry
+        private EntityManagerInterface $entityManager,
+        private ModListRepository $modListRepository,
+        private DataTransformerRegistry $dataTransformerRegistry
     ) {
-        $this->entityManager = $entityManager;
-        $this->modListRepository = $modListRepository;
-        $this->dataTransformerRegistry = $dataTransformerRegistry;
     }
 
     /**

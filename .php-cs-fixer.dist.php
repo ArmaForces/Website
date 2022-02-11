@@ -6,6 +6,11 @@ $finder = PhpCsFixer\Finder::create()
     ->exclude('var')
     ->exclude('node_modules')
     ->notPath('config/bundles.php')
+    ->notPath('config/bootstrap.php')
+    ->notPath('config/preload.php')
+    ->notPath('public/index.php')
+    ->notPath('src/Kernel.php')
+    ->notPath('tests/bootstrap.php')
     ->in(__DIR__)
 ;
 
@@ -18,13 +23,8 @@ return (new PhpCsFixer\Config())
         '@DoctrineAnnotation' => true,
         '@PhpCsFixer' => true,
         '@PhpCsFixer:risky' => true,
-        '@PHP70Migration' => true,
-        '@PHP70Migration:risky' => true,
-        '@PHP71Migration' => true,
-        '@PHP71Migration:risky' => true,
-        '@PHP73Migration' => true,
-        '@PHP74Migration:risky' => true,
-        '@PHP74Migration' => true,
+        '@PHP80Migration' => true,
+        '@PHP80Migration:risky' => true,
 
         'php_unit_test_annotation' => [
             'style' => 'annotation',
@@ -52,6 +52,8 @@ return (new PhpCsFixer\Config())
                 'destruct',
                 'magic',
 
+                'phpunit', // PHPUnit
+
                 'method_public_static', // static methods
                 'method_protected_static',
                 'method_private_static',
@@ -59,8 +61,6 @@ return (new PhpCsFixer\Config())
                 'method_public', // methods
                 'method_protected',
                 'method_private',
-
-                'phpunit', // PHPUnit
             ],
             'sort_algorithm' => 'none',
         ],

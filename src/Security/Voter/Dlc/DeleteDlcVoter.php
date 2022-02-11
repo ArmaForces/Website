@@ -13,17 +13,11 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class DeleteDlcVoter extends Voter
 {
-    /**
-     * {@inheritdoc}
-     */
     protected function supports(string $attribute, $subject): bool
     {
         return PermissionsEnum::DLC_DELETE === $attribute && $subject instanceof DlcInterface;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         /** @var null|UserInterface $currentUser */

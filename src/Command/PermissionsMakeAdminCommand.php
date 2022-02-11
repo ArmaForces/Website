@@ -21,20 +21,13 @@ class PermissionsMakeAdminCommand extends Command
     public const ARGUMENT_DISCORD_USER_ID = 'discord-user-id';
     public const OPTION_FULL_PERMISSIONS = 'full-permissions';
 
-    protected EntityManagerInterface $entityManager;
-    protected UserRepository $userRepository;
-
-    public function __construct(EntityManagerInterface $entityManager, UserRepository $userRepository)
-    {
+    public function __construct(
+        private EntityManagerInterface $entityManager,
+        private UserRepository $userRepository
+    ) {
         parent::__construct();
-
-        $this->entityManager = $entityManager;
-        $this->userRepository = $userRepository;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configure(): void
     {
         $this
@@ -45,9 +38,6 @@ class PermissionsMakeAdminCommand extends Command
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);

@@ -34,17 +34,17 @@ class ModListFormDto extends AbstractFormDto
     protected ?string $description = null;
 
     /**
-     * @var Collection|ModInterface[]
+     * @var Collection<ModInterface>
      */
     protected Collection $mods;
 
     /**
-     * @var Collection|ModGroupInterface[]
+     * @var Collection<ModGroupInterface>
      */
     protected Collection $modGroups;
 
     /**
-     * @var Collection|DlcInterface[]
+     * @var Collection<DlcInterface>
      */
     protected Collection $dlcs;
 

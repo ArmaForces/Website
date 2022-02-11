@@ -16,12 +16,11 @@ use Symfony\Component\Security\Core\Security;
 
 class ModGroupUpdatedSubscriber implements EventSubscriber
 {
-    protected Security $security;
-    protected ?ModGroupInterface $updatedModGroup = null;
+    private ?ModGroupInterface $updatedModGroup = null;
 
-    public function __construct(Security $security)
-    {
-        $this->security = $security;
+    public function __construct(
+        private Security $security
+    ) {
     }
 
     public function getSubscribedEvents(): array
@@ -35,7 +34,7 @@ class ModGroupUpdatedSubscriber implements EventSubscriber
     public function preUpdate(LifecycleEventArgs $args): void
     {
         $entityManager = $args->getEntityManager();
-        $modGroup = $args->getEntity();
+        $modGroup = $args->getObject();
 
         // Do nothing if updated entity is not a Mod Group or no changes were made to the entity
         if (!$modGroup instanceof ModGroupInterface || !$entityManager->getUnitOfWork()->getEntityChangeSet($modGroup)) {

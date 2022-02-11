@@ -28,6 +28,7 @@ final class SteamApiClientTest extends TestCase
     {
         $responsePayload = $this->mockResponsePayload(1, $this::ITEM_NAME, $this::ITEM_GAME_ID);
 
+        /** @var HttpClientInterface $httpClient */
         $httpClient = $this->mockHttpClient($responsePayload);
         $steamWorkshopClient = new SteamApiClient($httpClient);
         $workshopItemInfoDto = $steamWorkshopClient->getWorkshopItemInfo($this::ITEM_ID);
@@ -44,6 +45,7 @@ final class SteamApiClientTest extends TestCase
     {
         $responsePayload = $this->mockResponsePayload(0, $this::ITEM_NAME, $this::ITEM_GAME_ID);
 
+        /** @var HttpClientInterface $httpClient */
         $httpClient = $this->mockHttpClient($responsePayload);
         $steamWorkshopClient = new SteamApiClient($httpClient);
 
@@ -68,9 +70,6 @@ final class SteamApiClientTest extends TestCase
         ];
     }
 
-    /**
-     * @return HttpClientInterface|MockObject
-     */
     private function mockHttpClient(array $responsePayload): MockObject
     {
         $response = $this->createMock(ResponseInterface::class);

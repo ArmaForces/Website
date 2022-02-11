@@ -12,17 +12,11 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class ListModGroupsVoter extends Voter
 {
-    /**
-     * {@inheritdoc}
-     */
     protected function supports(string $attribute, $subject): bool
     {
         return PermissionsEnum::MOD_GROUP_LIST === $attribute;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         /** @var null|UserInterface $currentUser */

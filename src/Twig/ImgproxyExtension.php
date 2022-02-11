@@ -9,15 +9,11 @@ use Twig\TwigFunction;
 
 class ImgproxyExtension extends AbstractExtension
 {
-    protected string $baseProxyUrl;
-    protected string $proxyKey;
-    protected string $proxySalt;
-
-    public function __construct(string $baseProxyUrl, string $proxyKey, string $proxySalt)
-    {
-        $this->baseProxyUrl = $baseProxyUrl;
-        $this->proxyKey = $proxyKey;
-        $this->proxySalt = $proxySalt;
+    public function __construct(
+        private string $baseProxyUrl,
+        private string $proxyKey,
+        private string $proxySalt
+    ) {
     }
 
     public function getFunctions(): array
@@ -31,7 +27,7 @@ class ImgproxyExtension extends AbstractExtension
      * @param string $url     Image url
      * @param int    $width   Target width, set to 0 to automatically calculate from height
      * @param int    $height  Target height, set to 0 to automatically calculate from width
-     * @param bool   $enlarge Should resized image be enrlaged if it's smaller than target size
+     * @param bool   $enlarge Should resized image be enlarged if it's smaller than target size
      *
      * @throws \Exception
      */

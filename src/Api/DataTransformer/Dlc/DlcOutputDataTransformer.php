@@ -12,17 +12,15 @@ class DlcOutputDataTransformer implements DataTransformerInterface
 {
     public function transform($object, string $to, array $context = []): DlcOutput
     {
-        /** @var DlcInterface $dlc */
-        $dlc = $object;
-
+        /** @var DlcInterface $object */
         $output = new DlcOutput();
 
-        $output->setId($dlc->getId()->toString());
-        $output->setName($dlc->getName());
-        $output->setCreatedAt($dlc->getCreatedAt());
-        $output->setLastUpdatedAt($dlc->getLastUpdatedAt());
-        $output->setAppId($dlc->getAppId());
-        $output->setDirectory($dlc->getDirectory());
+        $output->setId($object->getId()->toString());
+        $output->setName($object->getName());
+        $output->setCreatedAt($object->getCreatedAt());
+        $output->setLastUpdatedAt($object->getLastUpdatedAt());
+        $output->setAppId($object->getAppId());
+        $output->setDirectory($object->getDirectory());
 
         return $output;
     }

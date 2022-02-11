@@ -16,13 +16,10 @@ use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 
 class ApiKeyAuthenticator extends AbstractGuardAuthenticator
 {
-    protected string $apiKeyHeaderName;
-    protected string $apiAllowedKeys;
-
-    public function __construct(string $apiKeyHeaderName, string $apiAllowedKeys)
-    {
-        $this->apiKeyHeaderName = $apiKeyHeaderName;
-        $this->apiAllowedKeys = $apiAllowedKeys;
+    public function __construct(
+        private string $apiKeyHeaderName,
+        private string $apiAllowedKeys
+    ) {
     }
 
     public function start(Request $request, AuthenticationException $authException = null): Response

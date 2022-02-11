@@ -14,7 +14,7 @@ class UniqueAttendance extends Constraint
     public string $message = 'Attendance of player "{{ playerId }}" in mission "{{ missionId }}" already exists';
     public ?string $errorPath = null;
 
-    public function getTargets()
+    public function getTargets(): array|string
     {
         return parent::CLASS_CONSTRAINT;
     }

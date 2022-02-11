@@ -6,11 +6,11 @@ namespace App\Tests\Functional\Controller\UserGroupController;
 
 use App\DataFixtures\User\AdminUserFixture;
 use App\DataFixtures\User\RegularUserFixture;
-use App\Entity\ModGroup\ModGroup;
-use App\Entity\User\User;
+use App\Repository\ModGroup\ModGroupRepository;
+use App\Repository\User\UserRepository;
 use App\Test\Enum\RouteEnum;
 use App\Test\Traits\DataProvidersTrait;
-use App\Test\Traits\ServicesTrait;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,8 +21,20 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class DeleteActionTest extends WebTestCase
 {
-    use ServicesTrait;
     use DataProvidersTrait;
+
+    private KernelBrowser $client;
+    private UserRepository $userRepository;
+    private ModGroupRepository $modGroupRepository;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->client = self::createClient();
+        $this->userRepository = self::getContainer()->get(UserRepository::class);
+        $this->modGroupRepository = self::getContainer()->get(ModGroupRepository::class);
+    }
 
     /**
      * @test
@@ -30,11 +42,9 @@ final class DeleteActionTest extends WebTestCase
      */
     public function deleteAction_anonymousUser_returnsRedirectResponse(string $modGroupId): void
     {
-        /** @var ModGroup $subjectModGroup */
-        $subjectModGroup = $this::getEntityById(ModGroup::class, $modGroupId);
+        $subjectModGroup = $this->modGroupRepository->find($modGroupId);
 
-        $client = $this::getClient();
-        $client->request(Request::METHOD_GET, sprintf(RouteEnum::MOD_GROUP_DELETE, $subjectModGroup->getName()));
+        $this->client->request(Request::METHOD_GET, sprintf(RouteEnum::MOD_GROUP_DELETE, $subjectModGroup->getName()));
 
         $this::assertResponseRedirects(RouteEnum::SECURITY_CONNECT_DISCORD, Response::HTTP_FOUND);
     }
@@ -45,14 +55,11 @@ final class DeleteActionTest extends WebTestCase
      */
     public function deleteAction_unauthorizedUser_returnsForbiddenResponse(string $modGroupId): void
     {
-        /** @var User $user */
-        $user = $this::getEntityById(User::class, RegularUserFixture::ID);
+        $user = $this->userRepository->find(RegularUserFixture::ID);
+        $subjectModGroup = $this->modGroupRepository->find($modGroupId);
 
-        /** @var ModGroup $subjectModGroup */
-        $subjectModGroup = $this::getEntityById(ModGroup::class, $modGroupId);
-
-        $client = $this::authenticateClient($user);
-        $client->request(Request::METHOD_GET, sprintf(RouteEnum::MOD_GROUP_DELETE, $subjectModGroup->getName()));
+        $this->client->loginUser($user);
+        $this->client->request(Request::METHOD_GET, sprintf(RouteEnum::MOD_GROUP_DELETE, $subjectModGroup->getName()));
 
         $this::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
@@ -63,18 +70,15 @@ final class DeleteActionTest extends WebTestCase
      */
     public function deleteAction_authorizedUser_returnsSuccessfulResponse(string $modGroupId): void
     {
-        /** @var User $user */
-        $user = $this::getEntityById(User::class, AdminUserFixture::ID);
+        $user = $this->userRepository->find(AdminUserFixture::ID);
+        $subjectModGroup = $this->modGroupRepository->find($modGroupId);
 
-        /** @var ModGroup $subjectModGroup */
-        $subjectModGroup = $this::getEntityById(ModGroup::class, $modGroupId);
-
-        $client = $this::authenticateClient($user);
-        $client->request(Request::METHOD_GET, sprintf(RouteEnum::MOD_GROUP_DELETE, $subjectModGroup->getName()));
+        $this->client->loginUser($user);
+        $this->client->request(Request::METHOD_GET, sprintf(RouteEnum::MOD_GROUP_DELETE, $subjectModGroup->getName()));
 
         $this::assertResponseRedirects(RouteEnum::MOD_GROUP_LIST);
 
-        $client->request(Request::METHOD_GET, sprintf(RouteEnum::MOD_GROUP_DELETE, $subjectModGroup->getName()));
+        $this->client->request(Request::METHOD_GET, sprintf(RouteEnum::MOD_GROUP_DELETE, $subjectModGroup->getName()));
 
         $this::assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
     }
@@ -84,11 +88,10 @@ final class DeleteActionTest extends WebTestCase
      */
     public function deleteAction_authorizedUser_returnsNotFoundResponse(): void
     {
-        /** @var User $user */
-        $user = $this::getEntityById(User::class, AdminUserFixture::ID);
+        $user = $this->userRepository->find(AdminUserFixture::ID);
 
-        $client = $this::authenticateClient($user);
-        $client->request(Request::METHOD_GET, sprintf(RouteEnum::MOD_GROUP_DELETE, 'non-existing-name'));
+        $this->client->loginUser($user);
+        $this->client->request(Request::METHOD_GET, sprintf(RouteEnum::MOD_GROUP_DELETE, 'non-existing-name'));
 
         $this::assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
     }

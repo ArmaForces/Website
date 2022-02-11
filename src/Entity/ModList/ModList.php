@@ -20,18 +20,19 @@ class ModList extends AbstractBlamableEntity implements ModListInterface
     use NamedTrait;
     use DescribedTrait;
 
-    protected Collection $mods;
-    protected Collection $modGroups;
-    protected Collection $dlcs;
-    protected ?UserInterface $owner = null;
-    protected bool $active = true;
-    protected bool $approved = false;
+    private Collection $mods;
+    private Collection $modGroups;
+    private Collection $dlcs;
+    private ?UserInterface $owner = null;
+    private bool $active = true;
+    private bool $approved = false;
 
-    public function __construct(UuidInterface $id, string $name)
-    {
+    public function __construct(
+        UuidInterface $id,
+        private string $name
+    ) {
         parent::__construct($id);
 
-        $this->name = $name;
         $this->mods = new ArrayCollection();
         $this->modGroups = new ArrayCollection();
         $this->dlcs = new ArrayCollection();

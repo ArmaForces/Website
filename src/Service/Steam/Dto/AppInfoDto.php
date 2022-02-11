@@ -6,17 +6,12 @@ namespace App\Service\Steam\Dto;
 
 class AppInfoDto
 {
-    protected ?int $id;
-    protected ?string $name;
-    protected ?string $type;
-    protected ?int $gameId;
-
-    public function __construct(?int $id, ?string $name, ?string $type, ?int $gameId)
-    {
-        $this->id = $id;
-        $this->name = $name;
-        $this->type = $type;
-        $this->gameId = $gameId;
+    public function __construct(
+        private ?int $id,
+        private ?string $name,
+        private ?string $type,
+        private ?int $gameId
+    ) {
     }
 
     public function getId(): ?int
@@ -27,6 +22,11 @@ class AppInfoDto
     public function getName(): ?string
     {
         return $this->name;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
     }
 
     public function getGameId(): ?int

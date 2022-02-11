@@ -1,0 +1,10 @@
+{{ modList.name }}
+
+{{ modList.description }}
+
+{{ 'Last updated at'|trans }}: {{ modList.lastUpdatedAt|date("Y-m-d H:i:s") }}
+
+{{ 'DLCs'|trans }}: {{ modList.dlcs|length == 0 ? '-' : '' }}
+{% for dlc in modList.dlcs %}
+    {{ dlc.name }}
+{% endfor %}

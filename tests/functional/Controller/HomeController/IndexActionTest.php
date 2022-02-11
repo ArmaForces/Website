@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Controller\HomeController;
 
-use App\Entity\User\User;
+use App\Repository\User\UserRepository;
 use App\Test\Enum\RouteEnum;
 use App\Test\Traits\AssertsTrait;
 use App\Test\Traits\DataProvidersTrait;
-use App\Test\Traits\ServicesTrait;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,17 +19,26 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class IndexActionTest extends WebTestCase
 {
-    use ServicesTrait;
     use AssertsTrait;
     use DataProvidersTrait;
+
+    private KernelBrowser $client;
+    private UserRepository $userRepository;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->client = self::createClient();
+        $this->userRepository = self::getContainer()->get(UserRepository::class);
+    }
 
     /**
      * @test
      */
     public function indexAction_anonymousUser_returnsSuccessfulResponse(): void
     {
-        $client = $this::createClient();
-        $crawler = $client->request(Request::METHOD_GET, RouteEnum::HOME_INDEX);
+        $crawler = $this->client->request(Request::METHOD_GET, RouteEnum::HOME_INDEX);
 
         $this::assertResponseStatusCodeSame(Response::HTTP_OK);
         $this::assertTeamSpeakUrlVisible($crawler, false);
@@ -41,11 +50,10 @@ final class IndexActionTest extends WebTestCase
      */
     public function indexAction_authenticatedUser_returnsSuccessfulResponse(string $userId): void
     {
-        /** @var User $user */
-        $user = $this::getEntityById(User::class, $userId);
+        $user = $this->userRepository->find($userId);
 
-        $client = $this::authenticateClient($user);
-        $crawler = $client->request(Request::METHOD_GET, RouteEnum::HOME_INDEX);
+        $this->client->loginUser($user);
+        $crawler = $this->client->request(Request::METHOD_GET, RouteEnum::HOME_INDEX);
 
         $this::assertResponseStatusCodeSame(Response::HTTP_OK);
         $this::assertTeamSpeakUrlVisible($crawler, true);

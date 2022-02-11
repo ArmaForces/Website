@@ -13,17 +13,11 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class DeleteModGroupVoter extends Voter
 {
-    /**
-     * {@inheritdoc}
-     */
     protected function supports(string $attribute, $subject): bool
     {
         return PermissionsEnum::MOD_GROUP_DELETE === $attribute && $subject instanceof ModGroupInterface;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         /** @var null|UserInterface $currentUser */

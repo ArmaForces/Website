@@ -15,11 +15,6 @@ class ModListCsvReader
     protected const COLUMN_INDEX_IS_OPTIONAL = 3;
     protected const COLUMN_INDEX_IS_MAP = 4;
 
-    /**
-     * @throws \League\Csv\Exception
-     *
-     * @return \Generator|ModCsvEntryDto[]
-     */
     public function readCsvRow(string $path, string $delimiter = ';'): \Generator
     {
         $reader = Reader::createFromPath($path);

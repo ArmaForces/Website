@@ -14,7 +14,7 @@ class UniqueUserSteamId extends Constraint
     public string $message = 'User with the same Steam ID "{{ userSteamId }}" already exist';
     public ?string $errorPath = null;
 
-    public function getTargets()
+    public function getTargets(): array|string
     {
         return parent::CLASS_CONSTRAINT;
     }

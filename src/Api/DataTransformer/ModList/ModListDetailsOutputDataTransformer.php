@@ -18,54 +18,40 @@ use App\Repository\Mod\ModRepository;
 
 class ModListDetailsOutputDataTransformer implements DataTransformerInterface
 {
-    protected ModOutputDataTransformer $modDataTransformer;
-    protected DlcOutputDataTransformer $dlcOutputDataTransformer;
-    protected ModRepository $modRepository;
-
     public function __construct(
-        ModOutputDataTransformer $modDataTransformer,
-        DlcOutputDataTransformer $dlcOutputDataTransformer,
-        ModRepository $modRepository
+        private ModOutputDataTransformer $modDataTransformer,
+        private DlcOutputDataTransformer $dlcOutputDataTransformer,
+        private ModRepository $modRepository
     ) {
-        $this->modDataTransformer = $modDataTransformer;
-        $this->dlcOutputDataTransformer = $dlcOutputDataTransformer;
-        $this->modRepository = $modRepository;
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @param ModListInterface $modList
-     */
-    public function transform($modList, string $to, array $context = []): ModListOutput
+    public function transform($object, string $to, array $context = []): ModListOutput
     {
+        /** @var ModListInterface $object */
         $output = new ModListDetailsOutput();
 
-        $output->setId($modList->getId()->toString());
-        $output->setName($modList->getName());
-        $output->setActive($modList->isActive());
-        $output->setApproved($modList->isApproved());
-        $output->setCreatedAt($modList->getCreatedAt());
-        $output->setLastUpdatedAt($modList->getLastUpdatedAt());
+        $output->setId($object->getId()->toString());
+        $output->setName($object->getName());
+        $output->setActive($object->isActive());
+        $output->setApproved($object->isApproved());
+        $output->setCreatedAt($object->getCreatedAt());
+        $output->setLastUpdatedAt($object->getLastUpdatedAt());
 
         $mods = [];
-        foreach ($this->modRepository->findIncludedMods($modList) as $mod) {
+        foreach ($this->modRepository->findIncludedMods($object) as $mod) {
             $mods[] = $this->modDataTransformer->transform($mod, ModOutput::class, $context);
         }
         $output->setMods($mods);
 
         $dlcs = array_map(
             fn (DlcInterface $dlc) => $this->dlcOutputDataTransformer->transform($dlc, DlcOutput::class, $context),
-            $modList->getDlcs()
+            $object->getDlcs()
         );
         $output->setDlcs($dlcs);
 
         return $output;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function supportsTransformation($data, string $to, array $context = []): bool
     {
         return ModListDetailsOutput::class === $to && $data instanceof ModList;

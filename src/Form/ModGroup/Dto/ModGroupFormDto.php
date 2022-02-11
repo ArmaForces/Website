@@ -31,7 +31,7 @@ class ModGroupFormDto extends AbstractFormDto
     protected ?string $description = null;
 
     /**
-     * @var Collection|ModInterface[]
+     * @var Collection<ModInterface>
      */
     protected Collection $mods;
 
