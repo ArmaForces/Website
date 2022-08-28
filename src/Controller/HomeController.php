@@ -27,7 +27,7 @@ class HomeController extends AbstractController
     public function indexAction(): Response
     {
         try {
-            $nearestMission = $this->missionClient->getNearestMission();
+            $nearestMission = $this->missionClient->getNextUpcomingMission();
         } catch (\Exception $ex) {
             $this->logger->warning('Could not fetch nearest mission', ['ex' => $ex]);
             $nearestMission = null;

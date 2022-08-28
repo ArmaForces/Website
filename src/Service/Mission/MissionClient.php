@@ -39,7 +39,7 @@ class MissionClient
         }
     }
 
-    public function getNearestMission(): ?MissionDto
+    public function getNextUpcomingMission(): ?MissionDto
     {
         $upcomingMissions = $this->getUpcomingMissions();
 
