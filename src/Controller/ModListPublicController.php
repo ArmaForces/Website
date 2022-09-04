@@ -8,6 +8,8 @@ use App\Entity\ModList\ModList;
 use App\Repository\Mod\ModRepository;
 use App\Repository\ModList\ModListRepository;
 use App\Security\Enum\PermissionsEnum;
+use App\Service\Mission\MissionClient;
+use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\HeaderUtils;
@@ -20,8 +22,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class ModListPublicController extends AbstractController
 {
     public function __construct(
+        private LoggerInterface $logger,
         private ModRepository $modRepository,
-        private ModListRepository $modListRepository
+        private ModListRepository $modListRepository,
+        private MissionClient $missionClient,
     ) {
     }
 
@@ -35,8 +39,21 @@ class ModListPublicController extends AbstractController
             'name' => 'ASC',
         ]);
 
+        try {
+            $nextMission = $this->missionClient->getNextUpcomingMission();
+        } catch (\Exception $ex) {
+            $this->logger->warning('Could not fetch next upcoming', ['ex' => $ex]);
+            $nextMission = null;
+        }
+
+        $nextMissionModlist = null;
+        if ($nextMission) {
+            $nextMissionModlist = $this->modListRepository->findOneBy(['name' => $nextMission->getModlist()]);
+        }
+
         return $this->render('mod_list_public/select.html.twig', [
             'modLists' => $modLists,
+            'nextMissionModlist' => $nextMissionModlist,
         ]);
     }
 

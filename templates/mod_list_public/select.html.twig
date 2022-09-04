@@ -1,49 +1,99 @@
-{% extends 'card.html.twig' %}
+{% extends 'container.html.twig' %}
 
 {% block content %}
-    {% embed '_partial/_page_header.html.twig' %}
-        {% block page_title %}
-            {{ 'Mod lists'|trans }}
-        {% endblock %}
-    {% endembed %}
+    <div class="container card bg-dark mt-4">
+        {% embed '_partial/_page_header.html.twig' %}
+            {% block page_title %}
+                {{ 'Mod list for today'|trans }}
+            {% endblock %}
+        {% endembed %}
 
-    {% embed '_partial/_table.html.twig' %}
-        {% import '_macro/common_macro.html.twig' as commonMacro %}
-        {% import '_macro/table_macro.html.twig' as tableMacro %}
+        {% embed '_partial/_table.html.twig' %}
+            {% import '_macro/table_macro.html.twig' as tableMacro %}
 
-        {% block table_head %}
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col"></th>
-                <th scope="col" class="w-100">{{ 'Mod list name'|trans }}</th>
-                <th scope="col">{{ 'Last updated at'|trans }}</th>
-                <th></th>
-            </tr>
-        {% endblock %}
-        {% block table_body %}
-            {# @var modList \App\Entity\ModList\ModList #}
-            {% for modList in modLists %}
-                <tr data-row-action-url="{{ path('app_mod_list_public_customize', { name: modList.name }) }}">
-                    <th scope="row">{{ loop.index }}</th>
-                    <td>
-                        {% if modList.approved %}
-                            {{ tableMacro.icon('fas fa-check', 'Mod list approved'|trans) }}
-                        {% endif %}
-                    </td>
-                    <td>
-                        {{ modList.name }}
-
-                        {# @var dlc \App\Entity\Dlc\Dlc #}
-                        {% for dlc in modList.dlcs %}
-                            {{ commonMacro.dlc_icon(dlc) }}
-                        {% endfor %}
-                    </td>
-                    <td>{{ tableMacro.format_date(modList.lastUpdatedAt) }}</td>
-                    <td class="text-right">
-                        {{ tableMacro.row_action(path('app_mod_list_public_customize', { name: modList.name }), 'fas fa-download', 'Download mod list'|trans) }}
-                    </td>
+            {% block table_head %}
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col"></th>
+                    <th scope="col" class="w-100">{{ 'Mod list name'|trans }}</th>
+                    <th scope="col">{{ 'Last updated at'|trans }}</th>
+                    <th></th>
                 </tr>
-            {% endfor %}
-        {% endblock %}
-    {% endembed %}
+            {% endblock %}
+            {% block table_body %}
+                {% if nextMissionModlist %}
+                    <tr data-row-action-url="{{ path('app_mod_list_public_customize', { name: nextMissionModlist.name }) }}">
+                        <th scope="row">1</th>
+                        <td>
+                            {% if nextMissionModlist.approved %}
+                                {{ tableMacro.icon('fas fa-check', 'Mod list approved'|trans) }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {{ nextMissionModlist.name }}
+
+                            {# @var dlc \App\Entity\Dlc\Dlc #}
+                            {% for dlc in nextMissionModlist.dlcs %}
+                                {{ commonMacro.dlc_icon(dlc) }}
+                            {% endfor %}
+                        </td>
+                        <td>{{ tableMacro.format_date(nextMissionModlist.lastUpdatedAt) }}</td>
+                        <td class="text-right">
+                            {{ tableMacro.row_action(path('app_mod_list_public_customize', { name: nextMissionModlist.name }), 'fas fa-download', 'Download mod list'|trans) }}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr><td colspan="5">-</td></tr>
+                {% endif %}
+            {% endblock %}
+        {% endembed %}
+    </div>
+
+    <div class="container card bg-dark mt-4">
+        {% embed '_partial/_page_header.html.twig' %}
+            {% block page_title %}
+                {{ 'Mod lists'|trans }}
+            {% endblock %}
+        {% endembed %}
+
+        {% embed '_partial/_table.html.twig' %}
+            {% import '_macro/common_macro.html.twig' as commonMacro %}
+            {% import '_macro/table_macro.html.twig' as tableMacro %}
+
+            {% block table_head %}
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col"></th>
+                    <th scope="col" class="w-100">{{ 'Mod list name'|trans }}</th>
+                    <th scope="col">{{ 'Last updated at'|trans }}</th>
+                    <th></th>
+                </tr>
+            {% endblock %}
+            {% block table_body %}
+                {# @var modList \App\Entity\ModList\ModList #}
+                {% for modList in modLists %}
+                    <tr data-row-action-url="{{ path('app_mod_list_public_customize', { name: modList.name }) }}">
+                        <th scope="row">{{ loop.index }}</th>
+                        <td>
+                            {% if modList.approved %}
+                                {{ tableMacro.icon('fas fa-check', 'Mod list approved'|trans) }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {{ modList.name }}
+
+                            {# @var dlc \App\Entity\Dlc\Dlc #}
+                            {% for dlc in modList.dlcs %}
+                                {{ commonMacro.dlc_icon(dlc) }}
+                            {% endfor %}
+                        </td>
+                        <td>{{ tableMacro.format_date(modList.lastUpdatedAt) }}</td>
+                        <td class="text-right">
+                            {{ tableMacro.row_action(path('app_mod_list_public_customize', { name: modList.name }), 'fas fa-download', 'Download mod list'|trans) }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endblock %}
+        {% endembed %}
+    </div>
 {% endblock %}
