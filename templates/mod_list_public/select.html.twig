@@ -6,6 +6,11 @@
             {% block page_title %}
                 {{ 'Mod list for today'|trans }}
             {% endblock %}
+            {% block page_subtitle %}
+                    {% if nextMission %}
+                        {{ nextMission.title }}
+                    {% endif %}
+            {% endblock %}
         {% endembed %}
 
         {% embed '_partial/_table.html.twig' %}

@@ -53,6 +53,7 @@ class ModListPublicController extends AbstractController
 
         return $this->render('mod_list_public/select.html.twig', [
             'modLists' => $modLists,
+            'nextMission' => $nextMission,
             'nextMissionModlist' => $nextMissionModlist,
         ]);
     }
