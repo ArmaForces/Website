@@ -7,9 +7,9 @@
                 {{ 'Mod list for today'|trans }}
             {% endblock %}
             {% block page_subtitle %}
-                    {% if nextMission %}
-                        {{ nextMission.title }}
-                    {% endif %}
+                {% if nextMission %}
+                    {{ nextMission.title }}
+                {% endif %}
             {% endblock %}
         {% endembed %}
 
@@ -26,29 +26,31 @@
                 </tr>
             {% endblock %}
             {% block table_body %}
-                {% if nextMissionModlist %}
-                    <tr data-row-action-url="{{ path('app_mod_list_public_customize', { name: nextMissionModlist.name }) }}">
+                {% if nextMissionModList %}
+                    <tr data-row-action-url="{{ path('app_mod_list_public_customize', { name: nextMissionModList.name }) }}">
                         <th scope="row">1</th>
                         <td>
-                            {% if nextMissionModlist.approved %}
+                            {% if nextMissionModList.approved %}
                                 {{ tableMacro.icon('fas fa-check', 'Mod list approved'|trans) }}
                             {% endif %}
                         </td>
                         <td>
-                            {{ nextMissionModlist.name }}
+                            {{ nextMissionModList.name }}
 
                             {# @var dlc \App\Entity\Dlc\Dlc #}
-                            {% for dlc in nextMissionModlist.dlcs %}
+                            {% for dlc in nextMissionModList.dlcs %}
                                 {{ commonMacro.dlc_icon(dlc) }}
                             {% endfor %}
                         </td>
-                        <td>{{ tableMacro.format_date(nextMissionModlist.lastUpdatedAt) }}</td>
+                        <td>{{ tableMacro.format_date(nextMissionModList.lastUpdatedAt) }}</td>
                         <td class="text-right">
-                            {{ tableMacro.row_action(path('app_mod_list_public_customize', { name: nextMissionModlist.name }), 'fas fa-download', 'Download mod list'|trans) }}
+                            {{ tableMacro.row_action(path('app_mod_list_public_customize', { name: nextMissionModList.name }), 'fas fa-download', 'Download mod list'|trans) }}
                         </td>
                     </tr>
                 {% else %}
-                    <tr><td colspan="5">-</td></tr>
+                    <tr>
+                        <td colspan="5">-</td>
+                    </tr>
                 {% endif %}
             {% endblock %}
         {% endembed %}

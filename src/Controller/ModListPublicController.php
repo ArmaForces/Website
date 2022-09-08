@@ -46,15 +46,15 @@ class ModListPublicController extends AbstractController
             $nextMission = null;
         }
 
-        $nextMissionModlist = null;
+        $nextMissionModList = null;
         if ($nextMission) {
-            $nextMissionModlist = $this->modListRepository->findOneBy(['name' => $nextMission->getModlist()]);
+            $nextMissionModList = $this->modListRepository->findOneBy(['name' => $nextMission->getModlist()]);
         }
 
         return $this->render('mod_list_public/select.html.twig', [
             'modLists' => $modLists,
             'nextMission' => $nextMission,
-            'nextMissionModlist' => $nextMissionModlist,
+            'nextMissionModList' => $nextMissionModList,
         ]);
     }
 
