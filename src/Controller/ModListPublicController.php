@@ -40,7 +40,7 @@ class ModListPublicController extends AbstractController
         ]);
 
         try {
-            $nextMission = $this->missionClient->getNextUpcomingMission();
+            $nextMission = $this->missionClient->getCurrentMission();
         } catch (\Exception $ex) {
             $this->logger->warning('Could not fetch next upcoming', ['ex' => $ex]);
             $nextMission = null;
