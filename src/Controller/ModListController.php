@@ -7,7 +7,9 @@ namespace App\Controller;
 use App\Entity\ModList\ModList;
 use App\Form\DataTransformerRegistry;
 use App\Form\ModList\Dto\ModListFormDto;
+use App\Form\ModList\Dto\ModListFormDtoHtml;
 use App\Form\ModList\ModListFormType;
+use App\Form\ModList\ModListFormTypeHtml;
 use App\Repository\ModList\ModListRepository;
 use App\Security\Enum\PermissionsEnum;
 use Doctrine\ORM\EntityManagerInterface;
@@ -69,6 +71,30 @@ class ModListController extends AbstractController
         }
 
         return $this->render('mod_list/form.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/import-html", name="_importhtml")
+     *
+     * @IsGranted(PermissionsEnum::MOD_LIST_CREATE)
+     */
+    public function importHtmlAction(Request $request): Response
+    {
+        $modListFormDtoHtml = new ModListFormDtoHtml();
+        $form = $this->createForm(ModListFormTypeHtml::class, $modListFormDtoHtml);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $modList = $this->dataTransformerRegistry->transformToEntity($modListFormDtoHtml);
+
+            $this->entityManager->persist($modList);
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('app_mod_list_list');
+        }
+
+        return $this->render('mod_list/formHtml.html.twig', [
             'form' => $form->createView(),
         ]);
     }

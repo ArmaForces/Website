@@ -161,10 +161,12 @@ DLC directory: Katalog DLC
 # Mod Lists
 Download mod list: Pobierz listę modów
 Create mod list: Utwórz listę modów
+Create mod list from HTML: Utwórz listę modów z pliku HTML
 Edit mod list: Edytuj listę modów
 Copy and edit mod list: Kopiuj i edytuj listę modów
 Delete mod list: Usuń listę modów
 
+HTML file: Plik HTML
 Mod list name: Nazwa
 Mod list description: Opis
 Mod list owner: Właściciel

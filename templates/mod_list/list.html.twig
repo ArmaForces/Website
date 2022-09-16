@@ -8,6 +8,7 @@
         {% block page_actions %}
             {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_CREATE')) %}
                 <a href="{{ path('app_mod_list_create') }}" class="btn btn-primary">{{ 'Create mod list'|trans }}</a>
+                <a href="{{ path('app_mod_list_importhtml') }}" class="btn btn-primary">{{ 'Create mod list from HTML'|trans }}</a>
             {% endif %}
         {% endblock %}
     {% endembed %}

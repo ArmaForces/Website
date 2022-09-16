@@ -1,0 +1,35 @@
+{% extends 'card.html.twig' %}
+
+{% form_theme form _self %}
+
+{% block content %}
+    {# @var modListFormDtoHtml \App\Form\Mod\Dto\ModListFormDtoHtml #}
+    {% set modListFormDtoHtml = form.vars.data %}
+
+    {% embed '_partial/_page_header.html.twig' %}
+        {% block page_title %}
+            {{'Create mod list from HTML'|trans }}
+        {% endblock %}
+    {% endembed %}
+
+    {{ form_start(form) }}
+    {{ form_row(form.attachment) }}
+
+    {% if form.owner is defined %}
+        {{ form_row(form.owner) }}
+    {% endif %}
+
+    {{ form_row(form.active) }}
+
+    {% if form.approved is defined %}
+        {{ form_row(form.approved) }}
+    {% endif %}
+
+
+
+    <div class="form-group text-right">
+        <button type="submit" class="btn-primary btn">{{'Create mod list from HTML'|trans }}</button>
+        <a href="{{ path('app_mod_list_list') }}" class="btn-secondary btn">{{ 'Cancel'|trans }}</a>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
