@@ -12,6 +12,7 @@ class MissionDto
         private \DateTimeImmutable $date,
         private \DateTimeImmutable $closeDate,
         private string $description,
+        private string $modlistName,
         private int $freeSlots,
         private int $allSlots,
         private string $state,
@@ -30,6 +31,7 @@ class MissionDto
             \DateTimeImmutable::createFromFormat('Y-m-d\TH:i:s', substr($array['date'], 0, 19), $timezone),
             \DateTimeImmutable::createFromFormat('Y-m-d\TH:i:s', substr($array['closeDate'], 0, 19), $timezone),
             $array['description'],
+            $array['modlistName'],
             $array['freeSlots'],
             $array['allSlots'],
             $array['state'],
@@ -60,6 +62,11 @@ class MissionDto
     public function getDescription(): string
     {
         return $this->description;
+    }
+
+    public function getModlist(): string
+    {
+        return $this->modlistName;
     }
 
     public function getFreeSlots(): int
