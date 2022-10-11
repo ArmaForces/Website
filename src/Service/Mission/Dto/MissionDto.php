@@ -42,7 +42,7 @@ class MissionDto
     /**
      * The Boderator API is unreliable and sometimes returns null in modlistName for undefined amount of time.
      * In that case it will be read from modlist URL which seems to be always present.
-     * However, it is not guaranteed it's and url (old missions), but we do not care about these cases.
+     * The modlist field is not always in URL format, but we do not care about these cases (old missions).
      */
     private static function readModlistSafe(array $array): string
     {
