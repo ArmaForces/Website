@@ -21,7 +21,7 @@ final class MissionClientTest extends TestCase
      * @test
      * @dataProvider provideCurrentMissionsData
      */
-    public function getCurrentMission(array $missionData, ?string $expectedTitle): void
+    public function getCurrentMission(array $missionData, ?string $expectedTitle, ?string $expectedModlist): void
     {
         $mockHttpClient = $this->mockHttpClient($missionData);
         $mockStore = $this->getMockBuilder(MissionStore::class)
@@ -35,6 +35,7 @@ final class MissionClientTest extends TestCase
 
         if ($expectedTitle) {
             static::assertSame($expectedTitle, $currentMission->getTitle());
+            static::assertSame($expectedModlist, $currentMission->getModlist());
         } else {
             static::assertNull($currentMission);
         }
@@ -47,7 +48,7 @@ final class MissionClientTest extends TestCase
 
         return
         [
-            'current mission available' => [[
+            'current mission available, with modlistName' => [[
                 [
                     'id' => 1,
                     'title' => 'Mission in future 1',
@@ -66,7 +67,7 @@ final class MissionClientTest extends TestCase
                     'date' => $now->add(new \DateInterval('PT1H'))->format($dateFormat),
                     'closeDate' => $now->sub(new \DateInterval('P1D'))->format($dateFormat),
                     'description' => '',
-                    'modlistName' => '',
+                    'modlistName' => 'Default',
                     'image' => '',
                     'freeSlots' => 0,
                     'allSlots' => 0,
@@ -84,7 +85,23 @@ final class MissionClientTest extends TestCase
                     'allSlots' => 0,
                     'state' => MissionStateEnum::ARCHIVED,
                 ],
-            ], 'Current mission'],
+            ], 'Current mission', 'Default'],
+            'current mission available, without modlistName' => [[
+                [
+                    'id' => 2,
+                    'title' => 'Current mission 2',
+                    'date' => $now->add(new \DateInterval('PT1H'))->format($dateFormat),
+                    'closeDate' => $now->sub(new \DateInterval('P1D'))->format($dateFormat),
+                    'description' => '',
+                    'modlistName' => null,
+                    'modlist' => 'https://armaforces.com/mod-list/Default2',
+                    'image' => '',
+                    'freeSlots' => 0,
+                    'allSlots' => 0,
+                    'state' => MissionStateEnum::CLOSED,
+                ],
+                [],
+            ], 'Current mission 2', 'Default2'],
             'no current mission' => [[
                 [
                     'id' => 1,
@@ -111,8 +128,8 @@ final class MissionClientTest extends TestCase
                     'state' => MissionStateEnum::ARCHIVED,
                 ],
                 [], // empty element will explode the deserialization process, so this basically makes sure that we're not iterating more than we should ;)
-            ], null],
-            'empty data' => [[], null],
+            ], null, null],
+            'empty data' => [[], null, null],
         ];
     }
 
