@@ -31,12 +31,22 @@ class MissionDto
             \DateTimeImmutable::createFromFormat('Y-m-d\TH:i:s', substr($array['date'], 0, 19), $timezone),
             \DateTimeImmutable::createFromFormat('Y-m-d\TH:i:s', substr($array['closeDate'], 0, 19), $timezone),
             $array['description'],
-            $array['modlistName'],
+            self::readModlistSafe($array),
             $array['freeSlots'],
             $array['allSlots'],
             $array['state'],
             $array['image']
         );
+    }
+
+    /**
+     * The Boderator API is unreliable and sometimes returns null in modlistName for undefined amount of time.
+     * In that case it will be read from modlist URL which seems to be always present.
+     * However, it is not guaranteed it's and url (old missions), but we do not care about these cases.
+     */
+    private static function readModlistSafe(array $array): string
+    {
+        return $array['modlistName'] ?? substr($array['modlist'], strrpos($array['modlist'], '/') + 1);
     }
 
     public function getId(): ?int
