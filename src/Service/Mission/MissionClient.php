@@ -39,11 +39,34 @@ class MissionClient
         }
     }
 
-    public function getNearestMission(): ?MissionDto
+    public function getNextUpcomingMission(): ?MissionDto
     {
         $upcomingMissions = $this->getUpcomingMissions();
 
         return $upcomingMissions ? array_pop($upcomingMissions) : null;
+    }
+
+    public function getCurrentMission(): ?MissionDto
+    {
+        $missions = $this->getMissions();
+
+        $now = new \DateTimeImmutable();
+        foreach ($missions as $mission) {
+            $startTime = $mission->getDate()->sub(new \DateInterval('PT2H'));
+            $endTime = $mission->getDate()->add(new \DateInterval('PT3H'));
+
+            // missions are sorted by date,
+            // so if we've reached mission that ended before $now there's no point in checking next missions
+            if ($endTime < $now) {
+                break;
+            }
+
+            if ($startTime < $now && $endTime > $now) {
+                return $mission;
+            }
+        }
+
+        return null;
     }
 
     public function getArchivedMissions(): array

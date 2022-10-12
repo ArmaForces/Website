@@ -1,13 +1,17 @@
 <div class="row my-3">
-    <div class="col-12">
-        <h2>
-            {% block page_title %}{% endblock %}
-        </h2>
-        <h6>
-            {% block page_subtitle %}{% endblock %}
-        </h6>
-    </div>
-    <div class="col-12 mt-2 text-right">
-        {% block page_actions %}{% endblock %}
-    </div>
+    {% block page_title_row %}
+        <div class="col-12">
+            <h2>
+                {% block page_title %}{% endblock %}
+            </h2>
+            <h6>
+                {% block page_subtitle %}{% endblock %}
+            </h6>
+        </div>
+    {% endblock %}
+    {% block page_actions_row %}
+        <div class="col-12 mt-2 text-right">
+            {% block page_actions %}{% endblock %}
+        </div>
+    {% endblock %}
 </div>
