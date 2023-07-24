@@ -53,8 +53,10 @@ class ModGroupUpdatedSubscriber implements EventSubscriber
         }
 
         $entityManager = $args->getEntityManager();
+
         /** @var ModListRepository $modListRepository */
         $modListRepository = $entityManager->getRepository(ModList::class);
+
         /** @var null|User $currentUser */
         $currentUser = $this->security->getUser();
 

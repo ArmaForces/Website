@@ -7,7 +7,6 @@ namespace App\Controller;
 use App\Security\Authenticator\DiscordAuthenticator;
 use App\Security\Enum\ScopeEnum;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
-use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,22 +41,22 @@ class SecurityController extends AbstractController
     /**
      * @Route("/connect/discord/check", name="_connect_discord_check")
      *
-     * @throws RuntimeException
+     * @throws \RuntimeException
      *
      * @see DiscordAuthenticator
      */
     public function connectCheckAction(): Response
     {
-        throw new RuntimeException('This should never be executed!');
+        throw new \RuntimeException('This should never be executed!');
     }
 
     /**
      * @Route("/logout", name="_logout")
      *
-     * @throws RuntimeException
+     * @throws \RuntimeException
      */
     public function logoutAction(): Response
     {
-        throw new RuntimeException('This should never be executed!');
+        throw new \RuntimeException('This should never be executed!');
     }
 }
