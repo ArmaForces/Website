@@ -8,6 +8,7 @@ use App\Entity\User\User;
 use App\Repository\User\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -55,6 +56,7 @@ class PermissionsMakeAdminCommand extends Command
 
             $allUsersNames = array_map(static fn (User $user) => sprintf('%d (%s)', $user->getExternalId(), $user->getUsername()), $allUsers);
 
+            /** @var QuestionHelper $helper */
             $helper = $this->getHelper('question');
             $question = new ChoiceQuestion('Please select user from the list', $allUsersNames);
 

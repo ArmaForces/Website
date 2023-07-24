@@ -43,8 +43,8 @@ class DataTransformerRegistry implements DataTransformerInterface
         return new \InvalidArgumentException(
             sprintf(
                 'None of the registered data transformers supports transformation of "%s" to "%s"',
-                \get_class($formDto),
-                $entity ? \get_class($formDto) : 'null',
+                $formDto::class,
+                $entity ? $formDto::class : 'null',
             )
         );
     }
