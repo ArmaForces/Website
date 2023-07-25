@@ -64,6 +64,7 @@ return (new PhpCsFixer\Config())
             ],
             'sort_algorithm' => 'none',
         ],
+        'phpdoc_separation' => false
     ])
     ->setFinder($finder)
 ;
