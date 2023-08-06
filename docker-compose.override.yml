@@ -6,10 +6,7 @@ services:
         build:
             target: armaforces_web_php_dev
         volumes:
-            - './:/www/app:rw'
-            - './var/import:/www/app/var/import:ro'
-            - './var/cache:/www/app/var/cache:rw'
-            - './var/log:/www/app/var/log:rw'
+            - './:/app:rw'
         environment:
             PHP_IDE_CONFIG: serverName=armaforces-web
         extra_hosts:
@@ -17,7 +14,7 @@ services:
 
     nginx:
         volumes:
-            - './public:/www/app/public:ro'
+            - './public:/app/public:ro'
 
     mysql:
         image: mysql:5.7

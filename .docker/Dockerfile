@@ -1,89 +1,30 @@
-# the different stages of this Dockerfile are meant to be built into separate images
-# https://docs.docker.com/compose/compose-file/#target
-
-ARG PHP_VERSION=8.0
 ARG NGINX_VERSION=1.17
 
-# Build assets in disposable node image
-FROM node:11-alpine as armaforces_web_assets
-
-WORKDIR /tmp/app_build
-
-COPY package.json package-lock.json webpack.config.js ./
-RUN npm install
-
-WORKDIR /tmp/app_build/assets/
-
-COPY assets ./
-RUN npm run build:ci
-
+# -----------------------------------------------------------------------------
+# PHP - Commonm
+# -----------------------------------------------------------------------------
 
 # Build PHP application image
-FROM php:${PHP_VERSION}-fpm-alpine AS armaforces_web_php
+FROM thecodingmachine/php:8.1-v4-fpm-node12 AS armaforces_web_php
 
-RUN apk add --no-cache \
-        acl \
-        fcgi \
-        file \
-        gettext \
-        git \
-    ;
+USER root
 
-ARG APCU_VERSION=5.1.18
-RUN set -eux; \
-    apk add --no-cache --virtual .build-deps \
-        $PHPIZE_DEPS \
-        icu-dev \
-        libzip-dev \
-        zlib-dev \
-    ; \
-    \
-    docker-php-ext-configure zip; \
-    docker-php-ext-install -j$(nproc) \
-        intl \
-        zip \
-        pdo_mysql \
-    ; \
-    pecl install \
-        apcu-${APCU_VERSION} \
-    ; \
-    pecl clear-cache; \
-    docker-php-ext-enable \
-        apcu \
-        opcache \
-    ; \
-    \
-    runDeps="$( \
-        scanelf --needed --nobanner --format '%n#p' --recursive /usr/local/lib/php/extensions \
-            | tr ',' '\n' \
-            | sort -u \
-            | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
-    )"; \
-    apk add --no-cache --virtual .api-phpexts-rundeps $runDeps; \
-    \
-    apk del .build-deps \
-;
+# PHP Extensions
+ENV \
+    PHP_EXTENSION_INTL=1
 
-COPY --from=composer/composer:2-bin /composer /usr/bin/composer
-RUN ln -s $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
-COPY .docker/php/conf.d/armaforces-web.ini $PHP_INI_DIR/conf.d/armaforces-web.ini
+# PHP ini configuration
+# https://github.com/dunglas/symfony-docker/blob/380dc902595e0575c07f68f84e3266745e8f8100/docker/php/conf.d/symfony.prod.ini
+ENV \
+    PHP_INI_MEMORY_LIMIT=256M \
+    PHP_INI_APC__ENABLE_CLI=1 \
+    PHP_INI_DATE__TIMEZONE=Europe/Warsaw \
+    PHP_INI_SESSION__AUTO_START=Off \
+    PHP_INI_SHORT_OPEN_TAG=Off \
+    PHP_INI_EXPOSE_PHP=Off
 
-# https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
-ENV COMPOSER_ALLOW_SUPERUSER=1
-ENV PATH="${PATH}:/root/.composer/vendor/bin"
+WORKDIR /app
 
-WORKDIR /www/app
-
-# build for production
-ARG APP_ENV=prod
-
-# prevent the reinstallation of vendors at every changes in the source code
-COPY composer.json composer.lock symfony.lock .env ./
-RUN set -eux; \
-    composer install --prefer-dist --no-dev --no-scripts --no-progress --no-suggest; \
-    composer clear-cache
-
-# copy only specifically what we need
 COPY bin bin/
 COPY config config/
 COPY migrations migrations/
@@ -91,58 +32,85 @@ COPY public public/
 COPY src src/
 COPY templates templates/
 COPY translations translations/
+COPY composer.json composer.lock symfony.lock .env ./
 
-RUN set -eux; \
-    mkdir -p var/cache var/log; \
-    composer dump-autoload --classmap-authoritative --no-dev; \
-    composer run-script --no-dev post-install-cmd; \
-    chmod +x bin/console; sync
-VOLUME /www/app/var
+COPY assets assets/
+COPY package.json package-lock.json webpack.config.js ./
 
-# copy assets manifests
-COPY --from=armaforces_web_assets /tmp/app_build/public/build/ public/build/
+RUN mkdir -p var/cache var/log
 
-COPY .docker/php/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
-RUN chmod +x /usr/local/bin/docker-entrypoint
-
-# .env is copied again as COPY needs to copy at least one file
-COPY .env VERSIO[N] ./
-
-ENTRYPOINT ["docker-entrypoint"]
-CMD ["php-fpm"]
+RUN chmod +x bin/console
 
 
+# -----------------------------------------------------------------------------
+# PHP - Prod
+# -----------------------------------------------------------------------------
+FROM armaforces_web_php AS armaforces_web_php_prod
+
+ENV \
+    TEMPLATE_PHP_INI=production \
+    \
+    PHP_INI_OPCACHE__INTERNED_STRINGS_BUFFER=16 \
+    PHP_INI_OPCACHE__MAX_ACCELERATED_FILES=20000 \
+    PHP_INI_OPCACHE__MEMORY_CONSUMPTION=256 \
+    PHP_INI_OPCACHE__VALIDATE_TIMESTAMPS=0 \
+    PHP_INI_REALPATH_CACHE_SIZE=4096K \
+    PHP_INI_REALPATH_CACHE_TTL=600 \
+    PHP_INI_OPCACHE__PRELOAD_USER=www-data \
+    PHP_INI_OPCACHE__PRELOAD=/app/config/preload.php
+
+COPY .docker/php/startup.sh /etc/container/startup.sh
+RUN chmod +x /etc/container/startup.sh
+
+RUN composer install --no-dev --no-progress --no-interaction --classmap-authoritative
+RUN composer dump-env prod
+
+RUN npm install
+RUN npm run build
+
+RUN chown docker:docker -R /app
+USER docker
+
+
+# -----------------------------------------------------------------------------
+# PHP - Dev
+# -----------------------------------------------------------------------------
+FROM armaforces_web_php AS armaforces_web_php_dev
+
+ENV \
+    PHP_EXTENSION_XDEBUG=1 \
+    PHP_INI_XDEBUG__MODE=debug,coverage \
+    PHP_INI_XDEBUG__CLIENT_HOST=host.docker.internal \
+    PHP_INI_XDEBUG__CLIENT_PORT=9003 \
+    PHP_INI_XDEBUG__START_WITH_REQUEST=yes \
+    PHP_INI_XDEBUG__IDEKEY=armaforces-web \
+    PHP_INI_XDEBUG__LOG_LEVEL=0
+
+COPY tests tests/
+COPY .env.test phpunit.xml.dist .php-cs-fixer.dist.php phpstan.neon.dist ./
+
+RUN composer install --no-progress --no-interaction --classmap-authoritative
+
+RUN npm install
+RUN npm run build:ci
+
+RUN chown docker:docker -R /app
+USER docker
+
+
+# -----------------------------------------------------------------------------
+# NGINX
+# -----------------------------------------------------------------------------
 FROM nginx:${NGINX_VERSION}-alpine AS armaforces_web_nginx
 
 COPY .docker/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf.template
 
-WORKDIR /www/app
+WORKDIR /app
 
-COPY --from=armaforces_web_php /www/app/public public/
+COPY --from=armaforces_web_php /app/public public/
 
 COPY .docker/nginx/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint
 
 ENTRYPOINT ["docker-entrypoint"]
 CMD ["nginx", "-g", "daemon off;"]
-
-
-FROM armaforces_web_php AS armaforces_web_php_dev
-
-ARG XDEBUG_VERSION=3.1.1
-RUN set -eux; \
-    apk add --no-cache --virtual .build-deps $PHPIZE_DEPS; \
-    pecl install xdebug-$XDEBUG_VERSION; \
-    docker-php-ext-enable xdebug; \
-    apk del .build-deps
-
-RUN apk add --no-cache \
-        nodejs \
-        npm
-
-ENV XDEBUG_INI_PATH=$PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini
-COPY .docker/php/conf.d/docker-php-ext-xdebug.ini $XDEBUG_INI_PATH
-
-COPY .docker/php/scripts/xon.sh /usr/bin/xon
-COPY .docker/php/scripts/xoff.sh /usr/bin/xoff
-RUN chmod +x /usr/bin/xon /usr/bin/xoff

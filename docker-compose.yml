@@ -6,7 +6,7 @@ services:
         build:
             context: ./
             dockerfile: ./.docker/Dockerfile
-            target: armaforces_web_php
+            target: armaforces_web_php_prod
 
     nginx:
         build:
