@@ -11,7 +11,71 @@
     {% endembed %}
 
     {{ form_start(form) }}
-    {{ form_widget(form) }}
+    {{ form_errors(form) }}
+
+    {{ form_row(form.steamId) }}
+
+    <fieldset class="form-group">
+        <legend class="col-form-label">{{ 'User permissions'|trans }}</legend>
+
+        <fieldset class="form-group">
+            <legend class="col-form-label">{{ 'Users'|trans }}</legend>
+
+            {{ form_row(form.permissions.userList) }}
+            {{ form_row(form.permissions.userUpdate) }}
+            {{ form_row(form.permissions.userDelete) }}
+        </fieldset>
+
+        <fieldset class="form-group">
+            <legend class="col-form-label">{{ 'User groups'|trans }}</legend>
+
+            {{ form_row(form.permissions.userGroupList) }}
+            {{ form_row(form.permissions.userGroupCreate) }}
+            {{ form_row(form.permissions.userGroupUpdate) }}
+            {{ form_row(form.permissions.userGroupDelete) }}
+        </fieldset>
+
+        <fieldset class="form-group">
+            <legend class="col-form-label">{{ 'Mods'|trans }}</legend>
+
+            {{ form_row(form.permissions.modList) }}
+            {{ form_row(form.permissions.modCreate) }}
+            {{ form_row(form.permissions.modUpdate) }}
+            {{ form_row(form.permissions.modDelete) }}
+            {{ form_row(form.permissions.modChangeStatus) }}
+        </fieldset>
+
+        <fieldset class="form-group">
+            <legend class="col-form-label">{{ 'Mod groups'|trans }}</legend>
+
+            {{ form_row(form.permissions.modGroupList) }}
+            {{ form_row(form.permissions.modGroupCreate) }}
+            {{ form_row(form.permissions.modGroupUpdate) }}
+            {{ form_row(form.permissions.modGroupDelete) }}
+        </fieldset>
+
+        <fieldset class="form-group">
+            <legend class="col-form-label">{{ 'DLCs'|trans }}</legend>
+
+            {{ form_row(form.permissions.dlcList) }}
+            {{ form_row(form.permissions.dlcCreate) }}
+            {{ form_row(form.permissions.dlcUpdate) }}
+            {{ form_row(form.permissions.dlcDelete) }}
+        </fieldset>
+
+        <fieldset class="form-group">
+            <legend class="col-form-label">{{ 'Mod lists'|trans }}</legend>
+
+            {{ form_row(form.permissions.modListList) }}
+            {{ form_row(form.permissions.modListCreate) }}
+            {{ form_row(form.permissions.modListUpdate) }}
+            {{ form_row(form.permissions.modListCopy) }}
+            {{ form_row(form.permissions.modListDelete) }}
+            {{ form_row(form.permissions.modListApprove) }}
+        </fieldset>
+    </fieldset>
+
+    {{- form_rest(form) -}}
 
     <div class="form-group text-right">
         <button type="submit" class="btn-primary btn">{{ 'Apply'|trans }}</button>

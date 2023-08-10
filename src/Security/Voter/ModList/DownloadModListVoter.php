@@ -6,7 +6,8 @@ namespace App\Security\Voter\ModList;
 
 use App\Entity\ModList\ModList;
 use App\Entity\ModList\ModListInterface;
-use App\Entity\Permissions\PermissionsInterface;
+use App\Entity\Permissions\AbstractPermissions;
+use App\Entity\User\User;
 use App\Entity\User\UserInterface;
 use App\Security\Enum\PermissionsEnum;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -33,8 +34,8 @@ class DownloadModListVoter extends Voter
         }
 
         // Otherwise user needs to be logged-in and have "List" permission granted
-        return $currentUser instanceof UserInterface
-            && $currentUser->hasPermissions(static fn (PermissionsInterface $permissions) => $permissions->getModListManagementPermissions()->canList())
+        return $currentUser instanceof User
+            && $currentUser->hasPermissions(static fn (AbstractPermissions $permissions) => $permissions->modListList)
         ;
     }
 }

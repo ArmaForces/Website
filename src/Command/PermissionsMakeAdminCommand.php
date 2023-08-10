@@ -87,9 +87,8 @@ class PermissionsMakeAdminCommand extends Command
         if (false !== $fullPermissions) {
             $permissions->grantAll();
         } else {
-            $userPermissions = $permissions->getUserManagementPermissions();
-            $userPermissions->setList(true);
-            $userPermissions->setUpdate(true);
+            $permissions->userList = true;
+            $permissions->userUpdate = true;
         }
 
         $this->entityManager->flush();

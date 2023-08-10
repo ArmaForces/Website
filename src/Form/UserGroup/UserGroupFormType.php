@@ -29,6 +29,7 @@ class UserGroupFormType extends AbstractType
             ->add('permissions', PermissionsType::class, [
                 'label' => 'User group permissions',
                 'data_class' => UserGroupPermissions::class,
+                'target' => null,
             ])
             ->add('users', EntityType::class, [
                 'label' => 'Users',

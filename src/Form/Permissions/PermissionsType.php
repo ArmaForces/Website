@@ -4,42 +4,148 @@ declare(strict_types=1);
 
 namespace App\Form\Permissions;
 
-use App\Entity\Permissions\UserPermissions;
-use App\Form\Permissions\Dlc\DlcManagementPermissionsType;
-use App\Form\Permissions\Mod\ModManagementPermissionsType;
-use App\Form\Permissions\ModGroup\ModGroupManagementPermissionsType;
-use App\Form\Permissions\ModList\ModListManagementPermissionsType;
-use App\Form\Permissions\User\UserManagementPermissionsType;
-use App\Form\Permissions\UserGroup\UserGroupManagementPermissionsType;
+use App\Entity\Permissions\AbstractPermissions;
+use App\Entity\User\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Security;
 
 class PermissionsType extends AbstractType
 {
+    public function __construct(
+        private Security $security
+    ) {
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        /** @var User $currentUser */
+        $currentUser = $this->security->getUser();
+
+        /** @var null|User $target */
         $target = $options['target'];
 
         $builder
-            ->add('userManagementPermissions', UserManagementPermissionsType::class, [
-                'label' => 'Users',
-                'target' => $target,
+            // User
+            ->add('userList', CheckboxType::class, [
+                'label' => 'Can list users',
+                'label_attr' => ['class' => 'switch-custom'],
+                'disabled' => $currentUser === $target, // User cannot change his own base permissions
             ])
-            ->add('userGroupManagementPermissions', UserGroupManagementPermissionsType::class, [
-                'label' => 'User groups',
+            ->add('userUpdate', CheckboxType::class, [
+                'label' => 'Can edit users',
+                'label_attr' => ['class' => 'switch-custom'],
+                'disabled' => $currentUser === $target, // User cannot change his own base permissions
             ])
-            ->add('modManagementPermissions', ModManagementPermissionsType::class, [
-                'label' => 'Mods',
+            ->add('userDelete', CheckboxType::class, [
+                'label' => 'Can delete users',
+                'label_attr' => ['class' => 'switch-custom'],
             ])
-            ->add('modGroupManagementPermissions', ModGroupManagementPermissionsType::class, [
-                'label' => 'Mod groups',
+
+            // User Group
+            ->add('userGroupList', CheckboxType::class, [
+                'label' => 'Can list user groups',
+                'label_attr' => ['class' => 'switch-custom'],
             ])
-            ->add('dlcManagementPermissions', DlcManagementPermissionsType::class, [
-                'label' => 'DLCs',
+            ->add('userGroupCreate', CheckboxType::class, [
+                'label' => 'Can create user groups',
+                'label_attr' => ['class' => 'switch-custom'],
             ])
-            ->add('modListManagementPermissions', ModListManagementPermissionsType::class, [
-                'label' => 'Mod lists',
+            ->add('userGroupUpdate', CheckboxType::class, [
+                'label' => 'Can edit user groups',
+                'label_attr' => ['class' => 'switch-custom'],
+            ])
+            ->add('userGroupDelete', CheckboxType::class, [
+                'label' => 'Can delete user groups',
+                'label_attr' => ['class' => 'switch-custom'],
+            ])
+
+            // Mod
+            ->add('modList', CheckboxType::class, [
+                'label' => 'Can list mods',
+                'label_attr' => ['class' => 'switch-custom'],
+            ])
+            ->add('modCreate', CheckboxType::class, [
+                'label' => 'Can create mods',
+                'label_attr' => ['class' => 'switch-custom'],
+            ])
+            ->add('modUpdate', CheckboxType::class, [
+                'label' => 'Can edit mods',
+                'label_attr' => ['class' => 'switch-custom'],
+            ])
+            ->add('modDelete', CheckboxType::class, [
+                'label' => 'Can delete mods',
+                'label_attr' => ['class' => 'switch-custom'],
+            ])
+            ->add('modChangeStatus', CheckboxType::class, [
+                'label' => 'Can change mods status',
+                'label_attr' => ['class' => 'switch-custom'],
+            ])
+
+            // Mod Group
+            ->add('modGroupList', CheckboxType::class, [
+                'label' => 'Can list mod groups',
+                'label_attr' => ['class' => 'switch-custom'],
+            ])
+            ->add('modGroupCreate', CheckboxType::class, [
+                'label' => 'Can create mod groups',
+                'label_attr' => ['class' => 'switch-custom'],
+            ])
+            ->add('modGroupUpdate', CheckboxType::class, [
+                'label' => 'Can edit mod groups',
+                'label_attr' => ['class' => 'switch-custom'],
+            ])
+            ->add('modGroupDelete', CheckboxType::class, [
+                'label' => 'Can delete mod groups',
+                'label_attr' => ['class' => 'switch-custom'],
+            ])
+
+            // Dlc
+            ->add('dlcList', CheckboxType::class, [
+                'label' => 'Can list DLCs',
+                'label_attr' => ['class' => 'switch-custom'],
+            ])
+            ->add('dlcCreate', CheckboxType::class, [
+                'label' => 'Can create DLCs',
+                'label_attr' => ['class' => 'switch-custom'],
+            ])
+            ->add('dlcUpdate', CheckboxType::class, [
+                'label' => 'Can edit DLCs',
+                'label_attr' => ['class' => 'switch-custom'],
+            ])
+            ->add('dlcDelete', CheckboxType::class, [
+                'label' => 'Can delete DLCs',
+                'label_attr' => ['class' => 'switch-custom'],
+            ])
+
+            // Mod List
+            ->add('modListList', CheckboxType::class, [
+                'label' => 'Can list mod lists',
+                'label_attr' => ['class' => 'switch-custom'],
+            ])
+            ->add('modListCreate', CheckboxType::class, [
+                'label' => 'Can create mod lists',
+                'label_attr' => ['class' => 'switch-custom'],
+            ])
+            ->add('modListUpdate', CheckboxType::class, [
+                'label' => 'Can edit other users mod lists',
+                'label_attr' => ['class' => 'switch-custom'],
+                'help' => 'Note: User can always edit his own or assigned to him mod lists',
+            ])
+            ->add('modListCopy', CheckboxType::class, [
+                'label' => 'Can copy mod lists',
+                'label_attr' => ['class' => 'switch-custom'],
+            ])
+            ->add('modListDelete', CheckboxType::class, [
+                'label' => 'Can delete other users mod lists',
+                'label_attr' => ['class' => 'switch-custom'],
+                'help' => 'Note: User can always delete his own or assigned to him mod lists',
+            ])
+            ->add('modListApprove', CheckboxType::class, [
+                'label' => 'Can approve mod lists',
+                'label_attr' => ['class' => 'switch-custom'],
             ])
         ;
     }
@@ -48,9 +154,11 @@ class PermissionsType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'data_class' => UserPermissions::class,
+                'data_class' => AbstractPermissions::class,
                 'required' => false,
-                'target' => null,
+            ])
+            ->setRequired([
+                'target',
             ])
         ;
     }

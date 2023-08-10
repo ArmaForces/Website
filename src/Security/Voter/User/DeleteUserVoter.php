@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Security\Voter\User;
 
-use App\Entity\Permissions\PermissionsInterface;
+use App\Entity\Permissions\AbstractPermissions;
 use App\Entity\User\UserInterface;
 use App\Security\Enum\PermissionsEnum;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -29,7 +29,7 @@ class DeleteUserVoter extends Voter
         $user = $subject;
 
         return $currentUser !== $user
-            && $currentUser->hasPermissions(static fn (PermissionsInterface $permissions) => $permissions->getUserManagementPermissions()->canDelete())
+            && $currentUser->hasPermissions(static fn (AbstractPermissions $permissions) => $permissions->userDelete)
         ;
     }
 }
