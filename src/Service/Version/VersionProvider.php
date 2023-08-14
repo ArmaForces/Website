@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\Version;
 
-class VersionProvider
+class VersionProvider implements VersionProviderInterface
 {
     public function __construct(
         private string $projectDir,

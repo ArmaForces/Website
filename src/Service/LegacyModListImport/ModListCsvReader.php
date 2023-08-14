@@ -7,7 +7,7 @@ namespace App\Service\LegacyModListImport;
 use App\Service\LegacyModListImport\Dto\ModCsvEntryDto;
 use League\Csv\Reader;
 
-class ModListCsvReader
+class ModListCsvReader implements ModListCsvReaderInterface
 {
     protected const COLUMN_INDEX_ID = 0;
     protected const COLUMN_INDEX_NAME = 1;

@@ -8,7 +8,7 @@ use App\Form\Dlc\Dto\DlcFormDto;
 use App\Service\Steam\Exception\AppNotFoundException;
 use App\Service\Steam\Helper\Exception\InvalidAppUrlFormatException;
 use App\Service\Steam\Helper\SteamHelper;
-use App\Service\Steam\SteamApiClient;
+use App\Service\Steam\SteamApiClientInterface;
 use App\Validator\AbstractValidator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Constraint;
@@ -20,7 +20,7 @@ class SteamStoreArma3DlcUrlValidator extends AbstractValidator
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        private SteamApiClient $steamApiClient
+        private SteamApiClientInterface $steamApiClient
     ) {
         parent::__construct($entityManager);
     }

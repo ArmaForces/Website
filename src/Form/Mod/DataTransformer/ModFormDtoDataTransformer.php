@@ -15,13 +15,13 @@ use App\Form\FormDtoInterface;
 use App\Form\Mod\Dto\ModFormDto;
 use App\Form\RegisteredDataTransformerInterface;
 use App\Service\Steam\Helper\SteamHelper;
-use App\Service\Steam\SteamApiClient;
+use App\Service\Steam\SteamApiClientInterface;
 use Ramsey\Uuid\Uuid;
 
 class ModFormDtoDataTransformer implements RegisteredDataTransformerInterface
 {
     public function __construct(
-        private SteamApiClient $steamApiClient
+        private SteamApiClientInterface $steamApiClient
     ) {
     }
 

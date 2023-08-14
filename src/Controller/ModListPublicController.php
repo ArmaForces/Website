@@ -8,7 +8,7 @@ use App\Entity\ModList\ModList;
 use App\Repository\Mod\ModRepository;
 use App\Repository\ModList\ModListRepository;
 use App\Security\Enum\PermissionsEnum;
-use App\Service\Mission\MissionClient;
+use App\Service\Mission\MissionClientInterface;
 use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,7 +25,7 @@ class ModListPublicController extends AbstractController
         private LoggerInterface $logger,
         private ModRepository $modRepository,
         private ModListRepository $modListRepository,
-        private MissionClient $missionClient,
+        private MissionClientInterface $missionClient,
     ) {
     }
 

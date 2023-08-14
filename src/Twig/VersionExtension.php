@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Twig;
 
-use App\Service\Version\VersionProvider;
+use App\Service\Version\VersionProviderInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 class VersionExtension extends AbstractExtension
 {
     public function __construct(
-        private VersionProvider $version
+        private VersionProviderInterface $version
     ) {
     }
 
