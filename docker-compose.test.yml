@@ -10,6 +10,8 @@ services:
             cache_from:
                 - docker.pkg.github.com/armaforces/website/app_assets:dev
                 - docker.pkg.github.com/armaforces/website/app_php:dev
+        environment:
+            APP_ENV: test
         volumes:
             # Copy tests into runtime
             - './.env.test:/www/app/.env.test:ro'
