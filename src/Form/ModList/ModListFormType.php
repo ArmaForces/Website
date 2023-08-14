@@ -7,7 +7,7 @@ namespace App\Form\ModList;
 use App\Entity\Dlc\Dlc;
 use App\Entity\Mod\AbstractMod;
 use App\Entity\ModGroup\ModGroup;
-use App\Entity\Permissions\PermissionsInterface;
+use App\Entity\Permissions\AbstractPermissions;
 use App\Entity\User\User;
 use App\Entity\User\UserInterface;
 use App\Form\ModList\Dto\ModListFormDto;
@@ -106,7 +106,7 @@ class ModListFormType extends AbstractType
         $currentUser = $this->security->getUser();
 
         $canUpdate = $currentUser->hasPermissions(
-            static fn (PermissionsInterface $permissions) => $permissions->getModListManagementPermissions()->canUpdate()
+            static fn (AbstractPermissions $permissions) => $permissions->modListUpdate
         );
 
         // User cannot change Mod List owner if he doesn't have full update permissions granted
@@ -145,7 +145,7 @@ class ModListFormType extends AbstractType
         $currentUser = $this->security->getUser();
 
         $canApprove = $currentUser->hasPermissions(
-            static fn (PermissionsInterface $permissions) => $permissions->getModListManagementPermissions()->canApprove()
+            static fn (AbstractPermissions $permissions) => $permissions->modListApprove
         );
 
         if (!$canApprove) {

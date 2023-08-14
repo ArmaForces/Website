@@ -7,7 +7,7 @@ namespace App\Form\Mod;
 use App\Entity\Mod\Enum\ModSourceEnum;
 use App\Entity\Mod\Enum\ModStatusEnum;
 use App\Entity\Mod\Enum\ModTypeEnum;
-use App\Entity\Permissions\PermissionsInterface;
+use App\Entity\Permissions\AbstractPermissions;
 use App\Entity\User\UserInterface;
 use App\Form\Mod\Dto\ModFormDto;
 use Symfony\Component\Form\AbstractType;
@@ -96,7 +96,7 @@ class ModFormType extends AbstractType
         $currentUser = $this->security->getUser();
 
         $canChangeStatus = $currentUser->hasPermissions(
-            static fn (PermissionsInterface $permissions) => $permissions->getModManagementPermissions()->canChangeStatus()
+            static fn (AbstractPermissions $permissions) => $permissions->modChangeStatus
         );
 
         if (!$canChangeStatus) {

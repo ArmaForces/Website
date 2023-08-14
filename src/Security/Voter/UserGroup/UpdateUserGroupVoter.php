@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Security\Voter\UserGroup;
 
-use App\Entity\Permissions\PermissionsInterface;
+use App\Entity\Permissions\AbstractPermissions;
 use App\Entity\User\UserInterface;
 use App\Entity\UserGroup\UserGroupInterface;
 use App\Security\Enum\PermissionsEnum;
@@ -26,6 +26,6 @@ class UpdateUserGroupVoter extends Voter
             return false;
         }
 
-        return $currentUser->hasPermissions(static fn (PermissionsInterface $permissions) => $permissions->getUserGroupManagementPermissions()->canUpdate());
+        return $currentUser->hasPermissions(static fn (AbstractPermissions $permissions) => $permissions->userGroupUpdate);
     }
 }

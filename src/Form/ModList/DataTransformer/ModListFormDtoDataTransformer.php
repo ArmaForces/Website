@@ -8,7 +8,7 @@ use App\Entity\EntityInterface;
 use App\Entity\Mod\ModInterface;
 use App\Entity\ModList\ModList;
 use App\Entity\ModList\ModListInterface;
-use App\Entity\Permissions\PermissionsInterface;
+use App\Entity\Permissions\AbstractPermissions;
 use App\Entity\User\UserInterface;
 use App\Form\FormDtoInterface;
 use App\Form\ModList\Dto\ModListFormDto;
@@ -39,7 +39,7 @@ class ModListFormDtoDataTransformer implements RegisteredDataTransformerInterfac
         $currentUser = $this->security->getUser();
 
         $canUpdate = $currentUser->hasPermissions(
-            static fn (PermissionsInterface $permissions) => $permissions->getModListManagementPermissions()->canUpdate()
+            static fn (AbstractPermissions $permissions) => $permissions->modListUpdate
         );
 
         // If user has permissions set selected user as owner. Otherwise assign current user.

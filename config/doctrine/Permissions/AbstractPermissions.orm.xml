@@ -4,13 +4,49 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="App\Entity\Permissions\AbstractPermissions" table="permissions" repository-class="App\Repository\Permissions\PermissionsRepository" inheritance-type="SINGLE_TABLE">
-        <embedded name="userManagementPermissions" class="App\Entity\Permissions\User\UserManagementPermissions" column-prefix="user_"/>
-        <embedded name="userGroupManagementPermissions" class="App\Entity\Permissions\UserGroup\UserGroupManagementPermissions" column-prefix="user_group_"/>
-        <embedded name="modManagementPermissions" class="App\Entity\Permissions\Mod\ModManagementPermissions" column-prefix="mod_"/>
-        <embedded name="modGroupManagementPermissions" class="App\Entity\Permissions\ModGroup\ModGroupManagementPermissions" column-prefix="mod_group_"/>
-        <embedded name="dlcManagementPermissions" class="App\Entity\Permissions\Dlc\DlcManagementPermissions" column-prefix="dlc_"/>
-        <embedded name="modListManagementPermissions" class="App\Entity\Permissions\ModList\ModListManagementPermissions" column-prefix="mod_list_"/>
+    <entity
+        name="App\Entity\Permissions\AbstractPermissions"
+        table="permissions"
+        repository-class="App\Repository\Permissions\PermissionsRepository"
+        inheritance-type="SINGLE_TABLE"
+    >
+        <!-- User -->
+        <field name="userList" type="boolean"/>
+        <field name="userUpdate" type="boolean"/>
+        <field name="userDelete" type="boolean"/>
+
+        <!-- User Group -->
+        <field name="userGroupList" type="boolean"/>
+        <field name="userGroupCreate" type="boolean"/>
+        <field name="userGroupUpdate" type="boolean"/>
+        <field name="userGroupDelete" type="boolean"/>
+
+        <!-- Mod -->
+        <field name="modList" type="boolean"/>
+        <field name="modCreate" type="boolean"/>
+        <field name="modUpdate" type="boolean"/>
+        <field name="modDelete" type="boolean"/>
+        <field name="modChangeStatus" type="boolean"/>
+
+        <!-- Mod Group -->
+        <field name="modGroupList" type="boolean"/>
+        <field name="modGroupCreate" type="boolean"/>
+        <field name="modGroupUpdate" type="boolean"/>
+        <field name="modGroupDelete" type="boolean"/>
+
+        <!-- Dlc -->
+        <field name="dlcList" type="boolean"/>
+        <field name="dlcCreate" type="boolean"/>
+        <field name="dlcUpdate" type="boolean"/>
+        <field name="dlcDelete" type="boolean"/>
+
+        <!-- Mod List -->
+        <field name="modListList" type="boolean"/>
+        <field name="modListCreate" type="boolean"/>
+        <field name="modListUpdate" type="boolean"/>
+        <field name="modListDelete" type="boolean"/>
+        <field name="modListCopy" type="boolean"/>
+        <field name="modListApprove" type="boolean"/>
 
         <discriminator-column name="type" type="string" length="255"/>
         <discriminator-map>

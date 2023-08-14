@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Security\Voter\ModGroup;
 
-use App\Entity\Permissions\PermissionsInterface;
+use App\Entity\Permissions\AbstractPermissions;
 use App\Entity\User\UserInterface;
 use App\Security\Enum\PermissionsEnum;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -25,6 +25,6 @@ class CreateModGroupVoter extends Voter
             return false;
         }
 
-        return $currentUser->hasPermissions(static fn (PermissionsInterface $permissions) => $permissions->getModGroupManagementPermissions()->canCreate());
+        return $currentUser->hasPermissions(static fn (AbstractPermissions $permissions) => $permissions->modGroupCreate);
     }
 }

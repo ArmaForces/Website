@@ -5,97 +5,85 @@ declare(strict_types=1);
 namespace App\Entity\Permissions;
 
 use App\Entity\AbstractBlamableEntity;
-use App\Entity\Permissions\Dlc\DlcManagementPermissions;
-use App\Entity\Permissions\Mod\ModManagementPermissions;
-use App\Entity\Permissions\ModGroup\ModGroupManagementPermissions;
-use App\Entity\Permissions\ModList\ModListManagementPermissions;
-use App\Entity\Permissions\User\UserManagementPermissions;
-use App\Entity\Permissions\UserGroup\UserGroupManagementPermissions;
-use Ramsey\Uuid\UuidInterface;
 
-abstract class AbstractPermissions extends AbstractBlamableEntity implements PermissionsInterface
+abstract class AbstractPermissions extends AbstractBlamableEntity
 {
-    protected UserManagementPermissions $userManagementPermissions;
-    protected UserGroupManagementPermissions $userGroupManagementPermissions;
-    protected ModManagementPermissions $modManagementPermissions;
-    protected ModGroupManagementPermissions $modGroupManagementPermissions;
-    protected DlcManagementPermissions $dlcManagementPermissions;
-    protected ModListManagementPermissions $modListManagementPermissions;
+    // User
+    public bool $userList = false;
+    public bool $userUpdate = false;
+    public bool $userDelete = false;
 
-    public function __construct(UuidInterface $id)
-    {
-        parent::__construct($id);
+    // User Group
+    public bool $userGroupList = false;
+    public bool $userGroupCreate = false;
+    public bool $userGroupUpdate = false;
+    public bool $userGroupDelete = false;
 
-        $this->userManagementPermissions = new UserManagementPermissions();
-        $this->userGroupManagementPermissions = new UserGroupManagementPermissions();
-        $this->modManagementPermissions = new ModManagementPermissions();
-        $this->modGroupManagementPermissions = new ModGroupManagementPermissions();
-        $this->dlcManagementPermissions = new DlcManagementPermissions();
-        $this->modListManagementPermissions = new ModListManagementPermissions();
-    }
+    // Mod
+    public bool $modList = false;
+    public bool $modCreate = false;
+    public bool $modUpdate = false;
+    public bool $modDelete = false;
+    public bool $modChangeStatus = false;
 
-    public function getUserManagementPermissions(): UserManagementPermissions
-    {
-        return $this->userManagementPermissions;
-    }
+    // Mod Group
+    public bool $modGroupList = false;
+    public bool $modGroupCreate = false;
+    public bool $modGroupUpdate = false;
+    public bool $modGroupDelete = false;
 
-    public function getUserGroupManagementPermissions(): UserGroupManagementPermissions
-    {
-        return $this->userGroupManagementPermissions;
-    }
+    // Dlc
+    public bool $dlcList = false;
+    public bool $dlcCreate = false;
+    public bool $dlcUpdate = false;
+    public bool $dlcDelete = false;
 
-    public function getModManagementPermissions(): ModManagementPermissions
-    {
-        return $this->modManagementPermissions;
-    }
-
-    public function getModGroupManagementPermissions(): ModGroupManagementPermissions
-    {
-        return $this->modGroupManagementPermissions;
-    }
-
-    public function getDlcManagementPermissions(): DlcManagementPermissions
-    {
-        return $this->dlcManagementPermissions;
-    }
-
-    public function getModListManagementPermissions(): ModListManagementPermissions
-    {
-        return $this->modListManagementPermissions;
-    }
+    // Mod List
+    public bool $modListList = false;
+    public bool $modListCreate = false;
+    public bool $modListUpdate = false;
+    public bool $modListDelete = false;
+    public bool $modListCopy = false;
+    public bool $modListApprove = false;
 
     public function grantAll(): void
     {
-        $this->getUserManagementPermissions()->setList(true);
-        $this->getUserManagementPermissions()->setUpdate(true);
-        $this->getUserManagementPermissions()->setDelete(true);
+        // User
+        $this->userList = true;
+        $this->userUpdate = true;
+        $this->userDelete = true;
 
-        $this->getUserGroupManagementPermissions()->setList(true);
-        $this->getUserGroupManagementPermissions()->setCreate(true);
-        $this->getUserGroupManagementPermissions()->setUpdate(true);
-        $this->getUserGroupManagementPermissions()->setDelete(true);
+        // User Group
+        $this->userGroupList = true;
+        $this->userGroupCreate = true;
+        $this->userGroupUpdate = true;
+        $this->userGroupDelete = true;
 
-        $this->getModManagementPermissions()->setList(true);
-        $this->getModManagementPermissions()->setCreate(true);
-        $this->getModManagementPermissions()->setUpdate(true);
-        $this->getModManagementPermissions()->setDelete(true);
-        $this->getModManagementPermissions()->setChangeStatus(true);
+        // Mod
+        $this->modList = true;
+        $this->modCreate = true;
+        $this->modUpdate = true;
+        $this->modDelete = true;
+        $this->modChangeStatus = true;
 
-        $this->getModGroupManagementPermissions()->setList(true);
-        $this->getModGroupManagementPermissions()->setCreate(true);
-        $this->getModGroupManagementPermissions()->setUpdate(true);
-        $this->getModGroupManagementPermissions()->setDelete(true);
+        // Mod Group
+        $this->modGroupList = true;
+        $this->modGroupCreate = true;
+        $this->modGroupUpdate = true;
+        $this->modGroupDelete = true;
 
-        $this->getDlcManagementPermissions()->setList(true);
-        $this->getDlcManagementPermissions()->setCreate(true);
-        $this->getDlcManagementPermissions()->setUpdate(true);
-        $this->getDlcManagementPermissions()->setDelete(true);
+        // Dlc
+        $this->dlcList = true;
+        $this->dlcCreate = true;
+        $this->dlcUpdate = true;
+        $this->dlcDelete = true;
 
-        $this->getModListManagementPermissions()->setList(true);
-        $this->getModListManagementPermissions()->setCreate(true);
-        $this->getModListManagementPermissions()->setUpdate(true);
-        $this->getModListManagementPermissions()->setDelete(true);
-        $this->getModListManagementPermissions()->setCopy(true);
-        $this->getModListManagementPermissions()->setApprove(true);
+        // Mod List
+        $this->modListList = true;
+        $this->modListCreate = true;
+        $this->modListUpdate = true;
+        $this->modListDelete = true;
+        $this->modListCopy = true;
+        $this->modListApprove = true;
     }
 }
