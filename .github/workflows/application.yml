@@ -42,6 +42,11 @@ jobs:
                 run: |
                     make test-ci
 
+            -   name: Failure logs
+                if: failure()
+                run: |
+                    docker compose logs php
+
     docker_release:
         name: Docker release
         runs-on: ubuntu-latest
