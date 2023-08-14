@@ -1,7 +1,7 @@
 ARG NGINX_VERSION=1.17
 
 # -----------------------------------------------------------------------------
-# PHP - Commonm
+# PHP - Common
 # -----------------------------------------------------------------------------
 
 # Build PHP application image
@@ -24,22 +24,34 @@ ENV \
     PHP_INI_EXPOSE_PHP=Off
 
 WORKDIR /www/app
+RUN mkdir -p var/cache var/log public/build
+RUN chown docker:docker -R /www/app
+USER docker
 
-COPY bin bin/
+COPY --link package.json package-lock.json ./
+RUN npm install
+
+# prevent the reinstallation of vendors at every changes in the source code
+COPY --link composer.* symfony.* ./
+RUN set -eux; \
+	composer install --no-cache --prefer-dist --no-dev --no-autoloader --no-scripts --no-progress
+
+# copy sources
+COPY --link bin bin/
 COPY config config/
 COPY migrations migrations/
 COPY public public/
 COPY src src/
 COPY templates templates/
 COPY translations translations/
-COPY composer.json composer.lock symfony.lock .env ./
+COPY .env ./
 
-COPY assets assets/
-COPY package.json package-lock.json webpack.config.js ./
+COPY --link assets assets/
+COPY webpack.config.js ./
 
-RUN mkdir -p var/cache var/log
-
+USER root
 RUN chmod +x bin/console
+USER docker
 
 
 # -----------------------------------------------------------------------------
@@ -57,20 +69,14 @@ ENV \
     PHP_INI_REALPATH_CACHE_SIZE=4096K \
     PHP_INI_REALPATH_CACHE_TTL=600 \
     PHP_INI_OPCACHE__PRELOAD_USER=www-data \
-    PHP_INI_OPCACHE__PRELOAD=/app/config/preload.php
+    PHP_INI_OPCACHE__PRELOAD=/www/app/config/preload.php
 
-COPY .docker/php/startup.sh /etc/container/startup.sh
+COPY --chown=docker:docker .docker/php/startup.sh /etc/container/startup.sh
 RUN chmod +x /etc/container/startup.sh
 
-RUN composer install --no-dev --no-progress --no-interaction --classmap-authoritative
-RUN composer dump-env prod
-
-RUN npm install
 RUN npm run build
-
-RUN chown docker:docker -R /app
-USER docker
-
+RUN composer dump-autoload --classmap-authoritative --no-dev; \
+	composer run-script --no-dev post-install-cmd;
 
 # -----------------------------------------------------------------------------
 # PHP - Dev
@@ -86,17 +92,11 @@ ENV \
     PHP_INI_XDEBUG__IDEKEY=armaforces-web \
     PHP_INI_XDEBUG__LOG_LEVEL=0
 
+COPY --chown=docker:docker .docker/php/startup.dev.sh /etc/container/startup.sh
+RUN chmod +x /etc/container/startup.sh
+
 COPY tests tests/
 COPY .env.test phpunit.xml.dist .php-cs-fixer.dist.php phpstan.neon.dist ./
-
-RUN composer install --no-progress --no-interaction --classmap-authoritative
-
-RUN npm install
-RUN npm run build:ci
-
-RUN chown docker:docker -R /app
-USER docker
-
 
 # -----------------------------------------------------------------------------
 # NGINX
