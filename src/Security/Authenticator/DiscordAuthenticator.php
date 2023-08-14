@@ -12,17 +12,16 @@ use App\Security\Exception\MultipleRolesFound;
 use App\Security\Exception\RequiredRolesNotAssignedException;
 use App\Security\Exception\RoleNotFoundException;
 use App\Security\Exception\UserNotADiscordMemberException;
-use App\Service\RestCord\DiscordClientFactory;
+use App\Service\Discord\DiscordClientFactory;
+use Discord\Http\Endpoint;
+use Discord\Http\Exceptions\NotFoundException;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
-use GuzzleHttp\Command\Exception\CommandException;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Client\OAuth2ClientInterface;
 use KnpU\OAuth2ClientBundle\Security\Authenticator\SocialAuthenticator;
 use League\OAuth2\Client\Token\AccessToken;
 use Ramsey\Uuid\Uuid;
-use RestCord\Model\Permissions\Role;
-use RestCord\Model\User\Connection;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
@@ -31,6 +30,8 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Wohali\OAuth2\Client\Provider\DiscordResourceOwner;
+
+use function React\Async\await;
 
 /**
  * @see https://github.com/knpuniversity/oauth2-client-bundle
@@ -49,7 +50,7 @@ class DiscordAuthenticator extends SocialAuthenticator
         private EntityManagerInterface $em,
         private RouterInterface $router,
         private DiscordClientFactory $discordClientFactory,
-        private int $discordServerId,
+        private string $discordServerId,
         private string $botToken,
         private array $requiredServerRoleNames
     ) {
@@ -80,7 +81,7 @@ class DiscordAuthenticator extends SocialAuthenticator
         /** @var DiscordResourceOwner $discordResourceOwner */
         $discordResourceOwner = $this->getDiscordClient()->fetchUserFromToken($credentials);
 
-        $userId = (int) $discordResourceOwner->getId();
+        $userId = $discordResourceOwner->getId();
         $username = $discordResourceOwner->getUsername();
         $fullUsername = $discordResourceOwner->getUsername().'#'.$discordResourceOwner->getDiscriminator();
         $email = $discordResourceOwner->getEmail();
@@ -89,37 +90,42 @@ class DiscordAuthenticator extends SocialAuthenticator
         $discordClientAsBot = $this->discordClientFactory->createBotClient($this->botToken);
         $discordClientAsUser = $this->discordClientFactory->createUserClient($credentials->getToken());
 
-        $server = $discordClientAsBot->guild->getGuild(['guild.id' => $this->discordServerId]);
+        $serverResponse = await($discordClientAsBot->get(
+            Endpoint::bind(Endpoint::GUILD, $this->discordServerId)
+        ));
 
         try {
-            $userAsServerMember = $discordClientAsBot->guild->getGuildMember([
-                'guild.id' => $server->id,
-                'user.id' => $userId,
-            ]);
-        } catch (CommandException $ex) {
+            $userAsServerMemberResponse = await($discordClientAsBot->get(
+                Endpoint::bind(Endpoint::GUILD_MEMBER, $serverResponse->id, $userId)
+            ));
+        } catch (NotFoundException $ex) {
             throw new UserNotADiscordMemberException(
-                sprintf('User "%s" is not a member of "%s" Discord server!', $username, $server->name)
+                sprintf('User "%s" is not a member of "%s" Discord server!', $username, $serverResponse->name)
             );
         }
 
         // Collect IDs of required server roles by their names
         // This is needed as user object contains only IDs of roles assigned
-        $serverRoleIds = [];
-        $serverRoles = $discordClientAsBot->guild->getGuildRoles(['guild.id' => $server->id]);
-        foreach ($this->requiredServerRoleNames as $requiredServerRoleName) {
-            $serverRoleIds[] = $this->getRoleByName($serverRoles, $requiredServerRoleName)->id;
-        }
+        $serverRolesResponse = await($discordClientAsBot->get(
+            Endpoint::bind(Endpoint::GUILD_ROLES, $serverResponse->id)
+        ));
+        $serverRoleIds = array_map(
+            fn (string $requiredServerRoleName) => $this->getRoleIdByName($serverRolesResponse, $requiredServerRoleName),
+            $this->requiredServerRoleNames
+        );
 
         // Check if user has at least one role assigned
-        if (0 === \count(array_intersect($serverRoleIds, $userAsServerMember->roles))) {
+        if (0 === \count(array_intersect($serverRoleIds, $userAsServerMemberResponse->roles))) {
             throw new RequiredRolesNotAssignedException(
                 sprintf('User "%s" does not have required roles assigned!', $username)
             );
         }
 
-        $userConnections = $discordClientAsUser->user->getUserConnections([]);
-        $steamConnection = (new ArrayCollection($userConnections))
-            ->filter(static fn (Connection $connection) => ConnectionsEnum::STEAM === $connection->type)
+        $userConnectionsResponse = await($discordClientAsUser->get(
+            Endpoint::bind(Endpoint::USER_CURRENT_CONNECTIONS)
+        ));
+        $steamConnection = (new ArrayCollection($userConnectionsResponse))
+            ->filter(static fn (\stdClass $connection) => ConnectionsEnum::STEAM === $connection->type)
             ->first()
         ;
 
@@ -160,13 +166,13 @@ class DiscordAuthenticator extends SocialAuthenticator
         return new RedirectResponse($targetUrl);
     }
 
-    protected function getRoleByName(array $roles, string $roleName): Role
+    protected function getRoleIdByName(array $roles, string $roleName): string
     {
-        $rolesFound = (new ArrayCollection($roles))->filter(static fn (Role $role) => $role->name === $roleName);
+        $rolesFound = (new ArrayCollection($roles))->filter(static fn (\stdClass $role) => $role->name === $roleName);
 
         return match ($rolesFound->count()) {
             0 => throw new RoleNotFoundException(sprintf('Role "%s" was not found!', $roleName)),
-            1 => $rolesFound->first(),
+            1 => $rolesFound->first()->id,
             default => throw new MultipleRolesFound(sprintf('Multiple roles found by given name "%s"!', $roleName))
         };
     }
