@@ -9,8 +9,8 @@ if [ "${1#-}" != "$1" ]; then
 fi
 
 if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
-    setfacl -R -m u:www-data:rwX -m u:"$(whoami)":rwX var
-    setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX var
+    setfacl -R -m u:www-data:rwX -m u:"$(whoami)":rwX var || true
+    setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX var || true
 
     if [ "$APP_ENV" != 'prod' ]; then
         composer install --prefer-dist --no-progress --no-interaction || true
