@@ -7,9 +7,10 @@ services:
             target: armaforces_web_php_dev
         volumes:
             - './:/www/app:rw'
-            # If you develop on Mac or Windows you can remove the vendor/ directory
-            #  from the bind-mount for better performance by enabling the next line:
-            #- /srv/app/vendor
+            # If you develop on Mac or Windows you can remove the vendor/ and var/ directory
+            #  from the bind-mount for better performance by enabling the next lines:
+            #- /www/app/vendor
+            #- /www/app/var
         environment:
             PHP_IDE_CONFIG: serverName=armaforces-web
         extra_hosts:
