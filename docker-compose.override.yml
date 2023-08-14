@@ -6,7 +6,12 @@ services:
         build:
             target: armaforces_web_php_dev
         volumes:
-            - './:/app:rw'
+            - './:/www/app:rw'
+            # If you develop on Mac or Windows you can remove the vendor/, var/ and node_modules/ directories
+            #  from the bind-mount for better performance by enabling the next lines:
+            #- '/www/app/vendor'
+            #- '/www/app/var'
+            #- '/www/app/node_modules'
         environment:
             PHP_IDE_CONFIG: serverName=armaforces-web
         extra_hosts:
@@ -14,7 +19,7 @@ services:
 
     nginx:
         volumes:
-            - './public:/app/public:ro'
+            - './public:/www/app/public:ro'
 
     mysql:
         image: mysql:5.7

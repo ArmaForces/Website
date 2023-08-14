@@ -23,7 +23,7 @@ ENV \
     PHP_INI_SHORT_OPEN_TAG=Off \
     PHP_INI_EXPOSE_PHP=Off
 
-WORKDIR /app
+WORKDIR /www/app
 
 COPY bin bin/
 COPY config config/
@@ -105,9 +105,9 @@ FROM nginx:${NGINX_VERSION}-alpine AS armaforces_web_nginx
 
 COPY .docker/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf.template
 
-WORKDIR /app
+WORKDIR /www/app
 
-COPY --from=armaforces_web_php /app/public public/
+COPY --from=armaforces_web_php /www/app/public public/
 
 COPY .docker/nginx/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint
