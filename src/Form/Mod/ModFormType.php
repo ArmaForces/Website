@@ -8,7 +8,7 @@ use App\Entity\Mod\Enum\ModSourceEnum;
 use App\Entity\Mod\Enum\ModStatusEnum;
 use App\Entity\Mod\Enum\ModTypeEnum;
 use App\Entity\Permissions\AbstractPermissions;
-use App\Entity\User\UserInterface;
+use App\Entity\User\User;
 use App\Form\Mod\Dto\ModFormDto;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -92,7 +92,7 @@ class ModFormType extends AbstractType
 
     protected function addChangeStatusType(FormBuilderInterface $builder): void
     {
-        /** @var UserInterface $currentUser */
+        /** @var User $currentUser */
         $currentUser = $this->security->getUser();
 
         $canChangeStatus = $currentUser->hasPermissions(

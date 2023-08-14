@@ -19,6 +19,8 @@ class AceInteractionMenuExpansionModFixture extends Fixture
         $mod = new SteamWorkshopMod(
             Uuid::fromString(self::ID),
             'ACE Interaction Menu Expansion',
+            null,
+            null,
             ModTypeEnum::get(ModTypeEnum::OPTIONAL),
             1376867375
         );

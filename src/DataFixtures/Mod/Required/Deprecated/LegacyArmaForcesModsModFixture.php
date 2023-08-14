@@ -20,11 +20,11 @@ class LegacyArmaForcesModsModFixture extends Fixture
         $mod = new SteamWorkshopMod(
             Uuid::fromString(self::ID),
             '[legacy] ArmaForces - Mods',
+            null,
+            ModStatusEnum::get(ModStatusEnum::DEPRECATED),
             ModTypeEnum::get(ModTypeEnum::REQUIRED),
             1639399387
         );
-        $mod->setStatus(ModStatusEnum::get(ModStatusEnum::DEPRECATED));
-        $mod->setCreatedAt(\DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2020-01-01 00:00:00'));
 
         $manager->persist($mod);
         $manager->flush();

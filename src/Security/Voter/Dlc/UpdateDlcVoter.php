@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Security\Voter\Dlc;
 
-use App\Entity\Dlc\DlcInterface;
+use App\Entity\Dlc\Dlc;
 use App\Entity\Permissions\AbstractPermissions;
-use App\Entity\User\UserInterface;
+use App\Entity\User\User;
 use App\Security\Enum\PermissionsEnum;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -15,14 +15,13 @@ class UpdateDlcVoter extends Voter
 {
     protected function supports(string $attribute, $subject): bool
     {
-        return PermissionsEnum::DLC_UPDATE === $attribute && $subject instanceof DlcInterface;
+        return PermissionsEnum::DLC_UPDATE === $attribute && $subject instanceof Dlc;
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
-        /** @var null|UserInterface $currentUser */
         $currentUser = $token->getUser();
-        if (!$currentUser instanceof UserInterface) {
+        if (!$currentUser instanceof User) {
             return false;
         }
 

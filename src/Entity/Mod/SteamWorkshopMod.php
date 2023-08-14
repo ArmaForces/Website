@@ -4,18 +4,41 @@ declare(strict_types=1);
 
 namespace App\Entity\Mod;
 
+use App\Entity\Mod\Enum\ModStatusEnum;
 use App\Entity\Mod\Enum\ModTypeEnum;
 use Ramsey\Uuid\UuidInterface;
 
-class SteamWorkshopMod extends AbstractMod implements SteamWorkshopModInterface
+class SteamWorkshopMod extends AbstractMod
 {
+    private ModTypeEnum $type;
+    private int $itemId;
+
     public function __construct(
         UuidInterface $id,
         string $name,
+        ?string $description,
+        ?ModStatusEnum $status,
         ModTypeEnum $type,
-        private int $itemId
+        int $itemId
     ) {
-        parent::__construct($id, $name, $type);
+        parent::__construct($id, $name, $description, $status);
+
+        $this->type = $type;
+        $this->itemId = $itemId;
+    }
+
+    public function update(
+        string $name,
+        ?string $description,
+        ?ModStatusEnum $status,
+        ModTypeEnum $type,
+        int $itemId
+    ): void {
+        $this->name = $name;
+        $this->description = $description;
+        $this->status = $status;
+        $this->type = $type;
+        $this->itemId = $itemId;
     }
 
     public function getItemId(): int
@@ -23,8 +46,8 @@ class SteamWorkshopMod extends AbstractMod implements SteamWorkshopModInterface
         return $this->itemId;
     }
 
-    public function setItemId(int $itemId): void
+    public function getType(): ModTypeEnum
     {
-        $this->itemId = $itemId;
+        return $this->type;
     }
 }

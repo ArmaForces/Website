@@ -20,7 +20,7 @@ class UserFormDto extends AbstractFormDto
     /**
      * @SteamProfileId
      */
-    protected ?string $steamId = null;
+    protected ?int $steamId = null;
 
     protected ?UserPermissions $permissions = null;
 
@@ -34,12 +34,12 @@ class UserFormDto extends AbstractFormDto
         $this->id = $id;
     }
 
-    public function getSteamId(): ?string
+    public function getSteamId(): ?int
     {
         return $this->steamId;
     }
 
-    public function setSteamId(?string $steamId): void
+    public function setSteamId(?int $steamId): void
     {
         $this->steamId = $steamId;
     }

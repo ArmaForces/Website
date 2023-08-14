@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace App\Form\ModList\DataTransformer;
 
-use App\Entity\EntityInterface;
-use App\Entity\Mod\ModInterface;
+use App\Entity\AbstractEntity;
 use App\Entity\ModList\ModList;
-use App\Entity\ModList\ModListInterface;
 use App\Entity\Permissions\AbstractPermissions;
-use App\Entity\User\UserInterface;
+use App\Entity\User\User;
 use App\Form\FormDtoInterface;
 use App\Form\ModList\Dto\ModListFormDto;
 use App\Form\RegisteredDataTransformerInterface;
@@ -24,18 +22,14 @@ class ModListFormDtoDataTransformer implements RegisteredDataTransformerInterfac
     }
 
     /**
-     * @param ModListFormDto        $formDto
-     * @param null|ModListInterface $entity
+     * @param ModListFormDto $formDto
+     * @param null|ModList   $entity
      *
-     * @return ModListInterface
+     * @return ModList
      */
-    public function transformToEntity(FormDtoInterface $formDto, EntityInterface $entity = null): EntityInterface
+    public function transformToEntity(FormDtoInterface $formDto, AbstractEntity $entity = null): AbstractEntity
     {
-        if (!$entity instanceof ModListInterface) {
-            $entity = new ModList(Uuid::uuid4(), $formDto->getName());
-        }
-
-        /** @var UserInterface $currentUser */
+        /** @var User $currentUser */
         $currentUser = $this->security->getUser();
 
         $canUpdate = $currentUser->hasPermissions(
@@ -45,28 +39,43 @@ class ModListFormDtoDataTransformer implements RegisteredDataTransformerInterfac
         // If user has permissions set selected user as owner. Otherwise assign current user.
         $owner = $canUpdate ? $formDto->getOwner() : $currentUser;
 
-        $entity->setName($formDto->getName());
-        $entity->setDescription($formDto->getDescription());
-        $entity->setMods($formDto->getMods());
-        $entity->setModGroups($formDto->getModGroups());
-        $entity->setDlcs($formDto->getDlcs());
-        $entity->setOwner($owner);
-        $entity->setActive($formDto->isActive());
-        $entity->setApproved($formDto->isApproved());
+        if (!$entity instanceof ModList) {
+            return new ModList(
+                Uuid::uuid4(),
+                $formDto->getName(),
+                $formDto->getDescription(),
+                $formDto->getMods(),
+                $formDto->getModGroups(),
+                $formDto->getDlcs(),
+                $owner,
+                $formDto->isActive(),
+                $formDto->isApproved(),
+            );
+        }
+
+        $entity->update(
+            $formDto->getName(),
+            $formDto->getDescription(),
+            $formDto->getMods(),
+            $formDto->getModGroups(),
+            $formDto->getDlcs(),
+            $owner,
+            $formDto->isActive(),
+            $formDto->isApproved(),
+        );
 
         return $entity;
     }
 
     /**
-     * @param ModListFormDto        $formDto
-     * @param null|ModListInterface $entity
+     * @param ModListFormDto $formDto
+     * @param null|ModList   $entity
      *
      * @return ModListFormDto
      */
-    public function transformFromEntity(FormDtoInterface $formDto, EntityInterface $entity = null): FormDtoInterface
+    public function transformFromEntity(FormDtoInterface $formDto, AbstractEntity $entity = null): FormDtoInterface
     {
-        /** @var ModInterface $entity */
-        if (!$entity instanceof ModListInterface) {
+        if (!$entity instanceof ModList) {
             return $formDto;
         }
 
@@ -83,12 +92,12 @@ class ModListFormDtoDataTransformer implements RegisteredDataTransformerInterfac
         return $formDto;
     }
 
-    public function supportsTransformationToEntity(FormDtoInterface $formDto, EntityInterface $entity = null): bool
+    public function supportsTransformationToEntity(FormDtoInterface $formDto, AbstractEntity $entity = null): bool
     {
         return $formDto instanceof ModListFormDto;
     }
 
-    public function supportsTransformationFromEntity(FormDtoInterface $formDto, EntityInterface $entity = null): bool
+    public function supportsTransformationFromEntity(FormDtoInterface $formDto, AbstractEntity $entity = null): bool
     {
         return $formDto instanceof ModListFormDto;
     }

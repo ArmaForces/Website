@@ -6,13 +6,13 @@ namespace App\Api\DataTransformer\Dlc;
 
 use ApiPlatform\Core\DataTransformer\DataTransformerInterface;
 use App\Api\Output\Dlc\DlcOutput;
-use App\Entity\Dlc\DlcInterface;
+use App\Entity\Dlc\Dlc;
 
 class DlcOutputDataTransformer implements DataTransformerInterface
 {
     public function transform($object, string $to, array $context = []): DlcOutput
     {
-        /** @var DlcInterface $object */
+        /** @var Dlc $object */
         $output = new DlcOutput();
 
         $output->setId($object->getId()->toString());
@@ -27,6 +27,6 @@ class DlcOutputDataTransformer implements DataTransformerInterface
 
     public function supportsTransformation($data, string $to, array $context = []): bool
     {
-        return DlcOutput::class === $to && $data instanceof DlcInterface;
+        return DlcOutput::class === $to && $data instanceof Dlc;
     }
 }

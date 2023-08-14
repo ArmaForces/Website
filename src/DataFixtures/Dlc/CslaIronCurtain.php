@@ -18,6 +18,7 @@ class CslaIronCurtain extends Fixture
         $dlc = new Dlc(
             Uuid::fromString(self::ID),
             'Arma 3 Creator DLC: CSLA Iron Curtain',
+            null,
             1294440,
             'csla'
         );

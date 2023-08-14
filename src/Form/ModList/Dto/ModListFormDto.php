@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Form\ModList\Dto;
 
-use App\Entity\Dlc\DlcInterface;
-use App\Entity\Mod\ModInterface;
-use App\Entity\ModGroup\ModGroupInterface;
-use App\Entity\User\UserInterface;
+use App\Entity\Dlc\Dlc;
+use App\Entity\Mod\AbstractMod;
+use App\Entity\ModGroup\ModGroup;
+use App\Entity\User\User;
 use App\Form\AbstractFormDto;
 use App\Validator\ModList\UniqueModListName;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -34,21 +34,21 @@ class ModListFormDto extends AbstractFormDto
     protected ?string $description = null;
 
     /**
-     * @var Collection<ModInterface>
+     * @var Collection<AbstractMod>
      */
     protected Collection $mods;
 
     /**
-     * @var Collection<ModGroupInterface>
+     * @var Collection<ModGroup>
      */
     protected Collection $modGroups;
 
     /**
-     * @var Collection<DlcInterface>
+     * @var Collection<Dlc>
      */
     protected Collection $dlcs;
 
-    protected ?UserInterface $owner = null;
+    protected ?User $owner = null;
 
     protected bool $active = true;
 
@@ -91,7 +91,7 @@ class ModListFormDto extends AbstractFormDto
         $this->description = $description;
     }
 
-    public function addMod(ModInterface $mod): void
+    public function addMod(AbstractMod $mod): void
     {
         if ($this->mods->contains($mod)) {
             return;
@@ -100,7 +100,7 @@ class ModListFormDto extends AbstractFormDto
         $this->mods->add($mod);
     }
 
-    public function removeMod(ModInterface $mod): void
+    public function removeMod(AbstractMod $mod): void
     {
         if (!$this->mods->contains($mod)) {
             return;
@@ -110,7 +110,7 @@ class ModListFormDto extends AbstractFormDto
     }
 
     /**
-     * @return ModInterface[]
+     * @return AbstractMod[]
      */
     public function getMods(): array
     {
@@ -118,7 +118,7 @@ class ModListFormDto extends AbstractFormDto
     }
 
     /**
-     * @param ModInterface[] $mods
+     * @param AbstractMod[] $mods
      */
     public function setMods(array $mods): void
     {
@@ -128,7 +128,7 @@ class ModListFormDto extends AbstractFormDto
         }
     }
 
-    public function addModGroup(ModGroupInterface $modGroup): void
+    public function addModGroup(ModGroup $modGroup): void
     {
         if ($this->modGroups->contains($modGroup)) {
             return;
@@ -137,7 +137,7 @@ class ModListFormDto extends AbstractFormDto
         $this->modGroups->add($modGroup);
     }
 
-    public function removeModGroup(ModGroupInterface $modGroup): void
+    public function removeModGroup(ModGroup $modGroup): void
     {
         if (!$this->modGroups->contains($modGroup)) {
             return;
@@ -147,7 +147,7 @@ class ModListFormDto extends AbstractFormDto
     }
 
     /**
-     * @return ModGroupInterface[]
+     * @return ModGroup[]
      */
     public function getModGroups(): array
     {
@@ -155,7 +155,7 @@ class ModListFormDto extends AbstractFormDto
     }
 
     /**
-     * @param ModGroupInterface[] $modGroups
+     * @param ModGroup[] $modGroups
      */
     public function setModGroups(array $modGroups): void
     {
@@ -165,7 +165,7 @@ class ModListFormDto extends AbstractFormDto
         }
     }
 
-    public function addDlc(DlcInterface $dlc): void
+    public function addDlc(Dlc $dlc): void
     {
         if ($this->dlcs->contains($dlc)) {
             return;
@@ -174,7 +174,7 @@ class ModListFormDto extends AbstractFormDto
         $this->dlcs->add($dlc);
     }
 
-    public function removeDlc(DlcInterface $dlc): void
+    public function removeDlc(Dlc $dlc): void
     {
         if (!$this->dlcs->contains($dlc)) {
             return;
@@ -184,7 +184,7 @@ class ModListFormDto extends AbstractFormDto
     }
 
     /**
-     * @return DlcInterface[]
+     * @return Dlc[]
      */
     public function getDlcs(): array
     {
@@ -192,7 +192,7 @@ class ModListFormDto extends AbstractFormDto
     }
 
     /**
-     * @param DlcInterface[] $dlcs
+     * @param Dlc[] $dlcs
      */
     public function setDlcs(array $dlcs): void
     {
@@ -202,12 +202,12 @@ class ModListFormDto extends AbstractFormDto
         }
     }
 
-    public function getOwner(): ?UserInterface
+    public function getOwner(): ?User
     {
         return $this->owner;
     }
 
-    public function setOwner(?UserInterface $owner): void
+    public function setOwner(?User $owner): void
     {
         $this->owner = $owner;
     }

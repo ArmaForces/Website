@@ -18,6 +18,7 @@ class SogPrairieFireFixture extends Fixture
         $dlc = new Dlc(
             Uuid::fromString(self::ID),
             'Arma 3 Creator DLC: S.O.G. Prairie Fire',
+            null,
             1227700,
             'vn'
         );

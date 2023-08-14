@@ -20,11 +20,11 @@ class ArmaForcesAceMedicalModFixture extends Fixture
         $mod = new SteamWorkshopMod(
             Uuid::fromString(self::ID),
             'ArmaForces - ACE Medical [OBSOLETE]',
+            null,
+            ModStatusEnum::get(ModStatusEnum::BROKEN),
             ModTypeEnum::get(ModTypeEnum::REQUIRED),
             1704054308
         );
-        $mod->setStatus(ModStatusEnum::get(ModStatusEnum::BROKEN));
-        $mod->setCreatedAt(\DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2020-01-01 00:00:00'));
 
         $manager->persist($mod);
         $manager->flush();

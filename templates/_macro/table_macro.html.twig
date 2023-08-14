@@ -45,7 +45,40 @@
 {% endmacro %}
 
 {% macro row_mod_status_icon(mod) %}
-    {% if mod.isStatusDeprecated() %}{{ _self.icon('fas fa-skull text-warning', 'Deprecated'|trans) }}{% endif %}
-    {% if mod.isStatusBroken() %}{{ _self.icon('fas fa-exclamation-triangle text-warning', 'Broken'|trans) }}{% endif %}
-    {% if mod.isStatusDisabled() %}{{ _self.icon('fas fa-times-circle text-danger', 'Disabled'|trans) }}{% endif %}
+    {% if mod.status is null %}
+    {% elseif mod.status.is(constant('App\\Entity\\Mod\\Enum\\ModStatusEnum::DEPRECATED')) %}
+        {{ _self.icon('fas fa-skull text-warning', 'Deprecated'|trans) }}
+    {% elseif mod.status.is(constant('App\\Entity\\Mod\\Enum\\ModStatusEnum::BROKEN')) %}
+        {{ _self.icon('fas fa-exclamation-triangle text-warning', 'Broken'|trans) }}
+    {% elseif mod.status.is(constant('App\\Entity\\Mod\\Enum\\ModStatusEnum::DISABLED')) %}
+        {{ _self.icon('fas fa-times-circle text-danger', 'Disabled'|trans) }}
+    {% endif %}
+{% endmacro %}
+
+{% macro row_mod_type_translation(mod) %}
+    {% if mod is instance_of('\\App\\Entity\\Mod\\SteamWorkshopMod') %}
+        {# @var mod \App\Entity\Mod\SteamWorkshopMod #}
+        {% if mod.type.is(constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::SERVER_SIDE')) %}
+            {{ 'Server side mod'|trans }}
+        {% elseif mod.type.is(constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::REQUIRED')) %}
+            {{ 'Required mod'|trans }}
+        {% elseif mod.type.is(constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::OPTIONAL')) %}
+            {{ 'Optional mod'|trans }}
+        {% elseif mod.type.is(constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::CLIENT_SIDE')) %}
+            {{ 'Client side mod'|trans }}
+        {% endif %}
+    {% elseif mod is instance_of('\\App\\Entity\\Mod\\DirectoryMod') %}
+        {# @var mod \App\Entity\Mod\DirectoryMod #}
+        {{ 'Server side mod'|trans }}
+    {% endif %}
+{% endmacro %}
+
+{% macro row_mod_source_url(mod) %}
+    {% if mod is instance_of('\\App\\Entity\\Mod\\SteamWorkshopMod') %}
+        {# @var mod \App\Entity\Mod\SteamWorkshopMod #}
+        <a href="{{ steam_workshop_item_url(mod.itemId) }}">{{ 'Steam Workshop'|trans }}</a>
+    {% elseif mod is instance_of('\\App\\Entity\\Mod\\DirectoryMod') %}
+        {# @var mod \App\Entity\Mod\DirectoryMod #}
+        {{ 'Directory'|trans }}
+    {% endif %}
 {% endmacro %}

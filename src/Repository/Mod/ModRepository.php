@@ -6,22 +6,19 @@ namespace App\Repository\Mod;
 
 use App\Entity\Mod\AbstractMod;
 use App\Entity\Mod\Enum\ModTypeEnum;
-use App\Entity\Mod\ModInterface;
 use App\Entity\Mod\SteamWorkshopMod;
-use App\Entity\Mod\SteamWorkshopModInterface;
 use App\Entity\ModGroup\ModGroup;
 use App\Entity\ModList\ModList;
-use App\Entity\ModList\ModListInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method null|ModInterface find($id, $lockMode = null, $lockVersion = null)
- * @method null|ModInterface findOneBy(array $criteria, array $orderBy = null)
- * @method ModInterface[]    findAll()
- * @method ModInterface[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method null|AbstractMod find($id, $lockMode = null, $lockVersion = null)
+ * @method null|AbstractMod findOneBy(array $criteria, array $orderBy = null)
+ * @method AbstractMod[]    findAll()
+ * @method AbstractMod[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class ModRepository extends ServiceEntityRepository
 {
@@ -31,9 +28,9 @@ class ModRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return ModInterface[]
+     * @return AbstractMod[]
      */
-    public function findIncludedMods(ModListInterface $modList): array
+    public function findIncludedMods(ModList $modList): array
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
 
@@ -48,9 +45,9 @@ class ModRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return SteamWorkshopModInterface[]
+     * @return SteamWorkshopMod[]
      */
-    public function findIncludedSteamWorkshopMods(ModListInterface $modList): array
+    public function findIncludedSteamWorkshopMods(ModList $modList): array
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $expr = $qb->expr();
@@ -71,9 +68,9 @@ class ModRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return SteamWorkshopModInterface[]
+     * @return SteamWorkshopMod[]
      */
-    public function findIncludedOptionalSteamWorkshopMods(ModListInterface $modList): array
+    public function findIncludedOptionalSteamWorkshopMods(ModList $modList): array
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $expr = $qb->expr();
@@ -93,9 +90,9 @@ class ModRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return SteamWorkshopModInterface[]
+     * @return SteamWorkshopMod[]
      */
-    public function findIncludedRequiredSteamWorkshopMods(ModListInterface $modList): array
+    public function findIncludedRequiredSteamWorkshopMods(ModList $modList): array
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $expr = $qb->expr();
@@ -111,7 +108,7 @@ class ModRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    protected function applyIncludedModsFilter(QueryBuilder $queryBuilder, ModListInterface $modList): void
+    protected function applyIncludedModsFilter(QueryBuilder $queryBuilder, ModList $modList): void
     {
         $expr = $queryBuilder->expr();
 

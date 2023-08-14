@@ -6,7 +6,6 @@ namespace App\Security\Authenticator;
 
 use App\Entity\Permissions\UserPermissions;
 use App\Entity\User\User;
-use App\Entity\User\UserInterface;
 use App\Security\Enum\ConnectionsEnum;
 use App\Security\Exception\MultipleRolesFound;
 use App\Security\Exception\RequiredRolesNotAssignedException;
@@ -76,7 +75,7 @@ class DiscordAuthenticator extends SocialAuthenticator
     /**
      * @param AccessToken $credentials
      */
-    public function getUser($credentials, UserProviderInterface $userProvider): UserInterface
+    public function getUser($credentials, UserProviderInterface $userProvider): User
     {
         /** @var DiscordResourceOwner $discordResourceOwner */
         $discordResourceOwner = $this->getDiscordClient()->fetchUserFromToken($credentials);
@@ -134,18 +133,31 @@ class DiscordAuthenticator extends SocialAuthenticator
         try {
             /** @var User $user */
             $user = $userProvider->loadUserByIdentifier($externalId);
-            $user->setUsername($fullUsername);
-            $user->setEmail($email);
+            $user->update(
+                $fullUsername,
+                $email,
+                $externalId,
+                $user->getPermissions(),
+                [],
+                $discordResourceOwner->getAvatarHash(),
+                $steamId
+            );
         } catch (UserNotFoundException $ex) {
             $permissions = new UserPermissions(Uuid::uuid4());
-            $user = new User(Uuid::uuid4(), $fullUsername, $email, $externalId, $permissions);
+            $user = new User(
+                Uuid::uuid4(),
+                $fullUsername,
+                $email,
+                $externalId,
+                $permissions,
+                [],
+                $discordResourceOwner->getAvatarHash(),
+                $steamId
+            );
 
             $this->em->persist($permissions);
             $this->em->persist($user);
         }
-
-        $user->setAvatarHash($discordResourceOwner->getAvatarHash());
-        $user->setSteamId($steamId);
 
         $this->em->flush();
 

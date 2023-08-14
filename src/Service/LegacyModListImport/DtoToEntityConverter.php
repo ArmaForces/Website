@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Service\LegacyModListImport;
 
+use App\Entity\Mod\AbstractMod;
 use App\Entity\Mod\DirectoryMod;
 use App\Entity\Mod\Enum\ModTypeEnum;
-use App\Entity\Mod\ModInterface;
 use App\Entity\Mod\SteamWorkshopMod;
 use App\Service\LegacyModListImport\Dto\ModCsvEntryDto;
 use Ramsey\Uuid\Uuid;
@@ -16,7 +16,7 @@ use Ramsey\Uuid\Uuid;
  */
 class DtoToEntityConverter
 {
-    public function convert(ModCsvEntryDto $modCsvEntryDto): ModInterface
+    public function convert(ModCsvEntryDto $modCsvEntryDto): AbstractMod
     {
         $id = $modCsvEntryDto->getId();
         $isSteamWorkshopMod = 'local' !== strtolower($id);
@@ -38,9 +38,9 @@ class DtoToEntityConverter
         $modTypeEnum = ModTypeEnum::get($modType);
 
         if ($isSteamWorkshopMod) {
-            return new SteamWorkshopMod(Uuid::uuid4(), $name, $modTypeEnum, (int) $id);
+            return new SteamWorkshopMod(Uuid::uuid4(), $name, null, null, $modTypeEnum, (int) $id);
         }
 
-        return new DirectoryMod(Uuid::uuid4(), $name, $modTypeEnum, $name);
+        return new DirectoryMod(Uuid::uuid4(), $name, null, null, $name);
     }
 }

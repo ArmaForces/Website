@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Form\UserGroup\Dto;
 
 use App\Entity\Permissions\UserGroupPermissions;
-use App\Entity\User\UserInterface;
+use App\Entity\User\User;
 use App\Form\AbstractFormDto;
 use App\Validator\UserGroup\UniqueUserGroupName;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -82,7 +82,7 @@ class UserGroupFormDto extends AbstractFormDto
         $this->permissions = $permissions;
     }
 
-    public function addUser(UserInterface $user): void
+    public function addUser(User $user): void
     {
         if ($this->users->contains($user)) {
             return;
@@ -91,7 +91,7 @@ class UserGroupFormDto extends AbstractFormDto
         $this->users->add($user);
     }
 
-    public function removeUser(UserInterface $user): void
+    public function removeUser(User $user): void
     {
         if (!$this->users->contains($user)) {
             return;
@@ -101,7 +101,7 @@ class UserGroupFormDto extends AbstractFormDto
     }
 
     /**
-     * @return UserInterface[]
+     * @return User[]
      */
     public function getUsers(): array
     {
@@ -109,7 +109,7 @@ class UserGroupFormDto extends AbstractFormDto
     }
 
     /**
-     * @param UserInterface[] $users
+     * @param User[] $users
      */
     public function setUsers(array $users): void
     {

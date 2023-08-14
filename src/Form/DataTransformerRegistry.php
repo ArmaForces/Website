@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form;
 
-use App\Entity\EntityInterface;
+use App\Entity\AbstractEntity;
 
 class DataTransformerRegistry implements DataTransformerInterface
 {
@@ -16,7 +16,7 @@ class DataTransformerRegistry implements DataTransformerInterface
     ) {
     }
 
-    public function transformToEntity(FormDtoInterface $formDto, EntityInterface $entity = null): EntityInterface
+    public function transformToEntity(FormDtoInterface $formDto, AbstractEntity $entity = null): AbstractEntity
     {
         foreach ($this->registeredDataTransformers as $registeredDataTransformer) {
             if ($registeredDataTransformer->supportsTransformationToEntity($formDto, $entity)) {
@@ -27,7 +27,7 @@ class DataTransformerRegistry implements DataTransformerInterface
         throw $this->createException($formDto, $entity);
     }
 
-    public function transformFromEntity(FormDtoInterface $formDto, EntityInterface $entity = null): FormDtoInterface
+    public function transformFromEntity(FormDtoInterface $formDto, AbstractEntity $entity = null): FormDtoInterface
     {
         foreach ($this->registeredDataTransformers as $registeredDataTransformer) {
             if ($registeredDataTransformer->supportsTransformationFromEntity($formDto, $entity)) {
@@ -38,7 +38,7 @@ class DataTransformerRegistry implements DataTransformerInterface
         throw $this->createException($formDto, $entity);
     }
 
-    private function createException(FormDtoInterface $formDto, EntityInterface $entity = null): \Throwable
+    private function createException(FormDtoInterface $formDto, AbstractEntity $entity = null): \Throwable
     {
         return new \InvalidArgumentException(
             sprintf(

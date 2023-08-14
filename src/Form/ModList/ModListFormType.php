@@ -9,7 +9,6 @@ use App\Entity\Mod\AbstractMod;
 use App\Entity\ModGroup\ModGroup;
 use App\Entity\Permissions\AbstractPermissions;
 use App\Entity\User\User;
-use App\Entity\User\UserInterface;
 use App\Form\ModList\Dto\ModListFormDto;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -102,7 +101,7 @@ class ModListFormType extends AbstractType
 
     protected function addOwnerType(FormBuilderInterface $builder): void
     {
-        /** @var UserInterface $currentUser */
+        /** @var User $currentUser */
         $currentUser = $this->security->getUser();
 
         $canUpdate = $currentUser->hasPermissions(
@@ -128,7 +127,7 @@ class ModListFormType extends AbstractType
                     ->orderBy('u.username', 'ASC')
                 ;
             },
-            'choice_label' => static fn (UserInterface $user) => $user->getUsername(),
+            'choice_label' => static fn (User $user) => $user->getUsername(),
         ];
 
         if (!$modListExists) {
@@ -141,7 +140,7 @@ class ModListFormType extends AbstractType
 
     protected function addApprovedType(FormBuilderInterface $builder): void
     {
-        /** @var UserInterface $currentUser */
+        /** @var User $currentUser */
         $currentUser = $this->security->getUser();
 
         $canApprove = $currentUser->hasPermissions(

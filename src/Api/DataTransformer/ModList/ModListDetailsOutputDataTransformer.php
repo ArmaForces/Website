@@ -11,9 +11,8 @@ use App\Api\Output\Dlc\DlcOutput;
 use App\Api\Output\Mod\ModOutput;
 use App\Api\Output\ModList\ModListDetailsOutput;
 use App\Api\Output\ModList\ModListOutput;
-use App\Entity\Dlc\DlcInterface;
+use App\Entity\Dlc\Dlc;
 use App\Entity\ModList\ModList;
-use App\Entity\ModList\ModListInterface;
 use App\Repository\Mod\ModRepository;
 
 class ModListDetailsOutputDataTransformer implements DataTransformerInterface
@@ -27,7 +26,7 @@ class ModListDetailsOutputDataTransformer implements DataTransformerInterface
 
     public function transform($object, string $to, array $context = []): ModListOutput
     {
-        /** @var ModListInterface $object */
+        /** @var ModList $object */
         $output = new ModListDetailsOutput();
 
         $output->setId($object->getId()->toString());
@@ -44,7 +43,7 @@ class ModListDetailsOutputDataTransformer implements DataTransformerInterface
         $output->setMods($mods);
 
         $dlcs = array_map(
-            fn (DlcInterface $dlc) => $this->dlcOutputDataTransformer->transform($dlc, DlcOutput::class, $context),
+            fn (Dlc $dlc) => $this->dlcOutputDataTransformer->transform($dlc, DlcOutput::class, $context),
             $object->getDlcs()
         );
         $output->setDlcs($dlcs);

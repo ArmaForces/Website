@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Security\Voter\Mod;
 
-use App\Entity\Mod\ModInterface;
+use App\Entity\Mod\AbstractMod;
 use App\Entity\Permissions\AbstractPermissions;
-use App\Entity\User\UserInterface;
+use App\Entity\User\User;
 use App\Security\Enum\PermissionsEnum;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -15,14 +15,13 @@ class UpdateModVoter extends Voter
 {
     protected function supports(string $attribute, $subject): bool
     {
-        return PermissionsEnum::MOD_UPDATE === $attribute && $subject instanceof ModInterface;
+        return PermissionsEnum::MOD_UPDATE === $attribute && $subject instanceof AbstractMod;
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
-        /** @var null|UserInterface $currentUser */
         $currentUser = $token->getUser();
-        if (!$currentUser instanceof UserInterface) {
+        if (!$currentUser instanceof User) {
             return false;
         }
 
