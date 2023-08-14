@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form\ModGroup\Dto;
 
-use App\Entity\Mod\ModInterface;
+use App\Entity\Mod\AbstractMod;
 use App\Form\AbstractFormDto;
 use App\Validator\ModGroup\UniqueModGroupName;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -31,7 +31,7 @@ class ModGroupFormDto extends AbstractFormDto
     protected ?string $description = null;
 
     /**
-     * @var Collection<ModInterface>
+     * @var Collection<AbstractMod>
      */
     protected Collection $mods;
 
@@ -70,7 +70,7 @@ class ModGroupFormDto extends AbstractFormDto
         $this->description = $description;
     }
 
-    public function addMod(ModInterface $mod): void
+    public function addMod(AbstractMod $mod): void
     {
         if ($this->mods->contains($mod)) {
             return;
@@ -79,7 +79,7 @@ class ModGroupFormDto extends AbstractFormDto
         $this->mods->add($mod);
     }
 
-    public function removeMod(ModInterface $mod): void
+    public function removeMod(AbstractMod $mod): void
     {
         if (!$this->mods->contains($mod)) {
             return;
@@ -89,7 +89,7 @@ class ModGroupFormDto extends AbstractFormDto
     }
 
     /**
-     * @return ModInterface[]
+     * @return AbstractMod[]
      */
     public function getMods(): array
     {
@@ -97,7 +97,7 @@ class ModGroupFormDto extends AbstractFormDto
     }
 
     /**
-     * @param ModInterface[] $mods
+     * @param AbstractMod[] $mods
      */
     public function setMods(array $mods): void
     {

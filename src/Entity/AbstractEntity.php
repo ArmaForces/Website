@@ -6,7 +6,7 @@ namespace App\Entity;
 
 use Ramsey\Uuid\UuidInterface;
 
-abstract class AbstractEntity implements EntityInterface
+abstract class AbstractEntity
 {
     protected \DateTimeInterface $createdAt;
 

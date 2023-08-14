@@ -20,11 +20,11 @@ class ArmaForcesJbadBuildingFixModFixture extends Fixture
         $mod = new SteamWorkshopMod(
             Uuid::fromString(self::ID),
             '[OBSOLETE] ArmaForces - JBAD Building Fix',
+            null,
+            ModStatusEnum::get(ModStatusEnum::DISABLED),
             ModTypeEnum::get(ModTypeEnum::REQUIRED),
             1781106281
         );
-        $mod->setStatus(ModStatusEnum::get(ModStatusEnum::DISABLED));
-        $mod->setCreatedAt(\DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2020-01-01 00:00:00'));
 
         $manager->persist($mod);
         $manager->flush();

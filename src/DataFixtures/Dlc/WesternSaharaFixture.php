@@ -18,6 +18,7 @@ class WesternSaharaFixture extends Fixture
         $dlc = new Dlc(
             Uuid::fromString(self::ID),
             'Arma 3 Creator DLC: Western Sahara',
+            null,
             1681170,
             'ws'
         );

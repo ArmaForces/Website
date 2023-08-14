@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\Form\UserGroup\DataTransformer;
 
-use App\Entity\EntityInterface;
+use App\Entity\AbstractEntity;
 use App\Entity\UserGroup\UserGroup;
-use App\Entity\UserGroup\UserGroupInterface;
 use App\Form\FormDtoInterface;
 use App\Form\RegisteredDataTransformerInterface;
 use App\Form\UserGroup\Dto\UserGroupFormDto;
@@ -15,35 +14,43 @@ use Ramsey\Uuid\Uuid;
 class UserGroupFormDtoDataTransformer implements RegisteredDataTransformerInterface
 {
     /**
-     * @param UserGroupFormDto        $formDto
-     * @param null|UserGroupInterface $entity
+     * @param UserGroupFormDto $formDto
+     * @param null|UserGroup   $entity
      *
-     * @return UserGroupInterface
+     * @return UserGroup
      */
-    public function transformToEntity(FormDtoInterface $formDto, EntityInterface $entity = null): EntityInterface
+    public function transformToEntity(FormDtoInterface $formDto, AbstractEntity $entity = null): AbstractEntity
     {
-        if (!$entity instanceof UserGroupInterface) {
-            $entity = new UserGroup(Uuid::uuid4(), $formDto->getName(), $formDto->getPermissions());
+        if (!$entity instanceof UserGroup) {
+            return new UserGroup(
+                Uuid::uuid4(),
+                $formDto->getName(),
+                $formDto->getDescription(),
+                $formDto->getPermissions(),
+                $formDto->getUsers()
+            );
         }
 
-        $entity->setName($formDto->getName());
-        $entity->setDescription($formDto->getDescription());
-        $entity->setPermissions($formDto->getPermissions());
-        $entity->setUsers($formDto->getUsers());
+        $entity->update(
+            $formDto->getName(),
+            $formDto->getDescription(),
+            $formDto->getPermissions(),
+            $formDto->getUsers()
+        );
 
         return $entity;
     }
 
     /**
-     * @param UserGroupFormDto        $formDto
-     * @param null|UserGroupInterface $entity
+     * @param UserGroupFormDto $formDto
+     * @param null|UserGroup   $entity
      *
      * @return UserGroupFormDto
      */
-    public function transformFromEntity(FormDtoInterface $formDto, EntityInterface $entity = null): FormDtoInterface
+    public function transformFromEntity(FormDtoInterface $formDto, AbstractEntity $entity = null): FormDtoInterface
     {
-        /** @var UserGroupInterface $entity */
-        if (!$entity instanceof UserGroupInterface) {
+        /** @var UserGroup $entity */
+        if (!$entity instanceof UserGroup) {
             return $formDto;
         }
 
@@ -56,12 +63,12 @@ class UserGroupFormDtoDataTransformer implements RegisteredDataTransformerInterf
         return $formDto;
     }
 
-    public function supportsTransformationToEntity(FormDtoInterface $formDto, EntityInterface $entity = null): bool
+    public function supportsTransformationToEntity(FormDtoInterface $formDto, AbstractEntity $entity = null): bool
     {
         return $formDto instanceof UserGroupFormDto;
     }
 
-    public function supportsTransformationFromEntity(FormDtoInterface $formDto, EntityInterface $entity = null): bool
+    public function supportsTransformationFromEntity(FormDtoInterface $formDto, AbstractEntity $entity = null): bool
     {
         return $formDto instanceof UserGroupFormDto;
     }

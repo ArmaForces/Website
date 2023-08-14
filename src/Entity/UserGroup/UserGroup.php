@@ -6,28 +6,54 @@ namespace App\Entity\UserGroup;
 
 use App\Entity\AbstractBlamableEntity;
 use App\Entity\Permissions\UserGroupPermissions;
-use App\Entity\Traits\DescribedTrait;
-use App\Entity\Traits\NamedTrait;
-use App\Entity\User\UserInterface;
+use App\Entity\User\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\UuidInterface;
 
-class UserGroup extends AbstractBlamableEntity implements UserGroupInterface
+class UserGroup extends AbstractBlamableEntity
 {
-    use NamedTrait;
-    use DescribedTrait;
-
     protected Collection $users;
+    private string $name;
+    private ?string $description;
+    private UserGroupPermissions $permissions;
 
     public function __construct(
         UuidInterface $id,
-        private string $name,
-        private UserGroupPermissions $permissions
+        string $name,
+        ?string $description,
+        UserGroupPermissions $permissions,
+        array $users
     ) {
         parent::__construct($id);
-
         $this->users = new ArrayCollection();
+
+        $this->name = $name;
+        $this->description = $description;
+        $this->permissions = $permissions;
+        $this->setUsers($users);
+    }
+
+    public function update(
+        string $name,
+        ?string $description,
+        UserGroupPermissions $permissions,
+        array $users
+    ): void {
+        $this->name = $name;
+        $this->description = $description;
+        $this->permissions = $permissions;
+        $this->setUsers($users);
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
     }
 
     public function getPermissions(): UserGroupPermissions
@@ -35,39 +61,28 @@ class UserGroup extends AbstractBlamableEntity implements UserGroupInterface
         return $this->permissions;
     }
 
-    public function setPermissions(UserGroupPermissions $permissions): void
+    /**
+     * @return User[]
+     */
+    public function getUsers(): array
     {
-        $this->permissions = $permissions;
+        return $this->users->toArray();
     }
 
-    public function addUser(UserInterface $user): void
+    private function setUsers(array $users): void
+    {
+        $this->users->clear();
+        foreach ($users as $user) {
+            $this->addUser($user);
+        }
+    }
+
+    private function addUser(User $user): void
     {
         if ($this->users->contains($user)) {
             return;
         }
 
         $this->users->add($user);
-    }
-
-    public function removeUser(UserInterface $user): void
-    {
-        if (!$this->users->contains($user)) {
-            return;
-        }
-
-        $this->users->removeElement($user);
-    }
-
-    public function getUsers(): array
-    {
-        return $this->users->toArray();
-    }
-
-    public function setUsers(array $users): void
-    {
-        $this->users->clear();
-        foreach ($users as $user) {
-            $this->addUser($user);
-        }
     }
 }

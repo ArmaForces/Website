@@ -31,8 +31,7 @@ class ModListImport
             $filePath = $file->getPathname();
             $baseName = $file->getBasename($extension);
 
-            $modList = new ModList(Uuid::uuid4(), $baseName);
-
+            $mods = [];
             foreach ($this->modListCsvReader->readCsvRow($filePath) as $modCsvEntryDto) {
                 $modEntity = $this->dtoToEntityConverter->convert($modCsvEntryDto);
 
@@ -43,8 +42,20 @@ class ModListImport
                     $existingMod = $this->directoryModRepository->findOneByDirectory($modEntity->getDirectory());
                 }
 
-                $modList->addMod($existingMod ?? $modEntity);
+                $mods[] = $existingMod ?? $modEntity;
             }
+
+            $modList = new ModList(
+                Uuid::uuid4(),
+                $baseName,
+                null,
+                $mods,
+                [],
+                [],
+                null,
+                true,
+                false
+            );
 
             if (\count($modList->getMods()) > 0) {
                 $this->entityManager->persist($modList);

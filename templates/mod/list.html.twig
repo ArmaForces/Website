@@ -27,21 +27,17 @@
             </tr>
         {% endblock %}
         {% block table_body %}
-            {# @var mod \App\Entity\Mod\ModInterface #}
+            {# @var mod \App\Entity\Mod\AbstractMod #}
             {% for mod in mods %}
                 <tr>
                     <th scope="row">{{ loop.index }}</th>
                     <td>{{ tableMacro.row_mod_status_icon(mod) }}</td>
                     <td>{{ tableMacro.row_name_with_description(mod.name, mod.description) }}</td>
                     <td>
-                        {% if mod.isTypeServerSide() %}{{ 'Server side mod'|trans }}{% endif %}
-                        {% if mod.isTypeRequired() %}{{ 'Required mod'|trans }}{% endif %}
-                        {% if mod.isTypeOptional() %}{{ 'Optional mod'|trans }}{% endif %}
-                        {% if mod.isTypeClientSide() %}{{ 'Client side mod'|trans }}{% endif %}
+                        {{ tableMacro.row_mod_type_translation(mod) }}
                     </td>
                     <td>
-                        {% if mod.isSteamWorkshopMod() %}<a href="{{ steam_workshop_item_url(mod.itemId) }}">{{ 'Steam Workshop'|trans }}</a>{% endif %}
-                        {% if mod.isDirectoryMod() %}{{ 'Directory'|trans }}{% endif %}
+                        {{ tableMacro.row_name_with_description(mod.name, mod.description) }}
                     </td>
                     <td>{{ tableMacro.row_blamable(mod.lastUpdatedAt, mod.lastUpdatedBy) }}</td>
                     <td class="text-right">

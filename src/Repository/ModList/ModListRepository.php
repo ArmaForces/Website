@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace App\Repository\ModList;
 
-use App\Entity\ModGroup\ModGroupInterface;
+use App\Entity\ModGroup\ModGroup;
 use App\Entity\ModList\ModList;
-use App\Entity\ModList\ModListInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method null|ModListInterface find($id, $lockMode = null, $lockVersion = null)
- * @method null|ModListInterface findOneBy(array $criteria, array $orderBy = null)
- * @method ModListInterface[]    findAll()
- * @method ModListInterface[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method null|ModList find($id, $lockMode = null, $lockVersion = null)
+ * @method null|ModList findOneBy(array $criteria, array $orderBy = null)
+ * @method ModList[]    findAll()
+ * @method ModList[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class ModListRepository extends ServiceEntityRepository
 {
@@ -24,9 +23,9 @@ class ModListRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return ModListInterface[]
+     * @return ModList[]
      */
-    public function findModListsContainingModGroup(ModGroupInterface $modGroup): array
+    public function findModListsContainingModGroup(ModGroup $modGroup): array
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $expr = $qb->expr();

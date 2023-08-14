@@ -18,6 +18,7 @@ class GlobalMobilizationFixture extends Fixture
         $dlc = new Dlc(
             Uuid::fromString(self::ID),
             'Arma 3 Creator DLC: Global Mobilization - Cold War Germany',
+            null,
             1042220,
             'gm'
         );

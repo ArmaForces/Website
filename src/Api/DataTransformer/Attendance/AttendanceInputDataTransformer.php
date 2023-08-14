@@ -8,7 +8,6 @@ use ApiPlatform\Core\DataTransformer\DataTransformerInterface;
 use ApiPlatform\Core\Validator\ValidatorInterface;
 use App\Api\Input\Attendance\AttendanceInput;
 use App\Entity\Attendance\Attendance;
-use App\Entity\Attendance\AttendanceInterface;
 use Ramsey\Uuid\Uuid;
 
 class AttendanceInputDataTransformer implements DataTransformerInterface
@@ -28,7 +27,7 @@ class AttendanceInputDataTransformer implements DataTransformerInterface
 
     public function supportsTransformation($data, string $to, array $context = []): bool
     {
-        if ($data instanceof AttendanceInterface) {
+        if ($data instanceof Attendance) {
             return false;
         }
 

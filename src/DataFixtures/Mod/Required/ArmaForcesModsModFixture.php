@@ -19,6 +19,8 @@ class ArmaForcesModsModFixture extends Fixture
         $mod = new SteamWorkshopMod(
             Uuid::fromString(self::ID),
             'ArmaForces - Mods',
+            null,
+            null,
             ModTypeEnum::get(ModTypeEnum::REQUIRED),
             1934142795
         );

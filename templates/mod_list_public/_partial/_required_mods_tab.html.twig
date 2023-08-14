@@ -15,7 +15,7 @@
 
             {# @var mod \App\Entity\Mod\SteamWorkshopMod #}
             {% for mod in requiredMods %}
-                {% if not mod.statusDisabled %}
+                {% if mod.status is not null and not mod.status.is(constant('App\\Entity\\Mod\\Enum\\ModStatusEnum::DISABLED')) %}
                     <tr>
                         <th scope="row">{{ rowNo }}</th>
                         <td>{{ tableMacro.row_mod_status_icon(mod) }}</td>

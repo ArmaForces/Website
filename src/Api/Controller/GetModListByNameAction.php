@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Api\Controller;
 
-use App\Entity\ModList\ModListInterface;
+use App\Entity\ModList\ModList;
 use App\Repository\ModList\ModListRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -15,7 +15,7 @@ class GetModListByNameAction
     ) {
     }
 
-    public function __invoke(string $name): ?ModListInterface
+    public function __invoke(string $name): ?ModList
     {
         $modList = $this->modListRepository->findOneBy([
             'name' => $name,

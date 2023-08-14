@@ -7,14 +7,20 @@ namespace App\Entity\Attendance;
 use App\Entity\AbstractEntity;
 use Ramsey\Uuid\UuidInterface;
 
-class Attendance extends AbstractEntity implements AttendanceInterface
+class Attendance extends AbstractEntity
 {
+    private string $missionId;
+    private int $playerId;
+
     public function __construct(
         UuidInterface $id,
-        private string $missionId,
-        private int $playerId
+        string $missionId,
+        int $playerId
     ) {
         parent::__construct($id);
+
+        $this->missionId = $missionId;
+        $this->playerId = $playerId;
     }
 
     public function getMissionId(): string

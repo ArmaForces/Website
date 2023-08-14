@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\EventSubscriber\Doctrine;
 
-use App\Entity\BlamableEntityInterface;
-use App\Entity\User\UserInterface;
+use App\Entity\AbstractBlamableEntity;
+use App\Entity\User\User;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
@@ -31,8 +31,8 @@ class EntityBlamableSubscriber implements EventSubscriber
         $currentUser = $this->security->getUser();
         $entity = $args->getObject();
 
-        if ($currentUser instanceof UserInterface && $entity instanceof BlamableEntityInterface) {
-            $entity->setCreatedBy($currentUser);
+        if ($currentUser instanceof User && $entity instanceof AbstractBlamableEntity) {
+            $entity->created($currentUser);
         }
     }
 
@@ -41,9 +41,8 @@ class EntityBlamableSubscriber implements EventSubscriber
         $currentUser = $this->security->getUser();
         $entity = $args->getObject();
 
-        if ($currentUser instanceof UserInterface && $entity instanceof BlamableEntityInterface) {
-            $entity->setLastUpdatedAt(new \DateTimeImmutable());
-            $entity->setLastUpdatedBy($currentUser);
+        if ($currentUser instanceof User && $entity instanceof AbstractBlamableEntity) {
+            $entity->updated($currentUser);
         }
     }
 }

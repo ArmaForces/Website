@@ -24,7 +24,10 @@ class AdminUserFixture extends Fixture
             'admin#1111',
             'admin@example.com',
             self::ID,
-            $permissions
+            $permissions,
+            [],
+            null,
+            null
         );
 
         $manager->persist($permissions);

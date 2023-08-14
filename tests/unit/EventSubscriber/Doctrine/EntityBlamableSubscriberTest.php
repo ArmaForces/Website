@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\EventSubscriber\Doctrine;
 
-use App\Entity\BlamableEntityInterface;
-use App\Entity\User\UserInterface;
+use App\Entity\AbstractBlamableEntity;
+use App\Entity\User\User;
 use App\EventSubscriber\Doctrine\EntityBlamableSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
@@ -40,13 +40,13 @@ final class EntityBlamableSubscriberTest extends TestCase
      */
     public function prePersist_validEventArgs_entityUpdated(): void
     {
-        $user = $this->createMock(UserInterface::class);
+        $user = $this->createMock(User::class);
 
-        $entity = $this->createMock(BlamableEntityInterface::class);
+        $entity = $this->createMock(AbstractBlamableEntity::class);
         $entity
             ->expects(static::once())
-            ->method('setCreatedBy')
-            ->with(static::isInstanceOf(UserInterface::class))
+            ->method('created')
+            ->with(static::isInstanceOf(User::class))
         ;
 
         $security = $this->createMock(Security::class);
@@ -80,18 +80,13 @@ final class EntityBlamableSubscriberTest extends TestCase
      */
     public function preUpdate_validEventArgs_entityUpdated(): void
     {
-        $user = $this->createMock(UserInterface::class);
+        $user = $this->createMock(User::class);
 
-        $entity = $this->createMock(BlamableEntityInterface::class);
+        $entity = $this->createMock(AbstractBlamableEntity::class);
         $entity
             ->expects(static::once())
-            ->method('setLastUpdatedBy')
-            ->with(static::isInstanceOf(UserInterface::class))
-        ;
-        $entity
-            ->expects(static::once())
-            ->method('setLastUpdatedAt')
-            ->with(static::isInstanceOf(\DateTimeInterface::class))
+            ->method('updated')
+            ->with(static::isInstanceOf(User::class))
         ;
 
         $security = $this->createMock(Security::class);
@@ -122,13 +117,12 @@ final class EntityBlamableSubscriberTest extends TestCase
 
     public function invalidEventArgs(): array
     {
-        $validUser = $this->createMock(UserInterface::class);
+        $validUser = $this->createMock(User::class);
         $invalidUser = null;
 
-        $validEntity = $this->createMock(BlamableEntityInterface::class);
-        $validEntity->expects(static::never())->method('setCreatedBy');
-        $validEntity->expects(static::never())->method('setLastUpdatedBy');
-        $validEntity->expects(static::never())->method('setLastUpdatedAt');
+        $validEntity = $this->createMock(AbstractBlamableEntity::class);
+        $validEntity->expects(static::never())->method('created');
+        $validEntity->expects(static::never())->method('updated');
 
         $invalidEntity = $this->getMockBuilder(\stdClass::class)->getMock();
         $invalidEntity->expects(static::never())->method(static::anything());

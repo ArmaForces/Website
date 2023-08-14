@@ -13,10 +13,19 @@
     {% block table_body %}
         {% set rowNo = 1 %}
 
-        {# @var mod \App\Entity\Mod\ModInterface #}
+        {# @var mod \App\Entity\Mod\AbstractMod #}
         {% for child in form.children %}
             {% set mod = form.vars.choices[loop.index0].data %}
-            {% if mod.type.value == modType %}
+            {% if mod is instance_of('\\App\\Entity\\Mod\\SteamWorkshopMod') %}
+                {# @var mod \App\Entity\Mod\SteamWorkshopMod #}
+                {% set modType = mod.type.value %}
+            {% elseif mod is instance_of('\\App\\Entity\\Mod\\DirectoryMod') %}
+                {# @var mod \App\Entity\Mod\DirectoryMod #}
+                {# Treat Directory mods as Server side mods for BC #}
+                {% set modType = constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::SERVER_SIDE') %}
+            {% endif %}
+
+            {% if modType == modTypeFilter %}
                 <tr data-row-action-checkbox>
                     <th scope="row">{{ rowNo }}</th>
                     <td>
@@ -26,11 +35,7 @@
                         {{ tableMacro.row_name_with_description(mod.name, mod.description) }}
                     </td>
                     <td>
-                        {% if mod.isSteamWorkshopMod() %}
-                            <a href="{{ steam_workshop_item_url(mod.itemId) }}">{{ 'Steam Workshop'|trans }}</a>
-                        {% elseif mod.isDirectoryMod() %}
-                            {{ 'Directory'|trans }}
-                        {% endif %}
+                        {{ tableMacro.row_mod_source_url(mod) }}
                     </td>
                     <td>
                         {{- form_widget(child, {

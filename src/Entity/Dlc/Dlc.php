@@ -5,22 +5,50 @@ declare(strict_types=1);
 namespace App\Entity\Dlc;
 
 use App\Entity\AbstractBlamableEntity;
-use App\Entity\Traits\DescribedTrait;
-use App\Entity\Traits\NamedTrait;
 use Ramsey\Uuid\UuidInterface;
 
-class Dlc extends AbstractBlamableEntity implements DlcInterface
+class Dlc extends AbstractBlamableEntity
 {
-    use NamedTrait;
-    use DescribedTrait;
+    private string $name;
+    private ?string $description;
+    private int $appId;
+    private string $directory;
 
     public function __construct(
         UuidInterface $id,
-        private string $name,
-        private int $appId,
-        private string $directory
+        string $name,
+        ?string $description,
+        int $appId,
+        string $directory
     ) {
         parent::__construct($id);
+
+        $this->name = $name;
+        $this->description = $description;
+        $this->appId = $appId;
+        $this->directory = $directory;
+    }
+
+    public function update(
+        string $name,
+        ?string $description,
+        int $appId,
+        string $directory
+    ): void {
+        $this->name = $name;
+        $this->description = $description;
+        $this->appId = $appId;
+        $this->directory = $directory;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
     }
 
     public function getAppId(): int
@@ -28,18 +56,8 @@ class Dlc extends AbstractBlamableEntity implements DlcInterface
         return $this->appId;
     }
 
-    public function setAppId(int $appId): void
-    {
-        $this->appId = $appId;
-    }
-
     public function getDirectory(): string
     {
         return $this->directory;
-    }
-
-    public function setDirectory(string $directory): void
-    {
-        $this->directory = $directory;
     }
 }

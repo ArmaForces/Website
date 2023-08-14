@@ -5,57 +5,73 @@ declare(strict_types=1);
 namespace App\Entity\ModGroup;
 
 use App\Entity\AbstractBlamableEntity;
-use App\Entity\Mod\ModInterface;
-use App\Entity\Traits\DescribedTrait;
-use App\Entity\Traits\NamedTrait;
+use App\Entity\Mod\AbstractMod;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\UuidInterface;
 
-class ModGroup extends AbstractBlamableEntity implements ModGroupInterface
+class ModGroup extends AbstractBlamableEntity
 {
-    use NamedTrait;
-    use DescribedTrait;
-
+    private string $name;
+    private ?string $description;
     private Collection $mods;
 
     public function __construct(
         UuidInterface $id,
-        private string $name
+        string $name,
+        ?string $description,
+        array $mods
     ) {
         parent::__construct($id);
-
         $this->mods = new ArrayCollection();
+
+        $this->name = $name;
+        $this->description = $description;
+        $this->setMods($mods);
     }
 
-    public function addMod(ModInterface $mod): void
+    public function update(
+        string $name,
+        ?string $description,
+        array $mods
+    ): void {
+        $this->name = $name;
+        $this->description = $description;
+        $this->setMods($mods);
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @return AbstractMod[]
+     */
+    public function getMods(): array
+    {
+        return $this->mods->toArray();
+    }
+
+    private function setMods(array $mods): void
+    {
+        $this->mods->clear();
+        foreach ($mods as $mod) {
+            $this->addMod($mod);
+        }
+    }
+
+    private function addMod(AbstractMod $mod): void
     {
         if ($this->mods->contains($mod)) {
             return;
         }
 
         $this->mods->add($mod);
-    }
-
-    public function removeMod(ModInterface $mod): void
-    {
-        if (!$this->mods->contains($mod)) {
-            return;
-        }
-
-        $this->mods->removeElement($mod);
-    }
-
-    public function getMods(): array
-    {
-        return $this->mods->toArray();
-    }
-
-    public function setMods(array $mods): void
-    {
-        $this->mods->clear();
-        foreach ($mods as $mod) {
-            $this->addMod($mod);
-        }
     }
 }

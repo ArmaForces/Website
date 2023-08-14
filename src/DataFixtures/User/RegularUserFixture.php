@@ -23,7 +23,10 @@ class RegularUserFixture extends Fixture
             'regular#2222',
             'regular@example.com',
             self::ID,
-            $permissions
+            $permissions,
+            [],
+            null,
+            null
         );
 
         $manager->persist($permissions);

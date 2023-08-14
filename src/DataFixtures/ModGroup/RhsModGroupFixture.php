@@ -17,7 +17,9 @@ class RhsModGroupFixture extends Fixture
     {
         $modGroup = new ModGroup(
             Uuid::fromString(self::ID),
-            'RHS'
+            'RHS',
+            null,
+            []
         );
         $modGroup->setCreatedAt(\DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2020-01-01 00:00:00'));
 

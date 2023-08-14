@@ -6,13 +6,13 @@ namespace App\Api\DataTransformer\Attendance;
 
 use ApiPlatform\Core\DataTransformer\DataTransformerInterface;
 use App\Api\Output\Attendance\AttendanceOutput;
-use App\Entity\Attendance\AttendanceInterface;
+use App\Entity\Attendance\Attendance;
 
 class AttendanceOutputDataTransformer implements DataTransformerInterface
 {
     public function transform($object, string $to, array $context = []): AttendanceOutput
     {
-        /** @var AttendanceInterface $object */
+        /** @var Attendance $object */
         $output = new AttendanceOutput();
 
         $output->setId($object->getId()->toString());
@@ -25,6 +25,6 @@ class AttendanceOutputDataTransformer implements DataTransformerInterface
 
     public function supportsTransformation($data, string $to, array $context = []): bool
     {
-        return AttendanceOutput::class === $to && $data instanceof AttendanceInterface;
+        return AttendanceOutput::class === $to && $data instanceof Attendance;
     }
 }

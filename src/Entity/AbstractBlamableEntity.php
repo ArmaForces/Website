@@ -4,22 +4,28 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Entity\User\UserInterface;
+use App\Entity\User\User;
 
-abstract class AbstractBlamableEntity extends AbstractEntity implements BlamableEntityInterface
+abstract class AbstractBlamableEntity extends AbstractEntity
 {
-    protected ?UserInterface $createdBy = null;
+    protected ?User $createdBy = null;
     protected ?\DateTimeInterface $lastUpdatedAt = null;
-    protected ?UserInterface $lastUpdatedBy = null;
+    protected ?User $lastUpdatedBy = null;
 
-    public function getCreatedBy(): ?UserInterface
+    public function created(User $user): void
     {
-        return $this->createdBy;
+        $this->createdBy = $user;
     }
 
-    public function setCreatedBy(?UserInterface $createdBy): void
+    public function updated(User $user): void
     {
-        $this->createdBy = $createdBy;
+        $this->lastUpdatedAt = new \DateTimeImmutable();
+        $this->lastUpdatedBy = $user;
+    }
+
+    public function getCreatedBy(): ?User
+    {
+        return $this->createdBy;
     }
 
     public function getLastUpdatedAt(): ?\DateTimeInterface
@@ -27,18 +33,8 @@ abstract class AbstractBlamableEntity extends AbstractEntity implements Blamable
         return $this->lastUpdatedAt;
     }
 
-    public function setLastUpdatedAt(?\DateTimeInterface $lastUpdatedAt): void
-    {
-        $this->lastUpdatedAt = $lastUpdatedAt;
-    }
-
-    public function getLastUpdatedBy(): ?UserInterface
+    public function getLastUpdatedBy(): ?User
     {
         return $this->lastUpdatedBy;
-    }
-
-    public function setLastUpdatedBy(?UserInterface $lastUpdatedBy): void
-    {
-        $this->lastUpdatedBy = $lastUpdatedBy;
     }
 }

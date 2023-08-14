@@ -17,12 +17,6 @@ class DefaultModListFixture extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $modList = new ModList(
-            Uuid::fromString(self::ID),
-            'Default'
-        );
-        $modList->setCreatedAt(\DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2020-01-01 00:00:00'));
-
         $mods = [
             $this->getReference(Optional\AceInteractionMenuExpansionModFixture::ID),
             $this->getReference(Required\ArmaForcesModsModFixture::ID),
@@ -31,9 +25,18 @@ class DefaultModListFixture extends Fixture
             $this->getReference(Required\Disabled\ArmaForcesJbadBuildingFixModFixture::ID),
         ];
 
-        foreach ($mods as $mod) {
-            $modList->addMod($mod);
-        }
+        $modList = new ModList(
+            Uuid::fromString(self::ID),
+            'Default',
+            null,
+            $mods,
+            [],
+            [],
+            null,
+            true,
+            false,
+        );
+        $modList->setCreatedAt(\DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2020-01-01 00:00:00'));
 
         $manager->persist($modList);
         $manager->flush();
