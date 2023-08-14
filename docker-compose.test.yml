@@ -11,9 +11,6 @@ services:
                 - docker.pkg.github.com/armaforces/website/app_assets:dev
                 - docker.pkg.github.com/armaforces/website/app_php:dev
         volumes:
-            # Extract files from runtime for QA tools
-            - './var:/www/app/var'
-            - './vendor:/www/app/vendor'
             # Copy tests into runtime
             - './.env.test:/www/app/.env.test:ro'
             - './tests:/www/app/tests:ro'
