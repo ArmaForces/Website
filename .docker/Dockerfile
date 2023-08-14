@@ -40,10 +40,10 @@ RUN apk add --no-cache \
 
 RUN set -eux; \
     install-php-extensions \
-    	intl \
-    	zip \
-    	apcu \
-		opcache \
+        intl \
+        zip \
+        apcu \
+        opcache \
     ;
 
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
