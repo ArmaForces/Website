@@ -44,6 +44,7 @@ RUN set -eux; \
         zip \
         apcu \
         opcache \
+        pdo_mysql \
     ;
 
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
@@ -108,7 +109,7 @@ CMD ["nginx", "-g", "daemon off;"]
 FROM armaforces_web_php AS armaforces_web_php_dev
 
 ENV APP_ENV=dev
-VOLUME /www/app/var/
+#VOLUME /www/app/var/
 
 RUN rm $PHP_INI_DIR/conf.d/app.prod.ini; \
 	mv "$PHP_INI_DIR/php.ini" "$PHP_INI_DIR/php.ini-production"; \
