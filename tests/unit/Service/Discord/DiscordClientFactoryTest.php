@@ -29,7 +29,7 @@ final class DiscordClientFactoryTest extends TestCase
         $tokenProperty->setAccessible(true);
         $tokenPropertyValue = $tokenProperty->getValue($discordClient);
 
-        static::assertSame(sprintf('Bot %s', $token), $tokenPropertyValue);
+        self::assertSame(sprintf('Bot %s', $token), $tokenPropertyValue);
     }
 
     /**
@@ -47,6 +47,6 @@ final class DiscordClientFactoryTest extends TestCase
         $tokenProperty->setAccessible(true);
         $tokenPropertyValue = $tokenProperty->getValue($discordClient);
 
-        static::assertSame(sprintf('Bearer %s', $token), $tokenPropertyValue);
+        self::assertSame(sprintf('Bearer %s', $token), $tokenPropertyValue);
     }
 }

@@ -28,7 +28,6 @@ class DeleteUserVoter extends Voter
         $user = $subject;
 
         return $currentUser !== $user
-            && $currentUser->hasPermissions(static fn (AbstractPermissions $permissions) => $permissions->userDelete)
-        ;
+            && $currentUser->hasPermissions(static fn (AbstractPermissions $permissions) => $permissions->userDelete);
     }
 }

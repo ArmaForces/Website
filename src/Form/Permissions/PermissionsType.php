@@ -6,11 +6,11 @@ namespace App\Form\Permissions;
 
 use App\Entity\Permissions\AbstractPermissions;
 use App\Entity\User\User;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Security;
 
 class PermissionsType extends AbstractType
 {

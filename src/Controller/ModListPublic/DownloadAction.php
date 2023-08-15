@@ -7,11 +7,11 @@ namespace App\Controller\ModListPublic;
 use App\Entity\ModList\ModList;
 use App\Repository\Mod\ModRepository;
 use App\Security\Enum\PermissionsEnum;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\HeaderUtils;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class DownloadAction extends AbstractController
 {

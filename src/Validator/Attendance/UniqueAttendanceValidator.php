@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class UniqueAttendanceValidator extends AbstractValidator
 {
-    public function validate($value, Constraint $constraint): void
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$value instanceof AttendanceInput) {
             throw new UnexpectedTypeException($constraint, AttendanceInput::class);

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Twig;
 
 use App\Entity\User\User;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Bundle\SecurityBundle\Security;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 

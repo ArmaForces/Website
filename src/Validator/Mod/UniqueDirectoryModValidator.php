@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class UniqueDirectoryModValidator extends AbstractValidator
 {
-    public function validate($value, Constraint $constraint): void
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$value instanceof ModFormDto) {
             throw new UnexpectedTypeException($constraint, ModFormDto::class);

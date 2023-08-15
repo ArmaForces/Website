@@ -25,7 +25,7 @@ class SteamWorkshopArma3ModUrlValidator extends AbstractValidator
         parent::__construct($entityManager);
     }
 
-    public function validate($value, Constraint $constraint): void
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$value instanceof ModFormDto) {
             throw new UnexpectedTypeException($constraint, ModFormDto::class);

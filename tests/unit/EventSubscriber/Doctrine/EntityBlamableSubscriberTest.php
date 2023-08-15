@@ -12,7 +12,7 @@ use Doctrine\ORM\Event\PrePersistEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Bundle\SecurityBundle\Security;
 
 /**
  * @internal
@@ -34,7 +34,7 @@ final class EntityBlamableSubscriberTest extends TestCase
         ];
 
         $subscribedEvents = $entityBlamableSubscriberTest->getSubscribedEvents();
-        static::assertSame($expectedEvents, $subscribedEvents);
+        self::assertSame($expectedEvents, $subscribedEvents);
     }
 
     /**
@@ -49,9 +49,9 @@ final class EntityBlamableSubscriberTest extends TestCase
         $entityManager = $this->createMock(EntityManagerInterface::class);
         $entity = $this->createMock(AbstractBlamableEntity::class);
         $entity
-            ->expects(static::once())
+            ->expects(self::once())
             ->method('created')
-            ->with(static::isInstanceOf(User::class))
+            ->with(self::isInstanceOf(User::class))
         ;
 
         $lifecycleEventArgs = new PrePersistEventArgs($entity, $entityManager);
@@ -88,9 +88,9 @@ final class EntityBlamableSubscriberTest extends TestCase
         $entityManager = $this->createMock(EntityManagerInterface::class);
         $entity = $this->createMock(AbstractBlamableEntity::class);
         $entity
-            ->expects(static::once())
+            ->expects(self::once())
             ->method('updated')
-            ->with(static::isInstanceOf(User::class))
+            ->with(self::isInstanceOf(User::class))
         ;
 
         $changeSet = [];
@@ -118,17 +118,17 @@ final class EntityBlamableSubscriberTest extends TestCase
         $entityBlamableSubscriberTest->preUpdate($lifecycleEventArgs);
     }
 
-    public function invalidEventArgs(): array
+    public function invalidEventArgs(): iterable
     {
         $validUser = $this->createMock(User::class);
         $invalidUser = null;
 
         $validEntity = $this->createMock(AbstractBlamableEntity::class);
-        $validEntity->expects(static::never())->method('created');
-        $validEntity->expects(static::never())->method('updated');
+        $validEntity->expects(self::never())->method('created');
+        $validEntity->expects(self::never())->method('updated');
 
         $invalidEntity = $this->getMockBuilder(\stdClass::class)->getMock();
-        $invalidEntity->expects(static::never())->method(static::anything());
+        $invalidEntity->expects(self::never())->method(self::anything());
 
         return [
             'valid user, invalid entity' => [

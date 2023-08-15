@@ -8,7 +8,6 @@ use Negotiation\AcceptLanguage;
 use Negotiation\LanguageNegotiator;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\EventListener\LocaleListener;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -21,7 +20,6 @@ class UserLocaleRequestSubscriber implements EventSubscriberInterface
     ];
 
     public function __construct(
-        private SessionInterface $session,
         private LoggerInterface $logger
     ) {
     }
@@ -66,6 +64,7 @@ class UserLocaleRequestSubscriber implements EventSubscriberInterface
 
         $this->logger->debug('Client Negotiated language', [$negotiatedLanguage]);
 
-        $request->setLocale($this->session->get('_locale', $negotiatedLanguage));
+        $locale = $request->getSession()->get('_locale', $negotiatedLanguage);
+        $request->setLocale($locale);
     }
 }

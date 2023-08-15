@@ -9,7 +9,6 @@ framework:
     # Remove or comment this section to explicitly disable session support.
     session:
         handler_id: session.handler.pdo
-        save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
         cookie_lifetime: 15552000 # 180 days
         cookie_secure: auto
         cookie_samesite: lax
@@ -30,4 +29,5 @@ when@test:
     framework:
         test: true
         session:
+            handler_id: session.handler.native_file # Override due to issues with schema validation
             storage_factory_id: session.storage.factory.mock_file

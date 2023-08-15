@@ -32,7 +32,6 @@ class DownloadModListVoter extends Voter
 
         // Otherwise user needs to be logged-in and have "List" permission granted
         return $currentUser instanceof User
-            && $currentUser->hasPermissions(static fn (AbstractPermissions $permissions) => $permissions->modListList)
-        ;
+            && $currentUser->hasPermissions(static fn (AbstractPermissions $permissions) => $permissions->modListList);
     }
 }

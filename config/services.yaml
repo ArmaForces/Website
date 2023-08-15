@@ -8,7 +8,7 @@ parameters:
     app.name: "%app.organization% Website"
     app.api.name: "%app.name% Web API"
     app.api.version: '1.0.0'
-    app.security.oauth.discord.server_id: '%env(int:APP_SECURITY_OAUTH_DISCORD_SERVER_ID)%'
+    app.security.oauth.discord.server_id: '%env(APP_SECURITY_OAUTH_DISCORD_SERVER_ID)%'
     app.security.oauth.discord.recruit_role_name: '%env(APP_SECURITY_OAUTH_DISCORD_RECRUIT_ROLE_NAME)%'
     app.security.oauth.discord.member_role_name: '%env(APP_SECURITY_OAUTH_DISCORD_MEMBER_ROLE_NAME)%'
     app.security.oauth.discord.client_id: '%env(APP_SECURITY_OAUTH_DISCORD_CLIENT_ID)%'
