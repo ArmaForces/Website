@@ -10,7 +10,7 @@ use Symfony\Component\HttpClient\CachingHttpClient;
 use Symfony\Component\HttpClient\ScopingHttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class MissionClient
+class MissionClient implements MissionClientInterface
 {
     public function __construct(
         private HttpClientInterface $client,

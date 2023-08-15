@@ -14,7 +14,7 @@ use Ramsey\Uuid\Uuid;
 /**
  * @see https://github.com/ArmaForces/modlist/blob/master/src/util/mods.js
  */
-class DtoToEntityConverter
+class DtoToEntityConverter implements DtoToEntityConverterInterface
 {
     public function convert(ModCsvEntryDto $modCsvEntryDto): AbstractMod
     {

@@ -11,7 +11,7 @@ use App\Service\Steam\Exception\WorkshopItemNotFoundException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class SteamApiClient
+class SteamApiClient implements SteamApiClientInterface
 {
     public function __construct(
         private HttpClientInterface $httpClient

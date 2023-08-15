@@ -13,12 +13,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Finder\Finder;
 
-class ModListImport
+class ModListImport implements ModListImportInterface
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
-        private ModListCsvReader $modListCsvReader,
-        private DtoToEntityConverter $dtoToEntityConverter,
+        private ModListCsvReaderInterface $modListCsvReader,
+        private DtoToEntityConverterInterface $dtoToEntityConverter,
         private SteamWorkshopModRepository $steamWorkshopModRepository,
         private DirectoryModRepository $directoryModRepository
     ) {

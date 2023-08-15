@@ -10,13 +10,13 @@ use App\Form\Dlc\Dto\DlcFormDto;
 use App\Form\FormDtoInterface;
 use App\Form\RegisteredDataTransformerInterface;
 use App\Service\Steam\Helper\SteamHelper;
-use App\Service\Steam\SteamApiClient;
+use App\Service\Steam\SteamApiClientInterface;
 use Ramsey\Uuid\Uuid;
 
 class DlcFormDtoDataTransformer implements RegisteredDataTransformerInterface
 {
     public function __construct(
-        private SteamApiClient $steamApiClient
+        private SteamApiClientInterface $steamApiClient
     ) {
     }
 
