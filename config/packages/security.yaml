@@ -31,9 +31,8 @@ security:
                 secret: '%kernel.secret%'
                 lifetime: 604800 # 1 week in seconds
                 always_remember_me: true
-            guard:
-                authenticators:
-                    - App\Security\Authenticator\DiscordAuthenticator
+            custom_authenticators:
+                - App\Security\Authenticator\DiscordAuthenticator
             logout:
                 path: app_security_logout
 
