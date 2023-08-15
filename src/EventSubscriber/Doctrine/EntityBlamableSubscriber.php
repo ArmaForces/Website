@@ -7,7 +7,8 @@ namespace App\EventSubscriber\Doctrine;
 use App\Entity\AbstractBlamableEntity;
 use App\Entity\User\User;
 use Doctrine\Common\EventSubscriber;
-use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\PrePersistEventArgs;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 use Symfony\Component\Security\Core\Security;
 
@@ -26,7 +27,7 @@ class EntityBlamableSubscriber implements EventSubscriber
         ];
     }
 
-    public function prePersist(LifecycleEventArgs $args): void
+    public function prePersist(PrePersistEventArgs $args): void
     {
         $currentUser = $this->security->getUser();
         $entity = $args->getObject();
@@ -36,7 +37,7 @@ class EntityBlamableSubscriber implements EventSubscriber
         }
     }
 
-    public function preUpdate(LifecycleEventArgs $args): void
+    public function preUpdate(PreUpdateEventArgs $args): void
     {
         $currentUser = $this->security->getUser();
         $entity = $args->getObject();
