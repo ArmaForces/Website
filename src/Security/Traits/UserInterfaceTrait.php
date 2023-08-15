@@ -10,7 +10,7 @@ trait UserInterfaceTrait
 {
     public function getUserIdentifier(): string
     {
-        return $this->getUsername();
+        return $this->username;
     }
 
     public function getPassword(): ?string

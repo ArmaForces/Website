@@ -9,8 +9,8 @@ use App\Entity\ModList\ModList;
 use App\Entity\User\User;
 use App\Repository\ModList\ModListRepository;
 use Doctrine\Common\EventSubscriber;
-use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PostFlushEventArgs;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 use Symfony\Component\Security\Core\Security;
 
@@ -31,9 +31,9 @@ class ModGroupUpdatedSubscriber implements EventSubscriber
         ];
     }
 
-    public function preUpdate(LifecycleEventArgs $args): void
+    public function preUpdate(PreUpdateEventArgs $args): void
     {
-        $entityManager = $args->getEntityManager();
+        $entityManager = $args->getObjectManager();
         $modGroup = $args->getObject();
 
         // Do nothing if updated entity is not a Mod Group or no changes were made to the entity
@@ -52,7 +52,7 @@ class ModGroupUpdatedSubscriber implements EventSubscriber
             return;
         }
 
-        $entityManager = $args->getEntityManager();
+        $entityManager = $args->getObjectManager();
 
         /** @var ModListRepository $modListRepository */
         $modListRepository = $entityManager->getRepository(ModList::class);

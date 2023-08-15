@@ -7,7 +7,9 @@ namespace App\Tests\Unit\EventSubscriber\Doctrine;
 use App\Entity\AbstractBlamableEntity;
 use App\Entity\User\User;
 use App\EventSubscriber\Doctrine\EntityBlamableSubscriber;
-use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Event\PrePersistEventArgs;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Security;
@@ -41,7 +43,10 @@ final class EntityBlamableSubscriberTest extends TestCase
     public function prePersist_validEventArgs_entityUpdated(): void
     {
         $user = $this->createMock(User::class);
+        $security = $this->createMock(Security::class);
+        $security->method('getUser')->willReturn($user);
 
+        $entityManager = $this->createMock(EntityManagerInterface::class);
         $entity = $this->createMock(AbstractBlamableEntity::class);
         $entity
             ->expects(static::once())
@@ -49,11 +54,7 @@ final class EntityBlamableSubscriberTest extends TestCase
             ->with(static::isInstanceOf(User::class))
         ;
 
-        $security = $this->createMock(Security::class);
-        $security->method('getUser')->willReturn($user);
-
-        $lifecycleEventArgs = $this->createMock(LifecycleEventArgs::class);
-        $lifecycleEventArgs->method('getObject')->willReturn($entity);
+        $lifecycleEventArgs = new PrePersistEventArgs($entity, $entityManager);
 
         $entityBlamableSubscriberTest = new EntityBlamableSubscriber($security);
         $entityBlamableSubscriberTest->prePersist($lifecycleEventArgs);
@@ -68,8 +69,8 @@ final class EntityBlamableSubscriberTest extends TestCase
         $security = $this->createMock(Security::class);
         $security->method('getUser')->willReturn($user);
 
-        $lifecycleEventArgs = $this->createMock(LifecycleEventArgs::class);
-        $lifecycleEventArgs->method('getObject')->willReturn($entity);
+        $entityManager = $this->createMock(EntityManagerInterface::class);
+        $lifecycleEventArgs = new PrePersistEventArgs($entity, $entityManager);
 
         $entityBlamableSubscriberTest = new EntityBlamableSubscriber($security);
         $entityBlamableSubscriberTest->prePersist($lifecycleEventArgs);
@@ -81,7 +82,10 @@ final class EntityBlamableSubscriberTest extends TestCase
     public function preUpdate_validEventArgs_entityUpdated(): void
     {
         $user = $this->createMock(User::class);
+        $security = $this->createMock(Security::class);
+        $security->method('getUser')->willReturn($user);
 
+        $entityManager = $this->createMock(EntityManagerInterface::class);
         $entity = $this->createMock(AbstractBlamableEntity::class);
         $entity
             ->expects(static::once())
@@ -89,11 +93,8 @@ final class EntityBlamableSubscriberTest extends TestCase
             ->with(static::isInstanceOf(User::class))
         ;
 
-        $security = $this->createMock(Security::class);
-        $security->method('getUser')->willReturn($user);
-
-        $lifecycleEventArgs = $this->createMock(LifecycleEventArgs::class);
-        $lifecycleEventArgs->method('getObject')->willReturn($entity);
+        $changeSet = [];
+        $lifecycleEventArgs = new PreUpdateEventArgs($entity, $entityManager, $changeSet);
 
         $entityBlamableSubscriberTest = new EntityBlamableSubscriber($security);
         $entityBlamableSubscriberTest->preUpdate($lifecycleEventArgs);
@@ -108,8 +109,10 @@ final class EntityBlamableSubscriberTest extends TestCase
         $security = $this->createMock(Security::class);
         $security->method('getUser')->willReturn($user);
 
-        $lifecycleEventArgs = $this->createMock(LifecycleEventArgs::class);
-        $lifecycleEventArgs->method('getObject')->willReturn($entity);
+        $entityManager = $this->createMock(EntityManagerInterface::class);
+
+        $changeSet = [];
+        $lifecycleEventArgs = new PreUpdateEventArgs($entity, $entityManager, $changeSet);
 
         $entityBlamableSubscriberTest = new EntityBlamableSubscriber($security);
         $entityBlamableSubscriberTest->preUpdate($lifecycleEventArgs);
