@@ -65,6 +65,11 @@ class User extends AbstractBlamableEntity implements UserInterface
         $this->steamId = $steamId;
     }
 
+    public function getUserIdentifier(): string
+    {
+        return $this->externalId;
+    }
+
     public function getUsername(): string
     {
         return $this->username;

@@ -142,7 +142,7 @@ class DiscordAuthenticator extends OAuth2Authenticator implements Authentication
 
             $this->em->flush();
 
-            return new SelfValidatingPassport(new UserBadge($fullUsername));
+            return new SelfValidatingPassport(new UserBadge($externalId));
         }
 
         $permissions = new UserPermissions(Uuid::uuid4());
@@ -162,7 +162,7 @@ class DiscordAuthenticator extends OAuth2Authenticator implements Authentication
 
         $this->em->flush();
 
-        return new SelfValidatingPassport(new UserBadge($fullUsername));
+        return new SelfValidatingPassport(new UserBadge($externalId));
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
