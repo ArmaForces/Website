@@ -22,15 +22,11 @@ class ModListFormDto extends AbstractFormDto
 {
     protected ?UuidInterface $id = null;
 
-    /**
-     * @Assert\NotBlank
-     * @Assert\Length(max=255)
-     */
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     protected ?string $name = null;
 
-    /**
-     * @Assert\Length(min=1, max=255)
-     */
+    #[Assert\Length(min: 1, max: 255)]
     protected ?string $description = null;
 
     /**

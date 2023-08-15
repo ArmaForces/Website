@@ -14,22 +14,16 @@ use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @UniqueUserGroupName(errorPath="name")
- */
+#[UniqueUserGroupName(errorPath: 'name')]
 class UserGroupFormDto extends AbstractFormDto
 {
     protected ?UuidInterface $id = null;
 
-    /**
-     * @Assert\NotBlank
-     * @Assert\Length(max=255)
-     */
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     protected ?string $name = null;
 
-    /**
-     * @Assert\Length(min=1, max=255)
-     */
+    #[Assert\Length(min: 1, max: 255)]
     protected ?string $description = null;
 
     protected ?UserGroupPermissions $permissions = null;

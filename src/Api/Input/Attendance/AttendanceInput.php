@@ -8,21 +8,15 @@ use App\Validator\Attendance\UniqueAttendance;
 use App\Validator\SteamProfileId;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @UniqueAttendance
- */
+#[UniqueAttendance]
 class AttendanceInput
 {
-    /**
-     * @Assert\NotBlank
-     * @Assert\Length(max=255)
-     */
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     protected ?string $missionId = null;
 
-    /**
-     * @Assert\NotBlank
-     * @SteamProfileId
-     */
+    #[Assert\NotBlank]
+    #[SteamProfileId]
     protected ?int $playerId = null;
 
     public function getMissionId(): ?string

@@ -12,22 +12,16 @@ use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @UniqueModGroupName(errorPath="name")
- */
+#[UniqueModGroupName(errorPath: 'name')]
 class ModGroupFormDto extends AbstractFormDto
 {
     protected ?UuidInterface $id = null;
 
-    /**
-     * @Assert\NotBlank
-     * @Assert\Length(max=255)
-     */
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     protected ?string $name = null;
 
-    /**
-     * @Assert\Length(min=1, max=255)
-     */
+    #[Assert\Length(min: 1, max: 255)]
     protected ?string $description = null;
 
     /**
