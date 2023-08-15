@@ -8,6 +8,11 @@ use App\Security\Enum\RoleEnum;
 
 trait UserInterfaceTrait
 {
+    public function getUserIdentifier(): string
+    {
+        return $this->getUsername();
+    }
+
     public function getPassword(): ?string
     {
         return null;
