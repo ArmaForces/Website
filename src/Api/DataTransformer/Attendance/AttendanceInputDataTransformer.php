@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Api\DataTransformer\Attendance;
 
 use ApiPlatform\Core\DataTransformer\DataTransformerInterface;
-use ApiPlatform\Core\Validator\ValidatorInterface;
+use ApiPlatform\Validator\ValidatorInterface;
 use App\Api\Input\Attendance\AttendanceInput;
 use App\Entity\Attendance\Attendance;
 use Ramsey\Uuid\Uuid;

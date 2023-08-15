@@ -17,9 +17,7 @@ class UserFormDto extends AbstractFormDto
 {
     protected ?UuidInterface $id = null;
 
-    /**
-     * @SteamProfileId
-     */
+    #[SteamProfileId]
     protected ?int $steamId = null;
 
     protected ?UserPermissions $permissions = null;

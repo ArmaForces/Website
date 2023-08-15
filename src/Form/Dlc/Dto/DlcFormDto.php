@@ -12,31 +12,23 @@ use App\Validator\WindowsDirectoryName;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @SteamStoreArma3DlcUrl(errorPath="url")
- * @UniqueSteamStoreDlc
- * @UniqueDirectoryDlc
- */
+#[SteamStoreArma3DlcUrl(errorPath: 'url')]
+#[UniqueSteamStoreDlc]
+#[UniqueDirectoryDlc]
 class DlcFormDto extends AbstractFormDto
 {
     protected ?UuidInterface $id = null;
 
-    /**
-     * @Assert\Length(max=255)
-     */
+    #[Assert\Length(max: 255)]
     protected ?string $name = null;
 
-    /**
-     * @Assert\Length(min=1, max=255)
-     */
+    #[Assert\Length(min: 1, max: 255)]
     protected ?string $description = null;
 
     protected ?string $url = null;
 
-    /**
-     * @Assert\NotBlank
-     * @WindowsDirectoryName
-     */
+    #[Assert\NotBlank]
+    #[WindowsDirectoryName]
     protected ?string $directory = null;
 
     public function getId(): ?UuidInterface

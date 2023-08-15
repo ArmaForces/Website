@@ -13,52 +13,34 @@ use App\Validator\WindowsDirectoryName;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @UniqueSteamWorkshopMod(groups={ModSourceEnum::STEAM_WORKSHOP})
- * @SteamWorkshopArma3ModUrl(groups={ModSourceEnum::STEAM_WORKSHOP}, errorPath="url", nameErrorPath="name")
- * @UniqueDirectoryMod(groups={ModSourceEnum::DIRECTORY})
- */
+#[UniqueSteamWorkshopMod(groups: [ModSourceEnum::STEAM_WORKSHOP])]
+#[SteamWorkshopArma3ModUrl(groups: [ModSourceEnum::STEAM_WORKSHOP], errorPath: 'url', nameErrorPath: 'name')]
+#[UniqueDirectoryMod(groups: [ModSourceEnum::DIRECTORY])]
 class ModFormDto extends AbstractFormDto
 {
     protected ?UuidInterface $id = null;
 
-    /**
-     * @Assert\NotBlank(groups={ModSourceEnum::DIRECTORY})
-     * @Assert\Length(min=1, max=255)
-     */
+    #[Assert\NotBlank(groups: [ModSourceEnum::DIRECTORY])]
+    #[Assert\Length(min: 1, max: 255)]
     protected ?string $name = null;
 
-    /**
-     * @Assert\Length(min=1, max=255)
-     */
+    #[Assert\Length(min: 1, max: 255)]
     protected ?string $description = null;
 
-    /**
-     * @Assert\Expression(
-     *     "!(this.getType() != constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::SERVER_SIDE') && this.getSource() == constant('App\\Entity\\Mod\\Enum\\ModSourceEnum::DIRECTORY'))",
-     * )
-     */
+    #[Assert\Expression("!(this.getType() != constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::SERVER_SIDE') && this.getSource() == constant('App\\Entity\\Mod\\Enum\\ModSourceEnum::DIRECTORY'))")]
     protected ?string $type = null;
 
     protected ?string $status = null;
 
-    /**
-     * @Assert\Expression(
-     *     "!(this.getSource() == constant('App\\Entity\\Mod\\Enum\\ModSourceEnum::DIRECTORY') && this.getType() != constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::SERVER_SIDE'))",
-     * )
-     */
+    #[Assert\Expression("!(this.getSource() == constant('App\\Entity\\Mod\\Enum\\ModSourceEnum::DIRECTORY') && this.getType() != constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::SERVER_SIDE'))")]
     protected ?string $source = null;
 
-    /**
-     * @Assert\NotBlank(groups={ModSourceEnum::STEAM_WORKSHOP})
-     * @Assert\Length(min=1, max=255, groups={ModSourceEnum::STEAM_WORKSHOP})
-     */
+    #[Assert\NotBlank(groups: [ModSourceEnum::STEAM_WORKSHOP])]
+    #[Assert\Length(min: 1, max: 255, groups: [ModSourceEnum::STEAM_WORKSHOP])]
     protected ?string $url = null;
 
-    /**
-     * @Assert\NotBlank(groups={ModSourceEnum::DIRECTORY})
-     * @WindowsDirectoryName(groups={ModSourceEnum::DIRECTORY})
-     */
+    #[Assert\NotBlank(groups: [ModSourceEnum::DIRECTORY])]
+    #[WindowsDirectoryName(groups: [ModSourceEnum::DIRECTORY])]
     protected ?string $directory = null;
 
     public function resolveValidationGroups(): array
