@@ -12,7 +12,7 @@ if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
     setfacl -R -m u:www-data:rwX -m u:"$(whoami)":rwX var || true
     setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX var || true
 
-    if [ "$APP_ENV" != 'prod' ]; then
+    if [ "$APP_ENV" = 'dev' ]; then
         composer install --prefer-dist --no-progress --no-interaction || true
     fi
 
