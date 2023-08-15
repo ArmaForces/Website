@@ -1,0 +1,130 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Tests\Functional\Controller\ModListPublic;
+
+use App\DataFixtures\Mod\Optional;
+use App\DataFixtures\Mod\Optional\AceInteractionMenuExpansionModFixture;
+use App\DataFixtures\Mod\Required;
+use App\DataFixtures\ModList\DefaultModListFixture;
+use App\Repository\Mod\SteamWorkshopModRepository;
+use App\Repository\ModList\ModListRepository;
+use App\Repository\User\UserRepository;
+use App\Test\Enum\RouteEnum;
+use App\Test\Traits\AssertsTrait;
+use App\Test\Traits\DataProvidersTrait;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+/**
+ * @internal
+ * @covers \App\Controller\ModListPublic\DownloadAction
+ */
+final class DownloadActionTest extends WebTestCase
+{
+    use AssertsTrait;
+    use DataProvidersTrait;
+
+    private KernelBrowser $client;
+    private UserRepository $userRepository;
+    private ModListRepository $modListRepository;
+    private SteamWorkshopModRepository $steamWorkshopModRepository;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->client = self::createClient();
+        $this->userRepository = self::getContainer()->get(UserRepository::class);
+        $this->modListRepository = self::getContainer()->get(ModListRepository::class);
+        $this->steamWorkshopModRepository = self::getContainer()->get(SteamWorkshopModRepository::class);
+    }
+
+    /**
+     * @test
+     * @dataProvider allUserTypesDataProvider
+     */
+    public function downloadAction_optionalMods_returnsFileResponse(string $userId): void
+    {
+        $user = $this->userRepository->find($userId);
+        $subjectModList = $this->modListRepository->find(DefaultModListFixture::ID);
+        $optionalMod = $this->steamWorkshopModRepository->find(AceInteractionMenuExpansionModFixture::ID);
+
+        !$user ?: $this->client->loginUser($user);
+        $crawler = $this->client->request(Request::METHOD_GET, $this->createModListDownloadUrl($subjectModList->getName(), [
+            $optionalMod->getId()->toString() => true,
+        ]));
+
+        $this::assertResponseStatusCodeSame(Response::HTTP_OK);
+        $this::assertResponseContainsModListAttachmentHeader($this->client->getResponse(), $subjectModList);
+        $this::assertLauncherPresetContainsMods($crawler, [
+            $this->steamWorkshopModRepository->find(Required\Deprecated\LegacyArmaForcesModsModFixture::ID),
+            $this->steamWorkshopModRepository->find(Optional\AceInteractionMenuExpansionModFixture::ID),
+            $this->steamWorkshopModRepository->find(Required\Broken\ArmaForcesAceMedicalModFixture::ID),
+            $this->steamWorkshopModRepository->find(Required\ArmaForcesModsModFixture::ID),
+        ]);
+    }
+
+    /**
+     * @test
+     * @dataProvider allUserTypesDataProvider
+     */
+    public function downloadAction_requiredMods_returnsFileResponse(string $userId): void
+    {
+        $user = $this->userRepository->find($userId);
+        $subjectModList = $this->modListRepository->find(DefaultModListFixture::ID);
+
+        !$user ?: $this->client->loginUser($user);
+        $crawler = $this->client->request(Request::METHOD_GET, sprintf(RouteEnum::MOD_LIST_PUBLIC_DOWNLOAD, $subjectModList->getName()));
+
+        $this::assertResponseStatusCodeSame(Response::HTTP_OK);
+        $this::assertResponseContainsModListAttachmentHeader($this->client->getResponse(), $subjectModList);
+        $this::assertLauncherPresetContainsMods($crawler, [
+            $this->steamWorkshopModRepository->find(Required\Deprecated\LegacyArmaForcesModsModFixture::ID),
+            $this->steamWorkshopModRepository->find(Required\Broken\ArmaForcesAceMedicalModFixture::ID),
+            $this->steamWorkshopModRepository->find(Required\ArmaForcesModsModFixture::ID),
+        ]);
+    }
+
+    /**
+     * @test
+     * @dataProvider allUserTypesDataProvider
+     */
+    public function customizeAction_optionalMods_returnsNotFoundResponse(string $userId): void
+    {
+        $user = $this->userRepository->find($userId);
+        $optionalMod = $this->steamWorkshopModRepository->find(AceInteractionMenuExpansionModFixture::ID);
+
+        !$user ?: $this->client->loginUser($user);
+        $this->client->request(Request::METHOD_GET, $this->createModListDownloadUrl('non-existing-name', [
+            $optionalMod->getId()->toString() => true,
+        ]));
+
+        $this::assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
+    }
+
+    /**
+     * @test
+     * @dataProvider allUserTypesDataProvider
+     */
+    public function customizeAction_requiredMods_returnsNotFoundResponse(string $userId): void
+    {
+        $user = $this->userRepository->find($userId);
+
+        !$user ?: $this->client->loginUser($user);
+        $this->client->request(Request::METHOD_GET, sprintf(RouteEnum::MOD_LIST_PUBLIC_DOWNLOAD, 'non-existing-name'));
+
+        $this::assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
+    }
+
+    private function createModListDownloadUrl(string $modListId, array $optionalMods = []): string
+    {
+        $url = sprintf(RouteEnum::MOD_LIST_PUBLIC_DOWNLOAD, $modListId);
+        $optionalModsParameter = $optionalMods ? '/'.json_encode($optionalMods) : '';
+
+        return $url.$optionalModsParameter;
+    }
+}
