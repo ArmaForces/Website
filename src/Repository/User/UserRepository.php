@@ -21,7 +21,7 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
-    public function findOneByExternalId(int $externalId): ?User
+    public function findOneByExternalId(string $externalId): ?User
     {
         return $this->findOneBy([
             'externalId' => $externalId,

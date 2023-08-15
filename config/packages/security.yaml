@@ -1,5 +1,5 @@
 security:
-    enable_authenticator_manager: false
+    enable_authenticator_manager: true
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
@@ -18,24 +18,21 @@ security:
             security: false
 
         api:
+            lazy: true
+            stateless: true
             pattern: ^/api/attendances
             methods: ['POST']
-            anonymous: true
-            stateless: true
-            guard:
-                authenticators:
-                    - App\Security\Authenticator\ApiKeyAuthenticator
+            custom_authenticators:
+                - App\Security\Authenticator\ApiKeyAuthenticator
 
         main:
-            anonymous: true
             lazy: true
             remember_me:
                 secret: '%kernel.secret%'
                 lifetime: 604800 # 1 week in seconds
                 always_remember_me: true
-            guard:
-                authenticators:
-                    - App\Security\Authenticator\DiscordAuthenticator
+            custom_authenticators:
+                - App\Security\Authenticator\DiscordAuthenticator
             logout:
                 path: app_security_logout
 

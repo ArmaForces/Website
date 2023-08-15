@@ -6,6 +6,7 @@ namespace App\Security\Authenticator;
 
 use App\Entity\Permissions\UserPermissions;
 use App\Entity\User\User;
+use App\Repository\User\UserRepository;
 use App\Security\Enum\ConnectionsEnum;
 use App\Security\Exception\MultipleRolesFound;
 use App\Security\Exception\RequiredRolesNotAssignedException;
@@ -17,17 +18,18 @@ use Discord\Http\Exceptions\NotFoundException;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
-use KnpU\OAuth2ClientBundle\Client\OAuth2ClientInterface;
-use KnpU\OAuth2ClientBundle\Security\Authenticator\SocialAuthenticator;
-use League\OAuth2\Client\Token\AccessToken;
+use KnpU\OAuth2ClientBundle\Security\Authenticator\OAuth2Authenticator;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\Security\Core\Exception\UserNotFoundException;
-use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
+use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
+use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
+use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface;
 use Wohali\OAuth2\Client\Provider\DiscordResourceOwner;
 
 use function React\Async\await;
@@ -35,7 +37,7 @@ use function React\Async\await;
 /**
  * @see https://github.com/knpuniversity/oauth2-client-bundle
  */
-class DiscordAuthenticator extends SocialAuthenticator
+class DiscordAuthenticator extends OAuth2Authenticator implements AuthenticationEntryPointInterface
 {
     protected const DISCORD_CLIENT_NAME = 'discord_main';
 
@@ -46,6 +48,7 @@ class DiscordAuthenticator extends SocialAuthenticator
 
     public function __construct(
         private ClientRegistry $clientRegistry,
+        private UserRepository $userRepository,
         private EntityManagerInterface $em,
         private RouterInterface $router,
         private DiscordClientFactory $discordClientFactory,
@@ -67,18 +70,13 @@ class DiscordAuthenticator extends SocialAuthenticator
         return self::SUPPORTED_ROUTE_NAME === $request->attributes->get('_route');
     }
 
-    public function getCredentials(Request $request): AccessToken
+    public function authenticate(Request $request): Passport
     {
-        return $this->fetchAccessToken($this->getDiscordClient());
-    }
+        $client = $this->clientRegistry->getClient(self::DISCORD_CLIENT_NAME);
+        $accessToken = $this->fetchAccessToken($client);
 
-    /**
-     * @param AccessToken $credentials
-     */
-    public function getUser($credentials, UserProviderInterface $userProvider): User
-    {
         /** @var DiscordResourceOwner $discordResourceOwner */
-        $discordResourceOwner = $this->getDiscordClient()->fetchUserFromToken($credentials);
+        $discordResourceOwner = $client->fetchUserFromToken($accessToken);
 
         $userId = $discordResourceOwner->getId();
         $username = $discordResourceOwner->getUsername();
@@ -87,7 +85,7 @@ class DiscordAuthenticator extends SocialAuthenticator
         $externalId = $discordResourceOwner->getId();
 
         $discordClientAsBot = $this->discordClientFactory->createBotClient($this->botToken);
-        $discordClientAsUser = $this->discordClientFactory->createUserClient($credentials->getToken());
+        $discordClientAsUser = $this->discordClientFactory->createUserClient($accessToken->getToken());
 
         $serverResponse = await($discordClientAsBot->get(
             Endpoint::bind(Endpoint::GUILD, $this->discordServerId)
@@ -130,9 +128,8 @@ class DiscordAuthenticator extends SocialAuthenticator
 
         $steamId = $steamConnection ? (int) $steamConnection->id : null;
 
-        try {
-            /** @var User $user */
-            $user = $userProvider->loadUserByIdentifier($externalId);
+        $user = $this->userRepository->findOneByExternalId($externalId);
+        if ($user instanceof User) {
             $user->update(
                 $fullUsername,
                 $email,
@@ -142,43 +139,47 @@ class DiscordAuthenticator extends SocialAuthenticator
                 $discordResourceOwner->getAvatarHash(),
                 $steamId
             );
-        } catch (UserNotFoundException $ex) {
-            $permissions = new UserPermissions(Uuid::uuid4());
-            $user = new User(
-                Uuid::uuid4(),
-                $fullUsername,
-                $email,
-                $externalId,
-                $permissions,
-                [],
-                $discordResourceOwner->getAvatarHash(),
-                $steamId
-            );
 
-            $this->em->persist($permissions);
-            $this->em->persist($user);
+            $this->em->flush();
+
+            return new SelfValidatingPassport(new UserBadge($fullUsername));
         }
+
+        $permissions = new UserPermissions(Uuid::uuid4());
+        $user = new User(
+            Uuid::uuid4(),
+            $fullUsername,
+            $email,
+            $externalId,
+            $permissions,
+            [],
+            $discordResourceOwner->getAvatarHash(),
+            $steamId
+        );
+
+        $this->em->persist($permissions);
+        $this->em->persist($user);
 
         $this->em->flush();
 
-        return $user;
+        return new SelfValidatingPassport(new UserBadge($fullUsername));
     }
 
-    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?RedirectResponse
-    {
-        $targetUrl = $this->router->generate(self::HOME_JOIN_US_PAGE_ROUTE_NAME);
-
-        return new RedirectResponse($targetUrl);
-    }
-
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey): ?RedirectResponse
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         $targetUrl = $this->router->generate(self::HOME_INDEX_PAGE_ROUTE_NAME);
 
         return new RedirectResponse($targetUrl);
     }
 
-    protected function getRoleIdByName(array $roles, string $roleName): string
+    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
+    {
+        $targetUrl = $this->router->generate(self::HOME_JOIN_US_PAGE_ROUTE_NAME);
+
+        return new RedirectResponse($targetUrl);
+    }
+
+    private function getRoleIdByName(array $roles, string $roleName): string
     {
         $rolesFound = (new ArrayCollection($roles))->filter(static fn (\stdClass $role) => $role->name === $roleName);
 
@@ -187,10 +188,5 @@ class DiscordAuthenticator extends SocialAuthenticator
             1 => $rolesFound->first()->id,
             default => throw new MultipleRolesFound(sprintf('Multiple roles found by given name "%s"!', $roleName))
         };
-    }
-
-    protected function getDiscordClient(): OAuth2ClientInterface
-    {
-        return $this->clientRegistry->getClient(self::DISCORD_CLIENT_NAME);
     }
 }

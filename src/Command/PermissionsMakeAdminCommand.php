@@ -74,8 +74,6 @@ class PermissionsMakeAdminCommand extends Command
             return 1;
         }
 
-        $discordUserId = (int) $discordUserId;
-
         $user = $this->userRepository->findOneByExternalId($discordUserId);
         if (!$user) {
             $io->error(sprintf('User not found by given id: "%s"!', $discordUserId));
