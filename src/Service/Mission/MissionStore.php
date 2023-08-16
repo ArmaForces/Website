@@ -33,7 +33,7 @@ class MissionStore implements StoreInterface
         $this->store->invalidate($request);
     }
 
-    public function lock(Request $request): bool
+    public function lock(Request $request): bool|string
     {
         return $this->store->lock($request);
     }
