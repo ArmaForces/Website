@@ -12,12 +12,17 @@ class ApiTokenUser implements UserInterface
     use UserInterfaceTrait;
 
     public function __construct(
-        private string $username
+        private string $token
     ) {
     }
 
     public function getUsername(): string
     {
-        return $this->username;
+        return $this->token;
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->token;
     }
 }
