@@ -25,7 +25,7 @@ class UpdateAction extends AbstractController
     }
 
     #[Route('/mod-group/{name}/update', name: 'app_mod_group_update')]
-    #[IsGranted(PermissionsEnum::MOD_GROUP_UPDATE)]
+    #[IsGranted(PermissionsEnum::MOD_GROUP_UPDATE, 'modGroup')]
     public function __invoke(Request $request, ModGroup $modGroup): Response
     {
         $modGroupFormDto = $this->dataTransformerRegistry->transformFromEntity(new ModGroupFormDto(), $modGroup);
