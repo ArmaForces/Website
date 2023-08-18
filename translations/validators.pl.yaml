@@ -38,3 +38,6 @@ Mod group with the same name "{{ modGroupName }}" already exist: Grupa modów o 
 
 # Unique User Group Name Validator
 User group with the same name "{{ userGroupName }}" already exist: Grupa użytkowników o nazwie "{{ userGroupName }}" już istnieje
+
+# Mod Source And Type Validator
+Mod from a directory must be a server side mod: Mod pochodzący z katalogu musi być serwerowy
