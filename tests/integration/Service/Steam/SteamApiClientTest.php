@@ -27,8 +27,8 @@ final class SteamApiClientTest extends TestCase
         $steamWorkshopClient = new SteamApiClient($httpClient);
         $workshopItemInfoDto = $steamWorkshopClient->getWorkshopItemInfo($this::ITEM_ID);
 
-        static::assertSame($this::ITEM_ID, $workshopItemInfoDto->getId());
-        static::assertSame($this::ITEM_NAME, $workshopItemInfoDto->getName());
-        static::assertSame($this::ITEM_GAME_ID, $workshopItemInfoDto->getGameId());
+        self::assertSame($this::ITEM_ID, $workshopItemInfoDto->getId());
+        self::assertSame($this::ITEM_NAME, $workshopItemInfoDto->getName());
+        self::assertSame($this::ITEM_GAME_ID, $workshopItemInfoDto->getGameId());
     }
 }

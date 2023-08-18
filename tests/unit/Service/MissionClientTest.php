@@ -19,7 +19,7 @@ final class MissionClientTest extends TestCase
 {
     /**
      * @test
-     * @dataProvider provideCurrentMissionsData
+     * @dataProvider provideGetCurrentMissionCases
      */
     public function getCurrentMission(array $missionData, ?string $expectedTitle, ?string $expectedModlist): void
     {
@@ -34,14 +34,14 @@ final class MissionClientTest extends TestCase
         $currentMission = $client->getCurrentMission();
 
         if ($expectedTitle) {
-            static::assertSame($expectedTitle, $currentMission->getTitle());
-            static::assertSame($expectedModlist, $currentMission->getModlist());
+            self::assertSame($expectedTitle, $currentMission->getTitle());
+            self::assertSame($expectedModlist, $currentMission->getModlist());
         } else {
-            static::assertNull($currentMission);
+            self::assertNull($currentMission);
         }
     }
 
-    public function provideCurrentMissionsData(): array
+    public function provideGetCurrentMissionCases(): iterable
     {
         $now = new \DateTimeImmutable();
         $dateFormat = 'Y-m-d\TH:i:s';

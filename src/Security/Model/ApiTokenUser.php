@@ -16,11 +16,6 @@ class ApiTokenUser implements UserInterface
     ) {
     }
 
-    public function getUsername(): string
-    {
-        return $this->token;
-    }
-
     public function getUserIdentifier(): string
     {
         return $this->token;

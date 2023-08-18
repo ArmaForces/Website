@@ -3,12 +3,12 @@ framework:
     secret: '%env(APP_SECRET)%'
     #csrf_protection: true
     http_method_override: false
+    handle_all_throwables: true
 
     # Enables session support. Note that the session will ONLY be started if you read or write from it.
     # Remove or comment this section to explicitly disable session support.
     session:
         handler_id: session.handler.pdo
-        save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
         cookie_lifetime: 15552000 # 180 days
         cookie_secure: auto
         cookie_samesite: lax
@@ -25,8 +25,9 @@ framework:
     trusted_headers: [ 'x-forwarded-for', 'x-forwarded-proto', 'x-forwarded-port', 'x-forwarded-host' ]
 
 # This needs to be disabled so tests use regular session storage and to user data providers to work
-#when@test:
-#    framework:
-#        test: true
-#        session:
-#            storage_factory_id: session.storage.factory.mock_file
+when@test:
+    framework:
+        test: true
+        session:
+            handler_id: session.handler.native_file # Override due to issues with schema validation
+            storage_factory_id: session.storage.factory.mock_file

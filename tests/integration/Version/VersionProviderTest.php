@@ -27,7 +27,7 @@ final class VersionProviderTest extends TestCase
         $versionProvider = new VersionProvider($fileDir);
         $version = $versionProvider->getVersion();
 
-        static::assertSame($fileContent, $version);
+        self::assertSame($fileContent, $version);
 
         unlink($filePath);
     }
@@ -44,6 +44,6 @@ final class VersionProviderTest extends TestCase
         $versionProvider = new VersionProvider($fileDir, $fileName, $defaultVersion);
         $version = $versionProvider->getVersion();
 
-        static::assertSame($defaultVersion, $version);
+        self::assertSame($defaultVersion, $version);
     }
 }

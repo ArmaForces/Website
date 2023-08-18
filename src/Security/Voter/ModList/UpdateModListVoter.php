@@ -29,7 +29,6 @@ class UpdateModListVoter extends Voter
         $modList = $subject;
 
         return $modList->getOwner() === $currentUser
-            || $currentUser->hasPermissions(static fn (AbstractPermissions $permissions) => $permissions->modListUpdate)
-        ;
+            || $currentUser->hasPermissions(static fn (AbstractPermissions $permissions) => $permissions->modListUpdate);
     }
 }

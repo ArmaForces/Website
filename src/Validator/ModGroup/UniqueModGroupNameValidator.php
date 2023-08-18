@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class UniqueModGroupNameValidator extends AbstractValidator
 {
-    public function validate($value, Constraint $constraint): void
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$value instanceof ModGroupFormDto) {
             throw new UnexpectedTypeException($constraint, ModGroupFormDto::class);

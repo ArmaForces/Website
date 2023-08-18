@@ -12,7 +12,7 @@ use App\Form\FormDtoInterface;
 use App\Form\ModList\Dto\ModListFormDto;
 use App\Form\RegisteredDataTransformerInterface;
 use Ramsey\Uuid\Uuid;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Bundle\SecurityBundle\Security;
 
 class ModListFormDtoDataTransformer implements RegisteredDataTransformerInterface
 {
