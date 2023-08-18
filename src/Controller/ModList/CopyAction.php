@@ -25,7 +25,7 @@ class CopyAction extends AbstractController
     }
 
     #[Route('/mod-list/{name}/copy', name: 'app_mod_list_copy')]
-    #[IsGranted(PermissionsEnum::MOD_LIST_COPY)]
+    #[IsGranted(PermissionsEnum::MOD_LIST_COPY, 'modList')]
     public function __invoke(Request $request, ModList $modList): Response
     {
         /** @var ModListFormDto $modListFormDto */
