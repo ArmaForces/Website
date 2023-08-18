@@ -25,7 +25,7 @@ class SteamStoreArma3DlcUrl extends Constraint
     ) {
         parent::__construct($options, $groups, $payload);
 
-        $this->invalidDlcUrlMessage = $invalidDlcUrlMessage ?? $this->{$invalidDlcUrlMessage};
+        $this->invalidDlcUrlMessage = $invalidDlcUrlMessage ?? $this->invalidDlcUrlMessage;
         $this->dlcNotFoundMessage = $dlcNotFoundMessage ?? $this->dlcNotFoundMessage;
         $this->notAnArma3DlcMessage = $notAnArma3DlcMessage ?? $this->notAnArma3DlcMessage;
         $this->errorPath = $errorPath ?? $this->errorPath;
