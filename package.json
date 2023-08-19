@@ -1,13 +1,4 @@
 {
-    "devDependencies": {
-        "@symfony/webpack-encore": "^0.28.0",
-        "core-js": "^3.0.0",
-        "expose-loader": "^0.7.5",
-        "node-sass": "^4.13.1",
-        "regenerator-runtime": "^0.13.2",
-        "sass-loader": "^7.0.1",
-        "webpack-notifier": "^1.6.0"
-    },
     "license": "GPL-3.0",
     "private": true,
     "scripts": {
@@ -18,9 +9,22 @@
         "build:ci": "encore production"
     },
     "dependencies": {
-        "bootstrap": "^4.5.3",
-        "jquery": "^3.5.0",
-        "popper.js": "^1.16.0",
+        "bootstrap": "^4.6.2",
+        "jquery": "^3.5.1",
+        "popper.js": "^1.16.1",
         "yall-js": "^3.1.7"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.17.0",
+        "@babel/preset-env": "^7.16.0",
+        "@symfony/webpack-encore": "^4.0.0",
+        "core-js": "^3.23.0",
+        "expose-loader": "^4.1.0",
+        "node-sass": "^9.0.0",
+        "regenerator-runtime": "^0.13.9",
+        "sass-loader": "^13.3.2",
+        "webpack": "^5.74.0",
+        "webpack-cli": "^4.10.0",
+        "webpack-notifier": "^1.15.0"
     }
 }
