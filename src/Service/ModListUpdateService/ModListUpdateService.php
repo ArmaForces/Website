@@ -8,7 +8,7 @@ use App\Entity\ModGroup\ModGroup;
 use App\Entity\ModList\ModList;
 use App\Entity\User\User;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Bundle\SecurityBundle\Security;
 
 class ModListUpdateService implements ModListUpdateServiceInterface
 {
