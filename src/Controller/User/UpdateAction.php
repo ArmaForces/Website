@@ -25,7 +25,7 @@ class UpdateAction extends AbstractController
     }
 
     #[Route('/user/{id}/update', name: 'app_user_update')]
-    #[IsGranted(PermissionsEnum::USER_UPDATE, 'user')]
+    #[IsGranted(PermissionsEnum::USER_UPDATE->value, 'user')]
     public function __invoke(Request $request, User $user): Response
     {
         $userFormDto = $this->dataTransformerRegistry->transformFromEntity(new UserFormDto(), $user);

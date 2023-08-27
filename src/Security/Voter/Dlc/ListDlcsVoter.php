@@ -14,7 +14,7 @@ class ListDlcsVoter extends Voter
 {
     protected function supports(string $attribute, $subject): bool
     {
-        return PermissionsEnum::DLC_LIST === $attribute;
+        return PermissionsEnum::DLC_LIST->value === $attribute;
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool

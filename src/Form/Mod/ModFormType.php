@@ -31,10 +31,10 @@ class ModFormType extends AbstractType
             ->add('source', ChoiceType::class, [
                 'label' => 'Mod source',
                 'choices' => [
-                    'Steam Workshop' => ModSourceEnum::STEAM_WORKSHOP,
-                    'Directory' => ModSourceEnum::DIRECTORY,
+                    'Steam Workshop' => ModSourceEnum::STEAM_WORKSHOP->value,
+                    'Directory' => ModSourceEnum::DIRECTORY->value,
                 ],
-                'empty_data' => ModSourceEnum::STEAM_WORKSHOP,
+                'empty_data' => ModSourceEnum::STEAM_WORKSHOP->value,
             ])
             ->add('url', TextType::class, [
                 'label' => 'Steam Workshop URL',
@@ -54,12 +54,12 @@ class ModFormType extends AbstractType
             ->add('type', ChoiceType::class, [
                 'label' => 'Mod type',
                 'choices' => [
-                    'Required mod' => ModTypeEnum::REQUIRED,
-                    'Server side mod' => ModTypeEnum::SERVER_SIDE,
-                    'Client side mod' => ModTypeEnum::CLIENT_SIDE,
-                    'Optional mod' => ModTypeEnum::OPTIONAL,
+                    'Required mod' => ModTypeEnum::REQUIRED->value,
+                    'Server side mod' => ModTypeEnum::SERVER_SIDE->value,
+                    'Client side mod' => ModTypeEnum::CLIENT_SIDE->value,
+                    'Optional mod' => ModTypeEnum::OPTIONAL->value,
                 ],
-                'empty_data' => ModTypeEnum::REQUIRED,
+                'empty_data' => ModTypeEnum::REQUIRED->value,
             ])
         ;
 
@@ -108,9 +108,9 @@ class ModFormType extends AbstractType
                 'label' => 'Mod status',
                 'required' => false,
                 'choices' => [
-                    'Deprecated' => ModStatusEnum::DEPRECATED,
-                    'Broken' => ModStatusEnum::BROKEN,
-                    'Disabled' => ModStatusEnum::DISABLED,
+                    'Deprecated' => ModStatusEnum::DEPRECATED->value,
+                    'Broken' => ModStatusEnum::BROKEN->value,
+                    'Disabled' => ModStatusEnum::DISABLED->value,
                 ],
             ])
         ;

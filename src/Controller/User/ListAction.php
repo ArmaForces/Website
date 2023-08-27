@@ -19,7 +19,7 @@ class ListAction extends AbstractController
     }
 
     #[Route('/user/list', name: 'app_user_list')]
-    #[IsGranted(PermissionsEnum::USER_LIST)]
+    #[IsGranted(PermissionsEnum::USER_LIST->value)]
     public function __invoke(): Response
     {
         $users = $this->userRepository->findBy([], ['username' => 'ASC']);

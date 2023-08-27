@@ -21,8 +21,8 @@ class ArmaForcesJbadBuildingFixModFixture extends Fixture
             Uuid::fromString(self::ID),
             '[OBSOLETE] ArmaForces - JBAD Building Fix',
             null,
-            ModStatusEnum::get(ModStatusEnum::DISABLED),
-            ModTypeEnum::get(ModTypeEnum::REQUIRED),
+            ModStatusEnum::DISABLED,
+            ModTypeEnum::REQUIRED,
             1781106281
         );
 

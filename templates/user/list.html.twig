@@ -38,11 +38,11 @@
                     <td>{{ tableMacro.row_blamable(user.createdAt, user.createdBy) }}</td>
                     <td>{{ tableMacro.row_blamable(user.lastUpdatedAt, user.lastUpdatedBy) }}</td>
                     <td class="text-right">
-                        {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USER_UPDATE'), user) %}
+                        {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USER_UPDATE').value, user) %}
                             {{ tableMacro.row_action_edit(path('app_user_update', { id: user.id }), 'Edit user'|trans) }}
                         {% endif %}
 
-                        {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USER_DELETE'), user) %}
+                        {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USER_DELETE').value, user) %}
                             {{ tableMacro.row_action_delete(path('app_user_delete', { id: user.id }), 'Are you sure you want to delete %name%?'|trans({ '%name%': user.username }), 'Delete user'|trans) }}
                         {% endif %}
                     </td>

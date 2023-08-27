@@ -33,16 +33,13 @@ class ModFormDtoDataTransformer implements RegisteredDataTransformerInterface
      */
     public function transformToEntity(FormDtoInterface $formDto, AbstractEntity $entity = null): AbstractEntity
     {
-        /** @var ModSourceEnum $source */
-        $source = ModSourceEnum::get($formDto->getSource());
-
-        /** @var ModTypeEnum $type */
-        $type = ModTypeEnum::get($formDto->getType());
+        $source = ModSourceEnum::from($formDto->getSource());
+        $type = ModTypeEnum::from($formDto->getType());
 
         /** @var null|ModStatusEnum $status */
-        $status = $formDto->getStatus() ? ModStatusEnum::get($formDto->getStatus()) : null;
+        $status = $formDto->getStatus() ? ModStatusEnum::from($formDto->getStatus()) : null;
 
-        if ($source->is(ModSourceEnum::STEAM_WORKSHOP)) {
+        if (ModSourceEnum::STEAM_WORKSHOP === $source) {
             $itemId = SteamHelper::itemUrlToItemId($formDto->getUrl());
             $name = $formDto->getName() ?? substr($this->steamApiClient->getWorkshopItemInfo($itemId)->getName(), 0, 255);
 
@@ -66,7 +63,7 @@ class ModFormDtoDataTransformer implements RegisteredDataTransformerInterface
             );
         }
 
-        if ($source->is(ModSourceEnum::DIRECTORY)) {
+        if (ModSourceEnum::DIRECTORY === $source) {
             if (!$entity instanceof DirectoryMod) {
                 return new DirectoryMod(
                     Uuid::uuid4(),
@@ -105,18 +102,18 @@ class ModFormDtoDataTransformer implements RegisteredDataTransformerInterface
         $formDto->setDescription($entity->getDescription());
 
         /** @var null|string $status */
-        $status = $entity->getStatus() ? $entity->getStatus()->getValue() : null;
+        $status = $entity->getStatus() ? $entity->getStatus()->value : null;
         $formDto->setStatus($status);
 
         if ($entity instanceof SteamWorkshopMod) {
-            $formDto->setType($entity->getType()->getValue());
-            $formDto->setSource(ModSourceEnum::STEAM_WORKSHOP);
+            $formDto->setType($entity->getType()->value);
+            $formDto->setSource(ModSourceEnum::STEAM_WORKSHOP->value);
             $itemId = $entity->getItemId();
             $url = SteamHelper::itemIdToItemUrl($itemId);
             $formDto->setUrl($url);
         } elseif ($entity instanceof DirectoryMod) {
-            $formDto->setType(ModTypeEnum::SERVER_SIDE);
-            $formDto->setSource(ModSourceEnum::DIRECTORY);
+            $formDto->setType(ModTypeEnum::SERVER_SIDE->value);
+            $formDto->setSource(ModSourceEnum::DIRECTORY->value);
             $formDto->setDirectory($entity->getDirectory());
         }
 

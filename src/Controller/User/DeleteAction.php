@@ -20,7 +20,7 @@ class DeleteAction extends AbstractController
     }
 
     #[Route('/user/{id}/delete', name: 'app_user_delete')]
-    #[IsGranted(PermissionsEnum::USER_DELETE, 'user')]
+    #[IsGranted(PermissionsEnum::USER_DELETE->value, 'user')]
     public function __invoke(User $user): Response
     {
         $this->entityManager->remove($user);

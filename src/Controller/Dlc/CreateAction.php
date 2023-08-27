@@ -24,7 +24,7 @@ class CreateAction extends AbstractController
     }
 
     #[Route('/dlc/create', name: 'app_dlc_create')]
-    #[IsGranted(PermissionsEnum::DLC_CREATE)]
+    #[IsGranted(PermissionsEnum::DLC_CREATE->value)]
     public function __invoke(Request $request): Response
     {
         $dlcFormDto = new DlcFormDto();

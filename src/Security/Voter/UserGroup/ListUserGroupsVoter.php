@@ -14,7 +14,7 @@ class ListUserGroupsVoter extends Voter
 {
     protected function supports(string $attribute, $subject): bool
     {
-        return PermissionsEnum::USER_GROUP_LIST === $attribute;
+        return PermissionsEnum::USER_GROUP_LIST->value === $attribute;
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool

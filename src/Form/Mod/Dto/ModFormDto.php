@@ -14,15 +14,15 @@ use App\Validator\WindowsDirectoryName;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[UniqueSteamWorkshopMod(groups: [ModSourceEnum::STEAM_WORKSHOP])]
-#[SteamWorkshopArma3ModUrl(groups: [ModSourceEnum::STEAM_WORKSHOP], errorPath: 'url', nameErrorPath: 'name')]
-#[UniqueDirectoryMod(groups: [ModSourceEnum::DIRECTORY])]
+#[UniqueSteamWorkshopMod(groups: [ModSourceEnum::STEAM_WORKSHOP->value])]
+#[SteamWorkshopArma3ModUrl(groups: [ModSourceEnum::STEAM_WORKSHOP->value], errorPath: 'url', nameErrorPath: 'name')]
+#[UniqueDirectoryMod(groups: [ModSourceEnum::DIRECTORY->value])]
 #[ModSourceAndType(errorPath: 'source')]
 class ModFormDto extends AbstractFormDto
 {
     protected ?UuidInterface $id = null;
 
-    #[Assert\NotBlank(groups: [ModSourceEnum::DIRECTORY])]
+    #[Assert\NotBlank(groups: [ModSourceEnum::DIRECTORY->value])]
     #[Assert\Length(min: 1, max: 255)]
     protected ?string $name = null;
 
@@ -35,12 +35,12 @@ class ModFormDto extends AbstractFormDto
 
     protected ?string $source = null;
 
-    #[Assert\NotBlank(groups: [ModSourceEnum::STEAM_WORKSHOP])]
-    #[Assert\Length(min: 1, max: 255, groups: [ModSourceEnum::STEAM_WORKSHOP])]
+    #[Assert\NotBlank(groups: [ModSourceEnum::STEAM_WORKSHOP->value])]
+    #[Assert\Length(min: 1, max: 255, groups: [ModSourceEnum::STEAM_WORKSHOP->value])]
     protected ?string $url = null;
 
-    #[Assert\NotBlank(groups: [ModSourceEnum::DIRECTORY])]
-    #[WindowsDirectoryName(groups: [ModSourceEnum::DIRECTORY])]
+    #[Assert\NotBlank(groups: [ModSourceEnum::DIRECTORY->value])]
+    #[WindowsDirectoryName(groups: [ModSourceEnum::DIRECTORY->value])]
     protected ?string $directory = null;
 
     public function resolveValidationGroups(): array

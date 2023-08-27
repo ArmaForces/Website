@@ -15,7 +15,7 @@ class DeleteModListVoter extends Voter
 {
     protected function supports(string $attribute, $subject): bool
     {
-        return PermissionsEnum::MOD_LIST_DELETE === $attribute && $subject instanceof ModList;
+        return PermissionsEnum::MOD_LIST_DELETE->value === $attribute && $subject instanceof ModList;
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool

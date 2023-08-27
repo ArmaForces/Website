@@ -6,7 +6,7 @@
             {{ 'Mod lists'|trans }}
         {% endblock %}
         {% block page_actions %}
-            {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_CREATE')) %}
+            {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_CREATE').value) %}
                 <a href="{{ path('app_mod_list_create') }}" class="btn btn-primary">{{ 'Create mod list'|trans }}</a>
             {% endif %}
         {% endblock %}
@@ -55,15 +55,15 @@
                     <td class="text-right">
                         {{ tableMacro.row_action(path('app_mod_list_public_customize', { name: modList.name }), 'fas fa-download', 'Download mod list'|trans) }}
 
-                        {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_UPDATE'), modList) %}
+                        {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_UPDATE').value, modList) %}
                             {{ tableMacro.row_action_edit(path('app_mod_list_update', { name: modList.name }), 'Edit mod list'|trans) }}
                         {% endif %}
 
-                        {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_COPY'), modList) %}
+                        {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_COPY').value, modList) %}
                             {{ tableMacro.row_action(path('app_mod_list_copy', { name: modList.name }), 'fas fa-copy', 'Copy and edit mod list'|trans) }}
                         {% endif %}
 
-                        {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_DELETE'), modList) %}
+                        {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_DELETE').value, modList) %}
                             {{ tableMacro.row_action_delete(path('app_mod_list_delete', { name: modList.name }), 'Are you sure you want to delete %name%?'|trans({ '%name%': modList.name }), 'Delete mod list'|trans) }}
                         {% endif %}
                     </td>

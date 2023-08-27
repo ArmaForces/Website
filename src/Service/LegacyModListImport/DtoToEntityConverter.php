@@ -34,11 +34,8 @@ class DtoToEntityConverter implements DtoToEntityConverterInterface
             $modType = ModTypeEnum::CLIENT_SIDE;
         }
 
-        /** @var ModTypeEnum $modTypeEnum */
-        $modTypeEnum = ModTypeEnum::get($modType);
-
         if ($isSteamWorkshopMod) {
-            return new SteamWorkshopMod(Uuid::uuid4(), $name, null, null, $modTypeEnum, (int) $id);
+            return new SteamWorkshopMod(Uuid::uuid4(), $name, null, null, $modType, (int) $id);
         }
 
         return new DirectoryMod(Uuid::uuid4(), $name, null, null, $name);

@@ -4,14 +4,9 @@ declare(strict_types=1);
 
 namespace App\Entity\Mod\Enum;
 
-use Elao\Enum\AutoDiscoveredValuesTrait;
-use Elao\Enum\Enum;
-
-final class ModSourceEnum extends Enum
+enum ModSourceEnum: string
 {
-    use AutoDiscoveredValuesTrait;
+    case STEAM_WORKSHOP = 'steam_workshop';
 
-    public const STEAM_WORKSHOP = 'steam_workshop';
-
-    public const DIRECTORY = 'directory';
+    case DIRECTORY = 'directory';
 }

@@ -46,11 +46,11 @@
 
 {% macro row_mod_status_icon(mod) %}
     {% if mod.status is null %}
-    {% elseif mod.status.is(constant('App\\Entity\\Mod\\Enum\\ModStatusEnum::DEPRECATED')) %}
+    {% elseif mod.status is constant('App\\Entity\\Mod\\Enum\\ModStatusEnum::DEPRECATED') %}
         {{ _self.icon('fas fa-skull text-warning', 'Deprecated'|trans) }}
-    {% elseif mod.status.is(constant('App\\Entity\\Mod\\Enum\\ModStatusEnum::BROKEN')) %}
+    {% elseif mod.status is constant('App\\Entity\\Mod\\Enum\\ModStatusEnum::BROKEN') %}
         {{ _self.icon('fas fa-exclamation-triangle text-warning', 'Broken'|trans) }}
-    {% elseif mod.status.is(constant('App\\Entity\\Mod\\Enum\\ModStatusEnum::DISABLED')) %}
+    {% elseif mod.status is constant('App\\Entity\\Mod\\Enum\\ModStatusEnum::DISABLED') %}
         {{ _self.icon('fas fa-times-circle text-danger', 'Disabled'|trans) }}
     {% endif %}
 {% endmacro %}
@@ -58,13 +58,13 @@
 {% macro row_mod_type_translation(mod) %}
     {% if mod is instance_of('\\App\\Entity\\Mod\\SteamWorkshopMod') %}
         {# @var mod \App\Entity\Mod\SteamWorkshopMod #}
-        {% if mod.type.is(constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::SERVER_SIDE')) %}
+        {% if mod.type is constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::SERVER_SIDE') %}
             {{ 'Server side mod'|trans }}
-        {% elseif mod.type.is(constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::REQUIRED')) %}
+        {% elseif mod.type is constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::REQUIRED') %}
             {{ 'Required mod'|trans }}
-        {% elseif mod.type.is(constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::OPTIONAL')) %}
+        {% elseif mod.type is constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::OPTIONAL') %}
             {{ 'Optional mod'|trans }}
-        {% elseif mod.type.is(constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::CLIENT_SIDE')) %}
+        {% elseif mod.type is constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::CLIENT_SIDE') %}
             {{ 'Client side mod'|trans }}
         {% endif %}
     {% elseif mod is instance_of('\\App\\Entity\\Mod\\DirectoryMod') %}

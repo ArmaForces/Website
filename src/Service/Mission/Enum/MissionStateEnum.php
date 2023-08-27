@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Service\Mission\Enum;
 
-class MissionStateEnum
+enum MissionStateEnum: string
 {
-    public const OPEN = 'Open';
-    public const CLOSED = 'Closed';
-    public const ARCHIVED = 'Archived';
+    case ARCHIVED = 'Archived';
+    case OPEN = 'Open';
+    case CLOSED = 'Closed';
 }

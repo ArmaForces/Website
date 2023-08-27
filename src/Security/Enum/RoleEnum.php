@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Security\Enum;
 
-class RoleEnum
+enum RoleEnum: string
 {
-    public const ROLE_USER = 'ROLE_USER';
+    case ROLE_USER = 'ROLE_USER';
 }

@@ -5,7 +5,7 @@
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
     <entity name="App\Entity\Mod\SteamWorkshopMod" repository-class="App\Repository\Mod\SteamWorkshopModRepository">
-        <field name="type" type="mod_type_enum" length="255"/>
+        <field name="type" enum-type="App\Entity\Mod\Enum\ModTypeEnum"/>
         <field name="itemId" type="bigint" unique="true"/>
     </entity>
 

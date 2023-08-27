@@ -23,10 +23,10 @@ class ConnectAction extends AbstractController
         return $clientRegistry
             ->getClient('discord_main')
             ->redirect([
-                ScopeEnum::IDENTIFY,
-                ScopeEnum::EMAIL,
-                ScopeEnum::GUILDS,
-                ScopeEnum::CONNECTIONS,
+                ScopeEnum::IDENTIFY->value,
+                ScopeEnum::EMAIL->value,
+                ScopeEnum::GUILDS->value,
+                ScopeEnum::CONNECTIONS->value,
             ], [])
         ;
     }

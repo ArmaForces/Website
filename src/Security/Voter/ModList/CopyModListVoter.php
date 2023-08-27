@@ -15,7 +15,7 @@ class CopyModListVoter extends Voter
 {
     protected function supports(string $attribute, $subject): bool
     {
-        return PermissionsEnum::MOD_LIST_COPY === $attribute && $subject instanceof ModList;
+        return PermissionsEnum::MOD_LIST_COPY->value === $attribute && $subject instanceof ModList;
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
