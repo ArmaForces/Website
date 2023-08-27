@@ -9,7 +9,7 @@
         <img src="https://img.shields.io/badge/License-GPLv3-red.svg" alt="ArmaForces Website">
     </a>
     <a href="https://github.com/ArmaForces/Website/actions">
-        <img src="https://github.com/ArmaForces/Website/workflows/Tests/badge.svg">
+        <img src="https://github.com/ArmaForces/Website/actions/workflows/application.yml/badge.svg?branch=dev">
     </a>
 </p>
 
