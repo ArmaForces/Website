@@ -15,7 +15,7 @@ class UpdateModGroupVoter extends Voter
 {
     protected function supports(string $attribute, $subject): bool
     {
-        return PermissionsEnum::MOD_GROUP_UPDATE === $attribute && $subject instanceof ModGroup;
+        return PermissionsEnum::MOD_GROUP_UPDATE->value === $attribute && $subject instanceof ModGroup;
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Security\Enum;
 
-class ConnectionsEnum
+enum ConnectionsEnum: string
 {
-    public const STEAM = 'steam';
+    case STEAM = 'steam';
 }

@@ -74,7 +74,7 @@ class MissionClient implements MissionClientInterface
         /** @var MissionDto[] $allMissions */
         $allMissions = iterator_to_array($this->getMissions());
 
-        return array_filter($allMissions, static fn (MissionDto $mission) => MissionStateEnum::ARCHIVED === $mission->getState());
+        return array_filter($allMissions, static fn (MissionDto $mission) => MissionStateEnum::ARCHIVED->value === $mission->getState());
     }
 
     public function getUpcomingMissions(): array
@@ -82,6 +82,6 @@ class MissionClient implements MissionClientInterface
         /** @var MissionDto[] $allMissions */
         $allMissions = iterator_to_array($this->getMissions());
 
-        return array_filter($allMissions, static fn (MissionDto $mission) => MissionStateEnum::ARCHIVED !== $mission->getState());
+        return array_filter($allMissions, static fn (MissionDto $mission) => MissionStateEnum::ARCHIVED->value !== $mission->getState());
     }
 }

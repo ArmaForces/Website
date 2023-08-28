@@ -19,7 +19,7 @@ class ListAction extends AbstractController
     }
 
     #[Route('/mod-list/list', name: 'app_mod_list_list')]
-    #[IsGranted(PermissionsEnum::MOD_LIST_LIST)]
+    #[IsGranted(PermissionsEnum::MOD_LIST_LIST->value)]
     public function __invoke(): Response
     {
         $modLists = $this->modListRepository->findBy([], [

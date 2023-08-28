@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Security\Enum;
 
-class ScopeEnum
+enum ScopeEnum: string
 {
-    public const IDENTIFY = 'identify';
-    public const EMAIL = 'email';
-    public const GUILDS = 'guilds';
-    public const CONNECTIONS = 'connections';
+    case IDENTIFY = 'identify';
+    case EMAIL = 'email';
+    case GUILDS = 'guilds';
+    case CONNECTIONS = 'connections';
 }

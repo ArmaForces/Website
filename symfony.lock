@@ -73,18 +73,6 @@
             "migrations/.gitignore"
         ]
     },
-    "elao/enum": {
-        "version": "1.17",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "main",
-            "version": "1.7",
-            "ref": "d44e1c8caa4cabcab399724df787de558459dd83"
-        },
-        "files": [
-            "config/packages/elao_enum.yaml"
-        ]
-    },
     "friendsofphp/php-cs-fixer": {
         "version": "3.23",
         "recipe": {

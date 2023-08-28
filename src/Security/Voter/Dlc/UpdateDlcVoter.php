@@ -15,7 +15,7 @@ class UpdateDlcVoter extends Voter
 {
     protected function supports(string $attribute, $subject): bool
     {
-        return PermissionsEnum::DLC_UPDATE === $attribute && $subject instanceof Dlc;
+        return PermissionsEnum::DLC_UPDATE->value === $attribute && $subject instanceof Dlc;
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool

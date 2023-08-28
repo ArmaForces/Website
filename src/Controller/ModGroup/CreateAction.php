@@ -24,7 +24,7 @@ class CreateAction extends AbstractController
     }
 
     #[Route('/mod-group/create', name: 'app_mod_group_create')]
-    #[IsGranted(PermissionsEnum::MOD_GROUP_CREATE)]
+    #[IsGranted(PermissionsEnum::MOD_GROUP_CREATE->value)]
     public function __invoke(Request $request): Response
     {
         $modGroupFormDto = new ModGroupFormDto();

@@ -19,7 +19,7 @@ class ListAction extends AbstractController
     }
 
     #[Route('/dlc/list', name: 'app_dlc_list')]
-    #[IsGranted(PermissionsEnum::DLC_LIST)]
+    #[IsGranted(PermissionsEnum::DLC_LIST->value)]
     public function __invoke(): Response
     {
         $dlcs = $this->dlcRepository->findBy([], ['name' => 'ASC']);

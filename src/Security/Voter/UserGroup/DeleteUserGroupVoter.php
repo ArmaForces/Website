@@ -15,7 +15,7 @@ class DeleteUserGroupVoter extends Voter
 {
     protected function supports(string $attribute, $subject): bool
     {
-        return PermissionsEnum::USER_GROUP_DELETE === $attribute && $subject instanceof UserGroup;
+        return PermissionsEnum::USER_GROUP_DELETE->value === $attribute && $subject instanceof UserGroup;
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool

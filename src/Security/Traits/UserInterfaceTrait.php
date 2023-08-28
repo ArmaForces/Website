@@ -24,6 +24,6 @@ trait UserInterfaceTrait
 
     public function getRoles(): array
     {
-        return [RoleEnum::ROLE_USER];
+        return [RoleEnum::ROLE_USER->value];
     }
 }

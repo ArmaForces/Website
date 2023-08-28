@@ -21,7 +21,7 @@ class ArmaForcesModsModFixture extends Fixture
             'ArmaForces - Mods',
             null,
             null,
-            ModTypeEnum::get(ModTypeEnum::REQUIRED),
+            ModTypeEnum::REQUIRED,
             1934142795
         );
         $mod->setCreatedAt(\DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2020-01-01 00:00:00'));

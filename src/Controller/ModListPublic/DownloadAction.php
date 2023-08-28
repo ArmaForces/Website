@@ -21,7 +21,7 @@ class DownloadAction extends AbstractController
     }
 
     #[Route('/mod-list/{name}/download/{optionalModsJson}', name: 'app_mod_list_public_download', options: ['expose' => true])]
-    #[IsGranted(PermissionsEnum::MOD_LIST_DOWNLOAD, 'modList')]
+    #[IsGranted(PermissionsEnum::MOD_LIST_DOWNLOAD->value, 'modList')]
     public function __invoke(ModList $modList, string $optionalModsJson = null): Response
     {
         $name = sprintf('ArmaForces %s %s', $modList->getName(), (new \DateTimeImmutable())->format('Y_m_d H_i'));

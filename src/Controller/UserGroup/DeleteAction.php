@@ -20,7 +20,7 @@ class DeleteAction extends AbstractController
     }
 
     #[Route('/user-group/{id}/delete', name: 'app_user_group_delete')]
-    #[IsGranted(PermissionsEnum::USER_GROUP_DELETE, 'userGroup')]
+    #[IsGranted(PermissionsEnum::USER_GROUP_DELETE->value, 'userGroup')]
     public function __invoke(UserGroup $userGroup): Response
     {
         $this->entityManager->remove($userGroup);

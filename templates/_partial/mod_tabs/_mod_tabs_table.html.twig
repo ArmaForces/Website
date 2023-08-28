@@ -18,7 +18,7 @@
             {% set mod = form.vars.choices[loop.index0].data %}
             {% if mod is instance_of('\\App\\Entity\\Mod\\SteamWorkshopMod') %}
                 {# @var mod \App\Entity\Mod\SteamWorkshopMod #}
-                {% set modType = mod.type.value %}
+                {% set modType = mod.type %}
             {% elseif mod is instance_of('\\App\\Entity\\Mod\\DirectoryMod') %}
                 {# @var mod \App\Entity\Mod\DirectoryMod #}
                 {# Treat Directory mods as Server side mods for BC #}

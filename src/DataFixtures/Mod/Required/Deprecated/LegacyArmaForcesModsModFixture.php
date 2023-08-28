@@ -21,8 +21,8 @@ class LegacyArmaForcesModsModFixture extends Fixture
             Uuid::fromString(self::ID),
             '[legacy] ArmaForces - Mods',
             null,
-            ModStatusEnum::get(ModStatusEnum::DEPRECATED),
-            ModTypeEnum::get(ModTypeEnum::REQUIRED),
+            ModStatusEnum::DEPRECATED,
+            ModTypeEnum::REQUIRED,
             1639399387
         );
 

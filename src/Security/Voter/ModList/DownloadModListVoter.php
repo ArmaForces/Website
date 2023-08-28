@@ -15,7 +15,7 @@ class DownloadModListVoter extends Voter
 {
     protected function supports(string $attribute, $subject): bool
     {
-        return PermissionsEnum::MOD_LIST_DOWNLOAD === $attribute && $subject instanceof ModList;
+        return PermissionsEnum::MOD_LIST_DOWNLOAD->value === $attribute && $subject instanceof ModList;
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool

@@ -14,7 +14,7 @@ class ApproveModListVoter extends Voter
 {
     protected function supports(string $attribute, $subject): bool
     {
-        return PermissionsEnum::MOD_LIST_APPROVE === $attribute;
+        return PermissionsEnum::MOD_LIST_APPROVE->value === $attribute;
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool

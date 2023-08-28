@@ -21,8 +21,8 @@ class ArmaForcesAceMedicalModFixture extends Fixture
             Uuid::fromString(self::ID),
             'ArmaForces - ACE Medical [OBSOLETE]',
             null,
-            ModStatusEnum::get(ModStatusEnum::BROKEN),
-            ModTypeEnum::get(ModTypeEnum::REQUIRED),
+            ModStatusEnum::BROKEN,
+            ModTypeEnum::REQUIRED,
             1704054308
         );
 

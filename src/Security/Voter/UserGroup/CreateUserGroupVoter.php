@@ -14,7 +14,7 @@ class CreateUserGroupVoter extends Voter
 {
     protected function supports(string $attribute, $subject): bool
     {
-        return PermissionsEnum::USER_GROUP_CREATE === $attribute;
+        return PermissionsEnum::USER_GROUP_CREATE->value === $attribute;
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool

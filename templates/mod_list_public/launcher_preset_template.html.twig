@@ -101,9 +101,9 @@
                 {# @var mod \App\Entity\Mod\SteamWorkshopMod #}
                 {% for mod in mods %}
                     {% set isModSelected = (mod.id.toString in optionalMods|keys and optionalMods[mod.id.toString] == true) %}
-                    {% set isModStatusNotDisabled = (mod.status is null or not mod.status.is(constant('App\\Entity\\Mod\\Enum\\ModStatusEnum::DISABLED'))) %}
-                    {% set isModTypeRequired = mod.type.is(constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::REQUIRED')) %}
-                    {% set isModUserSelectable = mod.type.value in [
+                    {% set isModStatusNotDisabled = (mod.status is null or mod.status is not constant('App\\Entity\\Mod\\Enum\\ModStatusEnum::DISABLED')) %}
+                    {% set isModTypeRequired = mod.type is constant('App\\Entity\\Mod\\Enum\\ModTypeEnum::REQUIRED') %}
+                    {% set isModUserSelectable = mod.type in [
                         constant('\\App\\Entity\\Mod\\Enum\\ModTypeEnum::OPTIONAL'),
                         constant('\\App\\Entity\\Mod\\Enum\\ModTypeEnum::CLIENT_SIDE')
                     ] %}

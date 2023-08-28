@@ -10,31 +10,31 @@
         <a class="nav-link" href="{{ path('app_mod_list_public_select') }}">{{ 'Get mods'|trans }}</a>
     </li>
     {% if
-        is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST'))
-        or is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_GROUP_LIST'))
-        or is_granted(constant('App\\Security\\Enum\\PermissionsEnum::DLC_LIST'))
-        or is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_LIST'))
+        is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST').value)
+        or is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_GROUP_LIST').value)
+        or is_granted(constant('App\\Security\\Enum\\PermissionsEnum::DLC_LIST').value)
+        or is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_LIST').value)
     %}
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                 {{ 'Manage mods'|trans }}
             </a>
             <div class="dropdown-menu">
-                {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST')) %}
+                {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST').value) %}
                     <a class="dropdown-item" href="{{ path('app_mod_list') }}">{{ 'Mods'|trans }}</a>
                 {% endif %}
 
-                {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_GROUP_LIST')) %}
+                {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_GROUP_LIST').value) %}
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ path('app_mod_group_list') }}">{{ 'Mod groups'|trans }}</a>
                 {% endif %}
 
-                {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::DLC_LIST')) %}
+                {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::DLC_LIST').value) %}
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ path('app_dlc_list') }}">{{ 'DLCs'|trans }}</a>
                 {% endif %}
 
-                {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_LIST')) %}
+                {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::MOD_LIST_LIST').value) %}
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ path('app_mod_list_list') }}">{{ 'Mod lists'|trans }}</a>
                 {% endif %}
@@ -42,19 +42,19 @@
         </li>
     {% endif %}
     {% if
-        is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USER_LIST'))
-        or is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USER_GROUP_LIST'))
+        is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USER_LIST').value)
+        or is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USER_GROUP_LIST').value)
     %}
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                 {{ 'Manage users'|trans }}
             </a>
             <div class="dropdown-menu">
-                {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USER_LIST')) %}
+                {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USER_LIST').value) %}
                     <a class="dropdown-item" href="{{ path('app_user_list') }}">{{ 'Users'|trans }}</a>
                 {% endif %}
 
-                {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USER_GROUP_LIST')) %}
+                {% if is_granted(constant('App\\Security\\Enum\\PermissionsEnum::USER_GROUP_LIST').value) %}
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ path('app_user_group_list') }}">{{ 'User groups'|trans }}</a>
                 {% endif %}

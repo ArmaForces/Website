@@ -20,7 +20,7 @@ class DeleteAction extends AbstractController
     }
 
     #[Route('/dlc/{id}/delete', name: 'app_dlc_delete')]
-    #[IsGranted(PermissionsEnum::DLC_DELETE, 'dlc')]
+    #[IsGranted(PermissionsEnum::DLC_DELETE->value, 'dlc')]
     public function __invoke(Dlc $dlc): Response
     {
         $this->entityManager->remove($dlc);

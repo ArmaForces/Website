@@ -21,7 +21,7 @@ class AceInteractionMenuExpansionModFixture extends Fixture
             'ACE Interaction Menu Expansion',
             null,
             null,
-            ModTypeEnum::get(ModTypeEnum::OPTIONAL),
+            ModTypeEnum::OPTIONAL,
             1376867375
         );
         $mod->setCreatedAt(\DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2020-01-01 00:00:00'));

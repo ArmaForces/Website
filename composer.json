@@ -4,7 +4,7 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
-        "php": ">=8.1",
+        "php": ">=8.2",
         "ext-ctype": "*",
         "ext-dom": "*",
         "ext-iconv": "*",
@@ -14,7 +14,6 @@
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.16",
-        "elao/enum": "^1.7",
         "erusev/parsedown": "^1.7",
         "friendsofsymfony/jsrouting-bundle": "^3.3",
         "knpuniversity/oauth2-client-bundle": "^2.15",

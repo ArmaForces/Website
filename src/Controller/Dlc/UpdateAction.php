@@ -25,7 +25,7 @@ class UpdateAction extends AbstractController
     }
 
     #[Route('/dlc/{id}/update', name: 'app_dlc_update')]
-    #[IsGranted(PermissionsEnum::DLC_UPDATE, 'dlc')]
+    #[IsGranted(PermissionsEnum::DLC_UPDATE->value, 'dlc')]
     public function __invoke(Request $request, Dlc $dlc): Response
     {
         $dlcFormDto = $this->dataTransformerRegistry->transformFromEntity(new DlcFormDto(), $dlc);

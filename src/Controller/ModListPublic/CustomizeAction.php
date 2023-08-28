@@ -20,7 +20,7 @@ class CustomizeAction extends AbstractController
     }
 
     #[Route('/mod-list/{name}', name: 'app_mod_list_public_customize', priority: -1)]
-    #[IsGranted(PermissionsEnum::MOD_LIST_DOWNLOAD, 'modList')]
+    #[IsGranted(PermissionsEnum::MOD_LIST_DOWNLOAD->value, 'modList')]
     public function __invoke(ModList $modList): Response
     {
         $optionalMods = $this->modRepository->findIncludedOptionalSteamWorkshopMods($modList);

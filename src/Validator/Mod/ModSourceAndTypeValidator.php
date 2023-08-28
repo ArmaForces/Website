@@ -23,7 +23,7 @@ class ModSourceAndTypeValidator extends AbstractValidator
             throw new UnexpectedTypeException($constraint, ModSourceAndType::class);
         }
 
-        if (ModSourceEnum::DIRECTORY === $value->getSource() && ModTypeEnum::SERVER_SIDE === $value->getType()) {
+        if (ModSourceEnum::DIRECTORY->value === $value->getSource() && ModTypeEnum::SERVER_SIDE->value === $value->getType()) {
             return;
         }
 

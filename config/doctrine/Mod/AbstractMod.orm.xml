@@ -7,7 +7,7 @@
     <entity name="App\Entity\Mod\AbstractMod" table="mods" repository-class="App\Repository\Mod\ModRepository" inheritance-type="SINGLE_TABLE">
         <field name="name" type="string" length="255"/>
         <field name="description" type="string" length="255" nullable="true"/>
-        <field name="status" type="mod_status_enum" length="255" nullable="true"/>
+        <field name="status" enum-type="App\Entity\Mod\Enum\ModStatusEnum" nullable="true"/>
 
         <discriminator-column name="source" type="string" length="255"/>
         <discriminator-map>

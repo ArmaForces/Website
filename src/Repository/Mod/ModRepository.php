@@ -56,9 +56,9 @@ class ModRepository extends ServiceEntityRepository
             ->addSelect('m')
             ->from(SteamWorkshopMod::class, 'm')
             ->andWhere($expr->in('m.type', [
-                ModTypeEnum::CLIENT_SIDE,
-                ModTypeEnum::OPTIONAL,
-                ModTypeEnum::REQUIRED,
+                ModTypeEnum::CLIENT_SIDE->value,
+                ModTypeEnum::OPTIONAL->value,
+                ModTypeEnum::REQUIRED->value,
             ]))
             ->addOrderBy('m.name', 'ASC')
         ;
@@ -79,8 +79,8 @@ class ModRepository extends ServiceEntityRepository
             ->addSelect('m')
             ->from(SteamWorkshopMod::class, 'm')
             ->andWhere($expr->in('m.type', [
-                ModTypeEnum::CLIENT_SIDE,
-                ModTypeEnum::OPTIONAL,
+                ModTypeEnum::CLIENT_SIDE->value,
+                ModTypeEnum::OPTIONAL->value,
             ]))
             ->addOrderBy('m.name', 'ASC')
         ;
@@ -100,7 +100,7 @@ class ModRepository extends ServiceEntityRepository
         $qb
             ->addSelect('m')
             ->from(SteamWorkshopMod::class, 'm')
-            ->andWhere($expr->eq('m.type', $expr->literal(ModTypeEnum::REQUIRED)))
+            ->andWhere($expr->eq('m.type', $expr->literal(ModTypeEnum::REQUIRED->value)))
             ->addOrderBy('m.name', 'ASC')
         ;
         $this->applyIncludedModsFilter($qb, $modList);

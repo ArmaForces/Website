@@ -15,7 +15,7 @@ class DeleteDlcVoter extends Voter
 {
     protected function supports(string $attribute, $subject): bool
     {
-        return PermissionsEnum::DLC_DELETE === $attribute && $subject instanceof Dlc;
+        return PermissionsEnum::DLC_DELETE->value === $attribute && $subject instanceof Dlc;
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool

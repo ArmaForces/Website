@@ -21,20 +21,17 @@ class ModOutputDataTransformer implements DataTransformerInterface
 
         $output->setId($object->getId()->toString());
         $output->setName($object->getName());
+        $output->setStatus($object->getStatus()?->value);
         $output->setCreatedAt($object->getCreatedAt());
         $output->setLastUpdatedAt($object->getLastUpdatedAt());
 
-        /** @var null|string $status */
-        $status = $object->getStatus() ? $object->getStatus()->getValue() : null;
-        $output->setStatus($status);
-
         if ($object instanceof SteamWorkshopMod) {
-            $output->setType($object->getType()->getValue());
-            $output->setSource(ModSourceEnum::STEAM_WORKSHOP);
+            $output->setType($object->getType()->value);
+            $output->setSource(ModSourceEnum::STEAM_WORKSHOP->value);
             $output->setItemId($object->getItemId());
         } elseif ($object instanceof DirectoryMod) {
-            $output->setType(ModTypeEnum::SERVER_SIDE);
-            $output->setSource(ModSourceEnum::DIRECTORY);
+            $output->setType(ModTypeEnum::SERVER_SIDE->value);
+            $output->setSource(ModSourceEnum::DIRECTORY->value);
             $output->setDirectory($object->getDirectory());
         }
 

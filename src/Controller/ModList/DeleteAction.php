@@ -20,7 +20,7 @@ class DeleteAction extends AbstractController
     }
 
     #[Route('/mod-list/{name}/delete', name: 'app_mod_list_delete')]
-    #[IsGranted(PermissionsEnum::MOD_LIST_DELETE, 'modList')]
+    #[IsGranted(PermissionsEnum::MOD_LIST_DELETE->value, 'modList')]
     public function __invoke(ModList $modList): Response
     {
         $this->entityManager->remove($modList);
