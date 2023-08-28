@@ -22,9 +22,9 @@ use Codeception\Lib\Friend;
  *
  * @SuppressWarnings(PHPMD)
  */
-class UnitTester extends Actor
+class IntegrationTester extends Actor
 {
-    use _generated\UnitTesterActions;
+    use _generated\IntegrationTesterActions;
 
     /**
      * Define custom actions here.

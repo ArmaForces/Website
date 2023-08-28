@@ -95,6 +95,7 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "App\\Tests\\": "tests/_support/",
             "App\\Tests\\Unit\\": "tests/unit",
             "App\\Tests\\Integration\\": "tests/integration",
             "App\\Tests\\Functional\\": "tests/functional"

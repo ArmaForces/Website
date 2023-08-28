@@ -15,8 +15,8 @@ services:
         volumes:
             # Copy tests into runtime
             - './.env.test:/www/app/.env.test:ro'
-            - './tests:/www/app/tests:ro'
-            - './phpunit.xml.dist:/www/app/phpunit.xml.dist:ro'
+            - './tests:/www/app/tests:rw'
+            - './codeception.yml:/www/app/codeception.yml'
             - './.php-cs-fixer.dist.php:/www/app/.php-cs-fixer.dist.php:ro'
             - './phpstan.neon.dist:/www/app/phpstan.neon.dist:ro'
         depends_on:

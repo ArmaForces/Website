@@ -1,16 +1,10 @@
-actor: FunctionalTester
+actor: IntegrationTester
 modules:
     enabled:
         -   Symfony:
                 app_path: 'src'
                 environment: 'test'
-                cache_router: true
-                rebootable_client: false
-                authenticator: true
         -   Doctrine2:
                 depends: Symfony
                 cleanup: true
-        -   REST:
-                url: /
-                depends: Symfony
         - Asserts
