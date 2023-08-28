@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Service;
+namespace App\Tests\Unit\Service\Mission;
 
 use App\Service\Mission\Enum\MissionStateEnum;
 use App\Service\Mission\MissionClient;

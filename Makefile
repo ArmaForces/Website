@@ -9,6 +9,7 @@ cs:
 	docker-compose exec -T php php vendor/bin/php-cs-fixer fix ${dryrun}
 	docker-compose exec -T php php vendor/bin/phpstan analyse --memory-limit 512M
 
+	docker-compose exec -T php php tests/tests_namespace_checker.php
 	docker-compose exec -T php php bin/console lint:twig templates/
 	docker-compose exec -T php php bin/console lint:yaml --parse-tags config/
 	docker-compose exec -T php php bin/console doctrine:schema:validate --env=${env}
