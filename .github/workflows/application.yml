@@ -26,8 +26,8 @@ jobs:
 
             -   name: Start stack
                 run: |
-                    docker-compose -f docker-compose.test.yml up --wait
-                    docker-compose exec -T php composer install
+                    docker compose -f docker-compose.test.yml up --wait
+                    docker compose exec -T php composer install
 
             -   name: Setup database
                 run: |
@@ -35,7 +35,7 @@ jobs:
 
             -   name: Run lint
                 run: |
-                    docker-compose exec -T php bin/console cache:warmup --env=dev
+                    docker compose exec -T php bin/console cache:warmup --env=dev
                     make cs env=test ci=true
 
             -   name: Run tests
