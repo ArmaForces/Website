@@ -24,6 +24,8 @@ services:
         image: mysql:5.7
         env_file:
             - .docker/mysql/vars.env
+        healthcheck:
+            test: [ "CMD", "mysqladmin", "ping", "--protocol", "tcp" ]
         ports:
             - "33060:3306"
 
