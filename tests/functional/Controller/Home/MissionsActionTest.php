@@ -36,7 +36,7 @@ final class MissionsActionTest extends WebTestCase
     /**
      * @test
      */
-    public function missionsUsAction_anonymousUser_returnsSuccessfulResponse(): void
+    public function missionsAction_anonymousUser_returnsSuccessfulResponse(): void
     {
         $crawler = $this->client->request(Request::METHOD_GET, RouteEnum::HOME_MISSIONS);
 
@@ -48,7 +48,7 @@ final class MissionsActionTest extends WebTestCase
      * @test
      * @dataProvider registeredUsersDataProvider
      */
-    public function missionsUsAction_authenticatedUser_returnsSuccessfulResponse(string $userId): void
+    public function missionsAction_authenticatedUser_returnsSuccessfulResponse(string $userId): void
     {
         $user = $this->userRepository->find($userId);
 
