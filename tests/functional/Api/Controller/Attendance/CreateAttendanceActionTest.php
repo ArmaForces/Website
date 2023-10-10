@@ -30,7 +30,6 @@ final class CreateAttendanceActionTest extends ApiTestCase
 
     /**
      * @test
-     * @dataProvider registeredUsersDataProvider
      */
     public function createAttendanceAction_validApiKey_returnsSuccessfulResponse(): void
     {
@@ -49,7 +48,6 @@ final class CreateAttendanceActionTest extends ApiTestCase
 
     /**
      * @test
-     * @dataProvider registeredUsersDataProvider
      */
     public function createAttendanceAction_invalidApiKey_returnsForbiddenResponse(): void
     {
@@ -71,7 +69,6 @@ final class CreateAttendanceActionTest extends ApiTestCase
 
     /**
      * @test
-     * @dataProvider registeredUsersDataProvider
      */
     public function createAttendanceAction_duplicatedEntry_returnsUnprocessableEntityResponse(): void
     {
