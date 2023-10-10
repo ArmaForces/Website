@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Service\Steam;
+namespace App\Service\SteamApiClient;
 
-use App\Service\Steam\Dto\AppInfoDto;
-use App\Service\Steam\Dto\WorkshopItemInfoDto;
-use App\Service\Steam\Exception\AppNotFoundException;
-use App\Service\Steam\Exception\WorkshopItemNotFoundException;
+use App\Service\SteamApiClient\Dto\AppInfoDto;
+use App\Service\SteamApiClient\Dto\WorkshopItemInfoDto;
+use App\Service\SteamApiClient\Exception\AppNotFoundException;
+use App\Service\SteamApiClient\Exception\WorkshopItemNotFoundException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -32,12 +32,13 @@ class SteamApiClient implements SteamApiClientInterface
 
         $responseArray = $response->toArray();
         $responseKey = $responseArray['response'];
-        $itemsCount = $responseKey['resultcount'];
-        if (1 !== $itemsCount) {
-            throw new WorkshopItemNotFoundException(sprintf('No items found by item id "%s"!', $itemId));
+        $publishedFileDetails = $responseKey['publishedfiledetails'][0] ?? null;
+
+        $timeCreated = $publishedFileDetails['time_created'] ?? null;
+        if (!$timeCreated) {
+            throw WorkshopItemNotFoundException::createForItemId($itemId);
         }
 
-        $publishedFileDetails = $responseKey['publishedfiledetails'][0] ?? null;
         $name = $publishedFileDetails['title'] ?? null;
         $gameId = $publishedFileDetails['creator_app_id'] ?? null;
 
@@ -57,7 +58,7 @@ class SteamApiClient implements SteamApiClientInterface
         $responseKey = $responseArray[$appId];
         $success = $responseKey['success'];
         if (!$success) {
-            throw new AppNotFoundException(sprintf('No apps found by app id "%s"!', $appId));
+            throw AppNotFoundException::createForAppId($appId);
         }
 
         $data = $responseKey['data'];

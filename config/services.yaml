@@ -81,6 +81,10 @@ services:
         arguments:
             $storagePath: '%kernel.project_dir%/var/cache_http/%kernel.environment%'
 
+    App\Service\SteamApiClient\SteamApiClient:
+        arguments:
+            $httpClient: '@client.steam_api'
+
     App\Service\Version\VersionProvider:
         arguments:
             $projectDir: '%kernel.project_dir%'

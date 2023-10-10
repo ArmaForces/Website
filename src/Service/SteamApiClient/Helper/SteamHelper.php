@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Service\Steam\Helper;
+namespace App\Service\SteamApiClient\Helper;
 
-use App\Service\Steam\Helper\Exception\InvalidAppUrlFormatException;
-use App\Service\Steam\Helper\Exception\InvalidWorkshopItemUrlFormatException;
+use App\Service\SteamApiClient\Helper\Exception\InvalidAppUrlFormatException;
+use App\Service\SteamApiClient\Helper\Exception\InvalidWorkshopItemUrlFormatException;
 
 class SteamHelper
 {

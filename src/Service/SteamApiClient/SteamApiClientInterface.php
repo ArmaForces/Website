@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Service\Steam;
+namespace App\Service\SteamApiClient;
 
-use App\Service\Steam\Dto\AppInfoDto;
-use App\Service\Steam\Dto\WorkshopItemInfoDto;
+use App\Service\SteamApiClient\Dto\AppInfoDto;
+use App\Service\SteamApiClient\Dto\WorkshopItemInfoDto;
 
 interface SteamApiClientInterface
 {

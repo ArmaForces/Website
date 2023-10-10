@@ -6,8 +6,8 @@ namespace App\Validator\Mod;
 
 use App\Entity\Mod\SteamWorkshopMod;
 use App\Form\Mod\Dto\ModFormDto;
-use App\Service\Steam\Helper\Exception\InvalidWorkshopItemUrlFormatException;
-use App\Service\Steam\Helper\SteamHelper;
+use App\Service\SteamApiClient\Helper\Exception\InvalidWorkshopItemUrlFormatException;
+use App\Service\SteamApiClient\Helper\SteamHelper;
 use App\Validator\AbstractValidator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
