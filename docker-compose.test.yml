@@ -28,5 +28,7 @@ services:
             - .docker/mysql/vars.env
         environment:
             MYSQL_DATABASE: 'af_website_test'
+        healthcheck:
+            test: [ "CMD", "mysqladmin", "ping", "--protocol", "tcp" ]
         ports:
             - "3306:3306"
