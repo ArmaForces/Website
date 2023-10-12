@@ -9,8 +9,8 @@ use App\Service\SteamApiClient\Helper\Exception\InvalidWorkshopItemUrlFormatExce
 
 class SteamHelper
 {
-    public const ITEM_URL_REGEX = '~^https://steamcommunity\.com/(?:sharedfiles|workshop)/filedetails/\?id=(\d+)$~';
-    public const APP_URL_REGEX = '~^https://store\.steampowered\.com/app/(\d+)~';
+    private const ITEM_URL_REGEX = '~^https://steamcommunity\.com/(?:sharedfiles|workshop)/filedetails/\?id=(\d+)$~';
+    private const APP_URL_REGEX = '~^https://store\.steampowered\.com/app/(\d+)~';
 
     public static function profileIdToProfileUrl(int $profileId): string
     {
