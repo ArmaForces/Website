@@ -5,18 +5,11 @@ declare(strict_types=1);
 namespace App\Tests\Integration\Service\Version;
 
 use App\Service\Version\VersionProvider;
-use PHPUnit\Framework\TestCase;
+use App\Tests\IntegrationTester;
 
-/**
- * @internal
- * @covers \App\Service\Version\VersionProvider
- */
-final class VersionProviderTest extends TestCase
+final class VersionProviderCest
 {
-    /**
-     * @test
-     */
-    public function getVersion_versionFileExist_returnsVersion(): void
+    public function testGetVersionNumberWhenFileExist(IntegrationTester $I): void
     {
         $fileContent = '1.0.0';
         $fileName = 'VERSION';
@@ -27,15 +20,12 @@ final class VersionProviderTest extends TestCase
         $versionProvider = new VersionProvider($fileDir);
         $version = $versionProvider->getVersion();
 
-        self::assertSame($fileContent, $version);
+        $I->assertSame($fileContent, $version);
 
         unlink($filePath);
     }
 
-    /**
-     * @test
-     */
-    public function getVersion_versionFileNotExist_returnsDefaultVersion(): void
+    public function testGetDefaultVersionNumberWhenFileNotExist(IntegrationTester $I): void
     {
         $defaultVersion = 'dev';
         $fileName = 'some_non_existing_file';
@@ -44,6 +34,6 @@ final class VersionProviderTest extends TestCase
         $versionProvider = new VersionProvider($fileDir, $fileName, $defaultVersion);
         $version = $versionProvider->getVersion();
 
-        self::assertSame($defaultVersion, $version);
+        $I->assertSame($defaultVersion, $version);
     }
 }
