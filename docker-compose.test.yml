@@ -20,15 +20,13 @@ services:
             - './.php-cs-fixer.dist.php:/www/app/.php-cs-fixer.dist.php:ro'
             - './phpstan.neon.dist:/www/app/phpstan.neon.dist:ro'
         depends_on:
-            - mysql
+            - pgsql
 
-    mysql:
-        image: mysql:5.7
+    pgsql:
+        image: postgres:16.0-alpine
         env_file:
-            - .docker/mysql/vars.env
+            - .docker/pgsql/vars.env
         environment:
-            MYSQL_DATABASE: 'af_website_test'
-        healthcheck:
-            test: [ "CMD", "mysqladmin", "ping", "--protocol", "tcp" ]
+            POSTGRES_DB: 'af_website_test'
         ports:
-            - "3306:3306"
+            - "5432:5432"
