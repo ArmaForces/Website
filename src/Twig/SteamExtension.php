@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Twig;
 
-use App\Service\Steam\Helper\SteamHelper;
+use App\Service\SteamApiClient\Helper\SteamHelper;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 

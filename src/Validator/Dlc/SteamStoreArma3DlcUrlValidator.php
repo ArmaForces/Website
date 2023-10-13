@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Validator\Dlc;
 
 use App\Form\Dlc\Dto\DlcFormDto;
-use App\Service\Steam\Exception\AppNotFoundException;
-use App\Service\Steam\Helper\Exception\InvalidAppUrlFormatException;
-use App\Service\Steam\Helper\SteamHelper;
-use App\Service\Steam\SteamApiClientInterface;
+use App\Service\SteamApiClient\Exception\AppNotFoundException;
+use App\Service\SteamApiClient\Helper\Exception\InvalidAppUrlFormatException;
+use App\Service\SteamApiClient\Helper\SteamHelper;
+use App\Service\SteamApiClient\SteamApiClientInterface;
 use App\Validator\AbstractValidator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Constraint;

@@ -9,8 +9,8 @@ use App\Entity\Dlc\Dlc;
 use App\Form\Dlc\Dto\DlcFormDto;
 use App\Form\FormDtoInterface;
 use App\Form\RegisteredDataTransformerInterface;
-use App\Service\Steam\Helper\SteamHelper;
-use App\Service\Steam\SteamApiClientInterface;
+use App\Service\SteamApiClient\Helper\SteamHelper;
+use App\Service\SteamApiClient\SteamApiClientInterface;
 use Ramsey\Uuid\Uuid;
 
 class DlcFormDtoDataTransformer implements RegisteredDataTransformerInterface

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Validator\Mod;
 
 use App\Form\Mod\Dto\ModFormDto;
-use App\Service\Steam\Exception\WorkshopItemNotFoundException;
-use App\Service\Steam\Helper\Exception\InvalidWorkshopItemUrlFormatException;
-use App\Service\Steam\Helper\SteamHelper;
-use App\Service\Steam\SteamApiClientInterface;
+use App\Service\SteamApiClient\Exception\WorkshopItemNotFoundException;
+use App\Service\SteamApiClient\Helper\Exception\InvalidWorkshopItemUrlFormatException;
+use App\Service\SteamApiClient\Helper\SteamHelper;
+use App\Service\SteamApiClient\SteamApiClientInterface;
 use App\Validator\AbstractValidator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Constraint;

@@ -14,8 +14,8 @@ use App\Entity\Mod\SteamWorkshopMod;
 use App\Form\FormDtoInterface;
 use App\Form\Mod\Dto\ModFormDto;
 use App\Form\RegisteredDataTransformerInterface;
-use App\Service\Steam\Helper\SteamHelper;
-use App\Service\Steam\SteamApiClientInterface;
+use App\Service\SteamApiClient\Helper\SteamHelper;
+use App\Service\SteamApiClient\SteamApiClientInterface;
 use Ramsey\Uuid\Uuid;
 
 class ModFormDtoDataTransformer implements RegisteredDataTransformerInterface

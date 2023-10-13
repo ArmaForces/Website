@@ -1,0 +1,44 @@
+{
+    "response": {
+        "result": 1,
+        "resultcount": 1,
+        "publishedfiledetails": [
+            {
+                "publishedfileid": "1934142795",
+                "result": 1,
+                "creator": "76561199002669156",
+                "creator_app_id": 107410,
+                "consumer_app_id": 107410,
+                "filename": "",
+                "file_size": 30551990,
+                "file_url": "",
+                "hcontent_file": "5032060125057666325",
+                "preview_url": "https://steamuserimages-a.akamaihd.net/ugc/770609890915323775/A25459A5CA3CCDA214F4B5E1D8537D125E4739AD/",
+                "hcontent_preview": "770609890915323775",
+                "title": "ArmaForces - Mods",
+                "description": "[b]ArmaForces Mods[/b] is a collaborative effort by the members of [url=https://armaforces.com]ArmaForces[/url], polish Arma 3 community.\r\n\r\nMain purpose of this addon is to bend and adjust Arma 3 game features to the Group gameplay needs and style.\r\n\r\n\r\nhttps://github.com/ArmaForces/Mods",
+                "time_created": 1576074419,
+                "time_updated": 1696695976,
+                "visibility": 0,
+                "banned": 0,
+                "ban_reason": "",
+                "subscriptions": 360,
+                "favorited": 8,
+                "lifetime_subscriptions": 728,
+                "lifetime_favorited": 9,
+                "views": 894,
+                "tags": [
+                    {
+                        "tag": "Mod"
+                    },
+                    {
+                        "tag": "Mechanics"
+                    },
+                    {
+                        "tag": "Editor Extension"
+                    }
+                ]
+            }
+        ]
+    }
+}
