@@ -44,7 +44,7 @@ RUN set -eux; \
         zip \
         apcu \
         opcache \
-        pdo_mysql \
+        pdo_pgsql \
     ;
 
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"

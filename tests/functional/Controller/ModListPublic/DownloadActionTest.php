@@ -61,10 +61,10 @@ final class DownloadActionTest extends WebTestCase
         $this::assertResponseStatusCodeSame(Response::HTTP_OK);
         $this::assertResponseContainsModListAttachmentHeader($this->client->getResponse(), $subjectModList);
         $this::assertLauncherPresetContainsMods($crawler, [
-            $this->steamWorkshopModRepository->find(Required\Deprecated\LegacyArmaForcesModsModFixture::ID),
             $this->steamWorkshopModRepository->find(Optional\AceInteractionMenuExpansionModFixture::ID),
             $this->steamWorkshopModRepository->find(Required\Broken\ArmaForcesAceMedicalModFixture::ID),
             $this->steamWorkshopModRepository->find(Required\ArmaForcesModsModFixture::ID),
+            $this->steamWorkshopModRepository->find(Required\Deprecated\LegacyArmaForcesModsModFixture::ID),
         ]);
     }
 
@@ -83,9 +83,9 @@ final class DownloadActionTest extends WebTestCase
         $this::assertResponseStatusCodeSame(Response::HTTP_OK);
         $this::assertResponseContainsModListAttachmentHeader($this->client->getResponse(), $subjectModList);
         $this::assertLauncherPresetContainsMods($crawler, [
-            $this->steamWorkshopModRepository->find(Required\Deprecated\LegacyArmaForcesModsModFixture::ID),
             $this->steamWorkshopModRepository->find(Required\Broken\ArmaForcesAceMedicalModFixture::ID),
             $this->steamWorkshopModRepository->find(Required\ArmaForcesModsModFixture::ID),
+            $this->steamWorkshopModRepository->find(Required\Deprecated\LegacyArmaForcesModsModFixture::ID),
         ]);
     }
 
