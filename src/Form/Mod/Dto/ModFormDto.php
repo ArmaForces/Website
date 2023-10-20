@@ -6,7 +6,6 @@ namespace App\Form\Mod\Dto;
 
 use App\Entity\Mod\Enum\ModSourceEnum;
 use App\Form\AbstractFormDto;
-use App\Validator\Mod\ModSourceAndType;
 use App\Validator\Mod\SteamWorkshopArma3ModUrl;
 use App\Validator\Mod\UniqueDirectoryMod;
 use App\Validator\Mod\UniqueSteamWorkshopMod;
@@ -17,7 +16,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[UniqueSteamWorkshopMod(groups: [ModSourceEnum::STEAM_WORKSHOP->value])]
 #[SteamWorkshopArma3ModUrl(groups: [ModSourceEnum::STEAM_WORKSHOP->value], errorPath: 'url', nameErrorPath: 'name')]
 #[UniqueDirectoryMod(groups: [ModSourceEnum::DIRECTORY->value])]
-#[ModSourceAndType(errorPath: 'source')]
 class ModFormDto extends AbstractFormDto
 {
     protected ?UuidInterface $id = null;

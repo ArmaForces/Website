@@ -37,6 +37,9 @@ class SteamWorkshopArma3ModUrlValidator extends AbstractValidator
 
         $name = $value->getName();
         $url = $value->getUrl();
+        if ('' === $url || null === $url) {
+            return;
+        }
 
         try {
             $itemId = SteamHelper::itemUrlToItemId($url);
