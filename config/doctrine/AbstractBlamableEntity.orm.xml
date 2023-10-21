@@ -12,7 +12,7 @@
             </cascade>
         </many-to-one>
 
-        <field name="lastUpdatedAt" type="datetime_immutable" nullable="true"/>
+        <field name="lastUpdatedAt" type="datetimetz_immutable" nullable="true"/>
         <many-to-one field="lastUpdatedBy" target-entity="App\Entity\User\User">
             <join-column name="last_updated_by" referenced-column-name="id"/>
             <cascade>
