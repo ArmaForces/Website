@@ -6,7 +6,7 @@
 
     <mapped-superclass name="App\Entity\AbstractEntity">
         <id name="id" type="uuid"/>
-        <field name="createdAt" type="datetime_immutable"/>
+        <field name="createdAt" type="datetimetz_immutable"/>
 
         <indexes>
             <index columns="created_at"/>

@@ -19,12 +19,12 @@ services:
         volumes:
             - './public:/www/app/public:ro'
 
-    mysql:
-        image: mysql:5.7
+    pgsql:
+        image: postgres:16.0-alpine
         env_file:
-            - .docker/mysql/vars.env
+            - .docker/pgsql/vars.env
         ports:
-            - "33060:3306"
+            - "5432:5432"
 
     imgproxy:
         image: darthsim/imgproxy:v2
