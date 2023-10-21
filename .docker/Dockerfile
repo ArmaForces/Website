@@ -27,7 +27,6 @@ RUN apk add --no-cache \
         file \
         gettext \
         git \
-        postgresql-dev \
     ;
 
 ARG APCU_VERSION=5.1.18
@@ -37,6 +36,7 @@ RUN set -eux; \
         icu-dev \
         libzip-dev \
         zlib-dev \
+        postgresql-dev \
     ; \
     \
     docker-php-ext-configure zip; \
