@@ -54,10 +54,14 @@ final class GetModListsByIdActionTest extends ApiTestCase
             'name' => 'Default',
             'active' => true,
             'approved' => false,
+            'createdAt' => '2020-01-01T00:00:00+00:00',
+            'lastUpdatedAt' => null,
             'mods' => [
                 [
                     'id' => '37f58e30-5194-4594-89af-4a82c7fc02be',
                     'name' => 'ACE Interaction Menu Expansion',
+                    'createdAt' => '2020-01-01T00:00:00+00:00',
+                    'lastUpdatedAt' => null,
                     'source' => 'steam_workshop',
                     'status' => null,
                     'type' => 'optional',
@@ -67,6 +71,8 @@ final class GetModListsByIdActionTest extends ApiTestCase
                 [
                     'id' => '2f1d2dea-a7a6-4509-b478-66a980d724ca',
                     'name' => 'ArmaForces - ACE Medical [OBSOLETE]',
+                    'createdAt' => '2020-01-01T00:00:00+00:00',
+                    'lastUpdatedAt' => null,
                     'source' => 'steam_workshop',
                     'status' => 'broken',
                     'type' => 'required',
@@ -76,6 +82,8 @@ final class GetModListsByIdActionTest extends ApiTestCase
                 [
                     'id' => '0e4e059c-eef6-42a9-aec3-abdab344ec21',
                     'name' => 'ArmaForces - Mods',
+                    'createdAt' => '2020-01-01T00:00:00+00:00',
+                    'lastUpdatedAt' => null,
                     'source' => 'steam_workshop',
                     'status' => null,
                     'type' => 'required',
