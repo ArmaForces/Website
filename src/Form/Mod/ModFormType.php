@@ -27,9 +27,14 @@ class ModFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        /** @var ModFormDto $modFormDto */
+        $modFormDto = $options['data'];
+        $modExists = null !== $modFormDto->getId();
+
         $builder
             ->add('source', ChoiceType::class, [
                 'label' => 'Mod source',
+                'disabled' => $modExists,
                 'choices' => [
                     'Steam Workshop' => ModSourceEnum::STEAM_WORKSHOP->value,
                     'Directory' => ModSourceEnum::DIRECTORY->value,
