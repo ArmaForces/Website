@@ -6,6 +6,8 @@ namespace App\Entity;
 
 use Ramsey\Uuid\UuidInterface;
 
+use function Symfony\Component\Clock\now;
+
 abstract class AbstractEntity
 {
     protected \DateTimeInterface $createdAt;
@@ -13,7 +15,7 @@ abstract class AbstractEntity
     public function __construct(
         protected UuidInterface $id,
     ) {
-        $this->createdAt = new \DateTimeImmutable();
+        $this->createdAt = now();
     }
 
     public function getId(): UuidInterface
@@ -24,10 +26,5 @@ abstract class AbstractEntity
     public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $createdAt): void
-    {
-        $this->createdAt = $createdAt;
     }
 }

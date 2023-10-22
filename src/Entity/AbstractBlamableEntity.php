@@ -6,6 +6,8 @@ namespace App\Entity;
 
 use App\Entity\User\User;
 
+use function Symfony\Component\Clock\now;
+
 abstract class AbstractBlamableEntity extends AbstractEntity
 {
     protected ?User $createdBy = null;
@@ -19,7 +21,7 @@ abstract class AbstractBlamableEntity extends AbstractEntity
 
     public function updated(User $user): void
     {
-        $this->lastUpdatedAt = new \DateTimeImmutable();
+        $this->lastUpdatedAt = now();
         $this->lastUpdatedBy = $user;
     }
 

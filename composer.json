@@ -25,6 +25,7 @@
         "react/async": "^4.1",
         "spatie/calendar-links": "^1.8",
         "symfony/asset": "6.3.*",
+        "symfony/clock": "6.3.*",
         "symfony/console": "6.3.*",
         "symfony/doctrine-messenger": "6.3.*",
         "symfony/dotenv": "6.3.*",
