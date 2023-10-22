@@ -7,12 +7,15 @@ namespace App\DataFixtures\ModList;
 use App\DataFixtures\Mod\Optional;
 use App\DataFixtures\Mod\Required;
 use App\Entity\ModList\ModList;
+use App\Test\Traits\TimeTrait;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Ramsey\Uuid\Uuid;
 
 class DefaultModListFixture extends Fixture
 {
+    use TimeTrait;
+
     public const ID = 'f3e04dae-18a8-4533-99ea-d6d763ebabcf';
 
     public function load(ObjectManager $manager): void
@@ -25,22 +28,23 @@ class DefaultModListFixture extends Fixture
             $this->getReference(Required\Disabled\ArmaForcesJbadBuildingFixModFixture::ID),
         ];
 
-        $modList = new ModList(
-            Uuid::fromString(self::ID),
-            'Default',
-            null,
-            $mods,
-            [],
-            [],
-            null,
-            true,
-            false,
-        );
-        $modList->setCreatedAt(\DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2020-01-01 00:00:00'));
+        $this->withTimeFrozenAt('2020-01-01T00:00:00+00:00', function () use ($manager, $mods): void {
+            $modList = new ModList(
+                Uuid::fromString(self::ID),
+                'Default',
+                null,
+                $mods,
+                [],
+                [],
+                null,
+                true,
+                false,
+            );
 
-        $manager->persist($modList);
-        $manager->flush();
+            $manager->persist($modList);
+            $manager->flush();
 
-        $this->addReference(self::ID, $modList);
+            $this->addReference(self::ID, $modList);
+        });
     }
 }
