@@ -122,7 +122,7 @@ class DiscordAuthenticator extends OAuth2Authenticator implements Authentication
             Endpoint::bind(Endpoint::USER_CURRENT_CONNECTIONS)
         ));
         $steamConnection = (new ArrayCollection($userConnectionsResponse))
-            ->filter(static fn (\stdClass $connection) => ConnectionsEnum::STEAM === $connection->type)
+            ->filter(static fn (\stdClass $connection) => ConnectionsEnum::STEAM->value === $connection->type)
             ->first()
         ;
 
