@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints\Regex;
 class WindowsDirectoryName extends Regex
 {
     /** @var string */
-    public $message = 'Invalid directory name';
+    public $message = 'Invalid directory name.';
 
     /** @var string */
     public $pattern = '/^.{1,248}[^<>:"\/\|?*]$/ui';

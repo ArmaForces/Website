@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraint;
 #[\Attribute(\Attribute::TARGET_CLASS | \Attribute::IS_REPEATABLE)]
 class UniqueAttendance extends Constraint
 {
-    public string $message = 'Attendance of player "{{ playerId }}" in mission "{{ missionId }}" already exists';
+    public string $message = 'Attendance of player "{{ playerId }}" in mission "{{ missionId }}" already exists.';
     public ?string $errorPath = null;
 
     public function __construct(

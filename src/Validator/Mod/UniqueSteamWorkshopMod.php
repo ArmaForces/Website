@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraint;
 #[\Attribute(\Attribute::TARGET_CLASS | \Attribute::IS_REPEATABLE)]
 class UniqueSteamWorkshopMod extends Constraint
 {
-    public string $message = 'Mod associated with url "{{ modUrl }}" already exist';
+    public string $message = 'Mod associated with url "{{ modUrl }}" already exist.';
     public ?string $errorPath = null;
 
     public function __construct(

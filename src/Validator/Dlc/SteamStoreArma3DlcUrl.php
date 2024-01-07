@@ -9,9 +9,9 @@ use Symfony\Component\Validator\Constraint;
 #[\Attribute(\Attribute::TARGET_CLASS | \Attribute::IS_REPEATABLE)]
 class SteamStoreArma3DlcUrl extends Constraint
 {
-    public string $invalidDlcUrlMessage = 'Invalid Steam Store DLC url';
-    public string $dlcNotFoundMessage = 'DLC not found';
-    public string $notAnArma3DlcMessage = 'Url is not an Arma 3 DLC';
+    public string $invalidDlcUrlMessage = 'Invalid Steam Store DLC url.';
+    public string $dlcNotFoundMessage = 'DLC not found.';
+    public string $notAnArma3DlcMessage = 'Url is not an Arma 3 DLC.';
     public ?string $errorPath = null;
 
     public function __construct(

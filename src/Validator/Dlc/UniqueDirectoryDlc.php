@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraint;
 #[\Attribute(\Attribute::TARGET_CLASS | \Attribute::IS_REPEATABLE)]
 class UniqueDirectoryDlc extends Constraint
 {
-    public string $message = 'DLC associated with directory "{{ directoryName }}" already exist';
+    public string $message = 'DLC associated with directory "{{ directoryName }}" already exist.';
     public ?string $errorPath = null;
 
     public function __construct(

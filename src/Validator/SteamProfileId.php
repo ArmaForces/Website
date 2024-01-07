@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints\Regex;
 class SteamProfileId extends Regex
 {
     /** @var string */
-    public $message = 'Invalid Steam profile ID';
+    public $message = 'Invalid Steam profile ID.';
 
     /** @var string */
     public $pattern = '~^\d{17}$~';
