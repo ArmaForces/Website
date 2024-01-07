@@ -10,9 +10,7 @@ use App\Validator\SteamProfileId;
 use App\Validator\User\UniqueUserSteamId;
 use Ramsey\Uuid\UuidInterface;
 
-/**
- * @UniqueUserSteamId(errorPath="steamId")
- */
+#[UniqueUserSteamId(errorPath: 'steamId')]
 class UserFormDto extends AbstractFormDto
 {
     protected ?UuidInterface $id = null;

@@ -15,9 +15,7 @@ use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @UniqueModListName(errorPath="name")
- */
+#[UniqueModListName(errorPath: 'name')]
 class ModListFormDto extends AbstractFormDto
 {
     protected ?UuidInterface $id = null;
