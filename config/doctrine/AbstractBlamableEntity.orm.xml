@@ -6,7 +6,7 @@
 
     <mapped-superclass name="App\Entity\AbstractBlamableEntity">
         <many-to-one field="createdBy" target-entity="App\Entity\User\User">
-            <join-column name="created_by" referenced-column-name="id"/>
+            <join-column name="created_by" referenced-column-name="id" on-delete="SET NULL"/>
             <cascade>
                 <cascade-persist/>
             </cascade>
@@ -14,7 +14,7 @@
 
         <field name="lastUpdatedAt" type="datetimetz_immutable" nullable="true"/>
         <many-to-one field="lastUpdatedBy" target-entity="App\Entity\User\User">
-            <join-column name="last_updated_by" referenced-column-name="id"/>
+            <join-column name="last_updated_by" referenced-column-name="id" on-delete="SET NULL"/>
             <cascade>
                 <cascade-persist/>
             </cascade>
