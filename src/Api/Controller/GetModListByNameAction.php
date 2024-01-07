@@ -17,9 +17,7 @@ class GetModListByNameAction
 
     public function __invoke(string $name): ?ModList
     {
-        $modList = $this->modListRepository->findOneBy([
-            'name' => $name,
-        ]);
+        $modList = $this->modListRepository->findOneByName($name);
 
         if (!$modList) {
             throw new NotFoundHttpException('Not Found');
