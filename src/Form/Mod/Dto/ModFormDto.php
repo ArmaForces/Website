@@ -13,9 +13,9 @@ use App\Validator\WindowsDirectoryName;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[UniqueSteamWorkshopMod(groups: [ModSourceEnum::STEAM_WORKSHOP->value])]
+#[UniqueSteamWorkshopMod(groups: [ModSourceEnum::STEAM_WORKSHOP->value], errorPath: 'url')]
 #[SteamWorkshopArma3ModUrl(groups: [ModSourceEnum::STEAM_WORKSHOP->value], errorPath: 'url', nameErrorPath: 'name')]
-#[UniqueDirectoryMod(groups: [ModSourceEnum::DIRECTORY->value])]
+#[UniqueDirectoryMod(groups: [ModSourceEnum::DIRECTORY->value], errorPath: 'directory')]
 class ModFormDto extends AbstractFormDto
 {
     protected ?UuidInterface $id = null;

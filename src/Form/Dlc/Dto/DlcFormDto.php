@@ -13,8 +13,8 @@ use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[SteamStoreArma3DlcUrl(errorPath: 'url')]
-#[UniqueSteamStoreDlc]
-#[UniqueDirectoryDlc]
+#[UniqueSteamStoreDlc(errorPath: 'url')]
+#[UniqueDirectoryDlc(errorPath: 'directory')]
 class DlcFormDto extends AbstractFormDto
 {
     protected ?UuidInterface $id = null;
