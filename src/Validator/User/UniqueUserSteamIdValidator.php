@@ -24,8 +24,12 @@ class UniqueUserSteamIdValidator extends AbstractValidator
         }
 
         $steamId = $value->getSteamId();
+        if (null === $steamId) {
+            return;
+        }
+
         $id = $value->getId();
-        if (!$steamId || $this->isColumnValueUnique(User::class, ['steamId' => $steamId], $id)) {
+        if ($this->isColumnValueUnique(User::class, ['steamId' => $steamId], $id)) {
             return;
         }
 

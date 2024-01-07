@@ -36,6 +36,9 @@ class SteamStoreArma3DlcUrlValidator extends AbstractValidator
         }
 
         $url = $value->getUrl();
+        if ('' === $url || null === $url) {
+            return;
+        }
 
         try {
             $appId = SteamHelper::appUrlToAppId($url);
