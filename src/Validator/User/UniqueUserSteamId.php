@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraint;
 #[\Attribute(\Attribute::TARGET_CLASS | \Attribute::IS_REPEATABLE)]
 class UniqueUserSteamId extends Constraint
 {
-    public string $message = 'User with the same Steam ID "{{ userSteamId }}" already exist';
+    public string $message = 'User with the same Steam ID "{{ userSteamId }}" already exist.';
     public ?string $errorPath = null;
 
     public function __construct(

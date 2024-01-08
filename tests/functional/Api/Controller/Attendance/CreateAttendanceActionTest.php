@@ -84,7 +84,7 @@ final class CreateAttendanceActionTest extends ApiTestCase
 
         $this::assertResponseStatusCodeSame(Response::HTTP_UNPROCESSABLE_ENTITY);
         $this::assertJsonContains([
-            'detail' => 'Attendance of player "76561198048200529" in mission "mission_1" already exists',
+            'detail' => 'Attendance of player "76561198048200529" in mission "mission_1" already exists.',
         ]);
     }
 }

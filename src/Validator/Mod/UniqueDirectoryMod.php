@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraint;
 #[\Attribute(\Attribute::TARGET_CLASS | \Attribute::IS_REPEATABLE)]
 class UniqueDirectoryMod extends Constraint
 {
-    public string $message = 'Mod associated with directory "{{ directoryName }}" already exist';
+    public string $message = 'Mod associated with directory "{{ directoryName }}" already exist.';
     public ?string $errorPath = null;
 
     public function __construct(

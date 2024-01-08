@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraint;
 #[\Attribute(\Attribute::TARGET_CLASS | \Attribute::IS_REPEATABLE)]
 class UniqueModGroupName extends Constraint
 {
-    public string $message = 'Mod group with the same name "{{ modGroupName }}" already exist';
+    public string $message = 'Mod group with the same name "{{ modGroupName }}" already exist.';
     public ?string $errorPath = null;
 
     public function __construct(

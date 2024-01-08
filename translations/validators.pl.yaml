@@ -1,40 +1,40 @@
 # Unique User Steam Id Validator
-User with the same Steam ID "{{ userSteamId }}" already exist: Użytkownik o Steam ID "{{ userSteamId }}" już istnieje
+User with the same Steam ID "{{ userSteamId }}" already exist.: Użytkownik o Steam ID "{{ userSteamId }}" już istnieje.
 
 # Steam Profile Id Validator
-Invalid Steam profile ID: Błędne ID profilu Steam
+Invalid Steam profile ID.: Błędne ID profilu Steam
 
 # Unique Steam Workshop Mod Validator
-Mod associated with url "{{ modUrl }}" already exist: Mod znajdujący się pod adresem "{{ modUrl }}" już istnieje
+Mod associated with url "{{ modUrl }}" already exist.: Mod znajdujący się pod adresem "{{ modUrl }}" już istnieje.
 
 # Unique Steam Store Dlc Validator
-DLC associated with url "{{ dlcUrl }}" already exist: DLC znajdujący się pod adresem "{{ dlcUrl }}" już istnieje
+DLC associated with url "{{ dlcUrl }}" already exist.: DLC znajdujący się pod adresem "{{ dlcUrl }}" już istnieje.
 
 # Unique Directory Mod Validator
-Mod associated with directory "{{ directoryName }}" already exist: Mod znajdujący się w katalogu "{{ directoryName }}" już istnieje
+Mod associated with directory "{{ directoryName }}" already exist.: Mod znajdujący się w katalogu "{{ directoryName }}" już istnieje.
 
 # Unique Directory Dlc Validator
-DLC associated with directory "{{ directoryName }}" already exist: DLC znajdujący się w katalogu "{{ directoryName }}" już istnieje
+DLC associated with directory "{{ directoryName }}" already exist.: DLC znajdujący się w katalogu "{{ directoryName }}" już istnieje.
 
 # Steam Workshop Arma 3 Mod Url Validator
-Invalid Steam Workshop mod url: Błędny link do moda
-Mod not found: Nie znaleziono moda
-Url is not an Arma 3 mod: Mod nie jest modem do Arma 3
-Mod is either private or missing required details: Mod jest prywatny lub nie zawiera niezbędnych do jego dodania informacji
+Invalid Steam Workshop mod url.: Błędny link do moda.
+Mod not found.: Nie znaleziono moda.
+Url is not an Arma 3 mod.: Mod nie jest modem do Arma 3.
+Mod is either private or missing required details.: Mod jest prywatny lub nie zawiera niezbędnych do jego dodania informacji.
 
 # Steam Store Arma 3 Dlc Url Validator
-Invalid Steam Workshop DLC url: Błędny link do DLC
-DLC not found: Nie znaleziono DLC
-Url is not an Arma 3 DLC: DLC nie jest dodatkiem do Arma 3
+Invalid Steam Workshop DLC url.: Błędny link do DLC.
+DLC not found.: Nie znaleziono DLC.
+Url is not an Arma 3 DLC.: DLC nie jest dodatkiem do Arma 3.
 
 # Windows Directory Name Validator
-Invalid directory name: Błędny format nazwy katalogu
+Invalid directory name.: Błędny format nazwy katalogu.
 
 # Unique Mod List Name Validator
-Mod list with the same name "{{ modListName }}" already exist: Lista modów o nazwie "{{ modListName }}" już istnieje
+Mod list with the same name "{{ modListName }}" already exist.: Lista modów o nazwie "{{ modListName }}" już istnieje.
 
 # Unique Mod Group Name Validator
-Mod group with the same name "{{ modGroupName }}" already exist: Grupa modów o nazwie "{{ modGroupName }}" już istnieje
+Mod group with the same name "{{ modGroupName }}" already exist.: Grupa modów o nazwie "{{ modGroupName }}" już istnieje.
 
 # Unique User Group Name Validator
-User group with the same name "{{ userGroupName }}" already exist: Grupa użytkowników o nazwie "{{ userGroupName }}" już istnieje
+User group with the same name "{{ userGroupName }}" already exist.: Grupa użytkowników o nazwie "{{ userGroupName }}" już istnieje.

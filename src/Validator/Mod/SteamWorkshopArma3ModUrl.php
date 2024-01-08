@@ -9,10 +9,10 @@ use Symfony\Component\Validator\Constraint;
 #[\Attribute(\Attribute::TARGET_CLASS | \Attribute::IS_REPEATABLE)]
 class SteamWorkshopArma3ModUrl extends Constraint
 {
-    public string $invalidModUrlMessage = 'Invalid Steam Workshop mod url';
-    public string $modNotFoundMessage = 'Mod not found';
-    public string $notAnArma3ModMessage = 'Url is not an Arma 3 mod';
-    public string $modIsPrivateOrMissingDetails = 'Mod is either private or missing required details';
+    public string $invalidModUrlMessage = 'Invalid Steam Workshop mod url.';
+    public string $modNotFoundMessage = 'Mod not found.';
+    public string $notAnArma3ModMessage = 'Url is not an Arma 3 mod.';
+    public string $modIsPrivateOrMissingDetails = 'Mod is either private or missing required details.';
     public ?string $errorPath = null;
     public ?string $nameErrorPath = null;
 

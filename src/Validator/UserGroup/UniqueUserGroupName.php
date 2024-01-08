@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraint;
 #[\Attribute(\Attribute::TARGET_CLASS | \Attribute::IS_REPEATABLE)]
 class UniqueUserGroupName extends Constraint
 {
-    public string $message = 'User group with the same name "{{ userGroupName }}" already exist';
+    public string $message = 'User group with the same name "{{ userGroupName }}" already exist.';
     public ?string $errorPath = null;
 
     public function __construct(
