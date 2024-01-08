@@ -1,0 +1,59 @@
+<fieldset class="form-group">
+    <legend class="col-form-label">{{ title }}</legend>
+
+    <fieldset class="form-group">
+        <legend class="col-form-label">{{ 'Users'|trans }}</legend>
+
+        {{ form_row(form.userList) }}
+        {{ form_row(form.userUpdate) }}
+        {{ form_row(form.userDelete) }}
+    </fieldset>
+
+    <fieldset class="form-group">
+        <legend class="col-form-label">{{ 'User groups'|trans }}</legend>
+
+        {{ form_row(form.userGroupList) }}
+        {{ form_row(form.userGroupCreate) }}
+        {{ form_row(form.userGroupUpdate) }}
+        {{ form_row(form.userGroupDelete) }}
+    </fieldset>
+
+    <fieldset class="form-group">
+        <legend class="col-form-label">{{ 'Mods'|trans }}</legend>
+
+        {{ form_row(form.modList) }}
+        {{ form_row(form.modCreate) }}
+        {{ form_row(form.modUpdate) }}
+        {{ form_row(form.modDelete) }}
+        {{ form_row(form.modChangeStatus) }}
+    </fieldset>
+
+    <fieldset class="form-group">
+        <legend class="col-form-label">{{ 'Mod groups'|trans }}</legend>
+
+        {{ form_row(form.modGroupList) }}
+        {{ form_row(form.modGroupCreate) }}
+        {{ form_row(form.modGroupUpdate) }}
+        {{ form_row(form.modGroupDelete) }}
+    </fieldset>
+
+    <fieldset class="form-group">
+        <legend class="col-form-label">{{ 'DLCs'|trans }}</legend>
+
+        {{ form_row(form.dlcList) }}
+        {{ form_row(form.dlcCreate) }}
+        {{ form_row(form.dlcUpdate) }}
+        {{ form_row(form.dlcDelete) }}
+    </fieldset>
+
+    <fieldset class="form-group">
+        <legend class="col-form-label">{{ 'Mod lists'|trans }}</legend>
+
+        {{ form_row(form.modListList) }}
+        {{ form_row(form.modListCreate) }}
+        {{ form_row(form.modListUpdate) }}
+        {{ form_row(form.modListCopy) }}
+        {{ form_row(form.modListDelete) }}
+        {{ form_row(form.modListApprove) }}
+    </fieldset>
+</fieldset>

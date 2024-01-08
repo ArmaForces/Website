@@ -7,5 +7,5 @@
 </div>
 
 <div class="tab-pane fade{{ tabMacro.tab_show(active, 'permissions') }}" id="permissions" role="tabpanel">
-    {{ form_row(form.permissions) }}
+    {{ include ('_partial/permissions/form.html.twig', { form: form.permissions, title: 'User group permissions'|trans }) }}
 </div>
