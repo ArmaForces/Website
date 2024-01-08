@@ -24,7 +24,7 @@ class UpdateAction extends AbstractController
     ) {
     }
 
-    #[Route('/user-group/{id}/update', name: 'app_user_group_update')]
+    #[Route('/user-group/{name}/update', name: 'app_user_group_update')]
     #[IsGranted(PermissionsEnum::USER_GROUP_UPDATE->value, 'userGroup')]
     public function __invoke(Request $request, UserGroup $userGroup): Response
     {

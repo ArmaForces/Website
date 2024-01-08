@@ -19,7 +19,7 @@ class DeleteAction extends AbstractController
     ) {
     }
 
-    #[Route('/user-group/{id}/delete', name: 'app_user_group_delete')]
+    #[Route('/user-group/{name}/delete', name: 'app_user_group_delete')]
     #[IsGranted(PermissionsEnum::USER_GROUP_DELETE->value, 'userGroup')]
     public function __invoke(UserGroup $userGroup): Response
     {
