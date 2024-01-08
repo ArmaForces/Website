@@ -33,12 +33,7 @@ class UpdateAction extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $updatedMod = $this->dataTransformerRegistry->transformToEntity($modFormDto, $mod);
-
-            if (!$this->entityManager->contains($updatedMod)) {
-                $this->entityManager->remove($mod);
-                $this->entityManager->persist($updatedMod);
-            }
+            $this->dataTransformerRegistry->transformToEntity($modFormDto, $mod);
 
             $this->entityManager->flush();
 
