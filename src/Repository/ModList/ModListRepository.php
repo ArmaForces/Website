@@ -20,4 +20,9 @@ class ModListRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, ModList::class);
     }
+
+    public function findOneByName(string $name): ?ModList
+    {
+        return $this->findOneBy(['name' => $name]);
+    }
 }

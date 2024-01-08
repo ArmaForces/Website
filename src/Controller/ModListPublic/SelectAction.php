@@ -37,7 +37,7 @@ class SelectAction extends AbstractController
 
         $nextMissionModList = null;
         if ($nextMission) {
-            $nextMissionModList = $this->modListRepository->findOneBy(['name' => $nextMission->getModlist()]);
+            $nextMissionModList = $this->modListRepository->findOneByName($nextMission->getModlist());
         }
 
         return $this->render('mod_list_public/select.html.twig', [
