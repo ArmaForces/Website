@@ -23,8 +23,12 @@ class UniqueModGroupNameValidator extends AbstractValidator
         }
 
         $name = $value->getName();
+        if ('' === $name || null === $name) {
+            return;
+        }
+
         $id = $value->getId();
-        if (!$name || $this->isColumnValueUnique(ModGroup::class, ['name' => $name], $id)) {
+        if ($this->isColumnValueUnique(ModGroup::class, ['name' => $name], $id)) {
             return;
         }
 

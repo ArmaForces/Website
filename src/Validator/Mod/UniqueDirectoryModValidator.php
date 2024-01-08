@@ -23,8 +23,12 @@ class UniqueDirectoryModValidator extends AbstractValidator
         }
 
         $directory = $value->getDirectory();
+        if ('' === $directory || null === $directory) {
+            return;
+        }
+
         $id = $value->getId();
-        if (!$directory || $this->isColumnValueUnique(DirectoryMod::class, ['directory' => $directory], $id)) {
+        if ($this->isColumnValueUnique(DirectoryMod::class, ['directory' => $directory], $id)) {
             return;
         }
 

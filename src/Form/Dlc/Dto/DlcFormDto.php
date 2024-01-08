@@ -25,6 +25,7 @@ class DlcFormDto extends AbstractFormDto
     #[Assert\Length(min: 1, max: 255)]
     protected ?string $description = null;
 
+    #[Assert\NotBlank]
     protected ?string $url = null;
 
     #[Assert\NotBlank]
