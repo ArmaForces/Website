@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace App\Twig;
 
-use App\Cache\CacheWarmer\BackgroundImageCacheWarmer;
+use Symfony\Component\Finder\Finder;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 class BackgroundImageExtension extends AbstractExtension
 {
     public function __construct(
-        private string $cacheDir
+        private string $backgroundImagesDirectory,
+        private CacheInterface $cacheAdapter,
     ) {
     }
 
@@ -24,8 +27,20 @@ class BackgroundImageExtension extends AbstractExtension
 
     public function getBackgroundImages(): array
     {
-        $filePath = $this->cacheDir.'/'.BackgroundImageCacheWarmer::getCacheFileName();
+        return $this->cacheAdapter->get('background_images', function (ItemInterface $item): array {
+            $backgroundImages = $this->findBackgroundImagesToCache();
+            $item->set($backgroundImages);
 
-        return include $filePath;
+            return $backgroundImages;
+        });
+    }
+
+    private function findBackgroundImagesToCache(): array
+    {
+        $imagesIterator = Finder::create()->in($this->backgroundImagesDirectory)->files()->getIterator();
+
+        $images = array_map(static fn (\SplFileInfo $imageFile) => $imageFile->getFilename(), iterator_to_array($imagesIterator));
+
+        return array_values($images);
     }
 }

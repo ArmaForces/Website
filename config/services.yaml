@@ -95,9 +95,17 @@ services:
             $proxyKey: '%env(APP_IMGPROXY_KEY)%'
             $proxySalt: '%env(APP_IMGPROXY_SALT)%'
 
+    app.cache.background_images:
+        class: Symfony\Component\Cache\Adapter\FilesystemAdapter
+        arguments:
+            $namespace: 'background_images'
+            $defaultLifetime: 3600
+            $directory: '%kernel.cache_dir%'
+
     App\Twig\BackgroundImageExtension:
         arguments:
-            $cacheDir: '%kernel.cache_dir%'
+            $cacheAdapter: '@app.cache.background_images'
+            $backgroundImagesDirectory: '%kernel.project_dir%/public/img/background'
 
     App\Twig\UtilsExtension:
         arguments:
@@ -106,7 +114,3 @@ services:
     App\Form\DataTransformerRegistry:
         arguments:
             $registeredDataTransformers: !tagged_iterator app.form.registered_data_transformer
-
-    App\Cache\CacheWarmer\BackgroundImageCacheWarmer:
-        arguments:
-            $backgroundImagesDirectory: '%kernel.project_dir%/public/img/background'
