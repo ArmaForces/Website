@@ -114,3 +114,10 @@ services:
     App\Form\DataTransformerRegistry:
         arguments:
             $registeredDataTransformers: !tagged_iterator app.form.registered_data_transformer
+
+when@test:
+    services:
+        security.helper: # see: https://github.com/Codeception/module-symfony/issues/34
+            class: Symfony\Bundle\SecurityBundle\Security
+            arguments:
+                - '@test.service_container'
