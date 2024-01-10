@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace App\Tests;
 
+use App\Test\Traits\TimeTrait;
+use App\Tests\Traits\CommonPageAssertsTrait;
+use App\Tests\Traits\DataTableAssertsTrait;
+use App\Tests\Traits\ResponseAssertTrait;
+use App\Tests\Traits\SecurityAssertsTrait;
 use Codeception\Actor;
 use Codeception\Lib\Friend;
 
@@ -25,8 +30,9 @@ use Codeception\Lib\Friend;
 class FunctionalTester extends Actor
 {
     use _generated\FunctionalTesterActions;
-
-    /**
-     * Define custom actions here.
-     */
+    use CommonPageAssertsTrait;
+    use DataTableAssertsTrait;
+    use ResponseAssertTrait;
+    use SecurityAssertsTrait;
+    use TimeTrait;
 }
