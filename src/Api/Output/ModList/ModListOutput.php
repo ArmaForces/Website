@@ -6,12 +6,12 @@ namespace App\Api\Output\ModList;
 
 class ModListOutput
 {
-    protected ?string $id = null;
-    protected ?string $name = null;
-    protected bool $active;
-    protected bool $approved;
-    protected ?\DateTimeInterface $createdAt = null;
-    protected ?\DateTimeInterface $lastUpdatedAt = null;
+    private ?string $id = null;
+    private ?string $name = null;
+    private bool $active;
+    private bool $approved;
+    private ?\DateTimeInterface $createdAt = null;
+    private ?\DateTimeInterface $lastUpdatedAt = null;
 
     public function getId(): ?string
     {

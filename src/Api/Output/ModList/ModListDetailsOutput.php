@@ -9,8 +9,8 @@ use App\Api\Output\Mod\ModOutput;
 
 class ModListDetailsOutput extends ModListOutput
 {
-    protected array $mods = [];
-    protected array $dlcs = [];
+    private array $mods = [];
+    private array $dlcs = [];
 
     /**
      * @return ModOutput[]

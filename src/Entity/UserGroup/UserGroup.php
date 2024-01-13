@@ -13,7 +13,7 @@ use Ramsey\Uuid\UuidInterface;
 
 class UserGroup extends AbstractBlamableEntity
 {
-    protected Collection $users;
+    private Collection $users;
     private string $name;
     private ?string $description;
     private UserGroupPermissions $permissions;

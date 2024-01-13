@@ -13,11 +13,11 @@ class AttendanceInput
 {
     #[Assert\NotBlank]
     #[Assert\Length(max: 255)]
-    protected ?string $missionId = null;
+    private ?string $missionId = null;
 
     #[Assert\NotBlank]
     #[SteamProfileId]
-    protected ?int $playerId = null;
+    private ?int $playerId = null;
 
     public function getMissionId(): ?string
     {

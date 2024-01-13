@@ -6,15 +6,15 @@ namespace App\Api\Output\Mod;
 
 class ModOutput
 {
-    protected ?string $id = null;
-    protected ?string $name = null;
-    protected ?\DateTimeInterface $createdAt = null;
-    protected ?\DateTimeInterface $lastUpdatedAt = null;
-    protected ?string $source = null;
-    protected ?string $status = null;
-    protected ?string $type = null;
-    protected ?int $itemId = null;
-    protected ?string $directory = null;
+    private ?string $id = null;
+    private ?string $name = null;
+    private ?\DateTimeInterface $createdAt = null;
+    private ?\DateTimeInterface $lastUpdatedAt = null;
+    private ?string $source = null;
+    private ?string $status = null;
+    private ?string $type = null;
+    private ?int $itemId = null;
+    private ?string $directory = null;
 
     public function getId(): ?string
     {
