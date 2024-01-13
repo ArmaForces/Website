@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace App\DataFixtures\Mod\Required\Broken;
+namespace App\DataFixtures\Mod\SteamWorkshop\Required;
 
-use App\Entity\Mod\Enum\ModStatusEnum;
 use App\Entity\Mod\Enum\ModTypeEnum;
 use App\Entity\Mod\SteamWorkshopMod;
 use App\Test\Traits\TimeTrait;
@@ -12,22 +11,23 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Ramsey\Uuid\Uuid;
 
-class ArmaForcesAceMedicalModFixture extends Fixture
+class CupVehiclesModFixture extends Fixture
 {
     use TimeTrait;
 
-    public const ID = '2f1d2dea-a7a6-4509-b478-66a980d724ca';
+    public const ID = '7275d787-d3c2-43b3-a2fa-cc881b1b052f';
+    public const ITEM_ID = 541888371;
 
     public function load(ObjectManager $manager): void
     {
         $this->withTimeFrozenAt('2020-01-01T00:00:00+00:00', function () use ($manager): void {
             $mod = new SteamWorkshopMod(
                 Uuid::fromString(self::ID),
-                'ArmaForces - ACE Medical [OBSOLETE]',
+                'CUP Vehicles',
                 null,
-                ModStatusEnum::BROKEN,
+                null,
                 ModTypeEnum::REQUIRED,
-                1704054308
+                self::ITEM_ID
             );
 
             $manager->persist($mod);

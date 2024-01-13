@@ -15,8 +15,8 @@ class SteamApiClientCest
     private const ITEM_NAME = 'ArmaForces - Mods';
     private const ITEM_GAME_ID = 107410;
 
-    private const APP_ID = 1227700;
-    private const APP_NAME = 'Arma 3 Creator DLC: S.O.G. Prairie Fire';
+    private const APP_ID = 1681170;
+    private const APP_NAME = 'Arma 3 Creator DLC: Western Sahara';
     private const APP_TYPE = 'dlc';
     private const APP_GAME_ID = 107410;
 

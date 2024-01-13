@@ -1,0 +1,41 @@
+{
+    "response": {
+        "result": 1,
+        "resultcount": 1,
+        "publishedfiledetails": [
+            {
+                "publishedfileid": "1981535406",
+                "result": 1,
+                "creator": "76561199002669156",
+                "creator_app_id": 107410,
+                "consumer_app_id": 107410,
+                "filename": "",
+                "file_size": 295103,
+                "file_url": "",
+                "hcontent_file": "6332893528122366633",
+                "preview_url": "https://steamuserimages-a.akamaihd.net/ugc/772868569532489292/64412B75F35CB6E699F5B132441B4894AC10778E/",
+                "hcontent_preview": "772868569532489292",
+                "title": "ArmaForces - Medical",
+                "description": "[h1]Introducing ArmaForces Medical System.[/h1]\r\n- More efficient bandaging\r\n- Bandages are more durable, stay for even 30 minutes if applied right bandage on correct wound!\r\n- All medical actions take less time to complete\r\n- New pain fighting medication - Apap - with no side effects!\r\n\r\n[h2]Decreased treatment times[/h2]\r\n- Bandaging time / 2\r\n- Applying Tourniquet 7 -> 2.5 s\r\n- Removing Tourniquet 7 -> 1.5 s\r\n- Splint 7 -> 5 s\r\n- IV 12 -> 5 s\r\n\r\n[h2]Reworked bandages[/h2]\r\n- All bandages are at least 2-3 times more efficient than in standard ACE\r\n- 3 types of efficiency (standard ACE bandages are maximum at 2)\r\n  - Super - 10-8 base efficiency\r\n  - Increased - 6-4 base efficiency\r\n  - Standard - 2-4 base efficiency\r\n- Much longer wound opening times, especially for super efficiency\r\n  - Super - 10% opening chance, 10-30 minutes durability\r\n  - Increased - 30% opening chance, 6-20 minutes\r\n  - Standard - 40% opening chance, 5-10 minutes\r\n\r\n[h2]Pain fighting medication (Apap) without side effects[/h2]\r\n- A bit weaker than morphine (0.6 vs 0.8 pain fighting force)\r\n- Effect lasts for up to 10 minutes (vs 30 for morphine)\r\n- Only for conscious units (so morphine is still viable)\r\n\r\n[h1]Future plans:[/h1]\r\nWe first want to adjust mod to our gameplay and style, possible changes/tweaks in:\r\n- action times\r\n- bandages efficiency\r\n- medications effects\r\n\r\n[h1]Source:[/h1]\r\nhttps://github.com/ArmaForces/Medical\r\n\r\n[h1]Other ArmaForces addons:[/h1]\r\nhttps://steamcommunity.com/sharedfiles/filedetails/?id=1643238133",
+                "time_created": 1580174253,
+                "time_updated": 1697582262,
+                "visibility": 0,
+                "banned": 0,
+                "ban_reason": "",
+                "subscriptions": 1658,
+                "favorited": 91,
+                "lifetime_subscriptions": 3969,
+                "lifetime_favorited": 99,
+                "views": 4261,
+                "tags": [
+                    {
+                        "tag": "Mod"
+                    },
+                    {
+                        "tag": "Mechanics"
+                    }
+                ]
+            }
+        ]
+    }
+}
