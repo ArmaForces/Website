@@ -4,68 +4,43 @@ declare(strict_types=1);
 
 namespace App\Form\ModGroup\DataTransformer;
 
-use App\Entity\AbstractEntity;
 use App\Entity\ModGroup\ModGroup;
-use App\Form\FormDtoInterface;
 use App\Form\ModGroup\Dto\ModGroupFormDto;
-use App\Form\RegisteredDataTransformerInterface;
 use Ramsey\Uuid\Uuid;
 
-class ModGroupFormDtoDataTransformer implements RegisteredDataTransformerInterface
+class ModGroupFormDtoDataTransformer
 {
-    /**
-     * @param ModGroupFormDto $formDto
-     * @param null|ModGroup   $entity
-     *
-     * @return ModGroup
-     */
-    public function transformToEntity(FormDtoInterface $formDto, AbstractEntity $entity = null): AbstractEntity
+    public function transformToEntity(ModGroupFormDto $modGroupFormDto, ModGroup $modGroup = null): ModGroup
     {
-        if (!$entity instanceof ModGroup) {
+        if (!$modGroup instanceof ModGroup) {
             return new ModGroup(
                 Uuid::uuid4(),
-                $formDto->getName(),
-                $formDto->getDescription(),
-                $formDto->getMods()
+                $modGroupFormDto->getName(),
+                $modGroupFormDto->getDescription(),
+                $modGroupFormDto->getMods()
             );
         }
 
-        $entity->update(
-            $formDto->getName(),
-            $formDto->getDescription(),
-            $formDto->getMods()
+        $modGroup->update(
+            $modGroupFormDto->getName(),
+            $modGroupFormDto->getDescription(),
+            $modGroupFormDto->getMods()
         );
 
-        return $entity;
+        return $modGroup;
     }
 
-    /**
-     * @param ModGroupFormDto $formDto
-     * @param null|ModGroup   $entity
-     *
-     * @return ModGroupFormDto
-     */
-    public function transformFromEntity(FormDtoInterface $formDto, AbstractEntity $entity = null): FormDtoInterface
+    public function transformFromEntity(ModGroupFormDto $modGroupFormDto, ModGroup $modGroup = null): ModGroupFormDto
     {
-        if (!$entity instanceof ModGroup) {
-            return $formDto;
+        if (!$modGroup instanceof ModGroup) {
+            return $modGroupFormDto;
         }
 
-        $formDto->setId($entity->getId());
-        $formDto->setName($entity->getName());
-        $formDto->setDescription($entity->getDescription());
-        $formDto->setMods($entity->getMods());
+        $modGroupFormDto->setId($modGroup->getId());
+        $modGroupFormDto->setName($modGroup->getName());
+        $modGroupFormDto->setDescription($modGroup->getDescription());
+        $modGroupFormDto->setMods($modGroup->getMods());
 
-        return $formDto;
-    }
-
-    public function supportsTransformationToEntity(FormDtoInterface $formDto, AbstractEntity $entity = null): bool
-    {
-        return $formDto instanceof ModGroupFormDto;
-    }
-
-    public function supportsTransformationFromEntity(FormDtoInterface $formDto, AbstractEntity $entity = null): bool
-    {
-        return $formDto instanceof ModGroupFormDto;
+        return $modGroupFormDto;
     }
 }

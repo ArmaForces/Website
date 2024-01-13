@@ -4,83 +4,58 @@ declare(strict_types=1);
 
 namespace App\Form\Dlc\DataTransformer;
 
-use App\Entity\AbstractEntity;
 use App\Entity\Dlc\Dlc;
 use App\Form\Dlc\Dto\DlcFormDto;
-use App\Form\FormDtoInterface;
-use App\Form\RegisteredDataTransformerInterface;
 use App\Service\SteamApiClient\Helper\SteamHelper;
 use App\Service\SteamApiClient\SteamApiClientInterface;
 use Ramsey\Uuid\Uuid;
 
-class DlcFormDtoDataTransformer implements RegisteredDataTransformerInterface
+class DlcFormDtoDataTransformer
 {
     public function __construct(
         private SteamApiClientInterface $steamApiClient
     ) {
     }
 
-    /**
-     * @param DlcFormDto $formDto
-     * @param null|Dlc   $entity
-     *
-     * @return Dlc
-     */
-    public function transformToEntity(FormDtoInterface $formDto, AbstractEntity $entity = null): AbstractEntity
+    public function transformToEntity(DlcFormDto $dlcFormDto, Dlc $dlc = null): Dlc
     {
-        $appId = SteamHelper::appUrlToAppId($formDto->getUrl());
-        $directory = $formDto->getDirectory();
-        $name = $formDto->getName() ?? substr($this->steamApiClient->getAppInfo($appId)->getName(), 0, 255);
+        $appId = SteamHelper::appUrlToAppId($dlcFormDto->getUrl());
+        $directory = $dlcFormDto->getDirectory();
+        $name = $dlcFormDto->getName() ?? substr($this->steamApiClient->getAppInfo($appId)->getName(), 0, 255);
 
-        if (!$entity instanceof Dlc) {
+        if (!$dlc instanceof Dlc) {
             return new Dlc(
                 Uuid::uuid4(),
                 $name,
-                $formDto->getDescription(),
+                $dlcFormDto->getDescription(),
                 $appId,
                 $directory
             );
         }
 
-        $entity->update(
+        $dlc->update(
             $name,
-            $formDto->getDescription(),
+            $dlcFormDto->getDescription(),
             $appId,
             $directory
         );
 
-        return $entity;
+        return $dlc;
     }
 
-    /**
-     * @param DlcFormDto $formDto
-     * @param null|Dlc   $entity
-     *
-     * @return DlcFormDto
-     */
-    public function transformFromEntity(FormDtoInterface $formDto, AbstractEntity $entity = null): FormDtoInterface
+    public function transformFromEntity(DlcFormDto $dlcFormDto, Dlc $dlc = null): DlcFormDto
     {
-        if (!$entity instanceof Dlc) {
-            return $formDto;
+        if (!$dlc instanceof Dlc) {
+            return $dlcFormDto;
         }
 
-        $formDto->setId($entity->getId());
-        $formDto->setName($entity->getName());
-        $formDto->setDescription($entity->getDescription());
-        $url = SteamHelper::appIdToAppUrl($entity->getAppId());
-        $formDto->setUrl($url);
-        $formDto->setDirectory($entity->getDirectory());
+        $dlcFormDto->setId($dlc->getId());
+        $dlcFormDto->setName($dlc->getName());
+        $dlcFormDto->setDescription($dlc->getDescription());
+        $url = SteamHelper::appIdToAppUrl($dlc->getAppId());
+        $dlcFormDto->setUrl($url);
+        $dlcFormDto->setDirectory($dlc->getDirectory());
 
-        return $formDto;
-    }
-
-    public function supportsTransformationToEntity(FormDtoInterface $formDto, AbstractEntity $entity = null): bool
-    {
-        return $formDto instanceof DlcFormDto;
-    }
-
-    public function supportsTransformationFromEntity(FormDtoInterface $formDto, AbstractEntity $entity = null): bool
-    {
-        return $formDto instanceof DlcFormDto;
+        return $dlcFormDto;
     }
 }

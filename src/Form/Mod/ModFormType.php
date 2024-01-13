@@ -95,7 +95,7 @@ class ModFormType extends AbstractType
         ]);
     }
 
-    protected function addChangeStatusType(FormBuilderInterface $builder): void
+    private function addChangeStatusType(FormBuilderInterface $builder): void
     {
         /** @var User $currentUser */
         $currentUser = $this->security->getUser();

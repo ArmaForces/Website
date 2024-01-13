@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Dlc;
 
-use App\Form\DataTransformerRegistry;
+use App\Form\Dlc\DataTransformer\DlcFormDtoDataTransformer;
 use App\Form\Dlc\DlcFormType;
 use App\Form\Dlc\Dto\DlcFormDto;
 use App\Security\Enum\PermissionsEnum;
@@ -19,7 +19,7 @@ class CreateAction extends AbstractController
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
-        private DataTransformerRegistry $dataTransformerRegistry
+        private DlcFormDtoDataTransformer $dlcFormDtoDataTransformer
     ) {
     }
 
@@ -32,7 +32,7 @@ class CreateAction extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $dlc = $this->dataTransformerRegistry->transformToEntity($dlcFormDto);
+            $dlc = $this->dlcFormDtoDataTransformer->transformToEntity($dlcFormDto);
 
             $this->entityManager->persist($dlc);
             $this->entityManager->flush();

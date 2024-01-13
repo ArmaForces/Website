@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\ModList;
 
 use App\Entity\ModList\ModList;
-use App\Form\DataTransformerRegistry;
+use App\Form\ModList\DataTransformer\ModListFormDtoDataTransformer;
 use App\Form\ModList\Dto\ModListFormDto;
 use App\Form\ModList\ModListFormType;
 use App\Security\Enum\PermissionsEnum;
@@ -20,7 +20,7 @@ class CopyAction extends AbstractController
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
-        private DataTransformerRegistry $dataTransformerRegistry
+        private ModListFormDtoDataTransformer $modListFormDtoDataTransformer
     ) {
     }
 
@@ -28,16 +28,12 @@ class CopyAction extends AbstractController
     #[IsGranted(PermissionsEnum::MOD_LIST_COPY->value, 'modList')]
     public function __invoke(Request $request, ModList $modList): Response
     {
-        /** @var ModListFormDto $modListFormDto */
-        $modListFormDto = $this->dataTransformerRegistry->transformFromEntity(new ModListFormDto(), $modList);
-        $modListFormDto->setId(null); // Entity will be treated as new by the unique name validator
-        $modListFormDto->setApproved(false); // Reset approval status
-
+        $modListFormDto = $this->modListFormDtoDataTransformer->transformFromEntity(new ModListFormDto(), $modList, true);
         $form = $this->createForm(ModListFormType::class, $modListFormDto);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $modListCopy = $this->dataTransformerRegistry->transformToEntity($modListFormDto);
+            $modListCopy = $this->modListFormDtoDataTransformer->transformToEntity($modListFormDto);
 
             $this->entityManager->persist($modListCopy);
             $this->entityManager->flush();

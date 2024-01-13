@@ -4,30 +4,21 @@ declare(strict_types=1);
 
 namespace App\Form\ModList\DataTransformer;
 
-use App\Entity\AbstractEntity;
 use App\Entity\ModList\ModList;
 use App\Entity\Permissions\AbstractPermissions;
 use App\Entity\User\User;
-use App\Form\FormDtoInterface;
 use App\Form\ModList\Dto\ModListFormDto;
-use App\Form\RegisteredDataTransformerInterface;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\SecurityBundle\Security;
 
-class ModListFormDtoDataTransformer implements RegisteredDataTransformerInterface
+class ModListFormDtoDataTransformer
 {
     public function __construct(
         private Security $security
     ) {
     }
 
-    /**
-     * @param ModListFormDto $formDto
-     * @param null|ModList   $entity
-     *
-     * @return ModList
-     */
-    public function transformToEntity(FormDtoInterface $formDto, AbstractEntity $entity = null): AbstractEntity
+    public function transformToEntity(ModListFormDto $modListFormDto, ModList $modList = null): ModList
     {
         /** @var User $currentUser */
         $currentUser = $this->security->getUser();
@@ -37,68 +28,57 @@ class ModListFormDtoDataTransformer implements RegisteredDataTransformerInterfac
         );
 
         // If user has permissions set selected user as owner. Otherwise assign current user.
-        $owner = $canUpdate ? $formDto->getOwner() : $currentUser;
+        $owner = $canUpdate ? $modListFormDto->getOwner() : $currentUser;
 
-        if (!$entity instanceof ModList) {
+        if (!$modList instanceof ModList) {
             return new ModList(
                 Uuid::uuid4(),
-                $formDto->getName(),
-                $formDto->getDescription(),
-                $formDto->getMods(),
-                $formDto->getModGroups(),
-                $formDto->getDlcs(),
+                $modListFormDto->getName(),
+                $modListFormDto->getDescription(),
+                $modListFormDto->getMods(),
+                $modListFormDto->getModGroups(),
+                $modListFormDto->getDlcs(),
                 $owner,
-                $formDto->isActive(),
-                $formDto->isApproved(),
+                $modListFormDto->isActive(),
+                $modListFormDto->isApproved(),
             );
         }
 
-        $entity->update(
-            $formDto->getName(),
-            $formDto->getDescription(),
-            $formDto->getMods(),
-            $formDto->getModGroups(),
-            $formDto->getDlcs(),
+        $modList->update(
+            $modListFormDto->getName(),
+            $modListFormDto->getDescription(),
+            $modListFormDto->getMods(),
+            $modListFormDto->getModGroups(),
+            $modListFormDto->getDlcs(),
             $owner,
-            $formDto->isActive(),
-            $formDto->isApproved(),
+            $modListFormDto->isActive(),
+            $modListFormDto->isApproved(),
         );
 
-        return $entity;
+        return $modList;
     }
 
-    /**
-     * @param ModListFormDto $formDto
-     * @param null|ModList   $entity
-     *
-     * @return ModListFormDto
-     */
-    public function transformFromEntity(FormDtoInterface $formDto, AbstractEntity $entity = null): FormDtoInterface
+    public function transformFromEntity(ModListFormDto $modListFormDto, ModList $modList = null, bool $copy = false): ModListFormDto
     {
-        if (!$entity instanceof ModList) {
-            return $formDto;
+        if (!$modList instanceof ModList) {
+            return $modListFormDto;
         }
 
-        $formDto->setId($entity->getId());
-        $formDto->setName($entity->getName());
-        $formDto->setDescription($entity->getDescription());
-        $formDto->setMods($entity->getMods());
-        $formDto->setModGroups($entity->getModGroups());
-        $formDto->setDlcs($entity->getDlcs());
-        $formDto->setOwner($entity->getOwner());
-        $formDto->setActive($entity->isActive());
-        $formDto->setApproved($entity->isApproved());
+        $modListFormDto->setId($modList->getId());
+        $modListFormDto->setName($modList->getName());
+        $modListFormDto->setDescription($modList->getDescription());
+        $modListFormDto->setMods($modList->getMods());
+        $modListFormDto->setModGroups($modList->getModGroups());
+        $modListFormDto->setDlcs($modList->getDlcs());
+        $modListFormDto->setOwner($modList->getOwner());
+        $modListFormDto->setActive($modList->isActive());
+        $modListFormDto->setApproved($modList->isApproved());
 
-        return $formDto;
-    }
+        if ($copy) {
+            $modListFormDto->setId(null); // Entity will be treated as new by the unique name validator
+            $modListFormDto->setApproved(false); // Reset approval status
+        }
 
-    public function supportsTransformationToEntity(FormDtoInterface $formDto, AbstractEntity $entity = null): bool
-    {
-        return $formDto instanceof ModListFormDto;
-    }
-
-    public function supportsTransformationFromEntity(FormDtoInterface $formDto, AbstractEntity $entity = null): bool
-    {
-        return $formDto instanceof ModListFormDto;
+        return $modListFormDto;
     }
 }

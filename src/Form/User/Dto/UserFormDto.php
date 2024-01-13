@@ -5,20 +5,19 @@ declare(strict_types=1);
 namespace App\Form\User\Dto;
 
 use App\Entity\Permissions\UserPermissions;
-use App\Form\AbstractFormDto;
 use App\Validator\SteamProfileId;
 use App\Validator\User\UniqueUserSteamId;
 use Ramsey\Uuid\UuidInterface;
 
 #[UniqueUserSteamId(errorPath: 'steamId')]
-class UserFormDto extends AbstractFormDto
+class UserFormDto
 {
-    protected ?UuidInterface $id = null;
+    private ?UuidInterface $id = null;
 
     #[SteamProfileId]
-    protected ?int $steamId = null;
+    private ?int $steamId = null;
 
-    protected ?UserPermissions $permissions = null;
+    private ?UserPermissions $permissions = null;
 
     public function getId(): ?UuidInterface
     {

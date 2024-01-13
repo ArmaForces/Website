@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Form\Dlc\Dto;
 
-use App\Form\AbstractFormDto;
 use App\Validator\Dlc\SteamStoreArma3DlcUrl;
 use App\Validator\Dlc\UniqueDirectoryDlc;
 use App\Validator\Dlc\UniqueSteamStoreDlc;
@@ -15,22 +14,22 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[SteamStoreArma3DlcUrl(errorPath: 'url')]
 #[UniqueSteamStoreDlc(errorPath: 'url')]
 #[UniqueDirectoryDlc(errorPath: 'directory')]
-class DlcFormDto extends AbstractFormDto
+class DlcFormDto
 {
-    protected ?UuidInterface $id = null;
+    private ?UuidInterface $id = null;
 
     #[Assert\Length(max: 255)]
-    protected ?string $name = null;
+    private ?string $name = null;
 
     #[Assert\Length(min: 1, max: 255)]
-    protected ?string $description = null;
+    private ?string $description = null;
 
     #[Assert\NotBlank]
-    protected ?string $url = null;
+    private ?string $url = null;
 
     #[Assert\NotBlank]
     #[WindowsDirectoryName]
-    protected ?string $directory = null;
+    private ?string $directory = null;
 
     public function getId(): ?UuidInterface
     {

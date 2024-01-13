@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Form\ModGroup\Dto;
 
 use App\Entity\Mod\AbstractMod;
-use App\Form\AbstractFormDto;
 use App\Validator\ModGroup\UniqueModGroupName;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -13,21 +12,21 @@ use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[UniqueModGroupName(errorPath: 'name')]
-class ModGroupFormDto extends AbstractFormDto
+class ModGroupFormDto
 {
-    protected ?UuidInterface $id = null;
+    private ?UuidInterface $id = null;
 
     #[Assert\NotBlank]
     #[Assert\Length(max: 255)]
-    protected ?string $name = null;
+    private ?string $name = null;
 
     #[Assert\Length(min: 1, max: 255)]
-    protected ?string $description = null;
+    private ?string $description = null;
 
     /**
      * @var Collection<AbstractMod>
      */
-    protected Collection $mods;
+    private Collection $mods;
 
     public function __construct()
     {

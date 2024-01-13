@@ -5,48 +5,45 @@ declare(strict_types=1);
 namespace App\Form\Mod\Dto;
 
 use App\Entity\Mod\Enum\ModSourceEnum;
-use App\Form\AbstractFormDto;
 use App\Validator\Mod\SteamWorkshopArma3ModUrl;
 use App\Validator\Mod\UniqueDirectoryMod;
 use App\Validator\Mod\UniqueSteamWorkshopMod;
 use App\Validator\WindowsDirectoryName;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[UniqueSteamWorkshopMod(groups: [ModSourceEnum::STEAM_WORKSHOP->value], errorPath: 'url')]
 #[SteamWorkshopArma3ModUrl(groups: [ModSourceEnum::STEAM_WORKSHOP->value], errorPath: 'url', nameErrorPath: 'name')]
 #[UniqueDirectoryMod(groups: [ModSourceEnum::DIRECTORY->value], errorPath: 'directory')]
-class ModFormDto extends AbstractFormDto
+class ModFormDto
 {
-    protected ?UuidInterface $id = null;
+    private ?UuidInterface $id = null;
 
     #[Assert\NotBlank(groups: [ModSourceEnum::DIRECTORY->value])]
     #[Assert\Length(min: 1, max: 255)]
-    protected ?string $name = null;
+    private ?string $name = null;
 
     #[Assert\Length(min: 1, max: 255)]
-    protected ?string $description = null;
+    private ?string $description = null;
 
-    protected ?string $type = null;
+    private ?string $type = null;
 
-    protected ?string $status = null;
+    private ?string $status = null;
 
-    protected ?string $source = null;
+    private ?string $source = null;
 
     #[Assert\NotBlank(groups: [ModSourceEnum::STEAM_WORKSHOP->value])]
     #[Assert\Length(min: 1, max: 255, groups: [ModSourceEnum::STEAM_WORKSHOP->value])]
-    protected ?string $url = null;
+    private ?string $url = null;
 
     #[Assert\NotBlank(groups: [ModSourceEnum::DIRECTORY->value])]
     #[WindowsDirectoryName(groups: [ModSourceEnum::DIRECTORY->value])]
-    protected ?string $directory = null;
+    private ?string $directory = null;
 
     public function resolveValidationGroups(): array
     {
-        $validationGroups = parent::resolveValidationGroups();
-        $validationGroups[] = $this->getSource();
-
-        return $validationGroups;
+        return [Constraint::DEFAULT_GROUP, $this->getSource()];
     }
 
     public function getId(): ?UuidInterface
