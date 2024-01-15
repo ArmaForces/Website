@@ -23,10 +23,10 @@
                         <td>{{ tableMacro.row_mod_status_icon(mod) }}</td>
                         <td>{{ tableMacro.row_name_with_description(mod.name, mod.description) }}</td>
                         <td>
-                            {% set modEntryId = 'mod-' ~ mod.id %}
+                            {% set modEntryId = 'optional-mod-' ~ mod.id %}
 
                             <div class="custom-control custom-switch">
-                                <input type="checkbox" id="{{ modEntryId }}" class="custom-control-input" data-multi-row-select="optionalMods" data-multi-row-select-element-id="{{ mod.id }}">
+                                <input type="checkbox" id="{{ modEntryId }}" class="custom-control-input" value="{{ mod.id }}" data-multi-row-select="optionalMods" data-multi-row-select-element-id="{{ mod.id }}">
                                 <label class="switch-custom custom-control-label" for="{{ modEntryId }}"></label>
                             </div>
                         </td>

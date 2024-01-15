@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+use function Symfony\Component\Clock\now;
+
 class DownloadAction extends AbstractController
 {
     public function __construct(
@@ -24,7 +26,7 @@ class DownloadAction extends AbstractController
     #[IsGranted(PermissionsEnum::MOD_LIST_DOWNLOAD->value, 'modList')]
     public function __invoke(ModList $modList, string $optionalModsJson = null): Response
     {
-        $name = sprintf('ArmaForces %s %s', $modList->getName(), (new \DateTimeImmutable())->format('Y_m_d H_i'));
+        $name = sprintf('ArmaForces %s %s', $modList->getName(), now()->format('Y_m_d H_i'));
         $mods = $this->modRepository->findIncludedSteamWorkshopMods($modList);
         $optionalMods = json_decode($optionalModsJson ?? '', true) ?: [];
 

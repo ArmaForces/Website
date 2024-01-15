@@ -5,19 +5,12 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Service\Discord;
 
 use App\Service\Discord\DiscordClientFactory;
-use PHPUnit\Framework\TestCase;
+use Codeception\Test\Unit;
 use Psr\Log\LoggerInterface;
 
-/**
- * @internal
- * @covers \App\Service\Discord\DiscordClientFactory
- */
-final class DiscordClientFactoryTest extends TestCase
+final class DiscordClientFactoryTest extends Unit
 {
-    /**
-     * @test
-     */
-    public function createBotClient_validTokenType_returnsValidClient(): void
+    public function testCreatesBotClient(): void
     {
         $token = 'some_token';
         $logger = $this->createMock(LoggerInterface::class);
@@ -32,10 +25,7 @@ final class DiscordClientFactoryTest extends TestCase
         self::assertSame(sprintf('Bot %s', $token), $tokenPropertyValue);
     }
 
-    /**
-     * @test
-     */
-    public function createUserClient_validTokenType_returnsValidClient(): void
+    public function testCreatesUserClient(): void
     {
         $token = 'some_token';
         $logger = $this->createMock(LoggerInterface::class);

@@ -7,23 +7,17 @@ namespace App\Tests\Unit\EventSubscriber\Doctrine;
 use App\Entity\AbstractBlamableEntity;
 use App\Entity\User\User;
 use App\EventSubscriber\Doctrine\EntityBlamableSubscriber;
+use Codeception\Attribute\DataProvider;
+use Codeception\Test\Unit;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\PrePersistEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\SecurityBundle\Security;
 
-/**
- * @internal
- * @covers \App\EventSubscriber\Doctrine\EntityBlamableSubscriber
- */
-final class EntityBlamableSubscriberTest extends TestCase
+final class EntityBlamableSubscriberTest extends Unit
 {
-    /**
-     * @test
-     */
-    public function getSubscribedEvents(): void
+    public function testGetSubscribedEvents(): void
     {
         $security = $this->createMock(Security::class);
         $entityBlamableSubscriberTest = new EntityBlamableSubscriber($security);
@@ -37,10 +31,7 @@ final class EntityBlamableSubscriberTest extends TestCase
         self::assertSame($expectedEvents, $subscribedEvents);
     }
 
-    /**
-     * @test
-     */
-    public function prePersist_validEventArgs_entityUpdated(): void
+    public function testMarkEntityAsCreated(): void
     {
         $user = $this->createMock(User::class);
         $security = $this->createMock(Security::class);
@@ -60,11 +51,8 @@ final class EntityBlamableSubscriberTest extends TestCase
         $entityBlamableSubscriberTest->prePersist($lifecycleEventArgs);
     }
 
-    /**
-     * @test
-     * @dataProvider invalidEventArgs
-     */
-    public function prePersist_invalidEventArgs_entityNotUpdated(mixed $user, mixed $entity): void
+    #[DataProvider('invalidEventArgs')]
+    public function testDoNotMarkEntityAsCreated(mixed $user, mixed $entity): void
     {
         $security = $this->createMock(Security::class);
         $security->method('getUser')->willReturn($user);
@@ -76,10 +64,7 @@ final class EntityBlamableSubscriberTest extends TestCase
         $entityBlamableSubscriberTest->prePersist($lifecycleEventArgs);
     }
 
-    /**
-     * @test
-     */
-    public function preUpdate_validEventArgs_entityUpdated(): void
+    public function testMarkEntityAsUpdated(): void
     {
         $user = $this->createMock(User::class);
         $security = $this->createMock(Security::class);
@@ -100,11 +85,8 @@ final class EntityBlamableSubscriberTest extends TestCase
         $entityBlamableSubscriberTest->preUpdate($lifecycleEventArgs);
     }
 
-    /**
-     * @test
-     * @dataProvider invalidEventArgs
-     */
-    public function preUpdate_invalidEventArgs_entityNotUpdated(mixed $user, mixed $entity): void
+    #[DataProvider('invalidEventArgs')]
+    public function testDoNotMarkEntityAsUpdated(mixed $user, mixed $entity): void
     {
         $security = $this->createMock(Security::class);
         $security->method('getUser')->willReturn($user);
@@ -118,7 +100,7 @@ final class EntityBlamableSubscriberTest extends TestCase
         $entityBlamableSubscriberTest->preUpdate($lifecycleEventArgs);
     }
 
-    public function invalidEventArgs(): iterable
+    protected function invalidEventArgs(): iterable
     {
         $validUser = $this->createMock(User::class);
         $invalidUser = null;

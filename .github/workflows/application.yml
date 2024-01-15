@@ -29,9 +29,9 @@ jobs:
                     docker compose -f docker-compose.test.yml up --wait
                     docker compose exec -T php composer install
 
-            -   name: Setup database
+            -   name: Setup tests
                 run: |
-                    make db env=test
+                    make test-setup
 
             -   name: Run lint
                 run: |
@@ -40,7 +40,7 @@ jobs:
 
             -   name: Run tests
                 run: |
-                    make test-ci
+                    make test
 
             -   name: Failure logs
                 if: failure()

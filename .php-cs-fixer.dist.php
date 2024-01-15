@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 $finder = PhpCsFixer\Finder::create()
+    ->in(__DIR__)
     ->exclude('var')
     ->exclude('node_modules')
     ->notPath('config/bundles.php')
@@ -11,7 +12,11 @@ $finder = PhpCsFixer\Finder::create()
     ->notPath('public/index.php')
     ->notPath('src/Kernel.php')
     ->notPath('tests/bootstrap.php')
-    ->in(__DIR__)
+
+    # Codeception
+    ->exclude('tests/_data')
+    ->exclude('tests/_output')
+    ->exclude('tests/_support/_generated')
 ;
 
 return (new PhpCsFixer\Config())
@@ -26,12 +31,11 @@ return (new PhpCsFixer\Config())
         '@PHP80Migration' => true,
         '@PHP80Migration:risky' => true,
 
-        'php_unit_test_annotation' => [
-            'style' => 'annotation',
-        ],
+        'php_unit_internal_class' => false,
         'php_unit_method_casing' => false,
+        'php_unit_test_class_requires_covers' => false,
+        'phpdoc_separation' => false,
         'phpdoc_to_comment' => false,
-        'ordered_traits' => false,
         'ordered_class_elements' => [
             'order' => [
                 'use_trait', // traits
@@ -64,7 +68,6 @@ return (new PhpCsFixer\Config())
             ],
             'sort_algorithm' => 'none',
         ],
-        'phpdoc_separation' => false
     ])
     ->setFinder($finder)
 ;

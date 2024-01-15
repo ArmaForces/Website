@@ -7,21 +7,16 @@ namespace App\Tests\Unit\Service\Mission;
 use App\Service\Mission\Enum\MissionStateEnum;
 use App\Service\Mission\MissionClient;
 use App\Service\Mission\MissionStore;
-use PHPUnit\Framework\TestCase;
+use Codeception\Test\Unit;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
-/**
- * @internal
- * @covers \App\Service\Mission\MissionClient
- */
-final class MissionClientTest extends TestCase
+final class MissionClientTest extends Unit
 {
     /**
-     * @test
      * @dataProvider provideGetCurrentMissionCases
      */
-    public function getCurrentMission(array $missionData, ?string $expectedTitle, ?string $expectedModlist): void
+    public function testGetCurrentMission(array $missionData, ?string $expectedTitle, ?string $expectedModlist): void
     {
         $mockHttpClient = $this->mockHttpClient($missionData);
         $mockStore = $this->getMockBuilder(MissionStore::class)

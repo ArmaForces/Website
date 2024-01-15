@@ -58,6 +58,11 @@
         "wohali/oauth2-discord-new": "^1.2"
     },
     "require-dev": {
+        "codeception/codeception": "^5.0",
+        "codeception/module-asserts": "^3.0",
+        "codeception/module-doctrine2": "^3.0",
+        "codeception/module-rest": "^3.3",
+        "codeception/module-symfony": "^3.2",
         "dama/doctrine-test-bundle": "^7.2",
         "friendsofphp/php-cs-fixer": "^3.23",
         "phpstan/phpstan": "^1.10",
@@ -90,6 +95,7 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "App\\Tests\\": "tests/_support/",
             "App\\Tests\\Unit\\": "tests/unit",
             "App\\Tests\\Integration\\": "tests/integration",
             "App\\Tests\\Functional\\": "tests/functional"

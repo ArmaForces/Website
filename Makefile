@@ -23,15 +23,18 @@ db:
 	docker-compose exec -T php php bin/console doctrine:database:create --if-not-exists --env=${env}
 	docker-compose exec -T php php bin/console doctrine:migration:migrate --no-interaction --env=${env}
 
+	docker-compose exec -T php php bin/console doctrine:fixtures:load --no-interaction --env=${env}
+
+console:
+	@docker-compose exec php sh
+
 setup:
 	@make db
-	docker-compose exec -T php php bin/console app:import:modlists var/import
+
+test-setup:
+	@make db env=test
+	docker-compose exec -T php php vendor/bin/codecept clean
+	docker-compose exec -T php php vendor/bin/codecept build
 
 test:
-	@make db env=test
-	@make test-ci
-
-test-ci:
-	docker-compose exec -T php php bin/console doctrine:fixtures:load --no-interaction --env=test
-
-	docker-compose exec -T php php bin/phpunit --testdox
+	docker-compose exec -T php php vendor/bin/codecept run unit,integration,functional --fail-fast
