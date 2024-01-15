@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class SteamWorkshopArma3ModUrlValidator extends AbstractValidator
 {
-    protected const ARMA_3_GAME_ID = 107410;
+    private const ARMA_3_GAME_ID = 107410;
 
     public function __construct(
         EntityManagerInterface $entityManager,

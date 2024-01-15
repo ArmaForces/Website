@@ -29,7 +29,7 @@ class CalendarExtension extends AbstractExtension
         return $this->createMissionEventLink($mission)->ics();
     }
 
-    protected function createMissionEventLink(MissionDto $mission): Link
+    private function createMissionEventLink(MissionDto $mission): Link
     {
         $fromDate = \DateTime::createFromImmutable($mission->getDate())->sub(new \DateInterval('PT30M'));
         $toDate = \DateTime::createFromImmutable($mission->getDate())->add(new \DateInterval('PT2H'));

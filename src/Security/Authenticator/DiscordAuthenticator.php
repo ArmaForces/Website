@@ -39,12 +39,12 @@ use function React\Async\await;
  */
 class DiscordAuthenticator extends OAuth2Authenticator implements AuthenticationEntryPointInterface
 {
-    protected const DISCORD_CLIENT_NAME = 'discord_main';
+    private const DISCORD_CLIENT_NAME = 'discord_main';
 
-    protected const HOME_INDEX_PAGE_ROUTE_NAME = 'app_home_index';
-    protected const HOME_JOIN_US_PAGE_ROUTE_NAME = 'app_home_join_us';
-    protected const LOGIN_PAGE_ROUTE_NAME = 'app_security_connect_discord';
-    protected const SUPPORTED_ROUTE_NAME = 'app_security_connect_discord_check';
+    private const HOME_INDEX_PAGE_ROUTE_NAME = 'app_home_index';
+    private const HOME_JOIN_US_PAGE_ROUTE_NAME = 'app_home_join_us';
+    private const LOGIN_PAGE_ROUTE_NAME = 'app_security_connect_discord';
+    private const SUPPORTED_ROUTE_NAME = 'app_security_connect_discord_check';
 
     public function __construct(
         private ClientRegistry $clientRegistry,

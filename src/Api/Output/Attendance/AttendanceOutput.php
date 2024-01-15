@@ -6,10 +6,10 @@ namespace App\Api\Output\Attendance;
 
 class AttendanceOutput
 {
-    protected ?string $id = null;
-    protected ?\DateTimeInterface $createdAt = null;
-    protected ?string $missionId = null;
-    protected ?int $playerId = null;
+    private ?string $id = null;
+    private ?\DateTimeInterface $createdAt = null;
+    private ?string $missionId = null;
+    private ?int $playerId = null;
 
     public function getId(): ?string
     {

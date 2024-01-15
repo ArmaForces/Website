@@ -6,12 +6,12 @@ namespace App\Api\Output\Dlc;
 
 class DlcOutput
 {
-    protected ?string $id = null;
-    protected ?string $name = null;
-    protected ?\DateTimeInterface $createdAt = null;
-    protected ?\DateTimeInterface $lastUpdatedAt = null;
-    protected ?int $appId = null;
-    protected ?string $directory = null;
+    private ?string $id = null;
+    private ?string $name = null;
+    private ?\DateTimeInterface $createdAt = null;
+    private ?\DateTimeInterface $lastUpdatedAt = null;
+    private ?int $appId = null;
+    private ?string $directory = null;
 
     public function getId(): ?string
     {

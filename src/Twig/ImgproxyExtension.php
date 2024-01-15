@@ -47,7 +47,7 @@ class ImgproxyExtension extends AbstractExtension
     /**
      * https://github.com/imgproxy/imgproxy/blob/master/examples/signature.php.
      */
-    protected function getSignature(string $path): string
+    private function getSignature(string $path): string
     {
         $binaryKey = pack('H*', $this->proxyKey);
         if (empty($binaryKey)) {

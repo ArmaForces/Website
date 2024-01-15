@@ -108,7 +108,7 @@ class ModRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    protected function applyIncludedModsFilter(QueryBuilder $queryBuilder, ModList $modList): void
+    private function applyIncludedModsFilter(QueryBuilder $queryBuilder, ModList $modList): void
     {
         $expr = $queryBuilder->expr();
 
