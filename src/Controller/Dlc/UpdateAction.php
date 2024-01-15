@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Dlc;
 
 use App\Entity\Dlc\Dlc;
-use App\Form\DataTransformerRegistry;
+use App\Form\Dlc\DataTransformer\DlcFormDtoDataTransformer;
 use App\Form\Dlc\DlcFormType;
 use App\Form\Dlc\Dto\DlcFormDto;
 use App\Security\Enum\PermissionsEnum;
@@ -20,7 +20,7 @@ class UpdateAction extends AbstractController
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
-        private DataTransformerRegistry $dataTransformerRegistry
+        private DlcFormDtoDataTransformer $dlcFormDtoDataTransformer
     ) {
     }
 
@@ -28,12 +28,12 @@ class UpdateAction extends AbstractController
     #[IsGranted(PermissionsEnum::DLC_UPDATE->value, 'dlc')]
     public function __invoke(Request $request, Dlc $dlc): Response
     {
-        $dlcFormDto = $this->dataTransformerRegistry->transformFromEntity(new DlcFormDto(), $dlc);
+        $dlcFormDto = $this->dlcFormDtoDataTransformer->transformFromEntity(new DlcFormDto(), $dlc);
         $form = $this->createForm(DlcFormType::class, $dlcFormDto);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->dataTransformerRegistry->transformToEntity($dlcFormDto, $dlc);
+            $this->dlcFormDtoDataTransformer->transformToEntity($dlcFormDto, $dlc);
 
             $this->entityManager->flush();
 

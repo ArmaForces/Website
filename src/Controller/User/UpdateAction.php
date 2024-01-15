@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\User;
 
 use App\Entity\User\User;
-use App\Form\DataTransformerRegistry;
+use App\Form\User\DataTransformer\UserFormDtoDataTransformer;
 use App\Form\User\Dto\UserFormDto;
 use App\Form\User\UserFormType;
 use App\Security\Enum\PermissionsEnum;
@@ -20,7 +20,7 @@ class UpdateAction extends AbstractController
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
-        private DataTransformerRegistry $dataTransformerRegistry
+        private UserFormDtoDataTransformer $userFormDtoDataTransformer
     ) {
     }
 
@@ -28,14 +28,14 @@ class UpdateAction extends AbstractController
     #[IsGranted(PermissionsEnum::USER_UPDATE->value, 'user')]
     public function __invoke(Request $request, User $user): Response
     {
-        $userFormDto = $this->dataTransformerRegistry->transformFromEntity(new UserFormDto(), $user);
+        $userFormDto = $this->userFormDtoDataTransformer->transformFromEntity(new UserFormDto(), $user);
         $form = $this->createForm(UserFormType::class, $userFormDto, [
             'target' => $user,
         ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->dataTransformerRegistry->transformToEntity($userFormDto, $user);
+            $this->userFormDtoDataTransformer->transformToEntity($userFormDto, $user);
 
             $this->entityManager->flush();
 

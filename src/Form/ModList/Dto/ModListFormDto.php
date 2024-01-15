@@ -8,7 +8,6 @@ use App\Entity\Dlc\Dlc;
 use App\Entity\Mod\AbstractMod;
 use App\Entity\ModGroup\ModGroup;
 use App\Entity\User\User;
-use App\Form\AbstractFormDto;
 use App\Validator\ModList\UniqueModListName;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -16,37 +15,37 @@ use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[UniqueModListName(errorPath: 'name')]
-class ModListFormDto extends AbstractFormDto
+class ModListFormDto
 {
-    protected ?UuidInterface $id = null;
+    private ?UuidInterface $id = null;
 
     #[Assert\NotBlank]
     #[Assert\Length(max: 255)]
-    protected ?string $name = null;
+    private ?string $name = null;
 
     #[Assert\Length(min: 1, max: 255)]
-    protected ?string $description = null;
+    private ?string $description = null;
 
     /**
      * @var Collection<AbstractMod>
      */
-    protected Collection $mods;
+    private Collection $mods;
 
     /**
      * @var Collection<ModGroup>
      */
-    protected Collection $modGroups;
+    private Collection $modGroups;
 
     /**
      * @var Collection<Dlc>
      */
-    protected Collection $dlcs;
+    private Collection $dlcs;
 
-    protected ?User $owner = null;
+    private ?User $owner = null;
 
-    protected bool $active = true;
+    private bool $active = true;
 
-    protected bool $approved = false;
+    private bool $approved = false;
 
     public function __construct()
     {

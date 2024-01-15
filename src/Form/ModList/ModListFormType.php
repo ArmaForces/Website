@@ -99,7 +99,7 @@ class ModListFormType extends AbstractType
         ]);
     }
 
-    protected function addOwnerType(FormBuilderInterface $builder): void
+    private function addOwnerType(FormBuilderInterface $builder): void
     {
         /** @var User $currentUser */
         $currentUser = $this->security->getUser();
@@ -138,7 +138,7 @@ class ModListFormType extends AbstractType
         $builder->add('owner', EntityType::class, $ownerTypeConfig);
     }
 
-    protected function addApprovedType(FormBuilderInterface $builder): void
+    private function addApprovedType(FormBuilderInterface $builder): void
     {
         /** @var User $currentUser */
         $currentUser = $this->security->getUser();

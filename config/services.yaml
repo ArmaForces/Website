@@ -23,10 +23,6 @@ services:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
-    _instanceof:
-        App\Form\RegisteredDataTransformerInterface:
-            tags: [ 'app.form.registered_data_transformer' ]
-
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
@@ -110,10 +106,6 @@ services:
     App\Twig\UtilsExtension:
         arguments:
             $defaultLocale: '%kernel.default_locale%'
-
-    App\Form\DataTransformerRegistry:
-        arguments:
-            $registeredDataTransformers: !tagged_iterator app.form.registered_data_transformer
 
 when@test:
     services:

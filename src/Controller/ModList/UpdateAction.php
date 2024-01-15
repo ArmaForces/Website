@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\ModList;
 
 use App\Entity\ModList\ModList;
-use App\Form\DataTransformerRegistry;
+use App\Form\ModList\DataTransformer\ModListFormDtoDataTransformer;
 use App\Form\ModList\Dto\ModListFormDto;
 use App\Form\ModList\ModListFormType;
 use App\Security\Enum\PermissionsEnum;
@@ -20,7 +20,7 @@ class UpdateAction extends AbstractController
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
-        private DataTransformerRegistry $dataTransformerRegistry
+        private ModListFormDtoDataTransformer $modListFormDtoDataTransformer
     ) {
     }
 
@@ -28,12 +28,12 @@ class UpdateAction extends AbstractController
     #[IsGranted(PermissionsEnum::MOD_LIST_UPDATE->value, 'modList')]
     public function __invoke(Request $request, ModList $modList): Response
     {
-        $modListFormDto = $this->dataTransformerRegistry->transformFromEntity(new ModListFormDto(), $modList);
+        $modListFormDto = $this->modListFormDtoDataTransformer->transformFromEntity(new ModListFormDto(), $modList);
         $form = $this->createForm(ModListFormType::class, $modListFormDto);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->dataTransformerRegistry->transformToEntity($modListFormDto, $modList);
+            $this->modListFormDtoDataTransformer->transformToEntity($modListFormDto, $modList);
 
             $this->entityManager->flush();
 

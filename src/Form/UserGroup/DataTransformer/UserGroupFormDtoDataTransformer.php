@@ -4,72 +4,46 @@ declare(strict_types=1);
 
 namespace App\Form\UserGroup\DataTransformer;
 
-use App\Entity\AbstractEntity;
 use App\Entity\UserGroup\UserGroup;
-use App\Form\FormDtoInterface;
-use App\Form\RegisteredDataTransformerInterface;
 use App\Form\UserGroup\Dto\UserGroupFormDto;
 use Ramsey\Uuid\Uuid;
 
-class UserGroupFormDtoDataTransformer implements RegisteredDataTransformerInterface
+class UserGroupFormDtoDataTransformer
 {
-    /**
-     * @param UserGroupFormDto $formDto
-     * @param null|UserGroup   $entity
-     *
-     * @return UserGroup
-     */
-    public function transformToEntity(FormDtoInterface $formDto, AbstractEntity $entity = null): AbstractEntity
+    public function transformToEntity(UserGroupFormDto $userGroupFormDto, UserGroup $userGroup = null): UserGroup
     {
-        if (!$entity instanceof UserGroup) {
+        if (!$userGroup instanceof UserGroup) {
             return new UserGroup(
                 Uuid::uuid4(),
-                $formDto->getName(),
-                $formDto->getDescription(),
-                $formDto->getPermissions(),
-                $formDto->getUsers()
+                $userGroupFormDto->getName(),
+                $userGroupFormDto->getDescription(),
+                $userGroupFormDto->getPermissions(),
+                $userGroupFormDto->getUsers()
             );
         }
 
-        $entity->update(
-            $formDto->getName(),
-            $formDto->getDescription(),
-            $formDto->getPermissions(),
-            $formDto->getUsers()
+        $userGroup->update(
+            $userGroupFormDto->getName(),
+            $userGroupFormDto->getDescription(),
+            $userGroupFormDto->getPermissions(),
+            $userGroupFormDto->getUsers()
         );
 
-        return $entity;
+        return $userGroup;
     }
 
-    /**
-     * @param UserGroupFormDto $formDto
-     * @param null|UserGroup   $entity
-     *
-     * @return UserGroupFormDto
-     */
-    public function transformFromEntity(FormDtoInterface $formDto, AbstractEntity $entity = null): FormDtoInterface
+    public function transformFromEntity(UserGroupFormDto $userGroupFormDto, UserGroup $userGroup = null): UserGroupFormDto
     {
-        /** @var UserGroup $entity */
-        if (!$entity instanceof UserGroup) {
-            return $formDto;
+        if (!$userGroup instanceof UserGroup) {
+            return $userGroupFormDto;
         }
 
-        $formDto->setId($entity->getId());
-        $formDto->setName($entity->getName());
-        $formDto->setDescription($entity->getDescription());
-        $formDto->setPermissions($entity->getPermissions());
-        $formDto->setUsers($entity->getUsers());
+        $userGroupFormDto->setId($userGroup->getId());
+        $userGroupFormDto->setName($userGroup->getName());
+        $userGroupFormDto->setDescription($userGroup->getDescription());
+        $userGroupFormDto->setPermissions($userGroup->getPermissions());
+        $userGroupFormDto->setUsers($userGroup->getUsers());
 
-        return $formDto;
-    }
-
-    public function supportsTransformationToEntity(FormDtoInterface $formDto, AbstractEntity $entity = null): bool
-    {
-        return $formDto instanceof UserGroupFormDto;
-    }
-
-    public function supportsTransformationFromEntity(FormDtoInterface $formDto, AbstractEntity $entity = null): bool
-    {
-        return $formDto instanceof UserGroupFormDto;
+        return $userGroupFormDto;
     }
 }

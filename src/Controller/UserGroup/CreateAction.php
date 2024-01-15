@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\UserGroup;
 
-use App\Form\DataTransformerRegistry;
+use App\Form\UserGroup\DataTransformer\UserGroupFormDtoDataTransformer;
 use App\Form\UserGroup\Dto\UserGroupFormDto;
 use App\Form\UserGroup\UserGroupFormType;
 use App\Security\Enum\PermissionsEnum;
@@ -19,7 +19,7 @@ class CreateAction extends AbstractController
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
-        private DataTransformerRegistry $dataTransformerRegistry
+        private UserGroupFormDtoDataTransformer $userGroupFormDtoDataTransformer
     ) {
     }
 
@@ -32,7 +32,7 @@ class CreateAction extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $userGroup = $this->dataTransformerRegistry->transformToEntity($userGroupFormDto);
+            $userGroup = $this->userGroupFormDtoDataTransformer->transformToEntity($userGroupFormDto);
 
             $this->entityManager->persist($userGroup);
             $this->entityManager->flush();

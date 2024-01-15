@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Mod;
 
 use App\Entity\Mod\AbstractMod;
-use App\Form\DataTransformerRegistry;
+use App\Form\Mod\DataTransformer\ModFormDtoDataTransformer;
 use App\Form\Mod\Dto\ModFormDto;
 use App\Form\Mod\ModFormType;
 use App\Security\Enum\PermissionsEnum;
@@ -20,7 +20,7 @@ class UpdateAction extends AbstractController
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
-        private DataTransformerRegistry $dataTransformerRegistry
+        private ModFormDtoDataTransformer $modFormDtoDataTransformer
     ) {
     }
 
@@ -28,12 +28,12 @@ class UpdateAction extends AbstractController
     #[IsGranted(PermissionsEnum::MOD_UPDATE->value, 'mod')]
     public function __invoke(Request $request, AbstractMod $mod): Response
     {
-        $modFormDto = $this->dataTransformerRegistry->transformFromEntity(new ModFormDto(), $mod);
+        $modFormDto = $this->modFormDtoDataTransformer->transformFromEntity(new ModFormDto(), $mod);
         $form = $this->createForm(ModFormType::class, $modFormDto);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->dataTransformerRegistry->transformToEntity($modFormDto, $mod);
+            $this->modFormDtoDataTransformer->transformToEntity($modFormDto, $mod);
 
             $this->entityManager->flush();
 

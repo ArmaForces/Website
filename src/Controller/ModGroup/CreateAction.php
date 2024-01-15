@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\ModGroup;
 
-use App\Form\DataTransformerRegistry;
+use App\Form\ModGroup\DataTransformer\ModGroupFormDtoDataTransformer;
 use App\Form\ModGroup\Dto\ModGroupFormDto;
 use App\Form\ModGroup\ModGroupFormType;
 use App\Security\Enum\PermissionsEnum;
@@ -19,7 +19,7 @@ class CreateAction extends AbstractController
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
-        private DataTransformerRegistry $dataTransformerRegistry
+        private ModGroupFormDtoDataTransformer $modGroupFormDtoDataTransformer
     ) {
     }
 
@@ -32,7 +32,7 @@ class CreateAction extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $modGroup = $this->dataTransformerRegistry->transformToEntity($modGroupFormDto);
+            $modGroup = $this->modGroupFormDtoDataTransformer->transformToEntity($modGroupFormDto);
 
             $this->entityManager->persist($modGroup);
             $this->entityManager->flush();
