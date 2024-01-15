@@ -17,16 +17,18 @@
 
 ## OAuth and authentication setup
 
-1. Create `.env.local` file from `.env` file*
-2. Go to: https://discordapp.com/developers/applications
-3. Create new application or select existing one.
-4. From **General Information** tab copy **Client Id** and **Client Secret** and place them under `APP_SECURITY_OAUTH_DISCORD_CLIENT_ID` and `APP_SECURITY_OAUTH_DISCORD_CLIENT_SECRET` keys respectively in `.env.local` file.
-5. Go to application **OAuth** tab and add a new redirect to `https://<your domain>/security/connect/discord/check`.
-6. Go to **Bot** tab and create a new bot or use existing one. Bot doesn't need to have any privileges. Add bot to your server. Copy bot **Token** and place it under `APP_SECURITY_OAUTH_DISCORD_BOT_TOKEN` key in `.env.local` file.
-7. Get your Discord **Server Id** from **Server Settings** → **Widget** tab and place it under `APP_SECURITY_OAUTH_DISCORD_SERVER_ID` key in `.env.local` file.
-8. Enter roles names that user must have assigned to be considered a recruit or a member of the unit and place them under `APP_SECURITY_OAUTH_DISCORD_RECRUIT_ROLE_NAME` and `APP_SECURITY_OAUTH_DISCORD_MEMBER_ROLE_NAME` keys respectively in `.env.local` file.
+1. Go to: https://discordapp.com/developers/applications
+2. Create new application or select existing one.
+3. Go to **OAuth2** -> **General** tab.
 
-\* You can also use system environment variables for this.
+    - Copy **Client Id** and **Client Secret** and place them under `APP_SECURITY_OAUTH_DISCORD_CLIENT_ID` and `APP_SECURITY_OAUTH_DISCORD_CLIENT_SECRET` environment variables respectively.
+
+    - Add a new redirect to `https://<your domain>/security/connect/discord/check`.
+
+4. Go to **Bot** tab. Copy bot **Token** and place it under `APP_SECURITY_OAUTH_DISCORD_BOT_TOKEN` environment variable.
+5. Get your Discord **Server Id** from **Server Settings** → **Widget** tab and place it under `APP_SECURITY_OAUTH_DISCORD_SERVER_ID` environment variable.
+6. Go to **OAuth2** -> **URL Generator** tab. Select **bot** scope and copy generated URL. Use it to add bot to your server.
+7. Enter roles names that user must have assigned to be considered a recruit or a member of the unit and place them under `APP_SECURITY_OAUTH_DISCORD_RECRUIT_ROLE_NAME` and `APP_SECURITY_OAUTH_DISCORD_MEMBER_ROLE_NAME` keys respectively in `.env.local` file.
 
 ## Xdebug setup
 
