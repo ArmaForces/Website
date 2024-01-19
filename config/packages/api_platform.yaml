@@ -1,18 +1,37 @@
+imports:
+    - { resource: ../api_platform/filters/ }
+
 api_platform:
-    title: Hello API Platform
-    version: 1.0.0
+    title: "%app.api.name%"
+    version: "%app.api.version%"
+    show_webby: false
+
+    swagger:
+        versions: [ 3 ]
+        api_keys:
+            apiKey:
+                name: '%env(APP_SECURITY_API_KEY_HEADER_NAME)%'
+                type: header
+
+    path_segment_name_generator: api_platform.path_segment_name_generator.dash
+
+    mapping:
+        paths: [ '%kernel.project_dir%/config/api_platform/resources' ]
+
     formats:
-        jsonld: ['application/ld+json']
+        json: [ 'application/json' ]
+
     docs_formats:
-        jsonld: ['application/ld+json']
-        jsonopenapi: ['application/vnd.openapi+json']
-        html: ['text/html']
+        html: [ 'text/html' ]
+
     defaults:
         stateless: true
         cache_headers:
-            vary: ['Content-Type', 'Authorization', 'Origin']
+            vary: [ 'Content-Type', 'Authorization', 'Origin' ]
         extra_properties:
             standard_put: true
             rfc_7807_compliant_errors: true
+        normalization_context:
+            skip_null_values: false
     event_listeners_backward_compatibility_layer: false
     keep_legacy_inflector: false
