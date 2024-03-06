@@ -1,17 +1,19 @@
-App\Entity\Attendance\Attendance:
-    attributes:
-        input: 'App\Api\Input\Attendance\AttendanceInput'
-        output: 'App\Api\Output\Attendance\AttendanceOutput'
+resources:
+    App\Entity\Attendance\Attendance:
+        operations:
+            ApiPlatform\Metadata\GetCollection:
+                provider: 'App\Api\Provider\Attendance\AttendanceDataProvider'
+                output: 'App\Api\Output\Attendance\AttendanceOutput'
+                filters:
+                    - 'attendance.search_filter'
+                    - 'attendance.date_filter'
+                    - 'attendance.order_filter'
 
-    itemOperations:
-        get: ~
+            ApiPlatform\Metadata\Get:
+                provider: 'App\Api\Provider\Attendance\AttendanceDataProvider'
+                output: 'App\Api\Output\Attendance\AttendanceOutput'
 
-    collectionOperations:
-        get:
-            filters:
-                - 'attendance.search_filter'
-                - 'attendance.date_filter'
-                - 'attendance.order_filter'
-
-        post:
-            input: 'App\Api\Input\Attendance\AttendanceInput'
+            ApiPlatform\Metadata\Post:
+                input: 'App\Api\Input\Attendance\AttendanceInput'
+                processor: 'App\Api\Processor\Attendance\AttendanceProcessor'
+                output: 'App\Api\Output\Attendance\AttendanceOutput'

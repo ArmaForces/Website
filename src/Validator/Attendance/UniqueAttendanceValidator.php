@@ -22,8 +22,8 @@ class UniqueAttendanceValidator extends AbstractValidator
             throw new UnexpectedTypeException($constraint, UniqueAttendance::class);
         }
 
-        $missionId = $value->getMissionId();
-        $playerId = $value->getPlayerId();
+        $missionId = $value->missionId;
+        $playerId = $value->playerId;
 
         if (!$missionId || !$playerId) {
             return;

@@ -20,7 +20,7 @@ security:
             lazy: true
             stateless: true
             pattern: ^/api/attendances
-            methods: ['POST']
+            methods: [ 'POST' ]
             custom_authenticators:
                 - App\Security\Authenticator\ApiKeyAuthenticator
 

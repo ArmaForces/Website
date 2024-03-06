@@ -52,9 +52,10 @@ class GetModListsByNameCest
 
         $I->seeResponseCodeIs(HttpCode::NOT_FOUND);
         $I->seeResponseContainsJson([
-            'type' => 'https://tools.ietf.org/html/rfc2616#section-10',
             'title' => 'An error occurred',
             'detail' => 'Not Found',
+            'status' => HttpCode::NOT_FOUND,
+            'type' => '/errors/404',
         ]);
     }
 

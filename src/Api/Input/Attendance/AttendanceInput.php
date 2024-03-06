@@ -13,29 +13,9 @@ class AttendanceInput
 {
     #[Assert\NotBlank]
     #[Assert\Length(max: 255)]
-    private ?string $missionId = null;
+    public string $missionId;
 
     #[Assert\NotBlank]
     #[SteamProfileId]
-    private ?int $playerId = null;
-
-    public function getMissionId(): ?string
-    {
-        return $this->missionId;
-    }
-
-    public function setMissionId(?string $missionId): void
-    {
-        $this->missionId = $missionId;
-    }
-
-    public function getPlayerId(): ?int
-    {
-        return $this->playerId;
-    }
-
-    public function setPlayerId(?int $playerId): void
-    {
-        $this->playerId = $playerId;
-    }
+    public int $playerId;
 }

@@ -4,27 +4,18 @@ declare(strict_types=1);
 
 namespace App\Api\DataTransformer\Attendance;
 
-use ApiPlatform\Core\DataTransformer\DataTransformerInterface;
 use App\Api\Output\Attendance\AttendanceOutput;
 use App\Entity\Attendance\Attendance;
 
-class AttendanceOutputDataTransformer implements DataTransformerInterface
+class AttendanceOutputDataTransformer
 {
-    public function transform($object, string $to, array $context = []): AttendanceOutput
+    public function transform(Attendance $attendance): AttendanceOutput
     {
-        /** @var Attendance $object */
-        $output = new AttendanceOutput();
-
-        $output->setId($object->getId()->toString());
-        $output->setCreatedAt($object->getCreatedAt());
-        $output->setMissionId($object->getMissionId());
-        $output->setPlayerId($object->getPlayerId());
-
-        return $output;
-    }
-
-    public function supportsTransformation($data, string $to, array $context = []): bool
-    {
-        return AttendanceOutput::class === $to && $data instanceof Attendance;
+        return new AttendanceOutput(
+            $attendance->getId()->toString(),
+            $attendance->getMissionId(),
+            $attendance->getPlayerId(),
+            $attendance->getCreatedAt(),
+        );
     }
 }

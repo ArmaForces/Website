@@ -44,6 +44,9 @@ class UserLocaleRequestSubscriber implements EventSubscriberInterface
         }
 
         $request = $event->getRequest();
+        if (str_starts_with($request->getRequestUri(), '/api')) {
+            return;
+        }
 
         $negotiatedLanguage = $request->getLocale();
         $acceptLanguage = $request->headers->get('Accept-Language');

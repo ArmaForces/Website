@@ -5,27 +5,33 @@ api_platform:
     title: "%app.api.name%"
     version: "%app.api.version%"
     show_webby: false
+
     swagger:
-        versions: [3]
+        versions: [ 3 ]
         api_keys:
             apiKey:
                 name: '%env(APP_SECURITY_API_KEY_HEADER_NAME)%'
                 type: header
 
     path_segment_name_generator: api_platform.path_segment_name_generator.dash
+
     mapping:
-        paths: ['%kernel.project_dir%/config/api_platform/resources']
-    patch_formats:
-        json: ['application/merge-patch+json']
+        paths: [ '%kernel.project_dir%/config/api_platform/resources' ]
+
     formats:
-        json: ['application/json']
-        html: ['text/html']
+        json: [ 'application/json' ]
+
+    docs_formats:
+        html: [ 'text/html' ]
 
     defaults:
-        pagination_enabled: true
-        pagination_maximum_items_per_page: 50
-        pagination_client_items_per_page: true
-    collection:
-        pagination:
-            items_per_page_parameter_name: limit
-            page_parameter_name: page
+        stateless: true
+        cache_headers:
+            vary: [ 'Content-Type', 'Authorization', 'Origin' ]
+        extra_properties:
+            standard_put: true
+            rfc_7807_compliant_errors: true
+        normalization_context:
+            skip_null_values: false
+    event_listeners_backward_compatibility_layer: false
+    keep_legacy_inflector: false
