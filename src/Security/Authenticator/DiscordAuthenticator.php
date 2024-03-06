@@ -13,13 +13,13 @@ use App\Security\Exception\RequiredRolesNotAssignedException;
 use App\Security\Exception\RoleNotFoundException;
 use App\Security\Exception\UserNotADiscordMemberException;
 use App\Service\Discord\DiscordClientFactory;
+use App\Service\IdentifierFactory\IdentifierFactoryInterface;
 use Discord\Http\Endpoint;
 use Discord\Http\Exceptions\NotFoundException;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Security\Authenticator\OAuth2Authenticator;
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -52,6 +52,7 @@ class DiscordAuthenticator extends OAuth2Authenticator implements Authentication
         private EntityManagerInterface $em,
         private RouterInterface $router,
         private DiscordClientFactory $discordClientFactory,
+        private IdentifierFactoryInterface $identifierFactory,
         private string $discordServerId,
         private string $botToken,
         private array $requiredServerRoleNames
@@ -145,9 +146,9 @@ class DiscordAuthenticator extends OAuth2Authenticator implements Authentication
             return new SelfValidatingPassport(new UserBadge($externalId));
         }
 
-        $permissions = new UserPermissions(Uuid::uuid4());
+        $permissions = new UserPermissions($this->identifierFactory->create());
         $user = new User(
-            Uuid::uuid4(),
+            $this->identifierFactory->create(),
             $fullUsername,
             $email,
             $externalId,

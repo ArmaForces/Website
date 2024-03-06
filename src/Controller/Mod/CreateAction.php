@@ -27,7 +27,7 @@ class CreateAction extends AbstractController
     #[IsGranted(PermissionsEnum::MOD_CREATE->value)]
     public function __invoke(Request $request): Response
     {
-        $modFormDto = new ModFormDto();
+        $modFormDto = $this->modFormDtoDataTransformer->transformFromEntity(new ModFormDto());
         $form = $this->createForm(ModFormType::class, $modFormDto);
         $form->handleRequest($request);
 

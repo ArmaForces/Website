@@ -7,12 +7,13 @@ namespace App\Api\DataTransformer\Attendance;
 use ApiPlatform\Validator\ValidatorInterface;
 use App\Api\Input\Attendance\AttendanceInput;
 use App\Entity\Attendance\Attendance;
-use Ramsey\Uuid\Uuid;
+use App\Service\IdentifierFactory\IdentifierFactoryInterface;
 
 class AttendanceInputDataTransformer
 {
     public function __construct(
-        private ValidatorInterface $validator
+        private ValidatorInterface $validator,
+        private IdentifierFactoryInterface $identifierFactory
     ) {
     }
 
@@ -21,7 +22,7 @@ class AttendanceInputDataTransformer
         $this->validator->validate($attendanceInput);
 
         return new Attendance(
-            Uuid::uuid4(),
+            $this->identifierFactory->create(),
             $attendanceInput->missionId,
             $attendanceInput->playerId
         );

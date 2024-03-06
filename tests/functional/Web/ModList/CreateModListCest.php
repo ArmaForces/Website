@@ -15,8 +15,10 @@ use App\Entity\Mod\AbstractMod;
 use App\Entity\ModGroup\ModGroup;
 use App\Entity\ModList\ModList;
 use App\Entity\User\User;
+use App\Service\IdentifierFactory\IdentifierFactoryStub;
 use App\Tests\FunctionalTester;
 use Codeception\Util\HttpCode;
+use Ramsey\Uuid\Uuid;
 
 class CreateModListCest
 {
@@ -24,6 +26,12 @@ class CreateModListCest
     {
         $I->stopFollowingRedirects();
         $I->freezeTime('2020-01-01T00:00:00+00:00');
+
+        /** @var IdentifierFactoryStub $identifierFactory */
+        $identifierFactory = $I->grabService(IdentifierFactoryStub::class);
+        $identifierFactory->setIdentifiers([
+            Uuid::fromString('805c9fcd-d674-4a27-8f0c-78dbf2484bb2'),
+        ]);
     }
 
     public function createModListAsUnauthenticatedUser(FunctionalTester $I): void
@@ -75,6 +83,7 @@ class CreateModListCest
 
         /** @var ModList $modList */
         $modList = $I->grabEntityFromRepository(ModList::class, ['name' => 'Custom']);
+        $I->assertSame('805c9fcd-d674-4a27-8f0c-78dbf2484bb2', $modList->getId()->toString());
         $I->assertSame('Custom', $modList->getName());
         $I->assertSame('Custom modlist', $modList->getDescription());
         $I->assertSame(User1Fixture::ID, $modList->getOwner()->getId()->toString()); // Current user

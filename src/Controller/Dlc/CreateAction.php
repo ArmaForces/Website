@@ -27,7 +27,7 @@ class CreateAction extends AbstractController
     #[IsGranted(PermissionsEnum::DLC_CREATE->value)]
     public function __invoke(Request $request): Response
     {
-        $dlcFormDto = new DlcFormDto();
+        $dlcFormDto = $this->dlcFormDtoDataTransformer->transformFromEntity(new DlcFormDto());
         $form = $this->createForm(DlcFormType::class, $dlcFormDto);
         $form->handleRequest($request);
 

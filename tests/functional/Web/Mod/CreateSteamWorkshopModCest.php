@@ -10,9 +10,11 @@ use App\Entity\Mod\Enum\ModStatusEnum;
 use App\Entity\Mod\Enum\ModTypeEnum;
 use App\Entity\Mod\SteamWorkshopMod;
 use App\Entity\User\User;
+use App\Service\IdentifierFactory\IdentifierFactoryStub;
 use App\Service\SteamApiClient\Helper\SteamHelper;
 use App\Tests\FunctionalTester;
 use Codeception\Util\HttpCode;
+use Ramsey\Uuid\Uuid;
 
 class CreateSteamWorkshopModCest
 {
@@ -20,6 +22,12 @@ class CreateSteamWorkshopModCest
     {
         $I->stopFollowingRedirects();
         $I->freezeTime('2020-01-01T00:00:00+00:00');
+
+        /** @var IdentifierFactoryStub $identifierFactory */
+        $identifierFactory = $I->grabService(IdentifierFactoryStub::class);
+        $identifierFactory->setIdentifiers([
+            Uuid::fromString('805c9fcd-d674-4a27-8f0c-78dbf2484bb2'),
+        ]);
     }
 
     public function createSteamWorkshopModAsUnauthenticatedUser(FunctionalTester $I): void
@@ -68,6 +76,7 @@ class CreateSteamWorkshopModCest
 
         /** @var SteamWorkshopMod $mod */
         $mod = $I->grabEntityFromRepository(SteamWorkshopMod::class, ['itemId' => 1934142795]);
+        $I->assertSame('805c9fcd-d674-4a27-8f0c-78dbf2484bb2', $mod->getId()->toString());
         $I->assertSame(ModTypeEnum::OPTIONAL, $mod->getType());
         $I->assertSame(null, $mod->getStatus());
         $I->assertSame('AF Mods', $mod->getName());

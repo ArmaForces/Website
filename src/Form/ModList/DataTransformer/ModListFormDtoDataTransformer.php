@@ -8,13 +8,14 @@ use App\Entity\ModList\ModList;
 use App\Entity\Permissions\AbstractPermissions;
 use App\Entity\User\User;
 use App\Form\ModList\Dto\ModListFormDto;
-use Ramsey\Uuid\Uuid;
+use App\Service\IdentifierFactory\IdentifierFactoryInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 
 class ModListFormDtoDataTransformer
 {
     public function __construct(
-        private Security $security
+        private Security $security,
+        private IdentifierFactoryInterface $identifierFactory
     ) {
     }
 
@@ -32,7 +33,7 @@ class ModListFormDtoDataTransformer
 
         if (!$modList instanceof ModList) {
             return new ModList(
-                Uuid::uuid4(),
+                $this->identifierFactory->create(),
                 $modListFormDto->getName(),
                 $modListFormDto->getDescription(),
                 $modListFormDto->getMods(),

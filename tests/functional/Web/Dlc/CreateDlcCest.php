@@ -7,9 +7,11 @@ namespace App\Tests\Functional\Web\Dlc;
 use App\DataFixtures\User\User1Fixture;
 use App\Entity\Dlc\Dlc;
 use App\Entity\User\User;
+use App\Service\IdentifierFactory\IdentifierFactoryStub;
 use App\Service\SteamApiClient\Helper\SteamHelper;
 use App\Tests\FunctionalTester;
 use Codeception\Util\HttpCode;
+use Ramsey\Uuid\Uuid;
 
 class CreateDlcCest
 {
@@ -17,6 +19,12 @@ class CreateDlcCest
     {
         $I->stopFollowingRedirects();
         $I->freezeTime('2020-01-01T00:00:00+00:00');
+
+        /** @var IdentifierFactoryStub $identifierFactory */
+        $identifierFactory = $I->grabService(IdentifierFactoryStub::class);
+        $identifierFactory->setIdentifiers([
+            Uuid::fromString('805c9fcd-d674-4a27-8f0c-78dbf2484bb2'),
+        ]);
     }
 
     public function createDlcAsUnauthenticatedUser(FunctionalTester $I): void
@@ -100,6 +108,7 @@ class CreateDlcCest
 
         /** @var Dlc $dlc */
         $dlc = $I->grabEntityFromRepository(Dlc::class, ['appId' => 1681170]);
+        $I->assertSame('805c9fcd-d674-4a27-8f0c-78dbf2484bb2', $dlc->getId()->toString());
         $I->assertSame(1681170, $dlc->getAppId());
         $I->assertSame('ws', $dlc->getDirectory());
         $I->assertSame('Arma 3 Creator DLC: Western Sahara', $dlc->getName()); // From Steam Workshop
