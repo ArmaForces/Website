@@ -1,0 +1,33 @@
+<!-- Section - Missions -->
+<section id="missions" class="text-center">
+    <!-- Grid row -->
+    <div class="row justify-content-center">
+
+        <!-- Grid column -->
+        <div class="col-lg-7 col-md-6 mb-4">
+            <h4 class="my-4 font-weight-bold">{{ 'When do we play'|trans }}</h4>
+            <p class="grey-text">
+                {% include([
+                    'shared/home/index/_partial/' ~ get_current_locale() ~ '/_games.html.twig',
+                    'shared/home/index/_partial/pl/_games.html.twig'
+                ]) %}
+            </p>
+        </div>
+        <!--/ Grid column -->
+
+        {# @var nearestMission \App\Shared\Service\Mission\Dto\MissionDto #}
+        {% if nearestMission is not null %}
+            <!-- Grid column -->
+            <div class="col-lg-4 col-md-6 mission">
+                <h4 class="my-4 font-weight-bold">
+                    {{ nearestMission.state == constant('App\\Shared\\Service\\Mission\\Enum\\MissionStateEnum::ARCHIVED') ? 'Last mission'|trans : 'Nearest mission'|trans }}
+                </h4>
+
+                {% include 'shared/_partial/_mission_widget.html.twig' with { 'mission': nearestMission } %}
+            </div>
+            <!--/ Grid column -->
+        {% endif %}
+    </div>
+    <!--/ Grid row -->
+</section>
+<!--/ Section - Missions -->

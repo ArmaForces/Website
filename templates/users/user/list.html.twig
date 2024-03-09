@@ -1,0 +1,53 @@
+{% extends 'shared/card.html.twig' %}
+
+{% block content %}
+    {% embed 'shared/_partial/_page_header.html.twig' %}
+        {% block page_title %}
+            {{ 'Users'|trans }}
+        {% endblock %}
+    {% endembed %}
+
+    {% embed 'shared/_partial/_table.html.twig' %}
+        {% import 'shared/_macro/table_macro.html.twig' as tableMacro %}
+
+        {% block table_head %}
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col" class="w-100">{{ 'Username'|trans }}</th>
+                <th scope="col">{{ 'Discord ID'|trans }}</th>
+                <th scope="col">{{ 'Steam ID'|trans }}</th>
+                <th scope="col">{{ 'Created at'|trans }}</th>
+                <th scope="col">{{ 'Last updated at'|trans }}</th>
+                <th></th>
+            </tr>
+        {% endblock %}
+        {% block table_body %}
+            {# @var user \App\Users\Entity\User\User #}
+            {% for user in users %}
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.externalId }}</td>
+                    <td>
+                        {% if user.steamId %}
+                            <a href="{{ steam_profile_id_url(user.steamId) }}">{{ user.steamId }}</a>
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                    <td>{{ tableMacro.row_blamable(user.createdAt, user.createdBy) }}</td>
+                    <td>{{ tableMacro.row_blamable(user.lastUpdatedAt, user.lastUpdatedBy) }}</td>
+                    <td class="text-right">
+                        {% if is_granted(constant('App\\Shared\\Security\\Enum\\PermissionsEnum::USER_UPDATE').value, user) %}
+                            {{ tableMacro.row_action_edit(path('app_user_update', { id: user.id }), 'Edit user'|trans) }}
+                        {% endif %}
+
+                        {% if is_granted(constant('App\\Shared\\Security\\Enum\\PermissionsEnum::USER_DELETE').value, user) %}
+                            {{ tableMacro.row_action_delete(path('app_user_delete', { id: user.id }), 'Are you sure you want to delete %name%?'|trans({ '%name%': user.username }), 'Delete user'|trans) }}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

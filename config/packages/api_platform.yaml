@@ -1,5 +1,6 @@
 imports:
-    - { resource: ../api_platform/filters/ }
+    - { resource: ../api_platform/mods/filters/ }
+    - { resource: ../api_platform/attendances/filters/ }
 
 api_platform:
     title: "%app.api.name%"
@@ -16,7 +17,9 @@ api_platform:
     path_segment_name_generator: api_platform.path_segment_name_generator.dash
 
     mapping:
-        paths: [ '%kernel.project_dir%/config/api_platform/resources' ]
+        paths:
+            - '%kernel.project_dir%/config/api_platform/mods/resources'
+            - '%kernel.project_dir%/config/api_platform/attendances/resources'
 
     formats:
         json: [ 'application/json' ]

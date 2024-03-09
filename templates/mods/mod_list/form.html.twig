@@ -1,0 +1,60 @@
+{% extends 'shared/card.html.twig' %}
+
+{% form_theme form _self %}
+
+{% block content %}
+    {# @var modListFormDto \App\Mods\Form\ModList\Dto\ModListFormDto #}
+    {% set modListFormDto = form.vars.data %}
+
+    {% embed 'shared/_partial/_page_header.html.twig' %}
+        {% block page_title %}
+            {{ modListFormDto.id ? 'Edit mod list'|trans : 'Create mod list'|trans }}
+        {% endblock %}
+    {% endembed %}
+
+    {{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.description) }}
+
+    {% if form.owner is defined %}
+        {{ form_row(form.owner) }}
+    {% endif %}
+
+    {{ form_row(form.active) }}
+
+    {% if form.approved is defined %}
+        {{ form_row(form.approved) }}
+    {% endif %}
+
+    {% embed 'mods/_partial/mod_tabs/_mod_tabs.html.twig' %}
+        {% block nav %}
+            {% include 'mods/_partial/mod_group_tabs/_mod_group_tabs_nav.html.twig' with { active: 'mod-groups' } %}
+            {% include 'mods/_partial/dlc_tabs/_dlc_tabs_nav.html.twig' %}
+            {{ parent() }}
+        {% endblock %}
+
+        {% block tab_content %}
+            {{ form_row(form.modGroups) }}
+            {{ form_row(form.dlcs) }}
+            {{ form_row(form.mods) }}
+        {% endblock %}
+    {% endembed %}
+
+    <div class="form-group text-right">
+        <button type="submit" class="btn-primary btn">{{ modListFormDto.id ? 'Apply'|trans : 'Create mod list'|trans }}</button>
+        <a href="{{ path('app_mod_list_list') }}" class="btn-secondary btn">{{ 'Cancel'|trans }}</a>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block _mod_list_form_modGroups_row %}
+    {% include 'mods/_partial/mod_group_tabs/_mod_group_tabs_content.html.twig' with { active: 'mod-groups' } %}
+{% endblock %}
+
+{% block _mod_list_form_dlcs_row %}
+    {% include 'mods/_partial/dlc_tabs/_dlc_tabs_content.html.twig' %}
+{% endblock %}
+
+{% block _mod_list_form_mods_row %}
+    {% include 'mods/_partial/mod_tabs/_mod_tabs_content.html.twig' %}
+{% endblock %}

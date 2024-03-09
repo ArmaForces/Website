@@ -7,7 +7,7 @@ security:
         users:
             entity:
                 # the class of the entity that represents users
-                class: 'App\Entity\User\User'
+                class: 'App\Users\Entity\User\User'
                 # the property to query by - e.g. username, email, etc
                 property: 'externalId'
 
@@ -22,7 +22,7 @@ security:
             pattern: ^/api/attendances
             methods: [ 'POST' ]
             custom_authenticators:
-                - App\Security\Authenticator\ApiKeyAuthenticator
+                - App\Shared\Security\Authenticator\ApiKeyAuthenticator
 
         main:
             lazy: true
@@ -31,7 +31,7 @@ security:
                 lifetime: 604800 # 1 week in seconds
                 always_remember_me: true
             custom_authenticators:
-                - App\Security\Authenticator\DiscordAuthenticator
+                - App\Shared\Security\Authenticator\DiscordAuthenticator
             logout:
                 path: app_security_logout
 

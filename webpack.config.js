@@ -20,12 +20,12 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
-    .addEntry('app', './assets/app.js')
-    .addEntry('multiRowSelect', './assets/multiRowSelect.js')
-    .addEntry('landing', './assets/landing.js')
-    .addEntry('joinUs', './assets/joinUs.js')
-    .addEntry('modForm', './assets/mod/modForm.js')
-    .addEntry('modListCustomize', './assets/modListPublic/modListCustomize.js')
+    .addEntry('app', './assets/shared/app.js')
+    .addEntry('multiRowSelect', './assets/shared/multiRowSelect.js')
+    .addEntry('landing', './assets/shared/index/landing.js')
+    .addEntry('joinUs', './assets/shared/joinUs/joinUs.js')
+    .addEntry('modForm', './assets/mods/mod/modForm.js')
+    .addEntry('modListCustomize', './assets/mods/modListPublic/modListCustomize.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

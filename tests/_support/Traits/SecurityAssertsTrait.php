@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Traits;
 
-use App\Entity\User\User;
+use App\Users\Entity\User\User;
 
 trait SecurityAssertsTrait
 {

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Traits;
 
-use App\Entity\Dlc\Dlc;
-use App\Entity\Mod\SteamWorkshopMod;
+use App\Mods\Entity\Dlc\Dlc;
+use App\Mods\Entity\Mod\SteamWorkshopMod;
 use Symfony\Component\DomCrawler\Crawler;
 
 trait ResponseAssertTrait

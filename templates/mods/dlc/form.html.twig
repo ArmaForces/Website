@@ -1,0 +1,23 @@
+{% extends 'shared/card.html.twig' %}
+
+{% form_theme form _self %}
+
+{% block content %}
+    {# @var dlcFormDto \App\Mods\Form\Dlc\Dto\DlcFormDto #}
+    {% set dlcFormDto = form.vars.data %}
+
+    {% embed 'shared/_partial/_page_header.html.twig' %}
+        {% block page_title %}
+            {{ dlcFormDto.id ? 'Edit DLC'|trans : 'Create DLC'|trans }}
+        {% endblock %}
+    {% endembed %}
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+
+    <div class="form-group text-right">
+        <button type="submit" class="btn-primary btn">{{ dlcFormDto.id ? 'Apply'|trans : 'Create DLC'|trans }}</button>
+        <a href="{{ path('app_dlc_list') }}" class="btn-secondary btn">{{ 'Cancel'|trans }}</a>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

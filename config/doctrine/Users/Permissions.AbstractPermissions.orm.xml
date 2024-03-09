@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity
+        name="App\Users\Entity\Permissions\AbstractPermissions"
+        table="permissions"
+        repository-class="App\Users\Repository\Permissions\PermissionsRepository"
+        inheritance-type="SINGLE_TABLE"
+    >
+        <!-- User -->
+        <field name="userList" type="boolean"/>
+        <field name="userUpdate" type="boolean"/>
+        <field name="userDelete" type="boolean"/>
+
+        <!-- User Group -->
+        <field name="userGroupList" type="boolean"/>
+        <field name="userGroupCreate" type="boolean"/>
+        <field name="userGroupUpdate" type="boolean"/>
+        <field name="userGroupDelete" type="boolean"/>
+
+        <!-- Mod -->
+        <field name="modList" type="boolean"/>
+        <field name="modCreate" type="boolean"/>
+        <field name="modUpdate" type="boolean"/>
+        <field name="modDelete" type="boolean"/>
+        <field name="modChangeStatus" type="boolean"/>
+
+        <!-- Mod Group -->
+        <field name="modGroupList" type="boolean"/>
+        <field name="modGroupCreate" type="boolean"/>
+        <field name="modGroupUpdate" type="boolean"/>
+        <field name="modGroupDelete" type="boolean"/>
+
+        <!-- Dlc -->
+        <field name="dlcList" type="boolean"/>
+        <field name="dlcCreate" type="boolean"/>
+        <field name="dlcUpdate" type="boolean"/>
+        <field name="dlcDelete" type="boolean"/>
+
+        <!-- Mod List -->
+        <field name="modListList" type="boolean"/>
+        <field name="modListCreate" type="boolean"/>
+        <field name="modListUpdate" type="boolean"/>
+        <field name="modListDelete" type="boolean"/>
+        <field name="modListCopy" type="boolean"/>
+        <field name="modListApprove" type="boolean"/>
+
+        <discriminator-column name="type" type="string" length="255"/>
+        <discriminator-map>
+            <discriminator-mapping value="user" class="App\Users\Entity\Permissions\UserPermissions"/>
+            <discriminator-mapping value="group" class="App\Users\Entity\Permissions\UserGroupPermissions"/>
+        </discriminator-map>
+    </entity>
+
+</doctrine-mapping>
