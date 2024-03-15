@@ -9,7 +9,6 @@ use App\Entity\User\User;
 use App\Validator\UserGroup\UniqueUserGroupName;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -32,7 +31,6 @@ class UserGroupFormDto
     public function __construct()
     {
         $this->users = new ArrayCollection();
-        $this->permissions = new UserGroupPermissions(Uuid::uuid4());
     }
 
     public function getId(): ?UuidInterface

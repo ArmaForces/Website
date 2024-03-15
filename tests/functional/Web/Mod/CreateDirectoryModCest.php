@@ -9,8 +9,10 @@ use App\DataFixtures\User\User1Fixture;
 use App\Entity\Mod\DirectoryMod;
 use App\Entity\Mod\Enum\ModStatusEnum;
 use App\Entity\User\User;
+use App\Service\IdentifierFactory\IdentifierFactoryStub;
 use App\Tests\FunctionalTester;
 use Codeception\Util\HttpCode;
+use Ramsey\Uuid\Uuid;
 
 class CreateDirectoryModCest
 {
@@ -18,6 +20,12 @@ class CreateDirectoryModCest
     {
         $I->stopFollowingRedirects();
         $I->freezeTime('2020-01-01T00:00:00+00:00');
+
+        /** @var IdentifierFactoryStub $identifierFactory */
+        $identifierFactory = $I->grabService(IdentifierFactoryStub::class);
+        $identifierFactory->setIdentifiers([
+            Uuid::fromString('805c9fcd-d674-4a27-8f0c-78dbf2484bb2'),
+        ]);
     }
 
     public function createDirectoryModAsUnauthenticatedUser(FunctionalTester $I): void
@@ -64,6 +72,7 @@ class CreateDirectoryModCest
 
         /** @var DirectoryMod $mod */
         $mod = $I->grabEntityFromRepository(DirectoryMod::class, ['directory' => '@OCAP']);
+        $I->assertSame('805c9fcd-d674-4a27-8f0c-78dbf2484bb2', $mod->getId()->toString());
         $I->assertSame(null, $mod->getStatus());
         $I->assertSame('OCAP', $mod->getName());
         $I->assertSame('OCAP - AAR', $mod->getDescription());

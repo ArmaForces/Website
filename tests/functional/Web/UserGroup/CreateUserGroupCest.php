@@ -9,18 +9,28 @@ use App\DataFixtures\User\User1Fixture;
 use App\DataFixtures\User\User2Fixture;
 use App\DataFixtures\User\User3Fixture;
 use App\DataFixtures\UserGroup\UsersGroupFixture;
+use App\Entity\Permissions\UserGroupPermissions;
 use App\Entity\User\User;
 use App\Entity\UserGroup\UserGroup;
+use App\Service\IdentifierFactory\IdentifierFactoryStub;
 use App\Tests\FunctionalTester;
 use Codeception\Util\HttpCode;
+use Ramsey\Uuid\Uuid;
 
 class CreateUserGroupCest
 {
     public function _before(FunctionalTester $I): void
     {
         $I->stopFollowingRedirects();
-
         $I->freezeTime('2020-01-01T00:00:00+00:00');
+
+        /** @var IdentifierFactoryStub $identifierFactory */
+        $identifierFactory = $I->grabService(IdentifierFactoryStub::class);
+        $identifierFactory->setIdentifiers([
+            Uuid::fromString('ecfb293f-ca8c-4edc-9af3-15fee1bf21ac'), // Required to initialize UserGroupPermissions
+            Uuid::fromString('805c9fcd-d674-4a27-8f0c-78dbf2484bb2'),
+            Uuid::fromString('7cb77e2f-c26e-4098-b47b-60539bf5bb70'),
+        ]);
     }
 
     public function createUserGroupAsUnauthenticatedUser(FunctionalTester $I): void
@@ -101,6 +111,7 @@ class CreateUserGroupCest
 
         /** @var UserGroup $userGroup */
         $userGroup = $I->grabEntityFromRepository(UserGroup::class, ['name' => 'All']);
+        $I->assertSame('7cb77e2f-c26e-4098-b47b-60539bf5bb70', $userGroup->getId()->toString());
         $I->assertSame('All', $userGroup->getName());
         $I->assertSame('All users', $userGroup->getDescription());
         $I->assertSame([
@@ -109,6 +120,8 @@ class CreateUserGroupCest
             User2Fixture::ID,
             User3Fixture::ID,
         ], array_map(fn (User $user) => $user->getId()->toString(), $userGroup->getUsers()));
+
+        $I->assertSame('805c9fcd-d674-4a27-8f0c-78dbf2484bb2', $userGroup->getPermissions()->getId()->toString());
 
         $I->assertTrue($userGroup->getPermissions()->userList);
         $I->assertTrue($userGroup->getPermissions()->userUpdate);

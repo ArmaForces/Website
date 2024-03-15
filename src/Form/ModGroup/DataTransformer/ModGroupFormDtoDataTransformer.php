@@ -6,15 +6,20 @@ namespace App\Form\ModGroup\DataTransformer;
 
 use App\Entity\ModGroup\ModGroup;
 use App\Form\ModGroup\Dto\ModGroupFormDto;
-use Ramsey\Uuid\Uuid;
+use App\Service\IdentifierFactory\IdentifierFactoryInterface;
 
 class ModGroupFormDtoDataTransformer
 {
+    public function __construct(
+        private IdentifierFactoryInterface $identifierFactory
+    ) {
+    }
+
     public function transformToEntity(ModGroupFormDto $modGroupFormDto, ModGroup $modGroup = null): ModGroup
     {
         if (!$modGroup instanceof ModGroup) {
             return new ModGroup(
-                Uuid::uuid4(),
+                $this->identifierFactory->create(),
                 $modGroupFormDto->getName(),
                 $modGroupFormDto->getDescription(),
                 $modGroupFormDto->getMods()

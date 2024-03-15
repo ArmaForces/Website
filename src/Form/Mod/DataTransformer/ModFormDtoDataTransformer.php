@@ -11,14 +11,15 @@ use App\Entity\Mod\Enum\ModStatusEnum;
 use App\Entity\Mod\Enum\ModTypeEnum;
 use App\Entity\Mod\SteamWorkshopMod;
 use App\Form\Mod\Dto\ModFormDto;
+use App\Service\IdentifierFactory\IdentifierFactoryInterface;
 use App\Service\SteamApiClient\Helper\SteamHelper;
 use App\Service\SteamApiClient\SteamApiClientInterface;
-use Ramsey\Uuid\Uuid;
 
 class ModFormDtoDataTransformer
 {
     public function __construct(
-        private SteamApiClientInterface $steamApiClient
+        private SteamApiClientInterface $steamApiClient,
+        private IdentifierFactoryInterface $identifierFactory
     ) {
     }
 
@@ -36,7 +37,7 @@ class ModFormDtoDataTransformer
 
             if (!$mod instanceof SteamWorkshopMod) {
                 return new SteamWorkshopMod(
-                    Uuid::uuid4(),
+                    $this->identifierFactory->create(),
                     $name,
                     $modFormDto->getDescription(),
                     $status,
@@ -57,7 +58,7 @@ class ModFormDtoDataTransformer
         if (ModSourceEnum::DIRECTORY === $source) {
             if (!$mod instanceof DirectoryMod) {
                 return new DirectoryMod(
-                    Uuid::uuid4(),
+                    $this->identifierFactory->create(),
                     $modFormDto->getName(),
                     $modFormDto->getDescription(),
                     $status,

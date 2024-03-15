@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Tests\Functional\Api\Attendance;
 
 use App\Entity\Attendance\Attendance;
+use App\Service\IdentifierFactory\IdentifierFactoryStub;
 use App\Tests\FunctionalTester;
 use Codeception\Util\HttpCode;
+use Ramsey\Uuid\Uuid;
 
 class CreateAttendanceCest
 {
@@ -14,6 +16,12 @@ class CreateAttendanceCest
     {
         $I->haveHttpHeader('Accept', 'application/json');
         $I->haveHttpHeader('Content-Type', 'application/json');
+
+        /** @var IdentifierFactoryStub $identifierFactory */
+        $identifierFactory = $I->grabService(IdentifierFactoryStub::class);
+        $identifierFactory->setIdentifiers([
+            Uuid::fromString('805c9fcd-d674-4a27-8f0c-78dbf2484bb2'),
+        ]);
     }
 
     public function createAttendanceWithoutApiKey(FunctionalTester $I): void
@@ -61,6 +69,7 @@ class CreateAttendanceCest
 
         /** @var Attendance $attendance */
         $attendance = $I->grabEntityFromRepository(Attendance::class, ['missionId' => 'mission_99']);
+        $I->assertSame('805c9fcd-d674-4a27-8f0c-78dbf2484bb2', $attendance->getId()->toString());
         $I->assertSame('mission_99', $attendance->getMissionId());
         $I->assertSame(76561198048200529, $attendance->getPlayerId());
     }

@@ -41,6 +41,8 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    App\Service\IdentifierFactory\IdentifierFactoryInterface: '@App\Service\IdentifierFactory\IdentifierFactory'
+
     App\Security\Authenticator\DiscordAuthenticator:
         arguments:
             $discordServerId: '%app.security.oauth.discord.server_id%'
@@ -109,3 +111,5 @@ when@test:
             class: Symfony\Bundle\SecurityBundle\Security
             arguments:
                 - '@test.service_container'
+
+        App\Service\IdentifierFactory\IdentifierFactoryInterface: '@App\Service\IdentifierFactory\IdentifierFactoryStub'

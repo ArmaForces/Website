@@ -27,7 +27,7 @@ class CreateAction extends AbstractController
     #[IsGranted(PermissionsEnum::USER_GROUP_CREATE->value)]
     public function __invoke(Request $request): Response
     {
-        $userGroupFormDto = new UserGroupFormDto();
+        $userGroupFormDto = $this->userGroupFormDtoDataTransformer->transformFromEntity(new UserGroupFormDto());
         $form = $this->createForm(UserGroupFormType::class, $userGroupFormDto);
         $form->handleRequest($request);
 

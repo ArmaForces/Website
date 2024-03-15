@@ -6,14 +6,15 @@ namespace App\Form\Dlc\DataTransformer;
 
 use App\Entity\Dlc\Dlc;
 use App\Form\Dlc\Dto\DlcFormDto;
+use App\Service\IdentifierFactory\IdentifierFactoryInterface;
 use App\Service\SteamApiClient\Helper\SteamHelper;
 use App\Service\SteamApiClient\SteamApiClientInterface;
-use Ramsey\Uuid\Uuid;
 
 class DlcFormDtoDataTransformer
 {
     public function __construct(
-        private SteamApiClientInterface $steamApiClient
+        private SteamApiClientInterface $steamApiClient,
+        private IdentifierFactoryInterface $identifierFactory
     ) {
     }
 
@@ -25,7 +26,7 @@ class DlcFormDtoDataTransformer
 
         if (!$dlc instanceof Dlc) {
             return new Dlc(
-                Uuid::uuid4(),
+                $this->identifierFactory->create(),
                 $name,
                 $dlcFormDto->getDescription(),
                 $appId,

@@ -10,8 +10,10 @@ use App\DataFixtures\User\User1Fixture;
 use App\Entity\Mod\AbstractMod;
 use App\Entity\ModGroup\ModGroup;
 use App\Entity\User\User;
+use App\Service\IdentifierFactory\IdentifierFactoryStub;
 use App\Tests\FunctionalTester;
 use Codeception\Util\HttpCode;
+use Ramsey\Uuid\Uuid;
 
 class CreateModGroupCest
 {
@@ -19,6 +21,12 @@ class CreateModGroupCest
     {
         $I->stopFollowingRedirects();
         $I->freezeTime('2020-01-01T00:00:00+00:00');
+
+        /** @var IdentifierFactoryStub $identifierFactory */
+        $identifierFactory = $I->grabService(IdentifierFactoryStub::class);
+        $identifierFactory->setIdentifiers([
+            Uuid::fromString('805c9fcd-d674-4a27-8f0c-78dbf2484bb2'),
+        ]);
     }
 
     public function createModGroupAsUnauthenticatedUser(FunctionalTester $I): void
@@ -63,6 +71,7 @@ class CreateModGroupCest
 
         /** @var ModGroup $modGroup */
         $modGroup = $I->grabEntityFromRepository(ModGroup::class, ['name' => 'CUP Terrains']);
+        $I->assertSame('805c9fcd-d674-4a27-8f0c-78dbf2484bb2', $modGroup->getId()->toString());
         $I->assertSame('CUP Terrains', $modGroup->getName());
         $I->assertSame('Terrains for CUP', $modGroup->getDescription());
         $I->assertSame([
