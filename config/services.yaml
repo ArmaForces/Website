@@ -29,21 +29,18 @@ services:
         resource: '../src/'
         exclude:
             - '../src/DependencyInjection/'
-            - '../src/Entity/'
             - '../src/Kernel.php'
-            - '../src/Tests/'
-
-    # controllers are imported separately to make sure services can be injected
-    # as action arguments even if you don't extend any base controller class
-    App\Controller\:
-        resource: '../src/Controller/'
-        tags: [ 'controller.service_arguments' ]
+            - '../src/Shared/Entity/'
+            - '../src/Users/Entity/'
+            - '../src/Mods/Entity/'
+            - '../src/Attendances/Entity/'
+            - '../src/Shared/Tests/'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-    App\Service\IdentifierFactory\IdentifierFactoryInterface: '@App\Service\IdentifierFactory\IdentifierFactory'
+    App\Shared\Service\IdentifierFactory\IdentifierFactoryInterface: '@App\Shared\Service\IdentifierFactory\IdentifierFactory'
 
-    App\Security\Authenticator\DiscordAuthenticator:
+    App\Shared\Security\Authenticator\DiscordAuthenticator:
         arguments:
             $discordServerId: '%app.security.oauth.discord.server_id%'
             $botToken: '%app.security.oauth.discord.bot_token%'
@@ -51,7 +48,7 @@ services:
                 - '%app.security.oauth.discord.recruit_role_name%'
                 - '%app.security.oauth.discord.member_role_name%'
 
-    App\Security\Authenticator\ApiKeyAuthenticator:
+    App\Shared\Security\Authenticator\ApiKeyAuthenticator:
         arguments:
             $apiKeyHeaderName: '%app.security.api.key_header_name%'
             $apiAllowedKeys: '%app.security.api.allowed_keys%'
@@ -62,28 +59,23 @@ services:
             - '%env(DATABASE_URL)%'
 
     # Register Doctrine subscribers
-    App\EventSubscriber\Doctrine\:
-        resource: '../src/EventSubscriber/Doctrine'
-        tags:
-            - { name: 'doctrine.event_subscriber' }
-
-    App\Service\Mission\MissionClient:
+    App\Shared\Service\Mission\MissionClient:
         arguments:
             $missionApiUrl: '%env(APP_URL_API_MISSION)%'
 
-    App\Service\Mission\MissionStore:
+    App\Shared\Service\Mission\MissionStore:
         arguments:
             $storagePath: '%kernel.project_dir%/var/cache_http/%kernel.environment%'
 
-    App\Service\SteamApiClient\SteamApiClient:
+    App\Shared\Service\SteamApiClient\SteamApiClient:
         arguments:
             $httpClient: '@client.steam_api'
 
-    App\Service\Version\VersionProvider:
+    App\Shared\Service\Version\VersionProvider:
         arguments:
             $projectDir: '%kernel.project_dir%'
 
-    App\Twig\ImgproxyExtension:
+    App\Shared\Twig\ImgproxyExtension:
         arguments:
             $baseProxyUrl: '%env(APP_IMGPROXY_URL)%'
             $proxyKey: '%env(APP_IMGPROXY_KEY)%'
@@ -96,12 +88,12 @@ services:
             $defaultLifetime: 3600
             $directory: '%kernel.cache_dir%'
 
-    App\Twig\BackgroundImageExtension:
+    App\Shared\Twig\BackgroundImageExtension:
         arguments:
             $cacheAdapter: '@app.cache.background_images'
             $backgroundImagesDirectory: '%kernel.project_dir%/public/img/background'
 
-    App\Twig\UtilsExtension:
+    App\Shared\Twig\UtilsExtension:
         arguments:
             $defaultLocale: '%kernel.default_locale%'
 
@@ -112,4 +104,4 @@ when@test:
             arguments:
                 - '@test.service_container'
 
-        App\Service\IdentifierFactory\IdentifierFactoryInterface: '@App\Service\IdentifierFactory\IdentifierFactoryStub'
+        App\Shared\Service\IdentifierFactory\IdentifierFactoryInterface: '@App\Shared\Service\IdentifierFactory\IdentifierFactoryStub'

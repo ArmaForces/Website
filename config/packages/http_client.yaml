@@ -9,4 +9,4 @@ when@test:
         client.steam_api:
             class: Symfony\Component\HttpClient\MockHttpClient
             arguments:
-                $responseFactory: '@App\Service\SteamApiClient\Test\SteamApiClientMockResponseFactory'
+                $responseFactory: '@App\Shared\Service\SteamApiClient\Test\SteamApiClientMockResponseFactory'

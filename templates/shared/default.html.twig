@@ -1,0 +1,21 @@
+{% extends 'shared/base.html.twig' %}
+
+{% block body %}
+    <!-- Header -->
+    <header id="header">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            {% include 'shared/_partial/navbar/_navbar.html.twig' %}
+        </nav>
+    </header>
+    <!--/ Header -->
+
+    {% block container %}
+    {% endblock %}
+
+    {% include 'shared/_partial/_footer.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ include('shared/_partial/_modal.html.twig') }}
+{% endblock %}

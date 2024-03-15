@@ -2,7 +2,7 @@ doctrine:
     dbal:
         url: '%env(resolve:DATABASE_URL)%'
         types:
-            bigint: App\Doctrine\Dbal\Types\BigIntType
+            bigint: App\Shared\Doctrine\Dbal\Types\BigIntType
 
         # IMPORTANT: You MUST configure your server version,
         # either here or in the DATABASE_URL env var (see .env file)
@@ -17,60 +17,30 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         mappings:
-            App:
+            Shared:
                 is_bundle: false
                 type: xml
-                dir: '%kernel.project_dir%/config/doctrine'
-                prefix: 'App\Entity'
-                alias: App
-            Attendance:
+                dir: '%kernel.project_dir%/config/doctrine/Shared'
+                prefix: 'App\Shared\Entity'
+                alias: Shared
+            Users:
                 is_bundle: false
                 type: xml
-                dir: '%kernel.project_dir%/config/doctrine/Attendance'
-                prefix: 'App\Entity\Attendance'
-                alias: Attendance
-            User:
+                dir: '%kernel.project_dir%/config/doctrine/Users'
+                prefix: 'App\Users\Entity'
+                alias: Users
+            Mods:
                 is_bundle: false
                 type: xml
-                dir: '%kernel.project_dir%/config/doctrine/User'
-                prefix: 'App\Entity\User'
-                alias: User
-            UserGroup:
+                dir: '%kernel.project_dir%/config/doctrine/Mods'
+                prefix: 'App\Mods\Entity'
+                alias: Mods
+            Attendances:
                 is_bundle: false
                 type: xml
-                dir: '%kernel.project_dir%/config/doctrine/UserGroup'
-                prefix: 'App\Entity\UserGroup'
-                alias: UserGroup
-            Mod:
-                is_bundle: false
-                type: xml
-                dir: '%kernel.project_dir%/config/doctrine/Mod'
-                prefix: 'App\Entity\Mod'
-                alias: Mod
-            ModGroup:
-                is_bundle: false
-                type: xml
-                dir: '%kernel.project_dir%/config/doctrine/ModGroup'
-                prefix: 'App\Entity\ModGroup'
-                alias: ModGroup
-            Dlc:
-                is_bundle: false
-                type: xml
-                dir: '%kernel.project_dir%/config/doctrine/Dlc'
-                prefix: 'App\Entity\Dlc'
-                alias: Dlc
-            ModList:
-                is_bundle: false
-                type: xml
-                dir: '%kernel.project_dir%/config/doctrine/ModList'
-                prefix: 'App\Entity\ModList'
-                alias: Mod
-            Permissions:
-                is_bundle: false
-                type: xml
-                dir: '%kernel.project_dir%/config/doctrine/Permissions'
-                prefix: 'App\Entity\Permissions'
-                alias: Permissions
+                dir: '%kernel.project_dir%/config/doctrine/Attendances'
+                prefix: 'App\Attendances\Entity'
+                alias: Attendances
 
 when@test:
     doctrine:

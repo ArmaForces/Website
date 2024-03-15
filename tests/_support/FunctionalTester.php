@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests;
 
-use App\Test\Traits\TimeTrait;
+use App\Shared\Test\Traits\TimeTrait;
 use App\Tests\Traits\CommonPageAssertsTrait;
 use App\Tests\Traits\DataTableAssertsTrait;
 use App\Tests\Traits\ResponseAssertTrait;

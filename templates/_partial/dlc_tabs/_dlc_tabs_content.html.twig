@@ -1,7 +1,0 @@
-{% import '_macro/tab_macro.html.twig' as tabMacro %}
-
-{% set active = active|default('') %}
-
-<div class="tab-pane fade{{ tabMacro.tab_show(active, 'dlcs') }}" id="dlcs" role="tabpanel">
-    {% include '_partial/dlc_tabs/_dlc_tabs_table.html.twig' %}
-</div>
