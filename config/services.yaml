@@ -58,7 +58,6 @@ services:
         arguments:
             - '%env(DATABASE_URL)%'
 
-    # Register Doctrine subscribers
     App\Shared\Service\Mission\MissionClient:
         arguments:
             $missionApiUrl: '%env(APP_URL_API_MISSION)%'
