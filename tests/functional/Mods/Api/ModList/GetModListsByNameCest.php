@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Mods\Api\ModList;
 
-use App\Mods\DataFixtures\ModList\DefaultModListFixture;
+use App\Mods\DataFixtures\ModList\Standard\DefaultStandardModListFixture;
 use App\Tests\FunctionalTester;
 use Codeception\Util\HttpCode;
 
@@ -18,7 +18,7 @@ class GetModListsByNameCest
 
     public function getModListByNameWithoutApiKey(FunctionalTester $I): void
     {
-        $I->sendGet(sprintf('/api/mod-lists/by-name/%s', DefaultModListFixture::NAME));
+        $I->sendGet(sprintf('/api/mod-lists/by-name/%s', DefaultStandardModListFixture::NAME));
 
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseContainsJson($this->getExpectedPayload());
@@ -28,7 +28,7 @@ class GetModListsByNameCest
     {
         $I->amApiKeyAuthenticatedAs('invalid_key');
 
-        $I->sendGet(sprintf('/api/mod-lists/by-name/%s', DefaultModListFixture::NAME));
+        $I->sendGet(sprintf('/api/mod-lists/by-name/%s', DefaultStandardModListFixture::NAME));
 
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseContainsJson($this->getExpectedPayload());
@@ -38,7 +38,7 @@ class GetModListsByNameCest
     {
         $I->amApiKeyAuthenticatedAs('test_key');
 
-        $I->sendGet(sprintf('/api/mod-lists/by-name/%s', DefaultModListFixture::NAME));
+        $I->sendGet(sprintf('/api/mod-lists/by-name/%s', DefaultStandardModListFixture::NAME));
 
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseContainsJson($this->getExpectedPayload());

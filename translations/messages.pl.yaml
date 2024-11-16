@@ -12,6 +12,7 @@ Mods: Mody
 Mod groups: Grupy modów
 DLCs: DLC
 Mod lists: Listy modów
+External mod lists: Zewnętrzne listy modów
 Today's mission: Dzisiejsza misja
 
 Manage users: Zarządzaj użytkownikami
@@ -111,6 +112,10 @@ Can delete other users mod lists: Może usuwać listy modów innych użytkownik�
 'Note: User can always delete his own or assigned to him mod lists': 'Uwaga: Użytkownik zawsze ma możliwość usuwania stworzonych przez siebie lub przypisanych mu list modów'
 Can approve mod lists: Może zatwierdzać listy modów
 
+Can create external mod lists: Może tworzyć zewnętrzne listy modów
+Can edit external mod lists: Może edytować zewnętrzne listy modów
+Can delete external mod lists: Może usuwać zewnętrzne listy modów
+
 # Mods
 Create mod: Utwórz mod
 Edit mod: Edytuj mod
@@ -162,7 +167,9 @@ DLC directory: Katalog DLC
 # Mod Lists
 Download mod list: Pobierz listę modów
 Create mod list: Utwórz listę modów
+Create external mod list: Utwórz zewnętrzną listę modów
 Edit mod list: Edytuj listę modów
+Edit external mod list: Edytuj zewnętrzną listę modów
 Copy and edit mod list: Kopiuj i edytuj listę modów
 Delete mod list: Usuń listę modów
 
@@ -171,6 +178,8 @@ Mod list description: Opis
 Mod list owner: Właściciel
 Mod list active: Aktywna
 Mod list approved: Zatwierdzona
+Mod list url: Link
+Mod list external: Zewnętrzna
 
 # Mod Lists Customization
 Mod list customization: Konfiguracja listy modów

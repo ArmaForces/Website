@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Mods\Controller\ModListPublic;
 
-use App\Mods\Entity\ModList\ModList;
+use App\Mods\Entity\ModList\AbstractModList;
+use App\Mods\Entity\ModList\ExternalModList;
+use App\Mods\Entity\ModList\StandardModList;
 use App\Mods\Repository\Mod\ModRepository;
 use App\Shared\Security\Enum\PermissionsEnum;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,8 +23,13 @@ class CustomizeAction extends AbstractController
 
     #[Route('/mod-list/{name}', name: 'app_mod_list_public_customize', priority: -1)]
     #[IsGranted(PermissionsEnum::MOD_LIST_DOWNLOAD->value, 'modList')]
-    public function __invoke(ModList $modList): Response
+    public function __invoke(AbstractModList $modList): Response
     {
+        /** @var ExternalModList|StandardModList $modList */
+        if ($modList instanceof ExternalModList) {
+            return $this->redirect($modList->getUrl());
+        }
+
         $optionalMods = $this->modRepository->findIncludedOptionalSteamWorkshopMods($modList);
         $requiredMods = $this->modRepository->findIncludedRequiredSteamWorkshopMods($modList);
 

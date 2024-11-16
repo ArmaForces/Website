@@ -46,22 +46,29 @@
                 </tr>
             {% endblock %}
             {% block table_body %}
-                {# @var modList \App\Mods\Entity\ModList\ModList #}
+                {# @var modList \App\Mods\Entity\ModList\StandardModList #}
                 {% for modList in modLists %}
                     <tr data-row-action-url="{{ path('app_mod_list_public_customize', { name: modList.name }) }}">
                         <th scope="row">{{ loop.index }}</th>
                         <td>
-                            {% if modList.approved %}
-                                {{ tableMacro.icon('fas fa-check', 'Mod list approved'|trans) }}
+                            {% if modList is instance_of('\\App\\Mods\\Entity\\ModList\\StandardModList') %}
+                                {% if modList.approved %}
+                                    {{ tableMacro.icon('fas fa-check', 'Mod list approved'|trans) }}
+                                {% endif %}
+                            {% elseif modList is instance_of('\\App\\Mods\\Entity\\ModList\\ExternalModList') %}
+                                {{ tableMacro.icon('fa fa-external-link-alt', 'Mod list external'|trans) }}
                             {% endif %}
                         </td>
                         <td>
                             {{ modList.name }}
 
-                            {# @var dlc \App\Mods\Entity\Dlc\Dlc #}
-                            {% for dlc in modList.dlcs %}
-                                {{ commonMacro.dlc_icon(dlc) }}
-                            {% endfor %}
+                            {% if modList is instance_of('\\App\\Mods\\Entity\\ModList\\StandardModList') %}
+                                {# @var modList \App\Mods\Entity\ModList\StandardModList #}
+                                {# @var dlc \App\Mods\Entity\Dlc\Dlc #}
+                                {% for dlc in modList.dlcs %}
+                                    {{ commonMacro.dlc_icon(dlc) }}
+                                {% endfor %}
+                            {% endif %}
                         </td>
                         <td>{{ tableMacro.format_date(modList.lastUpdatedAt) }}</td>
                         <td class="text-right">

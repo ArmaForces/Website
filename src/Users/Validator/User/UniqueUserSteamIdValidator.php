@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Users\Validator\User;
 
-use App\Mods\Form\ModList\Dto\ModListFormDto;
+use App\Mods\Form\ModList\Standard\Dto\StandardModListFormDto;
 use App\Shared\Validator\Common\AbstractValidator;
 use App\Users\Entity\User\User;
 use App\Users\Form\User\Dto\UserFormDto;
@@ -16,7 +16,7 @@ class UniqueUserSteamIdValidator extends AbstractValidator
     public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$value instanceof UserFormDto) {
-            throw new UnexpectedTypeException($constraint, ModListFormDto::class);
+            throw new UnexpectedTypeException($constraint, StandardModListFormDto::class);
         }
 
         if (!$constraint instanceof UniqueUserSteamId) {

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Mods\Entity\ModList\StandardModList" repository-class="App\Mods\Repository\ModList\StandardModListRepository">
+        <many-to-many field="mods" target-entity="App\Mods\Entity\Mod\AbstractMod">
+            <join-table name="mod_lists_to_mods">
+                <join-columns>
+                    <join-column name="mod_list_id" referenced-column-name="id" on-delete="CASCADE"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="mod_id" referenced-column-name="id" on-delete="CASCADE"/>
+                </inverse-join-columns>
+            </join-table>
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </many-to-many>
+
+        <many-to-many field="modGroups" target-entity="App\Mods\Entity\ModGroup\ModGroup">
+            <join-table name="mod_lists_to_mod_groups">
+                <join-columns>
+                    <join-column name="mod_list_id" referenced-column-name="id" on-delete="CASCADE"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="mod_group_id" referenced-column-name="id" on-delete="CASCADE"/>
+                </inverse-join-columns>
+            </join-table>
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </many-to-many>
+
+        <many-to-many field="dlcs" target-entity="App\Mods\Entity\Dlc\Dlc">
+            <join-table name="mod_lists_to_dlcs">
+                <join-columns>
+                    <join-column name="mod_list_id" referenced-column-name="id" on-delete="CASCADE"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="dlc_id" referenced-column-name="id" on-delete="CASCADE"/>
+                </inverse-join-columns>
+            </join-table>
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </many-to-many>
+
+        <many-to-one field="owner" target-entity="App\Users\Entity\User\User">
+            <join-column name="owner_id" referenced-column-name="id" nullable="true" on-delete="SET NULL"/>
+        </many-to-one>
+
+        <field name="approved" type="boolean"/>
+    </entity>
+
+</doctrine-mapping>

@@ -42,11 +42,16 @@
 
         <!-- Mod List -->
         <field name="modListList" type="boolean"/>
-        <field name="modListCreate" type="boolean"/>
-        <field name="modListUpdate" type="boolean"/>
-        <field name="modListDelete" type="boolean"/>
-        <field name="modListCopy" type="boolean"/>
-        <field name="modListApprove" type="boolean"/>
+
+        <field name="standardModListCreate" type="boolean"/>
+        <field name="standardModListUpdate" type="boolean"/>
+        <field name="standardModListDelete" type="boolean"/>
+        <field name="standardModListCopy" type="boolean"/>
+        <field name="standardModListApprove" type="boolean"/>
+
+        <field name="externalModListCreate" type="boolean"/>
+        <field name="externalModListUpdate" type="boolean"/>
+        <field name="externalModListDelete" type="boolean"/>
 
         <discriminator-column name="type" type="string" length="255"/>
         <discriminator-map>

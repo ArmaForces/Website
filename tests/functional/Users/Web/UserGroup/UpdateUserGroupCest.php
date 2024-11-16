@@ -77,12 +77,15 @@ class UpdateUserGroupCest
         $userGroup = $I->grabEntityFromRepository(UserGroup::class, ['name' => 'All']);
         $I->assertSame('All', $userGroup->getName());
         $I->assertSame('All users', $userGroup->getDescription());
-        $I->assertSame([
+
+        $groupUserIds = array_map(fn (User $user) => $user->getId()->toString(), $userGroup->getUsers());
+        $expectedGroupUserIds = [
             User1Fixture::ID,
             User2Fixture::ID,
             User3Fixture::ID,
             AdminFixture::ID,
-        ], array_map(fn (User $user) => $user->getId()->toString(), $userGroup->getUsers()));
+        ];
+        $I->assertArraySame($expectedGroupUserIds, $groupUserIds);
 
         $I->assertTrue($userGroup->getPermissions()->userList);
         $I->assertFalse($userGroup->getPermissions()->userUpdate);
@@ -110,11 +113,11 @@ class UpdateUserGroupCest
         $I->assertFalse($userGroup->getPermissions()->dlcDelete);
 
         $I->assertTrue($userGroup->getPermissions()->modListList);
-        $I->assertFalse($userGroup->getPermissions()->modListCreate);
-        $I->assertFalse($userGroup->getPermissions()->modListUpdate);
-        $I->assertFalse($userGroup->getPermissions()->modListCopy);
-        $I->assertFalse($userGroup->getPermissions()->modListDelete);
-        $I->assertFalse($userGroup->getPermissions()->modListApprove);
+        $I->assertFalse($userGroup->getPermissions()->standardModListCreate);
+        $I->assertFalse($userGroup->getPermissions()->standardModListUpdate);
+        $I->assertFalse($userGroup->getPermissions()->standardModListCopy);
+        $I->assertFalse($userGroup->getPermissions()->standardModListDelete);
+        $I->assertFalse($userGroup->getPermissions()->standardModListApprove);
 
         $I->assertSame('2020-01-01T00:00:00+00:00', $userGroup->getCreatedAt()->format(DATE_ATOM));
         $I->assertSame(null, $userGroup->getCreatedBy()?->getId()->toString());

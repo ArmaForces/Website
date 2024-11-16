@@ -10,7 +10,7 @@ use App\Mods\Api\Output\ModList\ModListDetailsOutput;
 use App\Mods\Api\Output\ModList\ModListOutput;
 use App\Mods\Entity\Dlc\Dlc;
 use App\Mods\Entity\Mod\AbstractMod;
-use App\Mods\Entity\ModList\ModList;
+use App\Mods\Entity\ModList\StandardModList;
 use App\Mods\Repository\Mod\ModRepository;
 
 class ModListDetailsOutputDataTransformer
@@ -22,22 +22,22 @@ class ModListDetailsOutputDataTransformer
     ) {
     }
 
-    public function transform(ModList $modList): ModListOutput
+    public function transform(StandardModList $standardModList): ModListOutput
     {
         return new ModListDetailsOutput(
-            $modList->getId()->toString(),
-            $modList->getName(),
-            $modList->isActive(),
-            $modList->isApproved(),
-            $modList->getCreatedAt(),
-            $modList->getLastUpdatedAt(),
+            $standardModList->getId()->toString(),
+            $standardModList->getName(),
+            $standardModList->isActive(),
+            $standardModList->isApproved(),
+            $standardModList->getCreatedAt(),
+            $standardModList->getLastUpdatedAt(),
             array_map(
                 fn (AbstractMod $mod) => $this->modOutputDataTransformer->transform($mod),
-                $this->modRepository->findIncludedMods($modList)
+                $this->modRepository->findIncludedMods($standardModList)
             ),
             array_map(
                 fn (Dlc $dlc) => $this->dlcOutputDataTransformer->transform($dlc),
-                $modList->getDlcs()
+                $standardModList->getDlcs()
             ),
         );
     }

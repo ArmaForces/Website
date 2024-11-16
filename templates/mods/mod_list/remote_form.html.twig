@@ -1,0 +1,26 @@
+{% extends 'shared/card.html.twig' %}
+
+{% form_theme form _self %}
+
+{% block content %}
+    {# @var modListFormDto \App\Mods\Form\ModList\Dto\ModListFormDto #}
+    {% set modListFormDto = form.vars.data %}
+
+    {% embed 'shared/_partial/_page_header.html.twig' %}
+        {% block page_title %}
+            {{ modListFormDto.id ? 'Edit external mod list'|trans : 'Create external mod list'|trans }}
+        {% endblock %}
+    {% endembed %}
+
+    {{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.url) }}
+    {{ form_row(form.active) }}
+
+    <div class="form-group text-right">
+        <button type="submit" class="btn-primary btn">{{ modListFormDto.id ? 'Apply'|trans : 'Create mod list'|trans }}</button>
+        <a href="{{ path('app_mod_list_list') }}" class="btn-secondary btn">{{ 'Cancel'|trans }}</a>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
