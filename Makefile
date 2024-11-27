@@ -6,35 +6,35 @@ ifeq ($(ci),true)
 endif
 
 cs:
-	docker-compose exec -T php php vendor/bin/php-cs-fixer fix ${dryrun}
-	docker-compose exec -T php php vendor/bin/phpstan analyse --memory-limit 512M
+	docker compose exec -T php php vendor/bin/php-cs-fixer fix ${dryrun}
+	docker compose exec -T php php vendor/bin/phpstan analyse --memory-limit 512M
 
-	docker-compose exec -T php php tests/tests_namespace_checker.php
-	docker-compose exec -T php php bin/console lint:twig templates/
-	docker-compose exec -T php php bin/console lint:yaml --parse-tags config/
-	docker-compose exec -T php php bin/console doctrine:schema:validate --env=${env}
-	docker-compose exec -T php php bin/console doctrine:mapping:info --env=${env}
+	docker compose exec -T php php tests/tests_namespace_checker.php
+	docker compose exec -T php php bin/console lint:twig templates/
+	docker compose exec -T php php bin/console lint:yaml --parse-tags config/
+	docker compose exec -T php php bin/console doctrine:schema:validate --env=${env}
+	docker compose exec -T php php bin/console doctrine:mapping:info --env=${env}
 
 admin:
-	docker-compose exec php php bin/console app:permissions:make-admin --full-permissions
+	docker compose exec php php bin/console app:permissions:make-admin --full-permissions
 
 db:
-	docker-compose exec -T php php bin/console doctrine:database:drop --if-exists --force --env=${env}
-	docker-compose exec -T php php bin/console doctrine:database:create --if-not-exists --env=${env}
-	docker-compose exec -T php php bin/console doctrine:migration:migrate --no-interaction --env=${env}
+	docker compose exec -T php php bin/console doctrine:database:drop --if-exists --force --env=${env}
+	docker compose exec -T php php bin/console doctrine:database:create --if-not-exists --env=${env}
+	docker compose exec -T php php bin/console doctrine:migration:migrate --no-interaction --env=${env}
 
-	docker-compose exec -T php php bin/console doctrine:fixtures:load --no-interaction --env=${env}
+	docker compose exec -T php php bin/console doctrine:fixtures:load --no-interaction --env=${env}
 
 console:
-	@docker-compose exec php sh
+	@docker compose exec php sh
 
 setup:
 	@make db
 
 test-setup:
 	@make db env=test
-	docker-compose exec -T php php vendor/bin/codecept clean
-	docker-compose exec -T php php vendor/bin/codecept build
+	docker compose exec -T php php vendor/bin/codecept clean
+	docker compose exec -T php php vendor/bin/codecept build
 
 test:
-	docker-compose exec -T php php vendor/bin/codecept run unit,integration,functional --fail-fast
+	docker compose exec -T php php vendor/bin/codecept run unit,integration,functional --fail-fast
