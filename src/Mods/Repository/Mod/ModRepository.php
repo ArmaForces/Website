@@ -8,7 +8,7 @@ use App\Mods\Entity\Mod\AbstractMod;
 use App\Mods\Entity\Mod\Enum\ModTypeEnum;
 use App\Mods\Entity\Mod\SteamWorkshopMod;
 use App\Mods\Entity\ModGroup\ModGroup;
-use App\Mods\Entity\ModList\ModList;
+use App\Mods\Entity\ModList\StandardModList;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
@@ -30,7 +30,7 @@ class ModRepository extends ServiceEntityRepository
     /**
      * @return AbstractMod[]
      */
-    public function findIncludedMods(ModList $modList): array
+    public function findIncludedMods(StandardModList $modList): array
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
 
@@ -47,7 +47,7 @@ class ModRepository extends ServiceEntityRepository
     /**
      * @return SteamWorkshopMod[]
      */
-    public function findIncludedSteamWorkshopMods(ModList $modList): array
+    public function findIncludedSteamWorkshopMods(StandardModList $modList): array
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $expr = $qb->expr();
@@ -70,7 +70,7 @@ class ModRepository extends ServiceEntityRepository
     /**
      * @return SteamWorkshopMod[]
      */
-    public function findIncludedOptionalSteamWorkshopMods(ModList $modList): array
+    public function findIncludedOptionalSteamWorkshopMods(StandardModList $modList): array
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $expr = $qb->expr();
@@ -92,7 +92,7 @@ class ModRepository extends ServiceEntityRepository
     /**
      * @return SteamWorkshopMod[]
      */
-    public function findIncludedRequiredSteamWorkshopMods(ModList $modList): array
+    public function findIncludedRequiredSteamWorkshopMods(StandardModList $modList): array
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $expr = $qb->expr();
@@ -108,14 +108,14 @@ class ModRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    private function applyIncludedModsFilter(QueryBuilder $queryBuilder, ModList $modList): void
+    private function applyIncludedModsFilter(QueryBuilder $queryBuilder, StandardModList $modList): void
     {
         $expr = $queryBuilder->expr();
 
         $queryBuilder
-            ->leftJoin(ModList::class, 'ml', Join::WITH, (string) $expr->isMemberOf('m', 'ml.mods'))
+            ->leftJoin(StandardModList::class, 'ml', Join::WITH, (string) $expr->isMemberOf('m', 'ml.mods'))
             ->leftJoin(ModGroup::class, 'mg', Join::WITH, (string) $expr->isMemberOf('m', 'mg.mods'))
-            ->leftJoin(ModList::class, 'mgml', Join::WITH, (string) $expr->isMemberOf('mg', 'mgml.modGroups'))
+            ->leftJoin(StandardModList::class, 'mgml', Join::WITH, (string) $expr->isMemberOf('mg', 'mgml.modGroups'))
             ->andWhere($expr->orX(
                 $expr->eq('ml.id', $expr->literal($modList->getId()->toString())),
                 $expr->eq('mgml.id', $expr->literal($modList->getId()->toString()))

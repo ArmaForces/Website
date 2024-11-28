@@ -6,8 +6,25 @@
             {{ 'Mod lists'|trans }}
         {% endblock %}
         {% block page_actions %}
-            {% if is_granted(constant('App\\Shared\\Security\\Enum\\PermissionsEnum::MOD_LIST_CREATE').value) %}
-                <a href="{{ path('app_mod_list_create') }}" class="btn btn-primary">{{ 'Create mod list'|trans }}</a>
+            {% if
+                is_granted(constant('App\\Shared\\Security\\Enum\\PermissionsEnum::STANDARD_MOD_LIST_CREATE').value)
+                and is_granted(constant('App\\Shared\\Security\\Enum\\PermissionsEnum::EXTERNAL_MOD_LIST_CREATE').value)
+            %}
+                <div class="btn-group">
+                    <a class="btn btn-primary" href="{{ path('app_standard_mod_list_create') }}">{{ 'Create mod list'|trans }}</a>
+                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"></button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="{{ path('app_external_mod_list_create') }}">{{ 'Create external mod list'|trans }}</a>
+                    </div>
+                </div>
+            {% else %}
+                {% if is_granted(constant('App\\Shared\\Security\\Enum\\PermissionsEnum::STANDARD_MOD_LIST_CREATE').value) %}
+                    <a href="{{ path('app_standard_mod_list_create') }}" class="btn btn-primary">{{ 'Create mod list'|trans }}</a>
+                {% endif %}
+
+                {% if is_granted(constant('App\\Shared\\Security\\Enum\\PermissionsEnum::EXTERNAL_MOD_LIST_CREATE').value) %}
+                    <a href="{{ path('app_external_mod_list_create') }}" class="btn btn-primary">{{ 'Create external mod list'|trans }}</a>
+                {% endif %}
             {% endif %}
         {% endblock %}
     {% endembed %}
@@ -29,24 +46,37 @@
             </tr>
         {% endblock %}
         {% block table_body %}
-            {# @var modList \App\Mods\Entity\ModList\ModList #}
+            {# @var modList \App\Mods\Entity\ModList\AbstractModList #}
             {% for modList in modLists %}
                 <tr>
                     <th scope="row">{{ loop.index }}</th>
                     <td>
-                        {% if modList.approved %}
-                            {{ tableMacro.icon('fas fa-check', 'Mod list approved'|trans) }}
+                        {% if modList is instance_of('\\App\\Mods\\Entity\\ModList\\StandardModList') %}
+                            {# @var modList \App\Mods\Entity\ModList\StandardModList #}
+                            {% if modList.approved %}
+                                {{ tableMacro.icon('fas fa-check', 'Mod list approved'|trans) }}
+                            {% endif %}
+                        {% elseif modList is instance_of('\\App\\Mods\\Entity\\ModList\\ExternalModList') %}
+                            {{ tableMacro.icon('fa fa-external-link-alt', 'Mod list external'|trans) }}
                         {% endif %}
                     </td>
                     <td>
                         {{ tableMacro.row_name_with_description(modList.name, modList.description) }}
 
-                        {# @var dlc \App\Mods\Entity\Dlc\Dlc #}
-                        {% for dlc in modList.dlcs %}
-                            {{ commonMacro.dlc_icon(dlc) }}
-                        {% endfor %}
+                        {% if modList is instance_of('\\App\\Mods\\Entity\\ModList\\StandardModList') %}
+                            {# @var modList \App\Mods\Entity\ModList\StandardModList #}
+                            {# @var dlc \App\Mods\Entity\Dlc\Dlc #}
+                            {% for dlc in modList.dlcs %}
+                                {{ commonMacro.dlc_icon(dlc) }}
+                            {% endfor %}
+                        {% endif %}
                     </td>
-                    <td>{{ modList.owner ? modList.owner.username : '' }}</td>
+                    <td>
+                        {% if modList is instance_of('\\App\\Mods\\Entity\\ModList\\StandardModList') %}
+                            {# @var modList \App\Mods\Entity\ModList\StandardModList #}
+                            {{ modList.owner ? modList.owner.username : '' }}
+                        {% endif %}
+                    </td>
                     <td class="{{ modList.active ? '' : 'text-danger' }}">
                         {{ modList.active ? 'Yes'|trans : 'No'|trans }}
                     </td>
@@ -55,16 +85,26 @@
                     <td class="text-right">
                         {{ tableMacro.row_action(path('app_mod_list_public_customize', { name: modList.name }), 'fas fa-download', 'Download mod list'|trans) }}
 
-                        {% if is_granted(constant('App\\Shared\\Security\\Enum\\PermissionsEnum::MOD_LIST_UPDATE').value, modList) %}
-                            {{ tableMacro.row_action_edit(path('app_mod_list_update', { name: modList.name }), 'Edit mod list'|trans) }}
-                        {% endif %}
+                        {% if modList is instance_of('\\App\\Mods\\Entity\\ModList\\StandardModList') %}
+                            {% if is_granted(constant('App\\Shared\\Security\\Enum\\PermissionsEnum::STANDARD_MOD_LIST_UPDATE').value, modList) %}
+                                {{ tableMacro.row_action_edit(path('app_standard_mod_list_update', { name: modList.name }), 'Edit mod list'|trans) }}
+                            {% endif %}
 
-                        {% if is_granted(constant('App\\Shared\\Security\\Enum\\PermissionsEnum::MOD_LIST_COPY').value, modList) %}
-                            {{ tableMacro.row_action(path('app_mod_list_copy', { name: modList.name }), 'fas fa-copy', 'Copy and edit mod list'|trans) }}
-                        {% endif %}
+                            {% if is_granted(constant('App\\Shared\\Security\\Enum\\PermissionsEnum::STANDARD_MOD_LIST_COPY').value, modList) %}
+                                {{ tableMacro.row_action(path('app_standard_mod_list_copy', { name: modList.name }), 'fas fa-copy', 'Copy and edit mod list'|trans) }}
+                            {% endif %}
 
-                        {% if is_granted(constant('App\\Shared\\Security\\Enum\\PermissionsEnum::MOD_LIST_DELETE').value, modList) %}
-                            {{ tableMacro.row_action_delete(path('app_mod_list_delete', { name: modList.name }), 'Are you sure you want to delete %name%?'|trans({ '%name%': modList.name }), 'Delete mod list'|trans) }}
+                            {% if is_granted(constant('App\\Shared\\Security\\Enum\\PermissionsEnum::STANDARD_MOD_LIST_DELETE').value, modList) %}
+                                {{ tableMacro.row_action_delete(path('app_standard_mod_list_delete', { name: modList.name }), 'Are you sure you want to delete %name%?'|trans({ '%name%': modList.name }), 'Delete mod list'|trans) }}
+                            {% endif %}
+                        {% elseif modList is instance_of('\\App\\Mods\\Entity\\ModList\\ExternalModList') %}
+                            {% if is_granted(constant('App\\Shared\\Security\\Enum\\PermissionsEnum::EXTERNAL_MOD_LIST_UPDATE').value, modList) %}
+                                {{ tableMacro.row_action_edit(path('app_external_mod_list_update', { name: modList.name }), 'Edit mod list'|trans) }}
+                            {% endif %}
+
+                            {% if is_granted(constant('App\\Shared\\Security\\Enum\\PermissionsEnum::EXTERNAL_MOD_LIST_DELETE').value, modList) %}
+                                {{ tableMacro.row_action_delete(path('app_external_mod_list_delete', { name: modList.name }), 'Are you sure you want to delete %name%?'|trans({ '%name%': modList.name }), 'Delete mod list'|trans) }}
+                            {% endif %}
                         {% endif %}
                     </td>
                 </tr>

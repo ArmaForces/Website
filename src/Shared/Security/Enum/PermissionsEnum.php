@@ -32,9 +32,14 @@ enum PermissionsEnum: string
 
     case MOD_LIST_LIST = 'mod_list_list';
     case MOD_LIST_DOWNLOAD = 'mod_list_download';
-    case MOD_LIST_CREATE = 'mod_list_create';
-    case MOD_LIST_UPDATE = 'mod_list_update';
-    case MOD_LIST_COPY = 'mod_list_copy';
-    case MOD_LIST_DELETE = 'mod_list_delete';
-    case MOD_LIST_APPROVE = 'mod_list_approve';
+
+    case STANDARD_MOD_LIST_CREATE = 'standard_mod_list_create';
+    case STANDARD_MOD_LIST_UPDATE = 'standard_mod_list_update';
+    case STANDARD_MOD_LIST_COPY = 'standard_mod_list_copy';
+    case STANDARD_MOD_LIST_DELETE = 'standard_mod_list_delete';
+    case STANDARD_MOD_LIST_APPROVE = 'standard_mod_list_approve';
+
+    case EXTERNAL_MOD_LIST_CREATE = 'external_mod_list_create';
+    case EXTERNAL_MOD_LIST_UPDATE = 'external_mod_list_update';
+    case EXTERNAL_MOD_LIST_DELETE = 'external_mod_list_delete';
 }

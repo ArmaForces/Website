@@ -89,7 +89,7 @@ final class MissionClientTest extends Unit
                     'closeDate' => $now->sub(new \DateInterval('P1D'))->format($dateFormat),
                     'description' => '',
                     'modlistName' => null,
-                    'modlist' => 'https://armaforces.com/mod-list/Default2',
+                    'modlist' => 'https://armaforces.com/standard-mod-list/Default2',
                     'image' => '',
                     'freeSlots' => 0,
                     'allSlots' => 0,

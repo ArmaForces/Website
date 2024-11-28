@@ -17,6 +17,9 @@ class DeleteUserVoter extends Voter
         return PermissionsEnum::USER_DELETE->value === $attribute && $subject instanceof User;
     }
 
+    /**
+     * @param User $subject
+     */
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         $currentUser = $token->getUser();
@@ -24,10 +27,7 @@ class DeleteUserVoter extends Voter
             return false;
         }
 
-        /** @var User $user */
-        $user = $subject;
-
-        return $currentUser !== $user
+        return $currentUser !== $subject
             && $currentUser->hasPermissions(static fn (AbstractPermissions $permissions) => $permissions->userDelete);
     }
 }

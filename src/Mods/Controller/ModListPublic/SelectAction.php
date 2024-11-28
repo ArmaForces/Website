@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Mods\Controller\ModListPublic;
 
+use App\Mods\Query\ModList\ActiveModListListQuery;
 use App\Mods\Repository\ModList\ModListRepository;
 use App\Shared\Service\Mission\MissionClientInterface;
 use Psr\Log\LoggerInterface;
@@ -16,6 +17,7 @@ class SelectAction extends AbstractController
     public function __construct(
         private LoggerInterface $logger,
         private ModListRepository $modListRepository,
+        private ActiveModListListQuery $activeModListListQuery,
         private MissionClientInterface $missionClient,
     ) {
     }
@@ -23,10 +25,7 @@ class SelectAction extends AbstractController
     #[Route('/mod-list/select', name: 'app_mod_list_public_select')]
     public function __invoke(): Response
     {
-        $modLists = $this->modListRepository->findBy(['active' => true], [
-            'approved' => 'DESC',
-            'name' => 'ASC',
-        ]);
+        $modLists = $this->activeModListListQuery->getResult();
 
         try {
             $nextMission = $this->missionClient->getCurrentMission();

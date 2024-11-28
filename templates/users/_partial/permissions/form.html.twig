@@ -50,10 +50,18 @@
         <legend class="col-form-label">{{ 'Mod lists'|trans }}</legend>
 
         {{ form_row(form.modListList) }}
-        {{ form_row(form.modListCreate) }}
-        {{ form_row(form.modListUpdate) }}
-        {{ form_row(form.modListCopy) }}
-        {{ form_row(form.modListDelete) }}
-        {{ form_row(form.modListApprove) }}
+        {{ form_row(form.standardModListCreate) }}
+        {{ form_row(form.standardModListUpdate) }}
+        {{ form_row(form.standardModListCopy) }}
+        {{ form_row(form.standardModListDelete) }}
+        {{ form_row(form.standardModListApprove) }}
+    </fieldset>
+
+    <fieldset class="form-group">
+        <legend class="col-form-label">{{ 'External mod lists'|trans }}</legend>
+
+        {{ form_row(form.externalModListCreate) }}
+        {{ form_row(form.externalModListUpdate) }}
+        {{ form_row(form.externalModListDelete) }}
     </fieldset>
 </fieldset>

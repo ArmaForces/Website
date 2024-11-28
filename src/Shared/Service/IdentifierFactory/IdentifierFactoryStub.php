@@ -9,7 +9,7 @@ use Ramsey\Uuid\UuidInterface;
 class IdentifierFactoryStub implements IdentifierFactoryInterface
 {
     /**
-     * @param UuidInterface[] $identifiers
+     * @var UuidInterface[]
      */
     private array $identifiers = [];
 

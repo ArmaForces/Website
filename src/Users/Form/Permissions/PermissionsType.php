@@ -125,26 +125,40 @@ class PermissionsType extends AbstractType
                 'label' => 'Can list mod lists',
                 'label_attr' => ['class' => 'switch-custom'],
             ])
-            ->add('modListCreate', CheckboxType::class, [
+
+            ->add('standardModListCreate', CheckboxType::class, [
                 'label' => 'Can create mod lists',
                 'label_attr' => ['class' => 'switch-custom'],
             ])
-            ->add('modListUpdate', CheckboxType::class, [
+            ->add('standardModListUpdate', CheckboxType::class, [
                 'label' => 'Can edit other users mod lists',
                 'label_attr' => ['class' => 'switch-custom'],
                 'help' => 'Note: User can always edit his own or assigned to him mod lists',
             ])
-            ->add('modListCopy', CheckboxType::class, [
+            ->add('standardModListCopy', CheckboxType::class, [
                 'label' => 'Can copy mod lists',
                 'label_attr' => ['class' => 'switch-custom'],
             ])
-            ->add('modListDelete', CheckboxType::class, [
+            ->add('standardModListDelete', CheckboxType::class, [
                 'label' => 'Can delete other users mod lists',
                 'label_attr' => ['class' => 'switch-custom'],
                 'help' => 'Note: User can always delete his own or assigned to him mod lists',
             ])
-            ->add('modListApprove', CheckboxType::class, [
+            ->add('standardModListApprove', CheckboxType::class, [
                 'label' => 'Can approve mod lists',
+                'label_attr' => ['class' => 'switch-custom'],
+            ])
+
+            ->add('externalModListCreate', CheckboxType::class, [
+                'label' => 'Can create external mod lists',
+                'label_attr' => ['class' => 'switch-custom'],
+            ])
+            ->add('externalModListUpdate', CheckboxType::class, [
+                'label' => 'Can edit external mod lists',
+                'label_attr' => ['class' => 'switch-custom'],
+            ])
+            ->add('externalModListDelete', CheckboxType::class, [
+                'label' => 'Can delete external mod lists',
                 'label_attr' => ['class' => 'switch-custom'],
             ])
         ;

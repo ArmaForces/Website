@@ -40,11 +40,16 @@ abstract class AbstractPermissions extends AbstractBlamableEntity
 
     // Mod List
     public bool $modListList = false;
-    public bool $modListCreate = false;
-    public bool $modListUpdate = false;
-    public bool $modListDelete = false;
-    public bool $modListCopy = false;
-    public bool $modListApprove = false;
+
+    public bool $standardModListCreate = false;
+    public bool $standardModListUpdate = false;
+    public bool $standardModListDelete = false;
+    public bool $standardModListCopy = false;
+    public bool $standardModListApprove = false;
+
+    public bool $externalModListCreate = false;
+    public bool $externalModListUpdate = false;
+    public bool $externalModListDelete = false;
 
     public function grantAll(): void
     {
@@ -80,10 +85,15 @@ abstract class AbstractPermissions extends AbstractBlamableEntity
 
         // Mod List
         $this->modListList = true;
-        $this->modListCreate = true;
-        $this->modListUpdate = true;
-        $this->modListDelete = true;
-        $this->modListCopy = true;
-        $this->modListApprove = true;
+
+        $this->standardModListCreate = true;
+        $this->standardModListUpdate = true;
+        $this->standardModListDelete = true;
+        $this->standardModListCopy = true;
+        $this->standardModListApprove = true;
+
+        $this->externalModListCreate = true;
+        $this->externalModListUpdate = true;
+        $this->externalModListDelete = true;
     }
 }

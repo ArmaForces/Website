@@ -6,7 +6,7 @@ namespace App\Mods\Api\Controller\ModList;
 
 use App\Mods\Api\DataTransformer\ModList\ModListDetailsOutputDataTransformer;
 use App\Mods\Api\Output\ModList\ModListOutput;
-use App\Mods\Repository\ModList\ModListRepository;
+use App\Mods\Repository\ModList\StandardModListRepository;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -14,19 +14,19 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class GetModListByNameOperation
 {
     public function __construct(
-        private ModListRepository $modListRepository,
+        private StandardModListRepository $standardModListRepository,
         private ModListDetailsOutputDataTransformer $modListDetailsOutputDataTransformer,
     ) {
     }
 
     public function __invoke(string $name): ?ModListOutput
     {
-        $modList = $this->modListRepository->findOneByName($name);
+        $standardModList = $this->standardModListRepository->findOneByName($name);
 
-        if (!$modList) {
+        if (!$standardModList) {
             throw new NotFoundHttpException('Not Found');
         }
 
-        return $this->modListDetailsOutputDataTransformer->transform($modList);
+        return $this->modListDetailsOutputDataTransformer->transform($standardModList);
     }
 }

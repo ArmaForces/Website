@@ -150,11 +150,11 @@ class UpdateUserCest
         $I->assertTrue($user->getPermissions()->dlcDelete);
 
         $I->assertTrue($user->getPermissions()->modListList);
-        $I->assertTrue($user->getPermissions()->modListCreate);
-        $I->assertTrue($user->getPermissions()->modListUpdate);
-        $I->assertTrue($user->getPermissions()->modListCopy);
-        $I->assertTrue($user->getPermissions()->modListDelete);
-        $I->assertTrue($user->getPermissions()->modListApprove);
+        $I->assertTrue($user->getPermissions()->standardModListCreate);
+        $I->assertTrue($user->getPermissions()->standardModListUpdate);
+        $I->assertTrue($user->getPermissions()->standardModListCopy);
+        $I->assertTrue($user->getPermissions()->standardModListDelete);
+        $I->assertTrue($user->getPermissions()->standardModListApprove);
 
         $I->assertSame('2020-01-01T00:00:00+00:00', $user->getCreatedAt()->format(DATE_ATOM));
         $I->assertSame(null, $user->getCreatedBy()?->getId()->toString());
@@ -272,11 +272,11 @@ class UpdateUserCest
         $I->assertTrue($user->getPermissions()->dlcDelete);
 
         $I->assertTrue($user->getPermissions()->modListList);
-        $I->assertTrue($user->getPermissions()->modListCreate);
-        $I->assertTrue($user->getPermissions()->modListUpdate);
-        $I->assertTrue($user->getPermissions()->modListCopy);
-        $I->assertTrue($user->getPermissions()->modListDelete);
-        $I->assertTrue($user->getPermissions()->modListApprove);
+        $I->assertTrue($user->getPermissions()->standardModListCreate);
+        $I->assertTrue($user->getPermissions()->standardModListUpdate);
+        $I->assertTrue($user->getPermissions()->standardModListCopy);
+        $I->assertTrue($user->getPermissions()->standardModListDelete);
+        $I->assertTrue($user->getPermissions()->standardModListApprove);
 
         $I->assertSame('2020-01-01T00:00:00+00:00', $user->getCreatedAt()->format(DATE_ATOM));
         $I->assertSame(null, $user->getCreatedBy()?->getId()->toString());
