@@ -20,24 +20,28 @@
                 {{ 'Manage mods'|trans }}
             </a>
             <div class="dropdown-menu">
-                {% if is_granted(constant('App\\Shared\\Security\\Enum\\PermissionsEnum::MOD_LIST').value) %}
-                    <a class="dropdown-item" href="{{ path('app_mod_list') }}">{{ 'Mods'|trans }}</a>
-                {% endif %}
-
-                {% if is_granted(constant('App\\Shared\\Security\\Enum\\PermissionsEnum::MOD_GROUP_LIST').value) %}
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ path('app_mod_group_list') }}">{{ 'Mod groups'|trans }}</a>
-                {% endif %}
-
-                {% if is_granted(constant('App\\Shared\\Security\\Enum\\PermissionsEnum::DLC_LIST').value) %}
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ path('app_dlc_list') }}">{{ 'DLCs'|trans }}</a>
-                {% endif %}
-
-                {% if is_granted(constant('App\\Shared\\Security\\Enum\\PermissionsEnum::MOD_LIST_LIST').value) %}
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ path('app_mod_list_list') }}">{{ 'Mod lists'|trans }}</a>
-                {% endif %}
+                {{ _self.navbar_dropdown([
+                    {
+                        'show': is_granted(constant('App\\Shared\\Security\\Enum\\PermissionsEnum::MOD_LIST').value),
+                        'url': path('app_mod_list'),
+                        'label': 'Mods'|trans
+                    },
+                    {
+                        'show': is_granted(constant('App\\Shared\\Security\\Enum\\PermissionsEnum::MOD_GROUP_LIST').value),
+                        'url': path('app_mod_group_list'),
+                        'label': 'Mod groups'|trans
+                    },
+                    {
+                        'show': is_granted(constant('App\\Shared\\Security\\Enum\\PermissionsEnum::DLC_LIST').value),
+                        'url': path('app_dlc_list'),
+                        'label': 'DLCs'|trans
+                    },
+                    {
+                        'show': is_granted(constant('App\\Shared\\Security\\Enum\\PermissionsEnum::MOD_LIST_LIST').value),
+                        'url': path('app_mod_list_list'),
+                        'label': 'Mod lists'|trans
+                    },
+                ]) }}
             </div>
         </li>
     {% endif %}
@@ -50,16 +54,32 @@
                 {{ 'Manage users'|trans }}
             </a>
             <div class="dropdown-menu">
-                {% if is_granted(constant('App\\Shared\\Security\\Enum\\PermissionsEnum::USER_LIST').value) %}
-                    <a class="dropdown-item" href="{{ path('app_user_list') }}">{{ 'Users'|trans }}</a>
-                {% endif %}
-
-                {% if is_granted(constant('App\\Shared\\Security\\Enum\\PermissionsEnum::USER_GROUP_LIST').value) %}
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ path('app_user_group_list') }}">{{ 'User groups'|trans }}</a>
-                {% endif %}
+                {{ _self.navbar_dropdown([
+                    {
+                        'show': is_granted(constant('App\\Shared\\Security\\Enum\\PermissionsEnum::USER_LIST').value),
+                        'url': path('app_user_list'),
+                        'label': 'Users'|trans
+                    },
+                    {
+                        'show': is_granted(constant('App\\Shared\\Security\\Enum\\PermissionsEnum::USER_GROUP_LIST').value),
+                        'url': path('app_user_group_list'),
+                        'label': 'User groups'|trans
+                    },
+                ]) }}
             </div>
         </li>
     {% endif %}
 </ul>
 <!-- Links -->
+
+{% macro navbar_dropdown(links) %}
+    {% for link in links %}
+        {% if link.show == true %}
+            <a class="dropdown-item" href="{{ link.url }}">{{ link.label }}</a>
+
+            {% if loop.last == false %}
+                <div class="dropdown-divider"></div>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+{% endmacro %}
