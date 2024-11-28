@@ -1,0 +1,84 @@
+{% macro format_date(date, dateFormat = 'short', timeFormat = 'short', emptyValue = '-') %}
+    {{ date ? date|format_datetime(dateFormat, timeFormat, locale=get_current_locale()) : emptyValue }}
+{% endmacro %}
+
+{%- macro icon(iconClass, title) -%}
+    <i class="{{ iconClass }}"
+       {% if title %}title="{{ title }}"{% endif %}
+       data-toggle="tooltip"
+    ></i>
+{%- endmacro -%}
+
+{% macro row_action(path, iconClass, title, attrArray = {}) %}
+    {% set attrString = attrArray|map((attrValue, attrName) => "#{attrName}=\"#{attrValue}\"")|join(' ') %}
+
+    <a class="mx-2" href="{{ path }}" {{ attrString|raw }}>
+        {%- if iconClass -%}
+            {{ _self.icon(iconClass, title) }}
+        {%- endif -%}
+    </a>
+{% endmacro %}
+
+{% macro row_action_edit(path, title) %}
+    {{ _self.row_action(path, 'fas fa-edit', title) }}
+{% endmacro %}
+
+{% macro row_action_delete(path, confirmMessage, title) %}
+    {{ _self.row_action(path, 'fas fa-trash-alt text-danger', title, {
+        'data-modal-confirm': confirmMessage
+    }) }}
+{% endmacro %}
+
+{% macro row_blamable(date, user) %}
+    {{ _self.format_date(date) }}
+    {% if user %}
+        {{ _self.icon('fas fa-user', user.username) }}
+    {% endif %}
+{% endmacro %}
+
+{% macro row_name_with_description(name, description = null) %}
+    <span
+        {% if description %}
+            title="{{ description }}" data-toggle="tooltip"
+        {% endif %}
+    >{{ name }}</span>
+{% endmacro %}
+
+{% macro row_mod_status_icon(mod) %}
+    {% if mod.status is null %}
+    {% elseif mod.status is constant('App\\Mods\\Entity\\Mod\\Enum\\ModStatusEnum::DEPRECATED') %}
+        {{ _self.icon('fas fa-skull text-warning', 'Deprecated'|trans) }}
+    {% elseif mod.status is constant('App\\Mods\\Entity\\Mod\\Enum\\ModStatusEnum::BROKEN') %}
+        {{ _self.icon('fas fa-exclamation-triangle text-warning', 'Broken'|trans) }}
+    {% elseif mod.status is constant('App\\Mods\\Entity\\Mod\\Enum\\ModStatusEnum::DISABLED') %}
+        {{ _self.icon('fas fa-times-circle text-danger', 'Disabled'|trans) }}
+    {% endif %}
+{% endmacro %}
+
+{% macro row_mod_type_translation(mod) %}
+    {% if mod is instance_of('\\App\\Mods\\Entity\\Mod\\SteamWorkshopMod') %}
+        {# @var mod \App\Mods\Entity\Mod\SteamWorkshopMod #}
+        {% if mod.type is constant('App\\Mods\\Entity\\Mod\\Enum\\ModTypeEnum::SERVER_SIDE') %}
+            {{ 'Server side mod'|trans }}
+        {% elseif mod.type is constant('App\\Mods\\Entity\\Mod\\Enum\\ModTypeEnum::REQUIRED') %}
+            {{ 'Required mod'|trans }}
+        {% elseif mod.type is constant('App\\Mods\\Entity\\Mod\\Enum\\ModTypeEnum::OPTIONAL') %}
+            {{ 'Optional mod'|trans }}
+        {% elseif mod.type is constant('App\\Mods\\Entity\\Mod\\Enum\\ModTypeEnum::CLIENT_SIDE') %}
+            {{ 'Client side mod'|trans }}
+        {% endif %}
+    {% elseif mod is instance_of('\\App\\Mods\\Entity\\Mod\\DirectoryMod') %}
+        {# @var mod \App\Mods\Entity\Mod\DirectoryMod #}
+        {{ 'Server side mod'|trans }}
+    {% endif %}
+{% endmacro %}
+
+{% macro row_mod_source_url(mod) %}
+    {% if mod is instance_of('\\App\\Mods\\Entity\\Mod\\SteamWorkshopMod') %}
+        {# @var mod \App\Mods\Entity\Mod\SteamWorkshopMod #}
+        <a href="{{ steam_workshop_item_url(mod.itemId) }}">{{ 'Steam Workshop'|trans }}</a>
+    {% elseif mod is instance_of('\\App\\Mods\\Entity\\Mod\\DirectoryMod') %}
+        {# @var mod \App\Mods\Entity\Mod\DirectoryMod #}
+        {{ 'Directory'|trans }}
+    {% endif %}
+{% endmacro %}

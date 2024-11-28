@@ -26,21 +26,27 @@ jobs:
 
             -   name: Start stack
                 run: |
-                    docker-compose -f docker-compose.test.yml up -d
-                    docker-compose exec -T php composer install
+                    docker compose -f docker-compose.test.yml up --wait
+                    docker compose exec -T php composer install
 
-            -   name: Setup database
+            -   name: Setup tests
                 run: |
-                    make db env=test
+                    make test-setup
 
             -   name: Run lint
                 run: |
-                    docker-compose exec -T php bin/console cache:warmup --env=dev
+                    docker compose exec -T php bin/console cache:warmup --env=dev
                     make cs env=test ci=true
 
             -   name: Run tests
                 run: |
-                    make test-ci
+                    make test
+
+            -   name: Failure logs
+                if: failure()
+                run: |
+                    docker compose logs php
+                    docker compose logs mysql
 
     docker_release:
         name: Docker release

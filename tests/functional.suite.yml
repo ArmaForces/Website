@@ -1,0 +1,16 @@
+actor: FunctionalTester
+modules:
+    enabled:
+        -   Symfony:
+                app_path: 'src'
+                environment: 'test'
+                cache_router: false # Needs to be disabled in order to work correctly with Api Platform 3 routes
+                rebootable_client: false
+                authenticator: true
+        -   Doctrine2:
+                depends: Symfony
+                cleanup: true
+        -   REST:
+                url: /
+                depends: Symfony
+        - Asserts

@@ -1,9 +1,0 @@
-{% import '_macro/tab_macro.html.twig' as tabMacro %}
-
-{% set active = active|default('') %}
-
-<li class="nav-item">
-    <a class="nav-link{{ tabMacro.nav_active(active, 'dlcs') }}" data-toggle="tab" href="#dlcs" role="tab">
-        {{ 'DLCs'|trans }}
-    </a>
-</li>

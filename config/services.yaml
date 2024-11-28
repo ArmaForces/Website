@@ -8,7 +8,7 @@ parameters:
     app.name: "%app.organization% Website"
     app.api.name: "%app.name% Web API"
     app.api.version: '1.0.0'
-    app.security.oauth.discord.server_id: '%env(int:APP_SECURITY_OAUTH_DISCORD_SERVER_ID)%'
+    app.security.oauth.discord.server_id: '%env(APP_SECURITY_OAUTH_DISCORD_SERVER_ID)%'
     app.security.oauth.discord.recruit_role_name: '%env(APP_SECURITY_OAUTH_DISCORD_RECRUIT_ROLE_NAME)%'
     app.security.oauth.discord.member_role_name: '%env(APP_SECURITY_OAUTH_DISCORD_MEMBER_ROLE_NAME)%'
     app.security.oauth.discord.client_id: '%env(APP_SECURITY_OAUTH_DISCORD_CLIENT_ID)%'
@@ -23,33 +23,24 @@ services:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
-    _instanceof:
-        App\Form\RegisteredDataTransformerInterface:
-            tags: [ 'app.form.registered_data_transformer' ]
-
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/'
         exclude:
             - '../src/DependencyInjection/'
-            - '../src/Entity/'
             - '../src/Kernel.php'
-            - '../src/Tests/'
-
-    # controllers are imported separately to make sure services can be injected
-    # as action arguments even if you don't extend any base controller class
-    App\Controller\:
-        resource: '../src/Controller/'
-        tags: [ 'controller.service_arguments' ]
-
-    App\Api\Controller\:
-        resource: '../src/Api/Controller/'
-        tags: [ 'controller.service_arguments' ]
+            - '../src/Shared/Entity/'
+            - '../src/Users/Entity/'
+            - '../src/Mods/Entity/'
+            - '../src/Attendances/Entity/'
+            - '../src/Shared/Tests/'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-    App\Security\Authenticator\DiscordAuthenticator:
+    App\Shared\Service\IdentifierFactory\IdentifierFactoryInterface: '@App\Shared\Service\IdentifierFactory\IdentifierFactory'
+
+    App\Shared\Security\Authenticator\DiscordAuthenticator:
         arguments:
             $discordServerId: '%app.security.oauth.discord.server_id%'
             $botToken: '%app.security.oauth.discord.bot_token%'
@@ -57,7 +48,7 @@ services:
                 - '%app.security.oauth.discord.recruit_role_name%'
                 - '%app.security.oauth.discord.member_role_name%'
 
-    App\Security\Authenticator\ApiKeyAuthenticator:
+    App\Shared\Security\Authenticator\ApiKeyAuthenticator:
         arguments:
             $apiKeyHeaderName: '%app.security.api.key_header_name%'
             $apiAllowedKeys: '%app.security.api.allowed_keys%'
@@ -67,42 +58,49 @@ services:
         arguments:
             - '%env(DATABASE_URL)%'
 
-    # Register Doctrine subscribers
-    App\EventSubscriber\Doctrine\:
-        resource: '../src/EventSubscriber/Doctrine'
-        tags:
-            - { name: 'doctrine.event_subscriber' }
-
-    App\Service\Mission\MissionClient:
+    App\Shared\Service\Mission\MissionClient:
         arguments:
             $missionApiUrl: '%env(APP_URL_API_MISSION)%'
 
-    App\Service\Mission\MissionStore:
+    App\Shared\Service\Mission\MissionStore:
         arguments:
             $storagePath: '%kernel.project_dir%/var/cache_http/%kernel.environment%'
 
-    App\Service\Version\VersionProvider:
+    App\Shared\Service\SteamApiClient\SteamApiClient:
+        arguments:
+            $httpClient: '@client.steam_api'
+
+    App\Shared\Service\Version\VersionProvider:
         arguments:
             $projectDir: '%kernel.project_dir%'
 
-    App\Twig\ImgproxyExtension:
+    App\Shared\Twig\ImgproxyExtension:
         arguments:
             $baseProxyUrl: '%env(APP_IMGPROXY_URL)%'
             $proxyKey: '%env(APP_IMGPROXY_KEY)%'
             $proxySalt: '%env(APP_IMGPROXY_SALT)%'
 
-    App\Twig\BackgroundImageExtension:
+    app.cache.background_images:
+        class: Symfony\Component\Cache\Adapter\FilesystemAdapter
         arguments:
-            $cacheDir: '%kernel.cache_dir%'
+            $namespace: 'background_images'
+            $defaultLifetime: 3600
+            $directory: '%kernel.cache_dir%'
 
-    App\Twig\UtilsExtension:
+    App\Shared\Twig\BackgroundImageExtension:
+        arguments:
+            $cacheAdapter: '@app.cache.background_images'
+            $backgroundImagesDirectory: '%kernel.project_dir%/public/img/background'
+
+    App\Shared\Twig\UtilsExtension:
         arguments:
             $defaultLocale: '%kernel.default_locale%'
 
-    App\Form\DataTransformerRegistry:
-        arguments:
-            $registeredDataTransformers: !tagged_iterator app.form.registered_data_transformer
+when@test:
+    services:
+        security.helper: # see: https://github.com/Codeception/module-symfony/issues/34
+            class: Symfony\Bundle\SecurityBundle\Security
+            arguments:
+                - '@test.service_container'
 
-    App\Cache\CacheWarmer\BackgroundImageCacheWarmer:
-        arguments:
-            $backgroundImagesDirectory: '%kernel.project_dir%/public/img/background'
+        App\Shared\Service\IdentifierFactory\IdentifierFactoryInterface: '@App\Shared\Service\IdentifierFactory\IdentifierFactoryStub'

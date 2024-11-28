@@ -1,0 +1,48 @@
+{% extends 'shared/card.html.twig' %}
+
+{% block content %}
+    {% embed 'shared/_partial/_page_header.html.twig' %}
+        {% block page_title %}
+            {{ 'DLCs'|trans }}
+        {% endblock %}
+        {% block page_actions %}
+            {% if is_granted(constant('App\\Shared\\Security\\Enum\\PermissionsEnum::DLC_CREATE').value) %}
+                <a href="{{ path('app_dlc_create') }}" class="btn btn-primary">{{ 'Create DLC'|trans }}</a>
+            {% endif %}
+        {% endblock %}
+    {% endembed %}
+
+    {% embed 'shared/_partial/_table.html.twig' %}
+        {% import 'shared/_macro/table_macro.html.twig' as tableMacro %}
+
+        {% block table_head %}
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col" class="w-100">{{ 'DLC name'|trans }}</th>
+                <th scope="col">{{ 'Created at'|trans }}</th>
+                <th scope="col">{{ 'Last updated at'|trans }}</th>
+                <th></th>
+            </tr>
+        {% endblock %}
+        {% block table_body %}
+            {# @var dlc \App\Mods\Entity\Dlc\Dlc #}
+            {% for dlc in dlcs %}
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    <td>{{ tableMacro.row_name_with_description(dlc.name, dlc.description) }}</td>
+                    <td>{{ tableMacro.row_blamable(dlc.createdAt, dlc.createdBy) }}</td>
+                    <td>{{ tableMacro.row_blamable(dlc.lastUpdatedAt, dlc.lastUpdatedBy) }}</td>
+                    <td class="text-right">
+                        {% if is_granted(constant('App\\Shared\\Security\\Enum\\PermissionsEnum::DLC_UPDATE').value, dlc) %}
+                            {{ tableMacro.row_action_edit(path('app_dlc_update', { id: dlc.id }), 'Edit DLC'|trans) }}
+                        {% endif %}
+
+                        {% if is_granted(constant('App\\Shared\\Security\\Enum\\PermissionsEnum::DLC_DELETE').value, dlc) %}
+                            {{ tableMacro.row_action_delete(path('app_dlc_delete', { id: dlc.id }), 'Are you sure you want to delete %name%?'|trans({ '%name%': dlc.name }), 'Delete DLC'|trans) }}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

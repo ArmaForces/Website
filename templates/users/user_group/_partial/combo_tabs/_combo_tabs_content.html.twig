@@ -1,0 +1,11 @@
+{% import 'shared/_macro/tab_macro.html.twig' as tabMacro %}
+
+{% set active = active|default('') %}
+
+<div class="tab-pane fade{{ tabMacro.tab_show(active, 'users') }}" id="users" role="tabpanel">
+    {{ form_row(form.users) }}
+</div>
+
+<div class="tab-pane fade{{ tabMacro.tab_show(active, 'permissions') }}" id="permissions" role="tabpanel">
+    {{ include ('users/_partial/permissions/form.html.twig', { form: form.permissions, title: 'User group permissions'|trans }) }}
+</div>

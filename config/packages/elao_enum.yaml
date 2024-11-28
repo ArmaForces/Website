@@ -1,9 +1,0 @@
-elao_enum:
-    doctrine:
-        types:
-            mod_type_enum:
-                class: App\Entity\Mod\Enum\ModTypeEnum
-            mod_status_enum:
-                class: App\Entity\Mod\Enum\ModStatusEnum
-            mod_source_enum:
-                class: App\Entity\Mod\Enum\ModSourceEnum

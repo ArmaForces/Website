@@ -14,7 +14,7 @@ final class Version20231021222125 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return 'Switch from native enums to doctrine enums';
+        return 'Apply backward compatibility changes';
     }
 
     public function up(Schema $schema): void

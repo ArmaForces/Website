@@ -1,5 +1,3 @@
-version: '3.4'
-
 services:
 
     php:
@@ -10,17 +8,15 @@ services:
             cache_from:
                 - docker.pkg.github.com/armaforces/website/app_assets:dev
                 - docker.pkg.github.com/armaforces/website/app_php:dev
+        environment:
+            APP_ENV: test
         volumes:
-            # Extract files from runtime for QA tools
-            - './var:/www/app/var'
-            - './vendor:/www/app/vendor'
             # Copy tests into runtime
             - './.env.test:/www/app/.env.test:ro'
-            - './tests:/www/app/tests:ro'
-            - './phpunit.xml.dist:/www/app/phpunit.xml.dist:ro'
+            - './tests:/www/app/tests:rw'
+            - './codeception.yml:/www/app/codeception.yml'
             - './.php-cs-fixer.dist.php:/www/app/.php-cs-fixer.dist.php:ro'
             - './phpstan.neon.dist:/www/app/phpstan.neon.dist:ro'
-
         depends_on:
             - pgsql
 

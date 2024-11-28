@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Mods\Entity\ModList\AbstractModList" table="mod_lists" repository-class="App\Mods\Repository\ModList\ModListRepository" inheritance-type="SINGLE_TABLE">
+        <field name="name" type="string" length="255"/>
+        <field name="description" type="string" length="255" nullable="true"/>
+
+        <field name="active" type="boolean"/>
+
+        <unique-constraints>
+            <unique-constraint columns="name"/>
+        </unique-constraints>
+
+        <discriminator-column name="type" type="string" length="255"/>
+        <discriminator-map>
+            <discriminator-mapping value="standard" class="App\Mods\Entity\ModList\StandardModList"/>
+            <discriminator-mapping value="external" class="App\Mods\Entity\ModList\ExternalModList"/>
+        </discriminator-map>
+
+        <indexes>
+            <!-- This is needed because child index mappings override parent index mappings -->
+            <index columns="created_at"/>
+            <index columns="last_updated_at"/>
+
+            <index columns="approved"/>
+        </indexes>
+    </entity>
+
+</doctrine-mapping>

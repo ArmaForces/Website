@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<html>
+    <head>
+        <meta name="arma:Type" content="preset"/>
+        <meta name="arma:PresetName" content="{{ name }}"/>
+        <meta name="generator" content="{{ global.app.organization ~ ' - ' ~ global.app.url.website }}"/>
+        <title>{{ modList.name }}</title>
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css"/>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                color: #fff;
+                background: #000;
+            }
+
+            body, th, td {
+                font: 95%/1.3 Roboto, Segoe UI, Tahoma, Arial, Helvetica, sans-serif;
+            }
+
+            td {
+                padding: 3px 30px 3px 0;
+            }
+
+            h1 {
+                padding: 20px 20px 0 20px;
+                color: white;
+                font-weight: 200;
+                font-family: segoe ui;
+                font-size: 3em;
+                margin: 0;
+            }
+
+            em {
+                font-variant: italic;
+                color: silver;
+            }
+
+            .before-list {
+                padding: 5px 20px 10px 20px;
+            }
+
+            .mod-list {
+                background: #222222;
+                padding: 20px;
+            }
+
+            .dlc-list {
+                background: #222222;
+                padding: 20px;
+            }
+
+            .footer {
+                padding: 20px;
+                color: gray;
+            }
+
+            .whups {
+                color: gray;
+            }
+
+            a {
+                color: #D18F21;
+                text-decoration: underline;
+            }
+
+            a:hover {
+                color: #F1AF41;
+                text-decoration: none;
+            }
+
+            .from-steam {
+                color: #449EBD;
+            }
+
+            .from-local {
+                color: gray;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Arma 3 Mods - Preset <strong>{{ name }}</strong></h1>
+        <p class="before-list">
+            <em>Drag this file or link to it into Arma 3 Launcher, or open it - Mods / Preset / Import.</em>
+        </p>
+        <div class="dlc-list">
+            <table>
+                {# @var dlc \App\Mods\Entity\Dlc\Dlc #}
+                {% for dlc in modList.dlcs %}
+                    <tr data-type="DlcContainer">
+                        <td data-type="DisplayName">{{ dlc.name }}</td>
+                        <td>
+                            <a href="{{ steam_store_app_url(dlc.appId) }}" data-type="Link">{{ steam_store_app_url(dlc.appId) }}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="mod-list">
+            <table>
+                {# @var mod \App\Mods\Entity\Mod\SteamWorkshopMod #}
+                {% for mod in mods %}
+                    {% set isModSelected = (mod.id.toString in optionalMods|keys and optionalMods[mod.id.toString] == true) %}
+                    {% set isModStatusNotDisabled = (mod.status is null or mod.status is not constant('App\\Mods\\Entity\\Mod\\Enum\\ModStatusEnum::DISABLED')) %}
+                    {% set isModTypeRequired = mod.type is constant('App\\Mods\\Entity\\Mod\\Enum\\ModTypeEnum::REQUIRED') %}
+                    {% set isModUserSelectable = mod.type in [
+                        constant('\\App\\Mods\\Entity\\Mod\\Enum\\ModTypeEnum::OPTIONAL'),
+                        constant('\\App\\Mods\\Entity\\Mod\\Enum\\ModTypeEnum::CLIENT_SIDE')
+                    ] %}
+
+                    {% if isModStatusNotDisabled and (isModTypeRequired or (isModUserSelectable and isModSelected)) %}
+                        <tr data-type="ModContainer">
+                            <td data-type="DisplayName">{{ mod.name }}</td>
+                            <td>
+                                <span class="from-steam">Steam</span>
+                            </td>
+                            <td>
+                                <a href="{{ steam_workshop_item_url(mod.itemId) }}" data-type="Link">
+                                    {{ steam_workshop_item_url(mod.itemId) }}
+                                </a>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+        <div class="footer">
+            <span>Created by {{ global.app.name }}</span>
+        </div>
+    </body>
+</html>

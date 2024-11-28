@@ -1,0 +1,38 @@
+{
+    "response": {
+        "result": 1,
+        "resultcount": 1,
+        "publishedfiledetails": [
+            {
+                "publishedfileid": "455312245",
+                "result": 1,
+                "creator": "76561198198282850",
+                "creator_app_id": 570,
+                "consumer_app_id": 570,
+                "filename": "",
+                "file_size": 179337071,
+                "file_url": "",
+                "hcontent_file": "9008257739632653541",
+                "preview_url": "https://steamuserimages-a.akamaihd.net/ugc/261593580305582398/A96F7B8AC45675CF8C5801017225454593A198F5/",
+                "hcontent_preview": "261593580305582398",
+                "title": "Overthrow",
+                "description": "OBJECTIVE\nSlay your enemies! Be the first to earn the goal number of kills, or the team with the most kills when the round ends, and you will be victorious.\n\nHOW TO PLAY\n-Approach the Midas Throne to earn bonus gold and experience.\n-Snatch up any giant coins the Over Boss tosses to earn even more gold.\n-Keep an eye out for item deliveries. An icon will appear on your map where an item will appear.\n-The fewer kills your team has, the better the item you will receive from a delivery.\n-Slay anyone who isn't on your team.",
+                "time_created": 1433461582,
+                "time_updated": 1526431196,
+                "visibility": 0,
+                "banned": 0,
+                "ban_reason": "",
+                "subscriptions": 10449629,
+                "favorited": 780989,
+                "lifetime_subscriptions": 11601278,
+                "lifetime_favorited": 1023893,
+                "views": 3827854,
+                "tags": [
+                    {
+                        "tag": "Custom Game"
+                    }
+                ]
+            }
+        ]
+    }
+}

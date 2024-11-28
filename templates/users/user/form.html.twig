@@ -1,0 +1,27 @@
+{% extends 'shared/card.html.twig' %}
+
+{% block content %}
+    {# @var userFormDto \App\Users\Form\User\Dto\UserFormDto #}
+    {% set userFormDto = form.vars.data %}
+
+    {% embed 'shared/_partial/_page_header.html.twig' %}
+        {% block page_title %}
+            {{ 'Edit user'|trans }} - {{ user.username }}
+        {% endblock %}
+    {% endembed %}
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    {{ form_row(form.steamId) }}
+
+    {{ include ('users/_partial/permissions/form.html.twig', { form: form.permissions, title: 'User permissions'|trans }) }}
+
+    {{- form_rest(form) -}}
+
+    <div class="form-group text-right">
+        <button type="submit" class="btn-primary btn">{{ 'Apply'|trans }}</button>
+        <a href="{{ path('app_user_list') }}" class="btn-secondary btn">{{ 'Cancel'|trans }}</a>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

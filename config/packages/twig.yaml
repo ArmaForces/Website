@@ -9,7 +9,7 @@ twig:
     strict_variables: '%kernel.debug%'
     exception_controller: null
     form_themes:
-        - 'app_theme.html.twig'
+        - 'shared/app_theme.html.twig'
     globals:
         global:
             app:
