@@ -10,6 +10,8 @@ use App\Mods\Api\Output\ModList\ModListDetailsOutput;
 use App\Mods\Api\Output\ModList\ModListOutput;
 use App\Mods\Entity\Dlc\Dlc;
 use App\Mods\Entity\Mod\AbstractMod;
+use App\Mods\Entity\ModList\AbstractModList;
+use App\Mods\Entity\ModList\ExternalModList;
 use App\Mods\Entity\ModList\StandardModList;
 use App\Mods\Repository\Mod\ModRepository;
 
@@ -22,23 +24,44 @@ class ModListDetailsOutputDataTransformer
     ) {
     }
 
-    public function transform(StandardModList $standardModList): ModListOutput
+    public function transform(AbstractModList $modList): ModListOutput
     {
-        return new ModListDetailsOutput(
-            $standardModList->getId()->toString(),
-            $standardModList->getName(),
-            $standardModList->isActive(),
-            $standardModList->isApproved(),
-            $standardModList->getCreatedAt(),
-            $standardModList->getLastUpdatedAt(),
-            array_map(
+        $isApproved = null;
+        if ($modList instanceof StandardModList) {
+            $isApproved = $modList->isApproved();
+        }
+
+        $mods = [];
+        if ($modList instanceof StandardModList) {
+            $mods = array_map(
                 fn (AbstractMod $mod) => $this->modOutputDataTransformer->transform($mod),
-                $this->modRepository->findIncludedMods($standardModList)
-            ),
-            array_map(
+                $this->modRepository->findIncludedMods($modList)
+            );
+        }
+
+        $dlcs = [];
+        if ($modList instanceof StandardModList) {
+            $dlcs = array_map(
                 fn (Dlc $dlc) => $this->dlcOutputDataTransformer->transform($dlc),
-                $standardModList->getDlcs()
-            ),
+                $modList->getDlcs()
+            );
+        }
+
+        $url = null;
+        if ($modList instanceof ExternalModList) {
+            $url = $modList->getUrl();
+        }
+
+        return new ModListDetailsOutput(
+            $modList->getId()->toString(),
+            $modList->getName(),
+            $modList->isActive(),
+            $modList->getCreatedAt(),
+            $modList->getLastUpdatedAt(),
+            $isApproved,
+            $mods,
+            $dlcs,
+            $url
         );
     }
 }
