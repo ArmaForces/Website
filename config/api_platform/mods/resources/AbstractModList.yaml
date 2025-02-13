@@ -1,5 +1,5 @@
 resources:
-    App\Mods\Entity\ModList\StandardModList:
+    App\Mods\Entity\ModList\AbstractModList:
         operations:
             ApiPlatform\Metadata\GetCollection:
                 provider: 'App\Mods\Api\Provider\ModList\ModListDataProvider'
