@@ -10,9 +10,9 @@ class ModListOutput
         public string $id,
         public string $name,
         public bool $active,
-        public bool $approved,
         public \DateTimeInterface $createdAt,
         public ?\DateTimeInterface $lastUpdatedAt,
+        public ?bool $approved,
     ) {
     }
 }
