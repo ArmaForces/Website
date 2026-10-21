@@ -88,11 +88,15 @@ class DiscordAuthenticator extends OAuth2Authenticator implements Authentication
         $discordClientAsBot = $this->discordClientFactory->createBotClient($this->botToken);
         $discordClientAsUser = $this->discordClientFactory->createUserClient($accessToken->getToken());
 
+        // DiscordPHP-HTTP uses React Promise v2, whose non-generic return type
+        // prevents PHPStan from inferring await()'s template type.
+        /** @phpstan-ignore-next-line */
         $serverResponse = await($discordClientAsBot->get(
             Endpoint::bind(Endpoint::GUILD, $this->discordServerId)
         ));
 
         try {
+            /** @phpstan-ignore-next-line */
             $userAsServerMemberResponse = await($discordClientAsBot->get(
                 Endpoint::bind(Endpoint::GUILD_MEMBER, $serverResponse->id, $userId)
             ));
@@ -104,6 +108,7 @@ class DiscordAuthenticator extends OAuth2Authenticator implements Authentication
 
         // Collect IDs of required server roles by their names
         // This is needed as user object contains only IDs of roles assigned
+        /** @phpstan-ignore-next-line */
         $serverRolesResponse = await($discordClientAsBot->get(
             Endpoint::bind(Endpoint::GUILD_ROLES, $serverResponse->id)
         ));
@@ -119,6 +124,7 @@ class DiscordAuthenticator extends OAuth2Authenticator implements Authentication
             );
         }
 
+        /** @phpstan-ignore-next-line */
         $userConnectionsResponse = await($discordClientAsUser->get(
             Endpoint::bind(Endpoint::USER_CURRENT_CONNECTIONS)
         ));
