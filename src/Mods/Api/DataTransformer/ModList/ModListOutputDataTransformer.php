@@ -5,19 +5,25 @@ declare(strict_types=1);
 namespace App\Mods\Api\DataTransformer\ModList;
 
 use App\Mods\Api\Output\ModList\ModListOutput;
+use App\Mods\Entity\ModList\AbstractModList;
 use App\Mods\Entity\ModList\StandardModList;
 
 class ModListOutputDataTransformer
 {
-    public function transform(StandardModList $standardModList): ModListOutput
+    public function transform(AbstractModList $modList): ModListOutput
     {
+        $isApproved = null;
+        if ($modList instanceof StandardModList) {
+            $isApproved = $modList->isApproved();
+        }
+
         return new ModListOutput(
-            $standardModList->getId()->toString(),
-            $standardModList->getName(),
-            $standardModList->isActive(),
-            $standardModList->isApproved(),
-            $standardModList->getCreatedAt(),
-            $standardModList->getLastUpdatedAt(),
+            $modList->getId()->toString(),
+            $modList->getName(),
+            $modList->isActive(),
+            $modList->getCreatedAt(),
+            $modList->getLastUpdatedAt(),
+            $isApproved,
         );
     }
 }

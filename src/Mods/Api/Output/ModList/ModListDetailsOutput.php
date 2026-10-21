@@ -16,20 +16,21 @@ class ModListDetailsOutput extends ModListOutput
     public function __construct(
         string $id,
         string $name,
-        bool $active,
-        bool $approved,
+        ?bool $active,
         \DateTimeInterface $createdAt,
         ?\DateTimeInterface $lastUpdatedAt,
+        ?bool $approved,
         public array $mods,
-        public array $dlcs
+        public array $dlcs,
+        public ?string $url
     ) {
         parent::__construct(
             $id,
             $name,
             $active,
-            $approved,
             $createdAt,
-            $lastUpdatedAt
+            $lastUpdatedAt,
+            $approved,
         );
     }
 }
